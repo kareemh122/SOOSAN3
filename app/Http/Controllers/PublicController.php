@@ -9,8 +9,9 @@ class PublicController extends Controller
 {
     public function homepage()
     {
-        // Get featured products (latest 3 active products)
-        $featuredProducts = Product::where('status', 'active')
+        // Get featured products for homepage
+        $featuredProducts = Product::where('is_active', true)
+            ->where('is_featured', true)
             ->with(['category', 'media'])
             ->latest()
             ->limit(3)

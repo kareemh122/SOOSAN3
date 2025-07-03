@@ -36,7 +36,7 @@ class ProductController extends Controller
         }
 
         // Status filter (only show active products)
-        $query->where('status', 'active');
+        $query->where('is_active', true);
 
         // Sorting
         $sortBy = $request->get('sort', 'name');
@@ -60,7 +60,7 @@ class ProductController extends Controller
         // Get related products from the same category
         $relatedProducts = Product::where('category_id', $product->category_id)
             ->where('id', '!=', $product->id)
-            ->where('status', 'active')
+            ->where('is_active', true)
             ->limit(4)
             ->get();
 
@@ -70,7 +70,7 @@ class ProductController extends Controller
     public function category(ProductCategory $category)
     {
         $products = Product::where('category_id', $category->id)
-            ->where('status', 'active')
+            ->where('is_active', true)
             ->with(['category', 'media'])
             ->paginate(12);
 
