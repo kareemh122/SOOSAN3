@@ -10,10 +10,10 @@
         <div class="container">
             <div class="text-center mb-5">
                 <h1 class="display-4 fw-bold mb-3">
-                    {{ __('About Soosan Cebotics') }}
+                    {{ __('common.about_title') }}
                 </h1>
                 <p class="fs-4 text-secondary">
-                    {{ __('Leading the drilling industry with innovative solutions and exceptional quality') }}
+                    {{ __('common.about_subtitle') }}
                 </p>
             </div>
 

@@ -10,10 +10,10 @@
         <div class="container">
             <div class="text-center mb-5">
                 <h1 class="display-4 fw-bold mb-3">
-                    {{ __('Contact Us') }}
+                    {{ __('common.contact') }}
                 </h1>
                 <p class="fs-5 text-secondary">
-                    {{ __('Get in touch with our team for equipment inquiries, support, or sales information') }}
+                    {{ __('common.contact_subtitle') }}
                 </p>
             </div>
 
@@ -102,11 +102,11 @@
                 <div class="col-lg-6">
                     <div class="card shadow-sm">
                         <div class="card-body p-4">
-                            <h2 class="h3 fw-bold mb-4">{{ __('Send us a Message') }}</h2>
+                            <h2 class="h3 fw-bold mb-4">{{ __('common.contact_title') }}</h2>
 
                             @if (session('success'))
                                 <div class="alert alert-success mb-4" role="alert">
-                                    {{ session('success') }}
+                                    {{ __('common.contact_success') }}
                                 </div>
                             @endif
 
@@ -139,7 +139,7 @@
 
                                 <div class="mb-3">
                                     <label for="email" class="form-label">
-                                        {{ __('Email Address') }} <span class="text-danger">*</span>
+                                        {{ __('common.email') }} <span class="text-danger">*</span>
                                     </label>
                                     <input type="email" id="email" name="email" required
                                         class="form-control @error('email') is-invalid @enderror"
@@ -163,7 +163,7 @@
 
                                 <div class="mb-3">
                                     <label for="phone" class="form-label">
-                                        {{ __('Phone Number') }}
+                                        {{ __('common.phone') }}
                                     </label>
                                     <input type="tel" id="phone" name="phone"
                                         class="form-control @error('phone') is-invalid @enderror"
@@ -175,7 +175,7 @@
 
                                 <div class="mb-3">
                                     <label for="subject" class="form-label">
-                                        {{ __('Subject') }} <span class="text-danger">*</span>
+                                        {{ __('common.subject') }} <span class="text-danger">*</span>
                                     </label>
                                     <select id="subject" name="subject" required
                                         class="form-select @error('subject') is-invalid @enderror">
@@ -198,7 +198,7 @@
 
                                 <div class="mb-3">
                                     <label for="message" class="form-label">
-                                        {{ __('Message') }} <span class="text-danger">*</span>
+                                        {{ __('common.message') }} <span class="text-danger">*</span>
                                     </label>
                                     <textarea id="message" name="message" rows="5" required
                                         placeholder="{{ __('Please provide details about your inquiry...') }}"
@@ -211,7 +211,7 @@
 
                                 <div>
                                     <button type="submit" class="btn btn-primary w-100">
-                                        {{ __('Send Message') }}
+                                        {{ __('common.submit') }}
                                     </button>
                                 </div>
                             </form>

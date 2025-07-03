@@ -13,18 +13,18 @@
             <div class="row justify-content-center">
                 <div class="col-12 text-center py-5">
                     <h1 class="display-2 fw-bold mb-4">
-                        {{ __('Leading Drilling Equipment Solutions') }}
+                        {{ __('common.hero_title') }}
                     </h1>
                     <p class="lead fs-4 mb-4">
-                        {{ __('Discover industry-leading drilling machinery and equipment for construction, mining, and industrial applications worldwide.') }}
+                        {{ __('common.hero_subtitle') }}
                     </p>
                     <div class="d-flex gap-3 justify-content-center flex-wrap">
                         <a href="{{ route('products.index') }}" class="btn btn-warning btn-lg px-4 py-2 fw-semibold">
-                            {{ __('Explore Products') }}
+                            {{ __('common.explore_products') }}
                         </a>
                         <a href="{{ route('serial-lookup.index') }}"
                             class="btn btn-outline-light btn-lg px-4 py-2 fw-semibold">
-                            {{ __('Serial Lookup') }}
+                            {{ __('common.serial_lookup_btn') }}
                         </a>
                     </div>
                 </div>
@@ -37,10 +37,10 @@
         <div class="container">
             <div class="text-center mb-5">
                 <h2 class="display-4 fw-bold text-dark mb-3">
-                    {{ __('Why Choose Soosan Cebotics?') }}
+                    {{ __('common.why_choose_us') }}
                 </h2>
                 <p class="lead text-muted">
-                    {{ __('We provide cutting-edge drilling solutions with unmatched quality, reliability, and innovation.') }}
+                    {{ __('common.why_choose_us_subtitle') }}
                 </p>
             </div>
 
@@ -55,9 +55,9 @@
                                     d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                             </svg>
                         </div>
-                        <h3 class="h4 fw-semibold mb-2">{{ __('Quality Guaranteed') }}</h3>
+                        <h3 class="h4 fw-semibold mb-2">{{ __('common.quality_guaranteed') }}</h3>
                         <p class="text-muted">
-                            {{ __('All our equipment meets the highest international standards for quality and safety.') }}
+                            {{ __('common.quality_guaranteed_text') }}
                         </p>
                     </div>
                 </div>
@@ -72,9 +72,9 @@
                                     d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                             </svg>
                         </div>
-                        <h3 class="h4 fw-semibold mb-2">{{ __('Advanced Technology') }}</h3>
+                        <h3 class="h4 fw-semibold mb-2">{{ __('common.advanced_technology') }}</h3>
                         <p class="text-muted">
-                            {{ __('State-of-the-art technology ensuring maximum efficiency and performance.') }}
+                            {{ __('common.advanced_technology_text') }}
                         </p>
                     </div>
                 </div>
@@ -90,8 +90,8 @@
                                 </path>
                             </svg>
                         </div>
-                        <h3 class="h4 fw-semibold mb-2">{{ __('Global Support') }}</h3>
-                        <p class="text-muted">{{ __('Comprehensive support and service network available worldwide.') }}
+                        <h3 class="h4 fw-semibold mb-2">{{ __('common.global_support') }}</h3>
+                        <p class="text-muted">{{ __('common.global_support_text') }}
                         </p>
                     </div>
                 </div>

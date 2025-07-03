@@ -13,10 +13,10 @@
                     <!-- Page Header -->
                     <div class="text-center mb-5">
                         <h1 class="display-4 fw-bold mb-3">
-                            {{ __('Equipment Serial Lookup') }}
+                            {{ __('common.serial_lookup_title') }}
                         </h1>
                         <p class="lead text-muted">
-                            {{ __('Enter your equipment serial number to check warranty status, ownership information, and service history.') }}
+                            {{ __('common.serial_lookup_subtitle') }}
                         </p>
                     </div>
 
@@ -27,11 +27,10 @@
                                 @csrf
                                 <div class="mb-4">
                                     <label for="serial_number" class="form-label">
-                                        {{ __('Serial Number') }}
+                                        {{ __('common.serial_number') }}
                                     </label>
                                     <input type="text" id="serial_number" name="serial_number"
-                                        value="{{ old('serial_number') }}"
-                                        placeholder="{{ __('Enter your equipment serial number') }}"
+                                        value="{{ old('serial_number') }}" placeholder="{{ __('common.enter_serial') }}"
                                         class="form-control form-control-lg" required>
                                     @error('serial_number')
                                         <div class="text-danger mt-2 small">{{ $message }}</div>
@@ -39,7 +38,7 @@
                                 </div>
 
                                 <button type="submit" class="btn btn-primary btn-lg w-100">
-                                    {{ __('Check Serial Number') }}
+                                    {{ __('common.search') }}
                                 </button>
                             </form>
                         </div>

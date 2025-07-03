@@ -11,10 +11,10 @@
             <!-- Page Header -->
             <div class="mb-4">
                 <h1 class="display-4 fw-bold text-dark mb-3">
-                    {{ __('Our Products') }}
+                    {{ __('common.all_products') }}
                 </h1>
                 <p class="lead text-muted">
-                    {{ __('Discover our complete range of drilling equipment and machinery solutions') }}
+                    {{ __('common.products_subtitle') }}
                 </p>
             </div>
 

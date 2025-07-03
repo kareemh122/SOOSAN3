@@ -1,6 +1,9 @@
 /* Import Bootstrap CSS */
 @import "bootstrap/dist/css/bootstrap.min.css";
 
+/* Import Cairo font for Arabic */
+@import url("https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap");
+
 /* Custom styles */
 :root {
     --bs-primary: #2563eb;
@@ -47,6 +50,15 @@
 .product-card {
     transition: all 0.3s ease;
     border: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+/* RTL-specific overrides */
+[dir="rtl"] {
+    font-family: "Cairo", sans-serif;
+}
+
+[dir="rtl"] .feature-icon {
+    margin: 0 auto 1rem;
 }
 
 .product-card:hover {
