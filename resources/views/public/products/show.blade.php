@@ -99,14 +99,6 @@
                         <p class="fs-5">{{ $product->description }}</p>
                     </div>
 
-                    <!-- Status -->
-                    <div class="mb-4">
-                        <span class="me-2">{{ __('Status:') }}</span>
-                        <span class="badge {{ $product->is_active ? 'bg-success' : 'bg-danger' }}">
-                            {{ $product->is_active ? __('Available') : __('Unavailable') }}
-                        </span>
-                    </div>
-
                     <!-- Contact CTA -->
                     <div class="card bg-primary bg-opacity-10 mb-3">
                         <div class="card-body">

@@ -9,10 +9,8 @@ class PublicController extends Controller
 {
     public function homepage()
     {
-        // Get featured products for homepage
-        $featuredProducts = Product::where('is_active', true)
-            ->where('is_featured', true)
-            ->with(['category', 'media'])
+        // Get products for homepage (no is_active/is_featured filter)
+        $featuredProducts = Product::with(['category', 'media'])
             ->latest()
             ->limit(3)
             ->get();

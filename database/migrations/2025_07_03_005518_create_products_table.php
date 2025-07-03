@@ -13,7 +13,8 @@ return new class extends Migration {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('model_number')->nullable();
+            $table->string('type');
+            $table->string('model_name')->nullable();
             $table->foreignId('category_id')->constrained('product_categories');
             $table->text('description')->nullable();
             $table->decimal('price', 10, 2)->nullable();
@@ -32,17 +33,13 @@ return new class extends Migration {
             $table->decimal('rod_diameter', 8, 2)->nullable(); // mm
             $table->string('applicable_carrier')->nullable(); // ton (can be range like "1.2 ~ 3")
 
-            // Status and visibility
-            $table->boolean('is_active')->default(true);
-            $table->boolean('is_featured')->default(false);
-
             // Metadata
             $table->foreignId('created_by')->nullable()->constrained('users');
             $table->timestamps();
 
-            $table->index(['is_active', 'is_featured']);
             $table->index('name');
-            $table->index('model_number');
+            
+            $table->index('model_name');
         });
     }
 
