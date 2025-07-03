@@ -153,7 +153,6 @@ class ContactMessageResource extends Resource
                             ->color('success');
                     }),
                 Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -185,7 +184,6 @@ class ContactMessageResource extends Resource
         return [
             'index' => Pages\ListContactMessages::route('/'),
             'view' => Pages\ViewContactMessage::route('/{record}'),
-            'edit' => Pages\EditContactMessage::route('/{record}/edit'),
         ];
     }
 }

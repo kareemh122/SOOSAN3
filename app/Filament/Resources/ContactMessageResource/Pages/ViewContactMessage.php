@@ -20,7 +20,6 @@ class ViewContactMessage extends ViewRecord
                 ->visible(fn() => !$this->record->is_read)
                 ->action(fn() => $this->record->markAsRead())
                 ->after(fn() => $this->refreshFormData(['is_read', 'read_at'])),
-            Actions\EditAction::make(),
         ];
     }
 
