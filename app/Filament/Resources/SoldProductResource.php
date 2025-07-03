@@ -23,28 +23,75 @@ class SoldProductResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('product_id')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\TextInput::make('owner_id')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\TextInput::make('employee_id')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\TextInput::make('serial_number')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\DatePicker::make('sale_date')
-                    ->required(),
-                Forms\Components\DatePicker::make('warranty_start_date')
-                    ->required(),
-                Forms\Components\DatePicker::make('warranty_end_date')
-                    ->required(),
-                Forms\Components\TextInput::make('purchase_price')
-                    ->numeric(),
-                Forms\Components\Textarea::make('notes')
-                    ->columnSpanFull(),
+                Forms\Components\Section::make('Product Information')
+                    ->schema([
+                        Forms\Components\Select::make('product_id')
+                            ->relationship('product', 'name')
+                            ->searchable()
+                            ->preload()
+                            ->required()
+                            ->getOptionLabelFromRecordUsing(fn($record) => "{$record->name} ({$record->model_number})")
+                            ->columnSpan(2),
+                        Forms\Components\TextInput::make('serial_number')
+                            ->required()
+                            ->maxLength(255)
+                            ->unique(ignoreRecord: true)
+                            ->helperText('Enter the unique serial number for this product'),
+                    ])
+                    ->columns(3),
+
+                Forms\Components\Section::make('Ownership Information')
+                    ->schema([
+                        Forms\Components\Select::make('owner_id')
+                            ->relationship('owner', 'name')
+                            ->searchable()
+                            ->preload()
+                            ->required()
+                            ->createOptionForm([
+                                Forms\Components\TextInput::make('name')
+                                    ->required()
+                                    ->maxLength(255),
+                                Forms\Components\TextInput::make('email')
+                                    ->email()
+                                    ->maxLength(255),
+                                Forms\Components\TextInput::make('phone')
+                                    ->tel()
+                                    ->maxLength(255),
+                                Forms\Components\Textarea::make('address'),
+                            ])
+                            ->getOptionLabelFromRecordUsing(fn($record) => "{$record->name} ({$record->email})")
+                            ->columnSpan(2),
+                        Forms\Components\Select::make('employee_id')
+                            ->relationship('employee', 'name')
+                            ->searchable()
+                            ->preload()
+                            ->required()
+                            ->getOptionLabelFromRecordUsing(fn($record) => "{$record->name} ({$record->email})")
+                            ->helperText('Employee who processed this sale'),
+                    ])
+                    ->columns(3),
+
+                Forms\Components\Section::make('Sale Details')
+                    ->schema([
+                        Forms\Components\DatePicker::make('sale_date')
+                            ->required()
+                            ->default(now()),
+                        Forms\Components\DatePicker::make('warranty_start_date')
+                            ->required()
+                            ->default(now()),
+                        Forms\Components\DatePicker::make('warranty_end_date')
+                            ->required()
+                            ->after('warranty_start_date'),
+                        Forms\Components\TextInput::make('purchase_price')
+                            ->numeric()
+                            ->prefix('$')
+                            ->step(0.01),
+                        Forms\Components\Textarea::make('notes')
+                            ->columnSpanFull()
+                            ->rows(3)
+                            ->placeholder('Additional notes about this sale...'),
+                    ])
+                    ->columns(2),
             ]);
     }
 
@@ -52,28 +99,34 @@ class SoldProductResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('product_id')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('owner_id')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('employee_id')
-                    ->numeric()
-                    ->sortable(),
+                Tables\Columns\TextColumn::make('product.name')
+                    ->searchable()
+                    ->sortable()
+                    ->label('Product'),
                 Tables\Columns\TextColumn::make('serial_number')
-                    ->searchable(),
+                    ->searchable()
+                    ->copyable()
+                    ->copyMessage('Serial number copied')
+                    ->copyMessageDuration(1500),
+                Tables\Columns\TextColumn::make('owner.name')
+                    ->searchable()
+                    ->sortable()
+                    ->label('Owner'),
+                Tables\Columns\TextColumn::make('employee.name')
+                    ->searchable()
+                    ->sortable()
+                    ->label('Sold By'),
                 Tables\Columns\TextColumn::make('sale_date')
-                    ->date()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('warranty_start_date')
                     ->date()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('warranty_end_date')
                     ->date()
-                    ->sortable(),
+                    ->sortable()
+                    ->color(fn($record) => $record->isUnderWarranty() ? 'success' : 'danger')
+                    ->badge()
+                    ->formatStateUsing(fn($record) => $record->isUnderWarranty() ? 'Valid until ' . $record->warranty_end_date->format('M d, Y') : 'Expired'),
                 Tables\Columns\TextColumn::make('purchase_price')
-                    ->numeric()
+                    ->money('USD')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()

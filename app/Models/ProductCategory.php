@@ -4,16 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Illuminate\Support\Str;
 
-class ProductCategory extends Model
+class ProductCategory extends Model implements HasMedia
 {
-    use HasFactory;
+    use HasFactory, InteractsWithMedia;
 
     protected $fillable = [
-        'name_en',
-        'name_ar',
+        'name',
         'slug',
-        'icon_url',
+        'description',
         'sort_order',
         'is_active',
     ];
@@ -21,6 +24,29 @@ class ProductCategory extends Model
     protected $casts = [
         'is_active' => 'boolean',
     ];
+
+    // Media collections
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('icon')
+            ->singleFile()
+            ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml']);
+    }
+
+    public function registerMediaConversions(Media $media = null): void
+    {
+        $this->addMediaConversion('thumb')
+            ->width(64)
+            ->height(64)
+            ->performOnCollections('icon');
+    }
+
+    // Auto-generate slug from name
+    public function setNameAttribute($value)
+    {
+        $this->attributes['name'] = $value;
+        $this->attributes['slug'] = Str::slug($value);
+    }
 
     // Relationships
     public function products()

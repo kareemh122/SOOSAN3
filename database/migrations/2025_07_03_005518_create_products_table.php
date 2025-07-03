@@ -12,25 +12,41 @@ return new class extends Migration {
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('model_name');
-            $table->string('serial_number')->nullable();
+            $table->string('name');
+            $table->string('model_number')->nullable();
             $table->foreignId('category_id')->constrained('product_categories');
-            $table->json('image_urls')->nullable(); // Multiple product images
-            $table->json('specs_si')->nullable(); // SI specifications
-            $table->json('specs_imperial')->nullable(); // Imperial specifications
-            $table->text('description_en')->nullable();
-            $table->text('description_ar')->nullable();
+            $table->text('description')->nullable();
+            $table->decimal('price', 10, 2)->nullable();
+
+            // Specifications - SI Units (admin enters these)
+            $table->decimal('body_weight', 8, 2)->nullable(); // kg
+            $table->decimal('operating_weight', 8, 2)->nullable(); // kg
+            $table->decimal('overall_length', 8, 2)->nullable(); // mm
+            $table->decimal('overall_width', 8, 2)->nullable(); // mm
+            $table->decimal('overall_height', 8, 2)->nullable(); // mm
+            $table->string('required_oil_flow')->nullable(); // l/min (can be range like "20 ~ 40")
+            $table->string('operating_pressure')->nullable(); // kgf/cm² (can be range like "90 ~ 120")
+            $table->string('impact_rate_std')->nullable(); // BPM (can be range like "700 ~ 1,200")
+            $table->string('impact_rate_soft_rock')->nullable(); // BPM (can be "~" or range)
+            $table->string('hose_diameter')->nullable(); // in (can be "3/8, 1/2")
+            $table->decimal('rod_diameter', 8, 2)->nullable(); // mm
+            $table->string('applicable_carrier')->nullable(); // ton (can be range like "1.2 ~ 3")
+
+            // Features and applications
             $table->json('features')->nullable(); // Product features
             $table->json('applications')->nullable(); // Use cases (Mining, Construction, etc.)
-            $table->string('brochure_url')->nullable();
-            $table->string('manual_url')->nullable();
+
+            // Status and visibility
+            $table->boolean('is_active')->default(true);
             $table->boolean('is_featured')->default(false);
-            $table->enum('status', ['active', 'discontinued', 'coming_soon'])->default('active');
+
+            // Metadata
             $table->foreignId('created_by')->nullable()->constrained('users');
             $table->timestamps();
 
-            $table->index(['status', 'is_featured']);
-            $table->index('model_name');
+            $table->index(['is_active', 'is_featured']);
+            $table->index('name');
+            $table->index('model_number');
         });
     }
 
