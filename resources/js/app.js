@@ -1,6 +1,9 @@
-import './bootstrap';
+import "./bootstrap";
 
-import Alpine from 'alpinejs';
+// Import Bootstrap JavaScript
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
+
+import Alpine from "alpinejs";
 
 window.Alpine = Alpine;
 
