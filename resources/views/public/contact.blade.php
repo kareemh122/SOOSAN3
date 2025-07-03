@@ -1,188 +1,221 @@
 @extends('layouts.public')
 
 @section('title', 'Contact Soosan Cebotics - Get in Touch')
-@section('description', 'Contact Soosan Cebotics for drilling equipment inquiries, technical support, sales information,
+@section('description',
+    'Contact Soosan Cebotics for drilling equipment inquiries, technical support, sales information,
     and customer service.')
 
 @section('content')
-    <div class="bg-gray-50 py-12">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+    <div class="bg-light py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h1 class="display-4 fw-bold mb-3">
                     {{ __('Contact Us') }}
                 </h1>
-                <p class="text-xl text-gray-600">
+                <p class="fs-5 text-secondary">
                     {{ __('Get in touch with our team for equipment inquiries, support, or sales information') }}
                 </p>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            <div class="row g-4 mb-5">
                 <!-- Contact Information -->
-                <div>
-                    <h2 class="text-2xl font-bold text-gray-900 mb-6">{{ __('Get in Touch') }}</h2>
+                <div class="col-lg-6">
+                    <h2 class="h3 fw-bold mb-4">{{ __('Get in Touch') }}</h2>
 
                     <!-- Contact Methods -->
-                    <div class="space-y-6 mb-8">
-                        <div class="flex items-start">
+                    <div class="mb-4">
+                        <div class="d-flex mb-4">
                             <div class="flex-shrink-0">
-                                <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z">
-                                    </path>
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                                    class="bi bi-geo-alt-fill text-primary" viewBox="0 0 16 16">
+                                    <path
+                                        d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z" />
                                 </svg>
                             </div>
-                            <div class="ml-4">
-                                <h3 class="text-lg font-semibold text-gray-900">{{ __('Head Office') }}</h3>
-                                <p class="text-gray-600">
+                            <div class="ms-3">
+                                <h3 class="h5 fw-semibold">{{ __('Head Office') }}</h3>
+                                <p class="text-secondary">
                                     123 Industrial Avenue<br>
                                     Industrial City, Country 12345
                                 </p>
                             </div>
                         </div>
 
-                        <div class="flex items-start">
+                        <div class="d-flex mb-4">
                             <div class="flex-shrink-0">
-                                <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z">
-                                    </path>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                                    class="bi bi-telephone-fill text-primary" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                        d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z" />
                                 </svg>
                             </div>
-                            <div class="ml-4">
-                                <h3 class="text-lg font-semibold text-gray-900">{{ __('Phone') }}</h3>
-                                <p class="text-gray-600">+1 (555) 123-4567</p>
-                                <p class="text-sm text-gray-500">{{ __('Monday - Friday, 8:00 AM - 6:00 PM') }}</p>
+                            <div class="ms-3">
+                                <h3 class="h5 fw-semibold">{{ __('Phone') }}</h3>
+                                <p class="text-secondary mb-1">+1 (555) 123-4567</p>
+                                <p class="small text-muted">{{ __('Monday - Friday, 8:00 AM - 6:00 PM') }}</p>
                             </div>
                         </div>
 
-                        <div class="flex items-start">
+                        <div class="d-flex mb-4">
                             <div class="flex-shrink-0">
-                                <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
-                                    </path>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                                    class="bi bi-envelope-fill text-primary" viewBox="0 0 16 16">
+                                    <path
+                                        d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z" />
                                 </svg>
                             </div>
-                            <div class="ml-4">
-                                <h3 class="text-lg font-semibold text-gray-900">{{ __('Email') }}</h3>
-                                <p class="text-gray-600">info@soosancebotics.com</p>
-                                <p class="text-sm text-gray-500">{{ __('We typically respond within 24 hours') }}</p>
+                            <div class="ms-3">
+                                <h3 class="h5 fw-semibold">{{ __('Email') }}</h3>
+                                <p class="text-secondary mb-1">info@soosancebotics.com</p>
+                                <p class="small text-muted">{{ __('We typically respond within 24 hours') }}</p>
                             </div>
                         </div>
                     </div>
 
                     <!-- Department Contacts -->
-                    <div class="bg-white rounded-lg p-6 shadow-md">
-                        <h3 class="text-lg font-semibold text-gray-900 mb-4">{{ __('Department Contacts') }}</h3>
-                        <div class="space-y-3">
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">{{ __('Sales') }}</span>
-                                <span class="text-gray-900">sales@soosancebotics.com</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">{{ __('Technical Support') }}</span>
-                                <span class="text-gray-900">support@soosancebotics.com</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">{{ __('Parts & Service') }}</span>
-                                <span class="text-gray-900">parts@soosancebotics.com</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">{{ __('Customer Service') }}</span>
-                                <span class="text-gray-900">service@soosancebotics.com</span>
+                    <div class="card shadow-sm mb-4">
+                        <div class="card-body">
+                            <h3 class="h5 fw-semibold mb-3">{{ __('Department Contacts') }}</h3>
+                            <div class="mb-2">
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span class="text-secondary">{{ __('Sales') }}</span>
+                                    <span class="fw-medium">sales@soosancebotics.com</span>
+                                </div>
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span class="text-secondary">{{ __('Technical Support') }}</span>
+                                    <span class="fw-medium">support@soosancebotics.com</span>
+                                </div>
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span class="text-secondary">{{ __('Parts & Service') }}</span>
+                                    <span class="fw-medium">parts@soosancebotics.com</span>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <span class="text-secondary">{{ __('Customer Service') }}</span>
+                                    <span class="fw-medium">service@soosancebotics.com</span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Contact Form -->
-                <div>
-                    <div class="bg-white rounded-lg shadow-md p-8">
-                        <h2 class="text-2xl font-bold text-gray-900 mb-6">{{ __('Send us a Message') }}</h2>
+                <div class="col-lg-6">
+                    <div class="card shadow-sm">
+                        <div class="card-body p-4">
+                            <h2 class="h3 fw-bold mb-4">{{ __('Send us a Message') }}</h2>
 
-                        <form class="space-y-6">
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div>
-                                    <label for="first_name" class="block text-sm font-medium text-gray-700 mb-1">
-                                        {{ __('First Name') }} <span class="text-red-500">*</span>
-                                    </label>
-                                    <input type="text" id="first_name" name="first_name" required
-                                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            @if (session('success'))
+                                <div class="alert alert-success mb-4" role="alert">
+                                    {{ session('success') }}
                                 </div>
-                                <div>
-                                    <label for="last_name" class="block text-sm font-medium text-gray-700 mb-1">
-                                        {{ __('Last Name') }} <span class="text-red-500">*</span>
-                                    </label>
-                                    <input type="text" id="last_name" name="last_name" required
-                                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            @endif
+
+                            <form action="{{ route('contact.store') }}" method="POST">
+                                @csrf
+                                <div class="row g-3 mb-3">
+                                    <div class="col-md-6">
+                                        <label for="first_name" class="form-label">
+                                            {{ __('First Name') }} <span class="text-danger">*</span>
+                                        </label>
+                                        <input type="text" id="first_name" name="first_name" required
+                                            class="form-control @error('first_name') is-invalid @enderror"
+                                            value="{{ old('first_name') }}">
+                                        @error('first_name')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="last_name" class="form-label">
+                                            {{ __('Last Name') }} <span class="text-danger">*</span>
+                                        </label>
+                                        <input type="text" id="last_name" name="last_name" required
+                                            class="form-control @error('last_name') is-invalid @enderror"
+                                            value="{{ old('last_name') }}">
+                                        @error('last_name')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div>
-                                <label for="email" class="block text-sm font-medium text-gray-700 mb-1">
-                                    {{ __('Email Address') }} <span class="text-red-500">*</span>
-                                </label>
-                                <input type="email" id="email" name="email" required
-                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                            </div>
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">
+                                        {{ __('Email Address') }} <span class="text-danger">*</span>
+                                    </label>
+                                    <input type="email" id="email" name="email" required
+                                        class="form-control @error('email') is-invalid @enderror"
+                                        value="{{ old('email') }}">
+                                    @error('email')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
 
-                            <div>
-                                <label for="company" class="block text-sm font-medium text-gray-700 mb-1">
-                                    {{ __('Company') }}
-                                </label>
-                                <input type="text" id="company" name="company"
-                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                            </div>
+                                <div class="mb-3">
+                                    <label for="company" class="form-label">
+                                        {{ __('Company') }}
+                                    </label>
+                                    <input type="text" id="company" name="company"
+                                        class="form-control @error('company') is-invalid @enderror"
+                                        value="{{ old('company') }}">
+                                    @error('company')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
 
-                            <div>
-                                <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">
-                                    {{ __('Phone Number') }}
-                                </label>
-                                <input type="tel" id="phone" name="phone"
-                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                            </div>
+                                <div class="mb-3">
+                                    <label for="phone" class="form-label">
+                                        {{ __('Phone Number') }}
+                                    </label>
+                                    <input type="tel" id="phone" name="phone"
+                                        class="form-control @error('phone') is-invalid @enderror"
+                                        value="{{ old('phone') }}">
+                                    @error('phone')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
 
-                            <div>
-                                <label for="subject" class="block text-sm font-medium text-gray-700 mb-1">
-                                    {{ __('Subject') }} <span class="text-red-500">*</span>
-                                </label>
-                                <select id="subject" name="subject" required
-                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                                    <option value="">{{ __('Select a subject') }}</option>
-                                    <option value="sales">{{ __('Sales Inquiry') }}</option>
-                                    <option value="support">{{ __('Technical Support') }}</option>
-                                    <option value="parts">{{ __('Parts & Service') }}</option>
-                                    <option value="warranty">{{ __('Warranty Claim') }}</option>
-                                    <option value="other">{{ __('Other') }}</option>
-                                </select>
-                            </div>
+                                <div class="mb-3">
+                                    <label for="subject" class="form-label">
+                                        {{ __('Subject') }} <span class="text-danger">*</span>
+                                    </label>
+                                    <select id="subject" name="subject" required
+                                        class="form-select @error('subject') is-invalid @enderror">
+                                        <option value="">{{ __('Select a subject') }}</option>
+                                        <option value="sales" {{ old('subject') == 'sales' ? 'selected' : '' }}>
+                                            {{ __('Sales Inquiry') }}</option>
+                                        <option value="support" {{ old('subject') == 'support' ? 'selected' : '' }}>
+                                            {{ __('Technical Support') }}</option>
+                                        <option value="parts" {{ old('subject') == 'parts' ? 'selected' : '' }}>
+                                            {{ __('Parts & Service') }}</option>
+                                        <option value="warranty" {{ old('subject') == 'warranty' ? 'selected' : '' }}>
+                                            {{ __('Warranty Claim') }}</option>
+                                        <option value="other" {{ old('subject') == 'other' ? 'selected' : '' }}>
+                                            {{ __('Other') }}</option>
+                                    </select>
+                                    @error('subject')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
 
-                            <div>
-                                <label for="message" class="block text-sm font-medium text-gray-700 mb-1">
-                                    {{ __('Message') }} <span class="text-red-500">*</span>
-                                </label>
-                                <textarea id="message" name="message" rows="5" required
-                                    placeholder="{{ __('Please provide details about your inquiry...') }}"
-                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"></textarea>
-                            </div>
+                                <div class="mb-3">
+                                    <label for="message" class="form-label">
+                                        {{ __('Message') }} <span class="text-danger">*</span>
+                                    </label>
+                                    <textarea id="message" name="message" rows="5" required
+                                        placeholder="{{ __('Please provide details about your inquiry...') }}"
+                                        class="form-control @error('message') is-invalid @enderror">{{ old('message') }}</textarea>
+                                    @error('message')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
 
-                            <div class="flex items-center">
-                                <input type="checkbox" id="newsletter" name="newsletter"
-                                    class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
-                                <label for="newsletter" class="ml-2 block text-sm text-gray-700">
-                                    {{ __('I would like to receive updates about new products and services') }}
-                                </label>
-                            </div>
 
-                            <div>
-                                <button type="submit"
-                                    class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition-colors">
-                                    {{ __('Send Message') }}
-                                </button>
-                            </div>
-                        </form>
+                                <div>
+                                    <button type="submit" class="btn btn-primary w-100">
+                                        {{ __('Send Message') }}
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
