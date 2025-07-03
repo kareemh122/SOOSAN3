@@ -4,130 +4,130 @@
 @section('description', Str::limit($product->description, 160))
 
 @section('content')
-    <div class="bg-gray-50 py-8">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="bg-light py-5">
+        <div class="container">
             <!-- Breadcrumb -->
-            <nav class="mb-8">
-                <ol class="flex items-center space-x-2 text-sm">
-                    <li><a href="{{ route('homepage') }}" class="text-blue-600 hover:text-blue-800">{{ __('Home') }}</a>
-                    </li>
-                    <li><span class="text-gray-500">/</span></li>
-                    <li><a href="{{ route('products.index') }}"
-                            class="text-blue-600 hover:text-blue-800">{{ __('Products') }}</a></li>
+            <nav aria-label="breadcrumb" class="mb-4">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ route('homepage') }}" class="text-decoration-none">{{ __('Home') }}</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('products.index') }}" class="text-decoration-none">{{ __('Products') }}</a></li>
                     @if ($product->category)
-                        <li><span class="text-gray-500">/</span></li>
-                        <li><a href="{{ route('products.category', $product->category) }}"
-                                class="text-blue-600 hover:text-blue-800">{{ $product->category->name }}</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('products.category', $product->category) }}" class="text-decoration-none">{{ $product->category->name }}</a></li>
                     @endif
-                    <li><span class="text-gray-500">/</span></li>
-                    <li><span class="text-gray-900 font-medium">{{ $product->name }}</span></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ $product->name }}</li>
                 </ol>
             </nav>
 
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-12">
+            <div class="row g-4 mb-5">
                 <!-- Product Images -->
-                <div>
+                <div class="col-lg-6">
                     @if ($product->getMedia('images')->count() > 0)
-                        <div class="space-y-4">
+                        <div class="mb-4">
                             <!-- Main Image -->
-                            <div class="aspect-square bg-white rounded-lg overflow-hidden shadow-md">
-                                <img id="main-image" src="{{ $product->getFirstMediaUrl('images') }}"
-                                    alt="{{ $product->name }}" class="w-full h-full object-cover">
+                            <div class="card shadow-sm mb-3">
+                                <div class="card-body p-0">
+                                    <img id="main-image" src="{{ $product->getFirstMediaUrl('images') }}"
+                                        alt="{{ $product->name }}" class="img-fluid rounded" style="width: 100%; aspect-ratio: 1/1; object-fit: cover;">
+                                </div>
                             </div>
 
                             <!-- Thumbnail Images -->
                             @if ($product->getMedia('images')->count() > 1)
-                                <div class="grid grid-cols-4 gap-2">
+                                <div class="row g-2">
                                     @foreach ($product->getMedia('images') as $index => $media)
-                                        <button
-                                            class="aspect-square bg-white rounded border-2 {{ $index === 0 ? 'border-blue-500' : 'border-gray-200' }} overflow-hidden hover:border-blue-500 transition-colors thumbnail-btn"
-                                            onclick="changeMainImage('{{ $media->getUrl() }}', this)">
-                                            <img src="{{ $media->getUrl() }}" alt="{{ $product->name }}"
-                                                class="w-full h-full object-cover">
-                                        </button>
+                                        <div class="col-3">
+                                            <button
+                                                class="btn p-0 border {{ $index === 0 ? 'border-primary' : 'border-secondary' }} rounded thumbnail-btn w-100"
+                                                style="aspect-ratio: 1/1;" 
+                                                onclick="changeMainImage('{{ $media->getUrl() }}', this)">
+                                                <img src="{{ $media->getUrl() }}" alt="{{ $product->name }}"
+                                                    class="img-fluid rounded" style="width: 100%; height: 100%; object-fit: cover;">
+                                            </button>
+                                        </div>
                                     @endforeach
                                 </div>
                             @endif
                         </div>
                     @else
                         <!-- Placeholder Image -->
-                        <div class="aspect-square bg-gray-200 rounded-lg flex items-center justify-center">
-                            <svg class="w-32 h-32 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z">
-                                </path>
-                            </svg>
+                        <div class="card shadow-sm mb-3">
+                            <div class="card-body d-flex align-items-center justify-content-center" style="aspect-ratio: 1/1;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="currentColor" class="bi bi-image text-secondary" viewBox="0 0 16 16">
+                                    <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                                    <path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z"/>
+                                </svg>
+                            </div>
                         </div>
                     @endif
                 </div>
 
                 <!-- Product Information -->
-                <div class="space-y-6">
+                <div class="col-lg-6">
                     <!-- Category Badge -->
                     @if ($product->category)
-                        <span class="inline-block bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full">
+                        <span class="badge bg-primary bg-opacity-10 text-primary mb-2">
                             {{ $product->category->name }}
                         </span>
                     @endif
 
                     <!-- Product Name -->
-                    <h1 class="text-3xl md:text-4xl font-bold text-gray-900">{{ $product->name }}</h1>
+                    <h1 class="display-5 fw-bold mb-3">{{ $product->name }}</h1>
 
                     <!-- Model Number -->
                     @if ($product->model_number)
-                        <p class="text-lg text-gray-600">{{ __('Model:') }} <span
-                                class="font-semibold">{{ $product->model_number }}</span></p>
+                        <p class="fs-5 text-secondary mb-3">{{ __('Model:') }} <span class="fw-semibold">{{ $product->model_number }}</span></p>
                     @endif
 
                     <!-- Price -->
                     @if ($product->price)
-                        <div class="text-3xl font-bold text-blue-600 product-price" data-price="{{ $product->price }}">
+                        <div class="fs-3 fw-bold text-primary mb-3 product-price" data-price="{{ $product->price }}">
                             ${{ number_format($product->price, 2) }}
                         </div>
                     @endif
 
                     <!-- Description -->
-                    <div class="prose prose-lg max-w-none">
-                        <p class="text-gray-700 text-lg leading-relaxed">{{ $product->description }}</p>
+                    <div class="mb-4">
+                        <p class="fs-5">{{ $product->description }}</p>
                     </div>
 
                     <!-- Status -->
-                    <div class="flex items-center space-x-2">
-                        <span class="text-sm font-medium text-gray-700">{{ __('Status:') }}</span>
-                        <span
-                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $product->is_active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
+                    <div class="mb-4">
+                        <span class="me-2">{{ __('Status:') }}</span>
+                        <span class="badge {{ $product->is_active ? 'bg-success' : 'bg-danger' }}">
                             {{ $product->is_active ? __('Available') : __('Unavailable') }}
                         </span>
                     </div>
 
                     <!-- Contact CTA -->
-                    <div class="bg-blue-50 p-6 rounded-lg">
-                        <h3 class="text-lg font-semibold mb-2">{{ __('Interested in this product?') }}</h3>
-                        <p class="text-gray-600 mb-4">
-                            {{ __('Contact our sales team for pricing, availability, and technical specifications.') }}</p>
-                        <a href="{{ route('contact') }}"
-                            class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium inline-block transition-colors">
-                            {{ __('Contact Sales') }}
-                        </a>
+                    <div class="card bg-primary bg-opacity-10 mb-3">
+                        <div class="card-body">
+                            <h3 class="h5 fw-semibold mb-2">{{ __('Interested in this product?') }}</h3>
+                            <p class="mb-3">
+                                {{ __('Contact our sales team for pricing, availability, and technical specifications.') }}</p>
+                            <a href="{{ route('contact') }}"
+                                class="btn btn-primary">
+                                {{ __('Contact Sales') }}
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Specifications Section -->
-            <div class="bg-white rounded-lg shadow-md overflow-hidden mb-12">
+            <div class="card shadow-sm mb-5">
                 <!-- Unit Toggle -->
-                <div class="border-b border-gray-200 px-6 py-4">
-                    <div class="flex items-center justify-between">
-                        <h2 class="text-2xl font-bold text-gray-900">{{ __('Specifications') }}</h2>
-                        <div class="flex items-center space-x-4">
-                            <span class="text-sm font-medium text-gray-700">{{ __('Units:') }}</span>
-                            <div class="flex bg-gray-100 rounded-lg p-1">
-                                <button id="si-btn"
-                                    class="unit-toggle px-4 py-2 text-sm font-medium rounded-md bg-blue-600 text-white transition-colors">
+                <div class="card-header bg-white border-bottom">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h2 class="h4 fw-bold mb-0">{{ __('Specifications') }}</h2>
+                        <div class="d-flex align-items-center">
+                            <span class="me-2">{{ __('Units:') }}</span>
+                            <div class="btn-group" role="group" aria-label="Unit toggle">
+                                <button id="si-btn" type="button"
+                                    class="unit-toggle btn btn-primary btn-sm">
                                     {{ __('SI') }}
                                 </button>
-                                <button id="imperial-btn"
-                                    class="unit-toggle px-4 py-2 text-sm font-medium rounded-md text-gray-500 hover:text-gray-700 transition-colors">
+                                <button id="imperial-btn" type="button"
+                                    class="unit-toggle btn btn-outline-primary btn-sm">
                                     {{ __('Imperial') }}
                                 </button>
                             </div>
@@ -136,7 +136,7 @@
                 </div>
 
                 <!-- Specifications Content -->
-                <div class="p-6">
+                <div class="card-body">
                     <div id="specifications-content">
                         <!-- SI Specifications (Default) -->
                         <div id="si-specs" class="specifications-table">
@@ -144,14 +144,16 @@
                                 $siSpecs = $product->getSpecificationsWithUnit('si');
                             @endphp
                             @if ($siSpecs && count($siSpecs) > 0)
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
+                                <div class="row g-3">
                                     @foreach ($siSpecs as $key => $spec)
                                         @if ($spec['value'])
-                                            <div class="flex justify-between items-center py-3 border-b border-gray-100">
-                                                <span class="font-medium text-gray-700">{{ $spec['label'] }}:</span>
-                                                <span class="text-gray-900 font-semibold">
-                                                    {{ $spec['value'] }} {{ $spec['unit'] }}
-                                                </span>
+                                            <div class="col-md-6">
+                                                <div class="d-flex justify-content-between py-2 border-bottom">
+                                                    <span class="fw-medium">{{ $spec['label'] }}:</span>
+                                                    <span class="fw-semibold">
+                                                        {{ $spec['value'] }} {{ $spec['unit'] }}
+                                                    </span>
+                                                </div>
                                             </div>
                                         @endif
                                     @endforeach
@@ -160,19 +162,21 @@
                         </div>
 
                         <!-- Imperial Specifications (Hidden by default) -->
-                        <div id="imperial-specs" class="specifications-table hidden">
+                        <div id="imperial-specs" class="specifications-table d-none">
                             @php
                                 $imperialSpecs = $product->getSpecificationsWithUnit('imperial');
                             @endphp
                             @if ($imperialSpecs && count($imperialSpecs) > 0)
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
+                                <div class="row g-3">
                                     @foreach ($imperialSpecs as $key => $spec)
                                         @if ($spec['value'])
-                                            <div class="flex justify-between items-center py-3 border-b border-gray-100">
-                                                <span class="font-medium text-gray-700">{{ $spec['label'] }}:</span>
-                                                <span class="text-gray-900 font-semibold">
-                                                    {{ $spec['value'] }} {{ $spec['unit'] }}
-                                                </span>
+                                            <div class="col-md-6">
+                                                <div class="d-flex justify-content-between py-2 border-bottom">
+                                                    <span class="fw-medium">{{ $spec['label'] }}:</span>
+                                                    <span class="fw-semibold">
+                                                        {{ $spec['value'] }} {{ $spec['unit'] }}
+                                                    </span>
+                                                </div>
                                             </div>
                                         @endif
                                     @endforeach
@@ -182,12 +186,10 @@
                     </div>
                 </div>
             </div>
-            <svg class="w-5 h-5 text-green-500 mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd"
-                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                    clip-rule="evenodd"></path>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-check-circle-fill text-success me-2 flex-shrink-0" viewBox="0 0 16 16">
+                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
             </svg>
-            <span class="text-gray-700">{{ $feature }}</span>
+            <span>{{ $feature }}</span>
             </li>
             @endforeach
             </ul>
