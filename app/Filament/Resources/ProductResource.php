@@ -100,17 +100,6 @@ class ProductResource extends Resource
                     ])
                     ->columns(3),
 
-                Forms\Components\Section::make('Features & Applications')
-                    ->schema([
-                        Forms\Components\TagsInput::make('features')
-                            ->placeholder('Add product features')
-                            ->helperText('Press Enter after each feature'),
-                        Forms\Components\TagsInput::make('applications')
-                            ->placeholder('Add applications (e.g., Mining, Construction)')
-                            ->helperText('Press Enter after each application'),
-                    ])
-                    ->columns(2),
-
                 Forms\Components\Section::make('Media')
                     ->schema([
                         SpatieMediaLibraryFileUpload::make('images')

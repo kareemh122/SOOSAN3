@@ -32,10 +32,6 @@ return new class extends Migration {
             $table->decimal('rod_diameter', 8, 2)->nullable(); // mm
             $table->string('applicable_carrier')->nullable(); // ton (can be range like "1.2 ~ 3")
 
-            // Features and applications
-            $table->json('features')->nullable(); // Product features
-            $table->json('applications')->nullable(); // Use cases (Mining, Construction, etc.)
-
             // Status and visibility
             $table->boolean('is_active')->default(true);
             $table->boolean('is_featured')->default(false);

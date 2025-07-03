@@ -32,16 +32,12 @@ class Product extends Model implements HasMedia
         'rod_diameter',
         'applicable_carrier',
         // Other fields
-        'features',
-        'applications',
         'is_active',
         'is_featured',
         'created_by',
     ];
 
     protected $casts = [
-        'features' => 'array',
-        'applications' => 'array',
         'is_active' => 'boolean',
         'is_featured' => 'boolean',
         'price' => 'decimal:2',
