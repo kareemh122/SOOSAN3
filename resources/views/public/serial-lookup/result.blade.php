@@ -209,12 +209,10 @@
                         {{ __('Our support team is ready to help with maintenance, parts, or technical questions.') }}</p>
 
                     <div class="d-flex flex-column flex-sm-row gap-2">
-                        <a href="{{ route('contact') }}"
-                            class="btn btn-primary">
+                        <a href="{{ route('contact') }}" class="btn btn-primary">
                             {{ __('Contact Support') }}
                         </a>
-                        <a href="{{ route('support') }}"
-                            class="btn btn-outline-primary">
+                        <a href="{{ route('support') }}" class="btn btn-outline-primary">
                             {{ __('Service Resources') }}
                         </a>
                     </div>
@@ -225,8 +223,10 @@
             <div class="text-center mt-4">
                 <a href="{{ route('serial-lookup.index') }}"
                     class="d-inline-flex align-items-center text-primary text-decoration-none fw-medium">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search me-2" viewBox="0 0 16 16">
-                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-search me-2" viewBox="0 0 16 16">
+                        <path
+                            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
                     </svg>
                     {{ __('Look up another serial number') }}
                 </a>

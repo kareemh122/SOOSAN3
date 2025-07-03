@@ -4,102 +4,100 @@
 @section('description', 'Browse ' . $category->name . ' drilling equipment and machinery from Soosan Cebotics.')
 
 @section('content')
-    <div class="bg-gray-50 py-8">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="bg-light py-5">
+        <div class="container">
             <!-- Breadcrumb -->
-            <nav class="mb-8">
-                <ol class="flex items-center space-x-2 text-sm">
-                    <li><a href="{{ route('homepage') }}" class="text-blue-600 hover:text-blue-800">{{ __('Home') }}</a>
-                    </li>
-                    <li><span class="text-gray-500">/</span></li>
-                    <li><a href="{{ route('products.index') }}"
-                            class="text-blue-600 hover:text-blue-800">{{ __('Products') }}</a></li>
-                    <li><span class="text-gray-500">/</span></li>
-                    <li><span class="text-gray-900 font-medium">{{ $category->name }}</span></li>
+            <nav aria-label="breadcrumb" class="mb-4">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ route('homepage') }}"
+                            class="text-decoration-none">{{ __('Home') }}</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('products.index') }}"
+                            class="text-decoration-none">{{ __('Products') }}</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ $category->name }}</li>
                 </ol>
             </nav>
 
             <!-- Page Header -->
-            <div class="mb-8">
-                <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <div class="mb-5">
+                <h1 class="display-5 fw-bold mb-3">
                     {{ $category->name }}
                 </h1>
                 @if ($category->description)
-                    <p class="text-xl text-gray-600">{{ $category->description }}</p>
+                    <p class="lead">{{ $category->description }}</p>
                 @endif
             </div>
 
             <!-- Products Grid -->
             @if ($products->count() > 0)
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
+                <div class="row g-4 mb-5">
                     @foreach ($products as $product)
-                        <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-                            <!-- Product Image -->
-                            @if ($product->getFirstMediaUrl('images'))
-                                <img src="{{ $product->getFirstMediaUrl('images') }}" alt="{{ $product->name }}"
-                                    class="w-full h-48 object-cover">
-                            @else
-                                <div class="w-full h-48 bg-gray-200 flex items-center justify-center">
-                                    <svg class="w-16 h-16 text-gray-400" fill="none" stroke="currentColor"
-                                        viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z">
-                                        </path>
-                                    </svg>
-                                </div>
-                            @endif
-
-                            <div class="p-4">
-                                <!-- Product Name -->
-                                <h3 class="text-lg font-semibold mb-2 line-clamp-2">{{ $product->name }}</h3>
-
-                                <!-- Model Number -->
-                                @if ($product->model_number)
-                                    <p class="text-sm text-gray-500 mb-2">{{ __('Model:') }} {{ $product->model_number }}
-                                    </p>
-                                @endif
-
-                                <!-- Description -->
-                                <p class="text-gray-600 text-sm mb-4 line-clamp-3">
-                                    {{ Str::limit($product->description, 120) }}</p>
-
-                                <!-- Price -->
-                                @if ($product->price)
-                                    <div class="flex items-center justify-between mb-4">
-                                        <span
-                                            class="text-2xl font-bold text-blue-600">${{ number_format($product->price, 2) }}</span>
+                        <div class="col-md-6 col-lg-4 col-xl-3">
+                            <div class="card h-100 shadow-sm">
+                                <!-- Product Image -->
+                                @if ($product->getFirstMediaUrl('images'))
+                                    <img src="{{ $product->getFirstMediaUrl('images') }}" alt="{{ $product->name }}"
+                                        class="card-img-top" style="height: 200px; object-fit: cover;">
+                                @else
+                                    <div class="bg-light d-flex align-items-center justify-content-center"
+                                        style="height: 200px;">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48"
+                                            fill="currentColor" class="bi bi-image text-secondary" viewBox="0 0 16 16">
+                                            <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
+                                            <path
+                                                d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z" />
+                                        </svg>
                                     </div>
                                 @endif
 
-                                <!-- Action Button -->
-                                <a href="{{ route('products.show', $product) }}"
-                                    class="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-center inline-block transition-colors font-medium">
-                                    {{ __('View Details') }}
-                                </a>
+                                <div class="card-body d-flex flex-column">
+                                    <!-- Product Name -->
+                                    <h3 class="h5 fw-semibold mb-2 text-truncate">{{ $product->name }}</h3>
+
+                                    <!-- Model Number -->
+                                    @if ($product->model_number)
+                                        <p class="small text-muted mb-2">{{ __('Model:') }} {{ $product->model_number }}
+                                        </p>
+                                    @endif
+
+                                    <!-- Description -->
+                                    <p class="small mb-3"
+                                        style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
+                                        {{ Str::limit($product->description, 120) }}</p>
+
+                                    <!-- Price -->
+                                    @if ($product->price)
+                                        <div class="mb-3">
+                                            <span
+                                                class="fs-4 fw-bold text-primary">${{ number_format($product->price, 2) }}</span>
+                                        </div>
+                                    @endif
+
+                                    <!-- Action Button -->
+                                    <a href="{{ route('products.show', $product) }}" class="btn btn-primary mt-auto">
+                                        {{ __('View Details') }}
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     @endforeach
                 </div>
 
                 <!-- Pagination -->
-                <div class="flex justify-center">
+                <div class="d-flex justify-content-center">
                     {{ $products->links() }}
                 </div>
             @else
                 <!-- No Products Found -->
-                <div class="text-center py-12">
-                    <svg class="w-24 h-24 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor"
-                        viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4">
-                        </path>
+                <div class="text-center py-5">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" fill="currentColor"
+                        class="bi bi-box text-secondary mb-4" viewBox="0 0 16 16">
+                        <path
+                            d="M8.186 1.113a.5.5 0 0 0-.372 0L1.846 3.5 8 5.961 14.154 3.5 8.186 1.113zM15 4.239l-6.5 2.6v7.922l6.5-2.6V4.24zM7.5 14.762V6.838L1 4.239v7.923l6.5 2.6zM7.443.184a1.5 1.5 0 0 1 1.114 0l7.129 2.852A.5.5 0 0 1 16 3.5v8.662a1 1 0 0 1-.629.928l-7.185 2.874a.5.5 0 0 1-.372 0L.63 13.09a1 1 0 0 1-.63-.928V3.5a.5.5 0 0 1 .314-.464L7.443.184z" />
                     </svg>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-2">{{ __('No products found in this category') }}
-                    </h3>
-                    <p class="text-gray-600 mb-4">{{ __('Check back later for new products or browse other categories.') }}
+                    <h3 class="h4 fw-semibold mb-3">{{ __('No products found in this category') }}</h3>
+                    <p class="text-muted mb-4">{{ __('Check back later for new products or browse other categories.') }}
                     </p>
-                    <a href="{{ route('products.index') }}"
-                        class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg inline-block transition-colors">
+                    <a href="{{ route('products.index') }}" class="btn btn-primary px-4">
                         {{ __('Browse All Products') }}
                     </a>
                 </div>
