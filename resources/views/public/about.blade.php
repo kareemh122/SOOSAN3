@@ -213,7 +213,7 @@
         font-size: 1.25rem;
         color: var(--soosan-dark-gray);
         margin-bottom: 2rem;
-        line-height: 1.6;
+        line-height: 1.85;
     }
 
     /* Grid Layout */
@@ -256,7 +256,7 @@
     /* Why Choose Us Section */
     .features-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(341px, 1fr));
         gap: 2rem;
         margin-top: 3rem;
     }
@@ -354,8 +354,8 @@
     }
 
     .btn-primary:hover {
-        background: #003d6b;
-        border-color: #003d6b;
+        background: #b0d701;
+        border-color: #b0d701;
         transform: translateY(-2px);
         box-shadow: 0 4px 15px rgba(0, 84, 142, 0.3);
     }
@@ -769,39 +769,6 @@
                             <p class="feature-description">
                                 We represent SOOSAN's commitment to continuous innovation, bringing you smart features like idle blow prevention and automatic lubrication. At the same time, we promote sustainable practices that reduce environmental impact in every drilling operation.
                             </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Timeline Section -->
-            <div class="animated-card loading">
-                <div class="card-body">
-                    <h2 class="section-title text-center mb-5">{{ __('about.our_journey') }}</h2>
-                    <div class="timeline-container">
-                        <div class="timeline-item">
-                            <h4 class="timeline-title">{{ __('about.timeline_2000_title') }}</h4>
-                            <p class="timeline-description">{{ __('about.timeline_2000_description') }}</p>
-                        </div>
-                        <div class="timeline-item">
-                            <h4 class="timeline-title">{{ __('about.timeline_2005_title') }}</h4>
-                            <p class="timeline-description">{{ __('about.timeline_2005_description') }}</p>
-                        </div>
-                        <div class="timeline-item">
-                            <h4 class="timeline-title">{{ __('about.timeline_2010_title') }}</h4>
-                            <p class="timeline-description">{{ __('about.timeline_2010_description') }}</p>
-                        </div>
-                        <div class="timeline-item">
-                            <h4 class="timeline-title">{{ __('about.timeline_2015_title') }}</h4>
-                            <p class="timeline-description">{{ __('about.timeline_2015_description') }}</p>
-                        </div>
-                        <div class="timeline-item">
-                            <h4 class="timeline-title">{{ __('about.timeline_2020_title') }}</h4>
-                            <p class="timeline-description">{{ __('about.timeline_2020_description') }}</p>
-                        </div>
-                        <div class="timeline-item">
-                            <h4 class="timeline-title">{{ __('about.timeline_today_title') }}</h4>
-                            <p class="timeline-description">{{ __('about.timeline_today_description') }}</p>
                         </div>
                     </div>
                 </div>

@@ -7,7 +7,7 @@
 <style>
     /* Modern Contact Page Styles */
     .contact-hero {
-        background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #1e3a8a 100%);
+        background: #00548e;
         color: white;
         padding: 6rem 0 4rem;
         position: relative;
@@ -66,7 +66,7 @@
         font-weight: 700;
         display: block;
         margin-bottom: 0.5rem;
-        background: linear-gradient(45deg, #fbbf24, #f59e0b);
+        background: #b0d701;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
@@ -97,7 +97,7 @@
         left: 0;
         right: 0;
         height: 4px;
-        background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+        background: #b0d701;
         transform: scaleX(0);
         transition: transform 0.4s ease;
     }
@@ -109,14 +109,14 @@
     .contact-method-card:hover {
         transform: translateY(-12px);
         box-shadow: 0 20px 48px rgba(0, 0, 0, 0.15);
-        border-color: var(--primary-color);
+        border-color: #b0d701;
     }
 
     .method-icon {
         width: 80px;
         height: 80px;
         border-radius: 20px;
-        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        background: #b0d701;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -133,7 +133,7 @@
     }
 
     .method-action {
-        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        background: #00548e;
         color: white;
         border: none;
         border-radius: 12px;
@@ -233,7 +233,7 @@
         width: 60px;
         height: 60px;
         border-radius: 12px;
-        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        background: #00548e;
         display: flex;
         align-items: center;
         justify-content: center;
