@@ -106,7 +106,7 @@
         left: 0;
         right: 0;
         height: 4px;
-        background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+        background: #b0d701;
         transform: scaleX(0);
         transition: transform 0.4s ease;
     }
@@ -118,14 +118,14 @@
     .category-card:hover {
         transform: translateY(-12px);
         box-shadow: 0 20px 48px rgba(0, 0, 0, 0.15);
-        border-color: var(--primary-color);
+        border-color: #b0d701;
     }
 
     .category-icon {
         width: 100px;
         height: 100px;
         border-radius: 25px;
-        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        background: #b0d701;
         display: flex;
         align-items: center;
         justify-content: center;
