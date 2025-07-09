@@ -333,13 +333,12 @@
     .stat-number {
         font-size: 3rem;
         font-weight: 800;
-        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        background: #00548e;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
         margin-bottom: 0.5rem;
         display: block;
-        color: #00548e;
     }
 
     .stat-label {
@@ -353,7 +352,7 @@
     /* Contact Methods */
     .contact-methods {
         padding: 4rem 0;
-        background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+        background: #00548e;
         color: white;
     }
 
