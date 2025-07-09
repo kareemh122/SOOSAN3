@@ -2,16 +2,17 @@
 
 namespace App\Models;
 
+use App\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Owner extends Model
 {
-    use HasFactory;
+    use HasFactory, LogsActivity;
 
     protected $fillable = [
-        'full_name',
-        'phone',
+        'name',
+        'phone_number',
         'email',
         'company',
         'address',

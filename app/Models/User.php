@@ -24,6 +24,8 @@ class User extends Authenticatable
         'role',
         'is_verified',
         'created_by',
+        'phone_number',
+        'image_url',
     ];
 
     /**
@@ -68,5 +70,10 @@ class User extends Authenticatable
     public function isEmployee()
     {
         return $this->role === 'employee';
+    }
+
+    public function canAccessReports()
+    {
+        return $this->isAdmin(); // Only admins can access reports
     }
 }

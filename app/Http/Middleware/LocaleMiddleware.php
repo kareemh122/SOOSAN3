@@ -17,20 +17,27 @@ class LocaleMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
+        $locale = 'en'; // default locale
+
         // Check if language is set in the URL query string
         if ($request->has('lang')) {
-            $locale = $request->lang;
-
+            $requestLocale = $request->lang;
             // Check if the locale is valid (only allow en and ar)
-            if (in_array($locale, ['en', 'ar'])) {
+            if (in_array($requestLocale, ['en', 'ar'])) {
+                $locale = $requestLocale;
                 Session::put('locale', $locale);
-                App::setLocale($locale);
             }
         }
         // Use session locale if available
         elseif (Session::has('locale')) {
-            App::setLocale(Session::get('locale'));
+            $sessionLocale = Session::get('locale');
+            if (in_array($sessionLocale, ['en', 'ar'])) {
+                $locale = $sessionLocale;
+            }
         }
+
+        // Set the application locale
+        App::setLocale($locale);
 
         return $next($request);
     }

@@ -29,6 +29,6 @@ class ContactController extends Controller
         \App\Models\ContactMessage::create($validated);
 
         // Redirect back with success message
-        return redirect()->back()->with('success', 'Thank you for your message. We\'ll get back to you as soon as possible.');
+        return redirect()->back()->with('success', __('common.contact_success'));
     }
 }

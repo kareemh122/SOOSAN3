@@ -1,25 +1,47 @@
 <x-guest-layout>
+    <div class="auth-title">{{ __('auth.reset_password_title') }}</div>
+    <div class="auth-subtitle">{{ __('auth.reset_password_subtitle') }}</div>
+    
     <div class="mb-4 text-sm text-gray-600">
-        {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
+        {{ __('auth.reset_instructions') }}
     </div>
 
     <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+    @if (session('status'))
+        <div class="status-message">
+            <i class="fas fa-check-circle me-2"></i>
+            {{ session('status') }}
+        </div>
+    @endif
 
     <form method="POST" action="{{ route('password.email') }}">
         @csrf
 
         <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+        <div class="form-group">
+            <label for="email" class="form-label">
+                <i class="fas fa-envelope me-2"></i>
+                {{ __('auth.email_address') }}
+            </label>
+            <input id="email" class="form-input" type="email" name="email" value="{{ old('email') }}" required autofocus autocomplete="email" placeholder="{{ __('auth.email_placeholder') }}">
+            @error('email')
+                <div class="form-error">
+                    <i class="fas fa-exclamation-circle"></i>
+                    {{ $message }}
+                </div>
+            @enderror
         </div>
 
-        <div class="flex items-center justify-end mt-4">
-            <x-primary-button>
-                {{ __('Email Password Reset Link') }}
-            </x-primary-button>
+        <div class="d-flex justify-content-between align-items-center mt-4">
+            <a class="auth-link" href="{{ route('login') }}">
+                <i class="fas fa-arrow-left me-1"></i>
+                {{ __('auth.back_to_login') }}
+            </a>
+            
+            <button type="submit" class="auth-button">
+                <i class="fas fa-paper-plane me-2"></i>
+                {{ __('auth.send_reset_link') }}
+            </button>
         </div>
     </form>
 </x-guest-layout>

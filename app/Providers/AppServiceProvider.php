@@ -19,6 +19,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // Register model observers
+        \App\Models\ContactMessage::observe(\App\Observers\ContactMessageObserver::class);
+        \App\Models\PendingChange::observe(\App\Observers\PendingChangeObserver::class);
+        \App\Models\AuditLog::observe(\App\Observers\AuditLogObserver::class);
     }
 }

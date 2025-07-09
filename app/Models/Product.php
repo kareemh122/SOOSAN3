@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
@@ -10,15 +11,13 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class Product extends Model implements HasMedia
 {
-    use HasFactory, InteractsWithMedia;
+    use HasFactory, InteractsWithMedia, LogsActivity;
 
     protected $fillable = [
-        'name',
-        'model_number',
+        'model_name',
+        'line',
+        'type',
         'category_id',
-        'description',
-        'price',
-        // Specifications
         'body_weight',
         'operating_weight',
         'overall_length',
@@ -26,27 +25,19 @@ class Product extends Model implements HasMedia
         'overall_height',
         'required_oil_flow',
         'operating_pressure',
-        'impact_rate_std',
+        'impact_rate',
         'impact_rate_soft_rock',
         'hose_diameter',
         'rod_diameter',
         'applicable_carrier',
-        // Other fields
+        'image_url',
         'is_active',
         'is_featured',
-        'created_by',
     ];
 
     protected $casts = [
         'is_active' => 'boolean',
         'is_featured' => 'boolean',
-        'price' => 'decimal:2',
-        'body_weight' => 'decimal:2',
-        'operating_weight' => 'decimal:2',
-        'overall_length' => 'decimal:2',
-        'overall_width' => 'decimal:2',
-        'overall_height' => 'decimal:2',
-        'rod_diameter' => 'decimal:2',
     ];
 
     // Media collections

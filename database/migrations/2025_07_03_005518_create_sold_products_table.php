@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('product_id')->constrained('products');
             $table->foreignId('owner_id')->constrained('owners');
-            $table->foreignId('employee_id')->constrained('users'); // Employee who logged the sale
+            $table->foreignId('user_id')->constrained('users'); // Employee who logged the sale
             $table->string('serial_number')->unique();
             $table->date('sale_date');
             $table->date('warranty_start_date');

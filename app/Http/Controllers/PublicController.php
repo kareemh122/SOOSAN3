@@ -9,13 +9,16 @@ class PublicController extends Controller
 {
     public function homepage()
     {
-        // Get products for homepage (no is_active/is_featured filter)
-        $featuredProducts = Product::with(['category', 'media'])
-            ->latest()
-            ->limit(3)
-            ->get();
+        // Fetch only the 3 specific products by model_name
+        $featuredProducts = Product::whereIn('model_name', [
+            'SQ43 SSL Easylube',
+            'SB35II SSL',
+            'SB35II Top Cap',
+        ])->with(['category', 'media'])->get();
 
-        return view('public.homepage', compact('featuredProducts'));
+        $serialLookupRoute = route('serial-lookup.index');
+
+        return view('public.homepage', compact('featuredProducts', 'serialLookupRoute'));
     }
 
     public function about()

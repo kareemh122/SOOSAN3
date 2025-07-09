@@ -2,17 +2,18 @@
 
 namespace App\Models;
 
+use App\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class SoldProduct extends Model
 {
-    use HasFactory;
+    use HasFactory, LogsActivity;
 
     protected $fillable = [
         'product_id',
         'owner_id',
-        'employee_id',
+        'user_id',
         'serial_number',
         'sale_date',
         'warranty_start_date',
@@ -22,9 +23,9 @@ class SoldProduct extends Model
     ];
 
     protected $casts = [
-        'sale_date' => 'datetime',
-        'warranty_start_date' => 'datetime',
-        'warranty_end_date' => 'datetime',
+        'sale_date' => 'date',
+        'warranty_start_date' => 'date',
+        'warranty_end_date' => 'date',
         'purchase_price' => 'decimal:2',
     ];
 
@@ -41,7 +42,12 @@ class SoldProduct extends Model
 
     public function employee()
     {
-        return $this->belongsTo(User::class, 'employee_id');
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     // Helper methods
