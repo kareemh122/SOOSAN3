@@ -65,7 +65,7 @@
         width: 60px;
         height: 60px;
         border-radius: 15px;
-        background: linear-gradient(135deg, var(--accent-color), #10b981);
+        background: #b0d701;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -201,9 +201,9 @@
     }
 
     .action-btn {
-        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        background: #00548e;
         color: white;
-        border: none;
+        border: none;   
         border-radius: 16px;
         padding: 1rem 2rem;
         font-weight: 600;
@@ -217,6 +217,7 @@
     }
 
     .action-btn:hover {
+        background-color: #b0d701 !important;
         transform: translateY(-2px);
         box-shadow: 0 8px 24px rgba(37, 99, 235, 0.35);
         color: white;
@@ -338,6 +339,7 @@
         background-clip: text;
         margin-bottom: 0.5rem;
         display: block;
+        color: #00548e;
     }
 
     .stat-label {
@@ -617,7 +619,7 @@
                                 <div class="col-md-3 col-6">
                                     <div class="badge-item">
                                         <div class="badge-icon">
-                                            <i class="fas fa-lightning-bolt"></i>
+                                            <i class="fas fa-comments"></i>
                                         </div>
                                         <h6 class="fw-bold mb-1">{{ __('common.fast_response') }}</h6>
                                         <small class="opacity-75">{{ __('common.less_than_4_hours') }}</small>
