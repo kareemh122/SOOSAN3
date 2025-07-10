@@ -429,8 +429,109 @@
         );
         z-index: 2;
     }
+    .slide-overlay::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(20,30,40,0.55);
+        z-index: 1;
+        pointer-events: none;
+    }
 
     /* Modern Hero Content Section */
+    .hero-content-overlay {
+        position: absolute;
+        left: 7%;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 10;
+        color: #fff;
+        max-width: 600px;
+        width: 90%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        background: none;
+        padding: 0;
+        box-shadow: none;
+    }
+    .hero-main-title {
+        font-size: 4rem;
+        font-weight: 800;
+        line-height: 1.1;
+        color: #fff;
+        margin-bottom: 1.1rem;
+        text-shadow: 0 4px 24px rgba(0,0,0,0.18);
+        letter-spacing: -1px;
+    }
+    .hero-desc {
+        font-size: 1.25rem;
+        color: #e0e7ef;
+        margin-bottom: 2.2rem;
+        font-weight: 400;
+        text-shadow: 0 2px 10px rgba(0,0,0,0.18);
+    }
+    .hero-btn-group {
+        display: flex;
+        gap: 1.2rem;
+        flex-wrap: wrap;
+    }
+    .hero-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        font-size: 1.15rem;
+        font-weight: 700;
+        border-radius: 0.7rem;
+        border: none;
+        outline: none;
+        padding: 1.05rem 2.2rem;
+        background: #00548e;
+        color: #222;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.14);
+        text-decoration: none;
+        transition: all 0.2s cubic-bezier(.4,2,.3,1);
+        cursor: pointer;
+    }
+    .hero-btn i {
+        font-size: 1.15em;
+    }
+    .btn-explore {
+        background: #b0d701;
+        color: #222;
+        border: none;
+    }
+    .btn-explore:hover, .btn-explore:focus {
+        background: #a0c000;
+        color: #fff;
+        transform: translateY(-2px) scale(1.04);
+        box-shadow: 0 8px 32px #b0d70144;
+    }
+    .btn-warranty {
+        background: #fff;
+        color: #00548e;
+        border: 2px solid #b0d701;
+    }
+    .btn-warranty:hover, .btn-warranty:focus {
+        background: #b0d701;
+        color: #222;
+        transform: translateY(-2px) scale(1.04);
+        box-shadow: 0 8px 32px #b0d70144;
+    }
+    @media (max-width: 900px) {
+        .hero-main-title { font-size: 2.2rem; }
+        .hero-content-overlay { left: 4%; max-width: 98vw; }
+    }
+    @media (max-width: 600px) {
+        .hero-main-title { font-size: 1.35rem; }
+        .hero-desc { font-size: 1rem; }
+        .hero-content-overlay { left: 2%; padding: 0; }
+        .hero-btn { font-size: 1rem; padding: 0.85rem 1.2rem; }
+    }
+
     .hero-content-section {
         position: relative;
         background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
@@ -629,38 +730,44 @@
 
     .slider-dots {
         position: absolute;
-        bottom: 2rem;
-        left: 50%;
+        bottom: 9.5rem;
+        left: 25%;
         transform: translateX(-50%);
         display: flex;
         gap: 0.75rem;
-        z-index: 3;
+        z-index: 1001;
+        /* No background, overlay on video */
+        pointer-events: auto;
     }
 
     .dot {
-        width: 14px;
-        height: 14px;
+        width: 16px;
+        height: 16px;
         border-radius: 50%;
-        background: rgba(255, 255, 255, 0.6);
-        border: none;
+        background: transparent;
+        border: 2px solid #00548e;
         cursor: pointer;
-        transition: all 0.4s ease;
+        transition: all 0.3s ease;
         position: relative;
+        opacity: 0.95;
     }
 
     .dot.active {
-        background: white;
-        box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+        background: #00548e;
+        border-color: #00548e;
+        opacity: 1;
     }
 
     .dot:hover {
-        background: white;
+        background: #b0d701;
+        border-color: #b0d701;
         transform: scale(1.2);
+        opacity: 1;
     }
 
     /* Modern Stats Section */
     .stats-section {
-        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        background: #00548e;
         color: white;
         padding: 4rem 0;
         position: relative;
@@ -1273,7 +1380,7 @@
 
     /* Serial Lookup Section */
     .serial-lookup-section {
-        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        background: #00548e;
         color: white;
         padding: 4rem 0;
         text-align: center;
@@ -1309,7 +1416,7 @@
     }
 
     .serial-btn {
-        background: var(--accent-color);
+        background: #b0d701;
         color: white;
         border: none;
         padding: 1rem 2rem;
@@ -1324,7 +1431,7 @@
     }
 
     .serial-btn:hover {
-        background: #22c55e;
+        background: rgb(152, 186, 4);
         transform: translateY(-2px);
     }
 
@@ -1855,7 +1962,20 @@
                     <source src="{{ asset('videos/1751260750371.webm') }}" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
-                <div class="slide-overlay"></div>
+                <div class="slide-overlay">
+                  <div class="hero-content-overlay">
+                    <h1 class="hero-main-title">Advanced Hydraulic Breakers<br>Innovation that Breaks Boundaries</h1>
+                    <p class="hero-desc">Experience unmatched performance with our cutting-edge hydraulic breakers technology designed for the toughest demolition and construction applications.</p>
+                    <div class="hero-btn-group">
+                      <a href="/products" class="hero-btn btn-explore">
+                        <i class="fas fa-arrow-right"></i> Explore Products
+                      </a>
+                      <a href="/serial-lookup" class="hero-btn btn-warranty">
+                        <i class="fas fa-shield-alt"></i> Check Warranty
+                      </a>
+                    </div>
+                  </div>
+                </div>
             </div>
 
             <!-- Slide 2 -->
@@ -1864,7 +1984,20 @@
                     <source src="{{ asset('videos/1751260768956.webm') }}" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
-                <div class="slide-overlay"></div>
+                <div class="slide-overlay">
+                  <div class="hero-content-overlay">
+                  <h1 class="hero-main-title">Advanced Hydraulic Breakers<br>Innovation that Breaks Boundaries</h1>
+                    <p class="hero-desc">Experience unmatched performance with our cutting-edge hydraulic breakers technology designed for the toughest demolition and construction applications.</p>
+                    <div class="hero-btn-group">
+                      <a href="/products" class="hero-btn btn-explore">
+                        <i class="fas fa-arrow-right"></i> Explore Products
+                      </a>
+                      <a href="/serial-lookup" class="hero-btn btn-warranty">
+                        <i class="fas fa-shield-alt"></i> Check Warranty
+                      </a>
+                    </div>
+                  </div>
+                </div>
             </div>
 
             <!-- Slide 3 -->
@@ -1873,18 +2006,21 @@
                     <source src="{{ asset('videos/1751260792190.webm') }}" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
-                <div class="slide-overlay"></div>
+                <div class="slide-overlay">
+                  <div class="hero-content-overlay">
+                  <h1 class="hero-main-title">Advanced Hydraulic Breakers<br>Innovation that Breaks Boundaries</h1>
+                    <p class="hero-desc">Experience unmatched performance with our cutting-edge hydraulic breakers technology designed for the toughest demolition and construction applications.</p>
+                    <div class="hero-btn-group">
+                      <a href="/products" class="hero-btn btn-explore">
+                        <i class="fas fa-arrow-right"></i> Explore Products
+                      </a>
+                      <a href="/serial-lookup" class="hero-btn btn-warranty">
+                        <i class="fas fa-shield-alt"></i> Check Warranty
+                      </a>
+                    </div>
+                  </div>
+                </div>
             </div>
-
-            <!-- Slide 4 -->
-            <div class="hero-slide" data-video="4">
-                <video class="slide-video" muted>
-                    <source src="{{ asset('videos/WhatsApp Video 2025-07-01 at 21.34.41_559c847d.webm') }}" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <div class="slide-overlay"></div>
-            </div>
-        </div>
 
         <!-- Modern Slider Navigation -->
         <button class="slider-nav prev" onclick="changeSlide(-1)">
@@ -1899,7 +2035,6 @@
             <button class="dot active" onclick="currentSlideIndexSet(1)"></button>
             <button class="dot" onclick="currentSlideIndexSet(2)"></button>
             <button class="dot" onclick="currentSlideIndexSet(3)"></button>
-            <button class="dot" onclick="currentSlideIndexSet(4)"></button>
         </div>
     </section>
 
@@ -1928,6 +2063,413 @@
         </div>
     </section>
 
+    <!-- Hydraulic Breaker Product Lines Section (Modern Split Card) -->
+    <section class="breaker-lines-section" id="breaker-lines">  
+        <div class="container">
+            <h2 class="section-title">Hydraulic Breaker Product Lines</h2>
+            <p class="section-description">
+                Discover our comprehensive range of hydraulic breakers, each engineered to deliver exceptional performance across diverse applications and industries.
+            </p>
+            <div class="breaker-tabs">
+            <button class="breaker-tab" data-line="et-ii-line">ET-II Line</button>
+                <button class="breaker-tab active" data-line="sq-line">SQ Line</button>
+                <button class="breaker-tab" data-line="sb-line">SB Line</button>
+                <button class="breaker-tab" data-line="sb-e-line">SB-E Line</button>
+            </div>
+            <div class="breaker-tab-content">
+                <!-- Card content will be injected here by JS -->
+            </div>
+        </div>
+    </section> 
+    <style>
+            .breaker-lines-section {
+                margin-top: 4rem;
+            }
+            .breaker-lines-section .section-title, .breaker-lines-section .section-description{
+                text-align: center;
+            }
+            .breaker-tabs {
+                display: flex;
+                gap: 0.7rem;
+                margin-bottom: 2.3rem;
+                justify-content: center;
+                align-items: center;
+            }
+            .breaker-tab {
+                background: #fff;
+                color: #00548e;
+                border: none;
+                border-radius: 1.5rem 1.5rem 1.5rem 1.5rem;
+                padding: 0.7rem 2.2rem;
+                font-weight: 700;
+                font-size: 1.07rem;
+                box-shadow: 0 2px 10px rgba(0,84,142,0.07);
+                cursor: pointer;
+                transition: background 0.2s, color 0.2s;
+                outline: none;
+            }
+            .breaker-tab.active, .breaker-tab:hover, .breaker-tab:focus {
+                background: #00548e;
+                color: #fff;
+            }
+            .breaker-tab-content {
+                margin-top: 0.5rem;
+                min-height: 340px;
+                display: flex;
+                justify-content: center;
+                align-items: flex-start;
+            }
+            .breaker-product-split-card {
+                display: flex;
+                border-radius: 18px;
+                overflow: hidden;
+                box-shadow: 0 6px 32px rgba(0,84,142,0.10), 0 2px 8px rgba(176,215,1,0.10);
+                background: #fff;
+                min-height: 340px;
+                margin: 0 auto 2.5rem auto;
+                width: 100%;
+                max-width: 900px;
+                transition: box-shadow 0.3s;
+            }
+            .breaker-product-split-card .card-image {
+                flex: 0 0 33%;
+                min-width: 180px;
+                max-width: 280px;
+                position: relative;
+                display: flex;
+                align-items: stretch;
+                background: none;
+                justify-content: center;
+                min-height: 220px;
+            }
+            .breaker-product-split-card .card-image img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+                border-radius: 0;
+                filter: brightness(0.80);
+                background: #e5e7eb;
+            }
+            .breaker-product-split-card .card-image .overlay {
+                position: absolute;
+                top: 0; left: 0; right: 0; bottom: 0;
+                background: linear-gradient(120deg, #00548e 70%, #b0d701 100%);
+                opacity: 0.58;
+                z-index: 1;
+            }
+            .breaker-product-split-card .card-image .line-badge {
+                position: absolute;
+                top: 1.2rem;
+                left: 1.2rem;
+                z-index: 2;
+                background: #00548e;
+                color: #fff;
+                font-weight: 700;
+                font-size: 0.97rem;
+                padding: 0.38rem 1.1rem;
+                border-radius: 1.3rem;
+                letter-spacing: 0.5px;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.10);
+            }
+            .breaker-product-split-card .card-info {
+                flex: 1 1 0%;
+                background: #fff;
+                padding: 2.3rem 2.7rem 2.3rem 2.2rem;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+            .breaker-product-split-card .subtitle {
+                color: #00548e;
+                font-weight: 800;
+                font-size: 1.65rem;
+                margin-bottom: 0.3rem;
+                display: flex;
+                align-items: center;
+                gap: 0.7rem;
+            }
+            .breaker-product-split-card .subtitle i {
+                color: #b0d701;
+                font-size: 1.2rem;
+            }
+            .breaker-product-split-card .description {
+                color:#222;
+                font-size:1.08rem;
+                margin-bottom: 1.1rem;
+                line-height: 1.8;
+            }
+            .breaker-product-split-card .features {
+                margin-bottom: 0.9rem;
+            }
+            .breaker-product-split-card .features-title {
+                color: #00548e;
+                font-weight: 700;
+                font-size: 1.2rem;
+                margin-bottom: 0.3rem;
+                display: flex;
+                align-items: center;
+                gap: 0.6rem;
+            }
+            .breaker-product-split-card .features-title i {
+                color: #b0d701;
+                font-size: 1.1rem;
+            }
+            .breaker-feature-list {
+                gap: 2.5rem;
+                margin: 0 0 0.7rem 0;
+                padding: 0;
+                font-size: 1.03rem;
+                font-weight: 600;
+            }
+            .breaker-feature-list li {
+                min-width: 0;
+                flex: 1 1 0;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                text-align: left;
+                margin-bottom: 0.2rem;
+            }
+            .breaker-feature-list li i {
+                color:rgb(156, 191, 4);
+                font-size: 1.04rem;
+            }
+            .breaker-product-split-card .apps-title {
+                color: #00548e;
+                font-weight: 700;
+                font-size: 1.2rem;
+                margin-bottom: 0.35rem;
+                display: flex;
+                align-items: center;
+                gap: 0.6rem;
+            }
+            .breaker-product-split-card .apps-title i {
+                color: #b1d50e;
+                font-size: 1.rem;
+            }
+            .breaker-product-apps {
+                display: flex;
+                flex-wrap: nowrap;
+                gap: 1.1rem;
+                margin-bottom: 1.1rem;
+            }
+            .breaker-app-label {
+                display: inline-block;
+                background: #b1d50e;
+                color: #fff;
+                font-size: 0.85rem;
+                font-weight: 600;
+                border-radius: 1.2rem;
+                padding: 0.3rem 1.1rem;
+                margin: 0;
+                box-shadow: 0 2px 8px rgba(176,215,1,0.10);
+                transition: background 0.18s, color 0.18s;
+        }
+            .breaker-product-actions {
+                display: flex;
+                gap: 1.1rem;
+                margin-top: 1.1rem;
+            }
+            .breaker-product-btn {
+                background: #00548e;
+                color: #fff;
+                font-weight: 700;
+                border: none;
+                border-radius: 1.5rem;
+                padding: 0.7rem 2.2rem;
+                font-size: 1.03rem;
+                cursor: pointer;
+                transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+                box-shadow: 0 2px 12px rgba(0,84,142,0.09);
+                outline: none;
+                display: flex;
+                align-items: center;
+                gap: 0.7rem;
+            }
+            .breaker-product-btn:hover, .breaker-product-btn:focus {
+                background: #b0d701;
+                color: #fff;
+            }
+            @media (max-width: 900px) {
+                .breaker-product-split-card {
+                    flex-direction: column;
+                    min-height: unset;
+                }
+                .breaker-product-split-card .card-image {
+                    min-width: 100%;
+                    height: 180px;
+                    max-width: unset;
+                }
+                .breaker-product-split-card .card-image img {
+                    min-height: 180px;
+                }
+                .breaker-product-split-card .card-info {
+                    padding: 1.5rem 1.1rem 1.3rem 1.1rem;
+                }
+            }
+            @media (max-width: 600px) {
+                .breaker-lines-section {
+                    padding: 2.1rem 0 1.2rem 0;
+                }
+                .breaker-tabs {
+                    gap: 0.4rem;
+                }
+                .breaker-tab {
+                    padding: 0.5rem 0.7rem;
+                    font-size: 0.92rem;
+                }
+                .breaker-tab-content {
+                    min-height: 0;
+                }
+                .breaker-product-split-card .card-info {
+                    padding: 1rem 0.5rem 1rem 0.5rem;
+                }
+            }
+    </style>
+    <script>
+            // Data for each product line
+            const breakerLinesData = {
+                'sq-line': {
+                    name: 'SQ Line',
+                    image: 'https://res.cloudinary.com/dikwwdtgc/image/upload/v1751631832/SQ35_SSL_Easylube_p1ocrn.png',
+                    subtitle: 'SQ Line',
+                    description: `The SQ Premium Series range of breakers integrates SOOSAN’s unique technology to increase productivity, lower cost of operation and improve operator convenience`,
+                    features: [
+                        'Reliable performance',
+                        'Cost-effective solution',
+                        'Easy maintenance',
+                        'Versatile applications',
+                    ],
+                    applications: [
+                        'General construction',
+                        'Road works',
+                        'Building demolition',
+                    ],
+                    filter: 'SQ Line',
+                },
+                'sb-line': {
+                    name: 'SB Line',
+                    image: 'https://res.cloudinary.com/dikwwdtgc/image/upload/v1751662920/SB100_side-removebg-preview_gahxhf.png',
+                    subtitle: 'Standard Excellence Series',
+                    description: `The SB Line offers proven durability and power, with a simple structure, high impact energy, and compatibility across carriers suitable for tough demolition, excavation work, mining, quarrying, and large scale construction.`,
+                    features: [
+                        'Reliable performance',
+                        'Cost-effective solution',
+                        'Easy maintenance',
+                        'Versatile applications',
+                    ],
+                    applications: [
+                        'General construction',
+                        'Road works',
+                        'Building demolition',
+                    ],
+                    filter: 'SB Line',
+                },
+                'sb-e-line': {
+                    name: 'SB-E Line',
+                    image: [
+                        'https://res.cloudinary.com/dikwwdtgc/image/upload/v1751671246/SB35E_top_cap_i5orbu.jpg',
+                        'https://res.cloudinary.com/dikwwdtgc/image/upload/v1751671259/SBB30E_top_cap_fbb5qk.jpg',
+                    ],
+                    subtitle: 'Enhanced Efficiency Series',
+                    description: `Engineered for enhanced performance, the SB-E Line combines advanced technology, strong impact force, and increased longevity perfect for demanding jobsites ,precision-driven operations, mining, quarrying, and large scale construction.`,
+                    features: [
+                        'Reliable performance',
+                        'Cost-effective solution',
+                        'Easy maintenance',
+                        'Versatile applications',
+                    ],
+                    applications: [
+                        'General construction',
+                        'Road works',
+                        'Building demolition',
+                    ],
+                    filter: 'SB-E Line',
+                },
+                'et-ii-line': {
+                    name: 'ET-II Line',
+                    image: 'https://res.cloudinary.com/dikwwdtgc/image/upload/v1751673317/ETII200-removebg-preview_kvxysk.png',
+                    subtitle: 'Elite Technology Series',
+                    description: `Open Type design built for heavy-duty efficiency, the ET-II Line delivers extreme breaking power, user-friendly maintenance, and exceptional durability, optimal for mining, quarrying, and large-scale construction`,
+                    features: [
+                        'State-of-the-art technology',
+                        'Maximum power output',
+                        'Advanced diagnostics',
+                        'Premium components',
+                    ],
+                    applications: [
+                        'Large-scale mining',
+                        'Major infrastructure',
+                        'Industrial demolition',
+                    ],
+                    filter: 'ET-II Line',
+                },
+            };
+
+            function renderBreakerSplitCard(lineKey) {
+                const data = breakerLinesData[lineKey];
+                if (!data) return '';
+                let imageHTML = '';
+                if (Array.isArray(data.image)) {
+                    imageHTML = data.image.map(img => `<img src="${img}" alt="${data.name}" onerror="this.src='https://via.placeholder.com/320x240?text=No+Image'" style="width:50%;display:inline-block;object-fit:cover;" />`).join('');
+                } else {
+                    imageHTML = `<img src="${data.image}" alt="${data.name}" onerror="this.src='https://via.placeholder.com/320x240?text=No+Image'" />`;
+                }
+                return `
+                <div class="breaker-product-split-card">
+                    <div class="card-image">
+                        ${imageHTML}
+                        <div class="line-badge">${data.name}</div>
+                    </div>
+                    <div class="card-info">
+                        <div class="subtitle"><i class="fas fa-award"></i> ${data.subtitle}</div>
+                        <div class="description">${data.description}</div>
+                        <div class="features">
+                            <div class="features-title"><i class="fas fa-bolt"></i> Key Features</div>
+                            <ul class="breaker-feature-list">
+                                ${data.features.map(f => `<li><i class='fas fa-check-circle'></i> ${f}</li>`).join('')}
+                            </ul>
+                        </div>
+                        <div class="apps-title"><i class="fas fa-industry"></i> Applications</div>
+                        <div class="breaker-product-apps">
+                            ${data.applications.map(app => `<span class="breaker-app-label">${app}</span>`).join('')}
+                        </div>
+                        <div class="breaker-product-actions">
+                            <button class="breaker-product-btn explore-btn" data-filter="${data.filter}"><i class="fas fa-arrow-right"></i> Explore More</button>
+                        </div>
+                    </div>
+                </div>
+                `;
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+                const tabs = document.querySelectorAll('.breaker-tab');
+                const content = document.querySelector('.breaker-tab-content');
+                function setActiveTab(tab) {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    const line = tab.getAttribute('data-line');
+                    content.innerHTML = renderBreakerSplitCard(line);
+                }
+                // Initial render
+                setActiveTab(tabs[0]);
+                tabs.forEach(tab => {
+                    tab.addEventListener('click', function() {
+                        setActiveTab(this);
+                    });
+                });
+                // Handle Explore More button click
+                content.addEventListener('click', function(e) {
+                    if (e.target.closest('.explore-btn')) {
+                        const btn = e.target.closest('.explore-btn');
+                        const filter = btn.getAttribute('data-filter');
+                        window.location.href = `/products?line[]=${encodeURIComponent(filter)}`;
+                    }
+                });
+            });
+    </script>
+
+    
     <!-- Modern Stats Section -->
     <section class="stats-section">
         <div class="container">
@@ -1969,7 +2511,7 @@
             <div class="row align-items-center">
                 <div class="col-lg-6 order-lg-1" data-aos="fade-right" data-aos-delay="200">
                     <div class="content-block">
-                        <h2 class="display-4 fw-bold text-primary mb-4">
+                        <h2 class="display-4 fw-bold mb-4" style="color: #00548e">
                             <span id="typed-innovation"></span>
                         </h2>
                         <p class="lead text-muted mb-4">
@@ -2009,7 +2551,7 @@
             <div class="row align-items-center">
                 <div class="col-lg-6 order-lg-2" data-aos="fade-left" data-aos-delay="200">
                     <div class="content-block">
-                        <h2 class="display-4 fw-bold text-primary mb-4">
+                        <h2 class="display-4 fw-bold mb-4" style="color: #00548e">
                             <span id="typed-global"></span>
                         </h2>
                         <p class="lead text-muted mb-4">
@@ -2018,19 +2560,19 @@
                         <div class="stats-grid row">
                             <div class="col-4 text-center">
                                 <div class="stat-item">
-                                    <h3 class="h2 fw-bold text-primary">50+</h3>
+                                    <h3 class="h2 fw-bold" style="color: #00548e">50+</h3>
                                     <p class="text-muted">{{ __('homepage.countries_stat') }}</p>
                                 </div>
                             </div>
                             <div class="col-4 text-center">
                                 <div class="stat-item">
-                                    <h3 class="h2 fw-bold text-primary">1000+</h3>
+                                    <h3 class="h2 fw-bold" style="color: #00548e">1000+</h3>
                                     <p class="text-muted">{{ __('homepage.projects_stat') }}</p>
                                 </div>
                             </div>
                             <div class="col-4 text-center">
                                 <div class="stat-item">
-                                    <h3 class="h2 fw-bold text-primary">24/7</h3>
+                                    <h3 class="h2 fw-bold" style="color: #00548e">24/7</h3>
                                     <p class="text-muted">{{ __('homepage.support_stat') }}</p>
                                 </div>
                             </div>
@@ -2055,7 +2597,7 @@
             <div class="row align-items-center">
                 <div class="col-lg-6 order-lg-1" data-aos="fade-right" data-aos-delay="200">
                     <div class="content-block">
-                        <h2 class="display-4 fw-bold text-primary mb-4">
+                        <h2 class="display-4 fw-bold mb-4" style="color: #00548e">
                             <span id="typed-quality"></span>
                         </h2>
                         <p class="lead text-muted mb-4">
@@ -2091,45 +2633,258 @@
         </div>
     </section>
 
-    <!-- Section 4: Future Vision -->
-    <section class="scroll-section bg-gradient-primary text-white py-5" data-aos="fade-up" data-aos-duration="1000">
+    
+    <!-- Highlights Section -->
+    <section class="highlights-section" id="highlights">
         <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6 order-lg-2" data-aos="fade-left" data-aos-delay="200">
-                    <div class="content-block">
-                        <h2 class="display-4 fw-bold mb-4">
-                            <span id="typed-future"></span>
-                        </h2>
-                        <p class="lead mb-4">
-                            {{ __('homepage.future_section_description') }}
-                        </p>
-                        <div class="future-features">
-                            <div class="feature-item d-flex align-items-center mb-3">
-                                <i class="fas fa-robot me-3"></i>
-                                <span>{{ __('homepage.ai_powered_automation') }}</span>
-                            </div>
-                            <div class="feature-item d-flex align-items-center mb-3">
-                                <i class="fas fa-leaf me-3"></i>
-                                <span>{{ __('homepage.sustainable_solutions') }}</span>
-                            </div>
-                            <div class="feature-item d-flex align-items-center">
-                                <i class="fas fa-satellite me-3"></i>
-                                <span>{{ __('homepage.iot_integration') }}</span>
-                            </div>
-                        </div>
-                    </div>
+            <div class="section-header">
+                <h2 class="section-title">Highlights</h2>
+                <p class="section-description">Explore some of our featured moments.</p>
+            </div>
+            <div class="highlights-grid">
+                <div class="highlight-item animate-fade-in">
+                    <video class="highlight-media" src="/videos/video1.mp4" controls preload="metadata" poster="/images/thumbnail1.webp" title="Hydraulic Breakers"></video>
                 </div>
-                <div class="col-lg-6 order-lg-1" data-aos="fade-right" data-aos-delay="400">
-                    <div class="image-block">
-                        <img src="https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                             alt="Future Vision" 
-                             class="img-fluid"
-                             style="width: 100%; height: 400px; object-fit: contain; background: none; box-shadow: none; border-radius: 0;">
-                    </div>
+                <div class="highlight-item animate-fade-in">
+                    <video class="highlight-media" src="/videos/video2.mp4" controls preload="metadata" poster="/images/thumbnail2.webp" title="Hydraulic Breakers"></video>
+                </div>
+                <div class="highlight-item animate-fade-in">
+                    <video class="highlight-media" src="/videos/video3.webm" controls preload="metadata" poster="/images/thumbnail3.webp" title="Hydraulic Breakers"></video>
+                </div>
+                <div class="highlight-item animate-fade-in">
+                    <img class="highlight-media" src="/images/img7.webp" alt="Highlight Image 1">
+                </div>
+                <div class="highlight-item animate-fade-in">
+                    <img class="highlight-media" src="/images/img8.webp" alt="Highlight Image 2">
+                </div>
+                <div class="highlight-item animate-fade-in">
+                    <img class="highlight-media" src="/images/img10.webp" alt="Highlight Image 3">
                 </div>
             </div>
         </div>
     </section>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const videos = document.querySelectorAll('.highlight-item video.highlight-media');
+
+            videos.forEach(video => {
+                video.setAttribute('tabindex', '0');
+
+                // Focus video on click for keyboard control
+                video.addEventListener('click', () => video.focus());
+
+                // Just for debugging: remove this if not needed
+                video.addEventListener('loadedmetadata', () => {
+                    console.log("Video loaded:", video.src, "duration:", video.duration);
+                });
+            });
+
+            document.addEventListener('keydown', function (e) {
+                const video = document.activeElement;
+                if (!video || video.tagName.toLowerCase() !== 'video') return;
+
+                const key = e.key.toLowerCase();
+                const isReady = video.readyState >= 2 && !isNaN(video.duration);
+
+                if (["arrowright", "arrowleft", "arrowup", "arrowdown", "m", "f", "escape"].includes(key)) {
+                    e.preventDefault();
+                }
+
+                switch (key) {
+                    case "arrowright":
+                        if (isReady) {
+                            video.currentTime = Math.min(video.duration, video.currentTime + 5);
+                        } else {
+                            console.warn("Video not ready to seek forward.");
+                        }
+                        break;
+
+                    case "arrowleft":
+                        if (isReady) {
+                            video.currentTime = Math.max(0, video.currentTime - 5);
+                        } else {
+                            console.warn("Video not ready to seek backward.");
+                        }
+                        break;
+
+                    case "arrowup":
+                        video.volume = Math.min(1, video.volume + 0.1);
+                        break;
+
+                    case "arrowdown":
+                        video.volume = Math.max(0, video.volume - 0.1);
+                        break;
+
+                    case "m":
+                        video.muted = !video.muted;
+                        break;
+
+                    case "f":
+                        const isFullscreen =
+                            document.fullscreenElement === video ||
+                            document.webkitFullscreenElement === video ||
+                            document.msFullscreenElement === video;
+
+                        if (!isFullscreen) {
+                            if (video.requestFullscreen) video.requestFullscreen();
+                            else if (video.webkitRequestFullscreen) video.webkitRequestFullscreen();
+                            else if (video.msRequestFullscreen) video.msRequestFullscreen();
+                        } else {
+                            if (document.exitFullscreen) document.exitFullscreen();
+                            else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+                            else if (document.msExitFullscreen) document.msExitFullscreen();
+                        }
+                        break;
+
+                    case "escape":
+                        if (document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement) {
+                            if (document.exitFullscreen) document.exitFullscreen();
+                            else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+                            else if (document.msExitFullscreen) document.msExitFullscreen();
+                        }
+                        break;
+                }
+            });
+        });
+    </script>
+
+    <style>
+        .highlights-section {
+            background: linear-gradient(135deg, #f8fafc 0%, #e0e7ef 100%);
+            padding: 4rem 0 3rem;
+        }
+        .highlights-section .section-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+        .highlights-section .section-description {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 0;
+        }
+        .highlights-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(320px, 1fr));
+            gap: 2.8rem;
+            align-items: stretch;
+            justify-items: center;
+            margin-bottom: 1.5rem;
+        }
+        .highlight-item {
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(37, 99, 235, 0.13);
+            overflow: hidden;
+            transition: transform 0.32s cubic-bezier(.4,2,.3,1), box-shadow 0.32s, filter 0.25s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 250px;
+            max-width: 100%;
+            position: relative;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(40px) scale(0.98);
+            animation: fadeInUp 0.7s forwards;
+            will-change: transform, box-shadow, filter;
+        }
+        .highlight-item:hover, 
+        .highlight-item:focus-within {
+            transform: translateY(-12px);
+            transform: scale(1.2);
+            box-shadow: 0 16px 48px 0 rgba(0,84,142,0.16), 0 4px 16px rgba(176,215,1,0.11);
+            filter: brightness(1.08) saturate(1.18);
+            z-index: 2;
+        }
+        .highlight-media {
+            width: 100%;
+            height: 320px;
+            max-width: 100%;
+            object-fit: cover;
+            background: #e0e7ef;
+            display: block;
+            transition: filter 0.3s, box-shadow 0.3s;
+            border-radius: 0;
+            outline: none;
+        }
+        .highlight-item video.highlight-media {
+            object-fit: contain;
+            background: #000;
+        }
+        .highlight-item:hover .highlight-media, .highlight-item:focus-within .highlight-media {
+            filter: brightness(1.09) saturate(1.2) drop-shadow(0 2px 12px #b0d70133);
+        }
+        .highlight-item video.highlight-media {
+            aspect-ratio: 16/9;
+            min-height: 220px;
+            min-width: 320px;
+            height: 320px;
+            width: 100%;
+            max-width: 100%;
+            background: #000;
+            border: none;
+            display: block;
+            outline: none;
+            object-fit: contain;
+            /* Letterbox for portrait videos */
+        }
+        .highlight-item video.highlight-media::-webkit-media-controls {
+            opacity: 1 !important;
+        }
+        .highlight-item video.highlight-media:focus {
+            outline: 2px solid #b0d701;
+        }
+        .highlight-item:active {
+            filter: brightness(1.04) saturate(1.08);
+        }
+        .highlight-item img.highlight-media {
+            aspect-ratio: 16/9;
+            min-height: 220px;
+            min-width: 320px;
+            height: 320px;
+            width: 100%;
+            max-width: 100%;
+            background: #e0e7ef;
+            border: none;
+            display: block;
+        }
+        @media (max-width: 1200px) {
+            .highlights-grid {
+                grid-template-columns: repeat(2, minmax(320px, 1fr));
+            }
+            .highlight-media {
+                height: 220px;
+            }
+        }
+        @media (max-width: 800px) {
+            .highlights-grid {
+                grid-template-columns: 1fr;
+            }
+            .highlight-media {
+                height: 180px;
+            }
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @media (max-width: 1200px) {
+            .highlights-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (max-width: 800px) {
+            .highlights-grid {
+                grid-template-columns: 1fr;
+            }
+            .highlight-media {
+                height: 180px;
+            }
+        }
+    </style>
 
     <!-- Modern Product Search Section -->
     <section class="product-search-section" id="search">
@@ -2170,7 +2925,6 @@
             </div>
             
             <div class="product-categories">
-                <button class="category-btn active" data-category="all">{{ __('homepage.all_products') }}</button>
                 <button class="category-btn" data-category="hydraulic">{{ __('homepage.hydraulic_rock_drill') }}</button>
             </div>
 
@@ -2301,66 +3055,6 @@
         </div>
     </section>
 
-    <!-- Features Section -->
-    <section class="features-section" id="about">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">{{ __('homepage.why_choose_title') }}</h2>
-                <p class="section-description">{{ __('homepage.features_section_description') }}</p>
-            </div>
-
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h3 class="feature-title">{{ __('homepage.quality_guaranteed_title') }}</h3>
-                    <p class="feature-description">{{ __('homepage.quality_guaranteed_description') }}</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-rocket"></i>
-                    </div>
-                    <h3 class="feature-title">{{ __('homepage.advanced_technology_title') }}</h3>
-                    <p class="feature-description">{{ __('homepage.advanced_technology_description') }}</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-globe"></i>
-                    </div>
-                    <h3 class="feature-title">{{ __('homepage.global_support_title') }}</h3>
-                    <p class="feature-description">{{ __('homepage.global_support_description') }}</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <h3 class="feature-title">{{ __('homepage.expert_team_title') }}</h3>
-                    <p class="feature-description">{{ __('homepage.expert_team_description') }}</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-leaf"></i>
-                    </div>
-                    <h3 class="feature-title">{{ __('homepage.eco_friendly_title') }}</h3>
-                    <p class="feature-description">{{ __('homepage.eco_friendly_description') }}</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-clock"></i>
-                    </div>
-                    <h3 class="feature-title">{{ __('homepage.service_24_7_title') }}</h3>
-                    <p class="feature-description">{{ __('homepage.service_24_7_description') }}</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Serial Lookup CTA -->
     <section class="serial-lookup-section" id="warranty">
         <div class="container">
@@ -2379,49 +3073,387 @@
         </div>
     </section>
 
-    <!-- Industries Section -->
-    <section class="industries-section">
+    <!-- Soosan Youtube Section -->
+    <section class="soosan-youtube-section" id="soosan-youtube">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">{{ __('homepage.industries_title') }}</h2>
-                <p class="section-description">{{ __('homepage.industries_description') }}</p>
+                <h2 class="section-title">Soosan Youtube</h2>
+                <p class="section-description">Discover our latest videos and insights on the official Soosan YouTube channel.</p>
             </div>
-
-            <div class="industries-grid">
-                <div class="industry-card">
-                    <div class="industry-icon">
-                        <i class="fas fa-building"></i>
-                    </div>
-                    <h3 class="industry-title">{{ __('homepage.construction_title') }}</h3>
-                    <p class="industry-description">{{ __('homepage.construction_description') }}</p>
+            <div class="youtube-video-grid">
+                <div class="youtube-video-item">
+                    <iframe src="https://www.youtube.com/embed/cMefr35fupY" title="Soosan Video 3" frameborder="0" allowfullscreen loading="lazy" aria-label="Soosan YouTube Video 3"></iframe>
                 </div>
-
-                <div class="industry-card">
-                    <div class="industry-icon">
-                        <i class="fas fa-mountain"></i>
-                    </div>
-                    <h3 class="industry-title">{{ __('homepage.mining_title') }}</h3>
-                    <p class="industry-description">{{ __('homepage.mining_description') }}</p>
+                <div class="youtube-video-item">
+                    <iframe src="https://www.youtube.com/embed/iJmuKhtD_nk" title="Soosan Video 2" frameborder="0" allowfullscreen loading="lazy" aria-label="Soosan YouTube Video 2"></iframe>
                 </div>
-
-                <div class="industry-card">
-                    <div class="industry-icon">
-                        <i class="fas fa-road"></i>
-                    </div>
-                    <h3 class="industry-title">{{ __('homepage.infrastructure_title') }}</h3>
-                    <p class="industry-description">{{ __('homepage.infrastructure_description') }}</p>
+                <div class="youtube-video-item">
+                    <iframe src="https://www.youtube.com/embed/AGvShKigxLg" title="Soosan Video 4" frameborder="0" allowfullscreen loading="lazy" aria-label="Soosan YouTube Video 4"></iframe>
                 </div>
-
-                <div class="industry-card">
-                    <div class="industry-icon">
-                        <i class="fas fa-bolt"></i>
-                    </div>
-                    <h3 class="industry-title">{{ __('homepage.energy_title') }}</h3>
-                    <p class="industry-description">{{ __('homepage.energy_description') }}</p>
-                </div>
+            </div>
+            <div class="youtube-explore-btn-wrapper">
+                <a href="https://www.youtube.com/@soosancebotics" class="btn btn-primary youtube-explore-btn" target="_blank" rel="noopener" aria-label="Explore more on YouTube">
+                     <i class="fas fa-arrow-right"></i> Explore More
+                </a>
             </div>
         </div>
     </section>
+
+    <style>
+        .soosan-youtube-section {
+            background: linear-gradient(135deg, #f8fafc 0%, #e0e7ef 100%);
+            padding: 4rem 0 3rem;
+            margin-bottom: 0;
+        }
+        .soosan-youtube-section .section-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+        .soosan-youtube-section .section-description {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 0;
+        }
+        .youtube-video-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(360px, 1fr));
+            gap: 3.5rem;
+            margin-bottom: 2.5rem;
+            justify-items: center;
+            align-items: stretch;
+        }
+        .youtube-video-item {
+            position: relative;
+            border-radius: 0;
+            overflow: hidden;
+            box-shadow: 0 6px 32px rgba(37, 99, 235, 0.13);
+            background: #000;
+            transition: box-shadow 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+        }
+        .youtube-video-item:hover {
+            box-shadow: 0 8px 32px rgba(37, 99, 235, 0.18);
+        }
+        .youtube-video-item iframe {
+            width: 100%;
+            height: 100%;
+            min-width: 400px;
+            min-height: 250px;
+            max-width: 100%;
+            max-height: 100%;
+            border: none;
+            display: block;
+            border-radius: 0;
+            background: #000;
+            aspect-ratio: 16/9;
+            /* Ensure controls are visible */
+            allowfullscreen: true;
+            allow: accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;
+        }
+        .youtube-explore-btn-wrapper {
+            text-align: center;
+        }
+        .youtube-explore-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 700;
+            font-size: 1.1rem;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            box-shadow: 0 4px 20px rgba(74, 222, 128, 0.16);
+            background: #00548e;
+            color: #fff;
+            transition: background 0.2s, transform 0.2s;
+            text-decoration: none;
+            border: none;
+        }
+        .youtube-explore-btn:hover {
+            background: #b0d701;
+            transform: translateY(-2px);
+            color: #fff;
+        }
+        .youtube-explore-btn i {
+            font-size: 1.1em;
+            margin-left: 0.5em;
+            transition: transform 0.2s;
+        }
+        .youtube-explore-btn:hover i {
+            transform: translateX(4px);
+        }
+        @media (max-width: 1200px) {
+            .youtube-video-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .youtube-video-item {
+                max-width: 95vw;
+                height: 240px;
+            }
+        }
+        @media (max-width: 900px) {
+            .youtube-video-grid {
+                grid-template-columns: 1fr;
+            }
+            .youtube-video-item {
+                max-width: 100vw;
+                height: 200px;
+            }
+        }
+    </style>
+
+
+    <!-- Industries We Serve Section -->
+    <section class="industries-serve-section" id="industries-serve">
+        <div class="container">
+            <h2 class="industries-serve-title">Powering Every Industry</h2>
+            <p class="industries-serve-desc">
+                Our hydraulic breakers and equipment solutions serve diverse industries worldwide,<br>
+                delivering exceptional performance across all applications and environments.
+            </p>
+            <div class="industries-serve-grid">
+                <!-- Card 1: Construction -->
+                <div class="industry-serve-card">
+                    <div class="industry-serve-img-wrap">
+                        <img src="/images/img10.webp" alt="Construction" class="industry-serve-img" />
+                    </div>
+                    <div class="industry-serve-content">
+                        <h3 class="industry-serve-name">Construction</h3>
+                        <p class="industry-serve-description">Building the future with reliable equipment for all construction needs, from residential to commercial projects.</p>
+                        <div class="industry-serve-apps-title">Key Applications:</div>
+                        <ul class="industry-serve-apps">
+                            <li>Building demolition</li>
+                            <li>Site preparation</li>
+                            <li>Foundation work</li>
+                        </ul>
+                    </div>
+                    <div class="industry-progress-bar"></div>
+                </div>
+                <!-- Card 2: Infrastructure -->
+                <div class="industry-serve-card">
+                    <div class="industry-serve-img-wrap">
+                        <img src="/images/img4.webp" alt="Infrastructure" class="industry-serve-img" />
+                    </div>
+                    <div class="industry-serve-content">
+                        <h3 class="industry-serve-name">Infrastructure</h3>
+                        <p class="industry-serve-description">Developing critical infrastructure with heavy-duty machinery for roads, bridges, and public works.</p>
+                        <div class="industry-serve-apps-title">Key Applications:</div>
+                        <ul class="industry-serve-apps">
+                            <li>Road construction</li>
+                            <li>Bridge building</li>
+                            <li>Utility installation</li>
+                        </ul>
+                    </div>
+                    <div class="industry-progress-bar"></div>
+                </div>
+                <!-- Card 3: Mining -->
+                <div class="industry-serve-card">
+                    <div class="industry-serve-img-wrap">
+                        <img src="/images/img9.webp" alt="Mining" class="industry-serve-img" />
+                    </div>
+                    <div class="industry-serve-content">
+                        <h3 class="industry-serve-name">Mining</h3>
+                        <p class="industry-serve-description">Extracting resources efficiently with specialized mining equipment designed for harsh underground conditions.</p>
+                        <div class="industry-serve-apps-title">Key Applications:</div>
+                        <ul class="industry-serve-apps">
+                            <li>Rock breaking</li>
+                            <li>Quarry operations</li>
+                            <li>Tunnel construction</li>
+                        </ul>
+                    </div>
+                    <div class="industry-progress-bar"></div>
+                </div>
+                <!-- Card 4: Industrial -->
+                <div class="industry-serve-card">
+                    <div class="industry-serve-img-wrap">
+                        <img src="/images/img6.webp" alt="Industrial" class="industry-serve-img" />
+                    </div>
+                    <div class="industry-serve-content">
+                        <h3 class="industry-serve-name">Industrial</h3>
+                        <p class="industry-serve-description">Supporting industrial operations with robust equipment for manufacturing and processing environments.</p>
+                        <div class="industry-serve-apps-title">Key Applications:</div>
+                        <ul class="industry-serve-apps">
+                            <li>Material handling</li>
+                            <li>Plant maintenance</li>
+                            <li>Equipment installation</li>
+                        </ul>
+                    </div>
+                    <div class="industry-progress-bar"></div>
+                </div>
+            </div>
+        </div>
+        <style>
+            .industries-serve-section {
+                background: linear-gradient(135deg, #f8fafc 0%, #e0e7ef 100%);
+                padding: 4rem 0 3rem 0;
+                margin-top: 0;
+            }
+            .industries-serve-title {
+                text-align: center;
+                font-size: 3.5rem;
+                font-weight: 800;
+                margin-bottom: 0.7rem;
+                letter-spacing: -1px;
+            }
+            .industries-serve-desc {
+                text-align: center;
+                color: #223;
+                font-size: 1.13rem;
+                margin-bottom: 2.5rem;
+                line-height: 1.5;
+            }
+            .industries-serve-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2.5rem 2.5rem;
+                justify-items: center;
+                align-items: stretch;
+                max-width: 1100px;
+                margin: 0 auto;
+            }
+            .industry-serve-card {
+                background: #fff;
+                border-radius: 18px;
+                box-shadow: 0 8px 32px rgba(37,99,235,0.13);
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+                transition: transform 0.32s cubic-bezier(.4,2,.3,1), box-shadow 0.32s, filter 0.25s;
+                min-width: 0;
+                position: relative;
+                min-height: 420px;
+                width: 100%;
+                cursor: pointer;
+                will-change: transform, box-shadow, filter;
+            }
+            .industry-serve-card:hover, .industry-serve-card:focus-within {
+                transform: translateY(-12px) scale(1.035);
+                box-shadow: 0 16px 48px 0 rgba(0,84,142,0.16), 0 4px 16px rgba(176,215,1,0.11);
+                filter: brightness(1.07) saturate(1.14);
+                z-index: 2;
+            }
+            .industry-serve-img-wrap {
+                width: 100%;
+                height: 170px;
+                background: #eee;
+                display: flex;
+                align-items: flex-end;
+                justify-content: center;
+                overflow: hidden;
+                position: relative;
+            }
+            .industry-serve-img {
+                width: 100%;
+                height: 170px;
+                object-fit: contain;
+                border-top-left-radius: 18px;
+                border-top-right-radius: 18px;
+                transition: filter 0.3s;
+                display: block;
+            }
+            .industry-serve-card:hover .industry-serve-img {
+                filter: brightness(1.08) saturate(1.22);
+            }
+            .industry-serve-content {
+                padding: 1.7rem 1.5rem 1.2rem 1.5rem;
+                display: flex;
+                flex-direction: column;
+                flex: 1;
+            }
+            .industry-serve-name {
+                font-size: 1.21rem;
+                font-weight: 700;
+                color: #00548e;
+                margin-bottom: 0.5rem;
+            }
+            .industry-serve-description {
+                font-size: 0.98rem;
+                color: #222;
+                margin-bottom: 1.1rem;
+                line-height: 1.5;
+                min-height: 48px;
+            }
+            .industry-serve-apps-title {
+                font-size: 0.98rem;
+                font-weight: 700;
+                color: #00548e;
+                margin-bottom: 0.2rem;
+            }
+            .industry-serve-apps {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.5rem 0.7rem;
+                padding: 0;
+                margin: 0 0 0.2rem 0;
+                list-style: none;
+            }
+            .industry-serve-apps li {
+                background: #b0d701;
+                color: #fff;
+                font-size: 0.86rem;
+                font-weight: 600;
+                border-radius: 1.1rem;
+                padding: 0.28rem 1.08rem;
+                margin: 0;
+                box-shadow: 0 2px 8px rgba(176,215,1,0.10);
+                transition: background 0.18s, color 0.18s;
+                white-space: nowrap;
+            }
+            .industry-progress-bar {
+                position: absolute;
+                left: 0; bottom: 0;
+                height: 4px;
+                width: 0%;
+                background: linear-gradient(90deg, #00548e 0%, #b0d701 100%);
+                border-radius: 0 0 18px 18px;
+                transition: width 0.7s cubic-bezier(.4,2,.3,1);
+                z-index: 3;
+            }
+            .industry-serve-card:hover .industry-progress-bar,
+            .industry-serve-card:focus-within .industry-progress-bar {
+                width: 100%;
+            }
+            @media (max-width: 900px) {
+                .industries-serve-grid {
+                    grid-template-columns: 1fr;
+                    gap: 2rem;
+                }
+                .industry-serve-card {
+                    max-width: 95vw;
+                }
+            }
+            @media (max-width: 600px) {
+                .industries-serve-section {
+                    padding: 2.1rem 0 1.2rem 0;
+                }
+                .industries-serve-title {
+                    font-size: 1.5rem;
+                }
+                .industries-serve-desc {
+                    font-size: 0.99rem;
+                }
+                .industries-serve-grid {
+                    gap: 1.1rem;
+                }
+                .industry-serve-card {
+                    min-height: 340px;
+                    padding: 0;
+                }
+                .industry-serve-img-wrap, .industry-serve-img {
+                    height: 120px;
+                }
+                .industry-serve-content {
+                    padding: 1rem 0.7rem 1rem 0.7rem;
+                }
+                .industry-serve-description {
+                    min-height: 0;
+                }
+            }
+        </style>
+    </section>
+
 @endsection
 
 @push('scripts')
@@ -2548,18 +3580,19 @@
         const slides = document.querySelectorAll('.hero-slide');
         const dots = document.querySelectorAll('.dot');
         const videos = document.querySelectorAll('.slide-video');
-        
+
         // Pause current video
-        videos[currentSlideIndex].pause();
-        
+        if (videos[currentSlideIndex]) videos[currentSlideIndex].pause();
+
         slides[currentSlideIndex].classList.remove('active');
         dots[currentSlideIndex].classList.remove('active');
 
+        // Calculate new slide index (looping)
         currentSlideIndex = (currentSlideIndex + direction + slides.length) % slides.length;
 
         slides[currentSlideIndex].classList.add('active');
         dots[currentSlideIndex].classList.add('active');
-        
+
         // Play new video
         playCurrentVideo();
     }
@@ -2568,9 +3601,9 @@
         const slides = document.querySelectorAll('.hero-slide');
         const dots = document.querySelectorAll('.dot');
         const videos = document.querySelectorAll('.slide-video');
-        
+
         // Pause current video
-        videos[currentSlideIndex].pause();
+        if (videos[currentSlideIndex]) videos[currentSlideIndex].pause();
 
         slides.forEach(slide => slide.classList.remove('active'));
         dots.forEach(dot => dot.classList.remove('active'));
@@ -2578,15 +3611,15 @@
         currentSlideIndex = index - 1;
         slides[currentSlideIndex].classList.add('active');
         dots[currentSlideIndex].classList.add('active');
-        
+
         // Play new video
         playCurrentVideo();
     }
-    
+
     function playCurrentVideo() {
         const videos = document.querySelectorAll('.slide-video');
         const currentVideo = videos[currentSlideIndex];
-        
+
         if (currentVideo) {
             currentVideo.currentTime = 0; // Reset to beginning
             currentVideo.play().catch(e => {
@@ -2597,52 +3630,56 @@
             });
         }
     }
-    
+
     function nextSlide() {
         if (isAutoPlaying) {
             changeSlide(1);
         }
     }
-    
+
     function setupVideoSlider() {
         const videos = document.querySelectorAll('.slide-video');
-        
+        const slides = document.querySelectorAll('.hero-slide');
+        const dots = document.querySelectorAll('.dot');
+
         videos.forEach((video, index) => {
-            // When video ends, go to next slide
+            // When video ends, go to next slide (loop to first after last)
             video.addEventListener('ended', () => {
                 if (index === currentSlideIndex && isAutoPlaying) {
-                    setTimeout(nextSlide, 500); // Small delay before next slide
+                    setTimeout(() => {
+                        // Advance to next slide (loop)
+                        changeSlide(1);
+                    }, 500);
                 }
             });
-            
+
             // Handle video loading
             video.addEventListener('loadeddata', () => {
                 if (index === currentSlideIndex) {
                     playCurrentVideo();
                 }
             });
-            
+
             // Handle video errors
             video.addEventListener('error', (e) => {
                 console.log(`Video ${index + 1} error:`, e);
                 console.log(`Video src: ${video.src}`);
                 // If video fails, advance to next slide after 3 seconds
                 if (index === currentSlideIndex) {
-                    setTimeout(nextSlide, 3000);
+                    setTimeout(() => {
+                        changeSlide(1);
+                    }, 3000);
                 }
             });
-            
-            // Add load start event for debugging
-            video.addEventListener('loadstart', () => {
-                console.log(`Video ${index + 1} started loading`);
-            });
-            
-            // Add can play event
-            video.addEventListener('canplay', () => {
-                console.log(`Video ${index + 1} can play`);
-            });
         });
-        
+
+        // Dot click listeners (robustness)
+        dots.forEach((dot, idx) => {
+            dot.onclick = function() {
+                currentSlideIndexSet(idx + 1);
+            };
+        });
+
         // Start playing the first video
         playCurrentVideo();
     }
