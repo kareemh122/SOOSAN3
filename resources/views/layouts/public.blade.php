@@ -57,11 +57,145 @@
                         <span class="nav-icon-label">{{ __('common.home') }}</span>
                     </a>
                     
-                    <a href="{{ route('products.index') }}" 
-                       class="nav-icon-item {{ request()->routeIs('products.*') ? 'active' : '' }}">
+                    <div class="nav-icon-item nav-products-dropdown {{ request()->routeIs('products.*') ? 'active' : '' }}" tabindex="0">
                         <i class="fas fa-cogs nav-icon"></i>
                         <span class="nav-icon-label">{{ __('common.products') }}</span>
-                    </a>
+                        <div class="products-dropdown-menu" aria-label="Product Categories">
+                            <div class="dropdown-categories">
+                                @foreach($productCategories as $cat)
+                                    <div class="dropdown-category" data-category-id="{{ $cat->id }}" tabindex="0">
+                                    <span>{{ $cat->name }}</span>
+                                    <span class="dropdown-category-count">{{ $cat->products()->count() }}</span>
+                                </div>
+                            @endforeach
+                </div>
+        <div class="dropdown-lines">
+            <!-- Lines will be shown here on hover -->
+            <div class="dropdown-lines-inner" style="display:none;">
+                <a href="{{ route('products.index', ['line' => 'SQ Line']) }}" class="dropdown-line" data-line="SQ Line">SQ Line</a>
+                <a href="{{ route('products.index', ['line' => 'SB Line']) }}" class="dropdown-line" data-line="SB Line">SB Line</a>
+                <a href="{{ route('products.index', ['line' => 'ET-II Line']) }}" class="dropdown-line" data-line="ET-II Line">ET-II Line</a>
+                <a href="{{ route('products.index', ['line' => 'SB-E Line']) }}" class="dropdown-line" data-line="SB-E Line">SB-E Line</a>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .nav-products-dropdown { position: relative; }
+    .products-dropdown-menu {
+        display: none;
+        position: absolute;
+        left: 0;
+        top: 100%;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+        min-width: 340px;
+        padding: 0;
+        margin-top: 8px;
+        z-index: 1201;
+        flex-direction: row;
+        font-size: 1rem;
+        border: 1px solid #e2e8f0;
+        display: flex;
+        align-items: stretch;
+    }
+    .nav-products-dropdown:focus-within .products-dropdown-menu,
+    .nav-products-dropdown:hover .products-dropdown-menu {
+        display: flex;
+    }
+    .dropdown-categories {
+        min-width: 160px;
+        border-right: 1px solid #e2e8f0;
+        background: #f9fafb;
+        padding: 0.5rem 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+    }
+    .dropdown-category {
+        padding: 0.7rem 1.2rem 0.7rem 1.2rem;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-weight: 500;
+        color: #222;
+        background: none;
+        border: none;
+        outline: none;
+        transition: background 0.18s;
+    }
+    .dropdown-category:focus, .dropdown-category:hover {
+        background: #f1f5f9;
+        color: #0051D5;
+    }
+    .dropdown-category-count {
+        font-size: 0.95em;
+        color: #6b7280;
+        margin-left: 0.7em;
+        font-weight: 400;
+    }
+    .dropdown-lines {
+        min-width: 220px;
+        padding: 0.5rem 0.2rem;
+        display: flex;
+        align-items: flex-start;
+        background: #fff;
+        border-radius: 0 8px 8px 0;
+    }
+    .dropdown-lines-inner {
+        display: flex;
+        flex-direction: column;
+        gap: 0.2rem;
+        width: 100%;
+    }
+    .dropdown-line {
+        padding: 0.7rem 1.4rem;
+        color: #222;
+        text-decoration: none;
+        font-size: 1rem;
+        border-radius: 5px;
+        transition: background 0.18s, color 0.18s;
+        font-weight: 500;
+    }
+    .dropdown-line:hover, .dropdown-line:focus {
+        background: #e9f7ee;
+        color: #34C759;
+    }
+    @media (max-width: 991px) {
+        .products-dropdown-menu { min-width: 220px; flex-direction: column; }
+        .dropdown-categories, .dropdown-lines { min-width: 100%; border-right: none; border-bottom: 1px solid #e2e8f0; }
+        .dropdown-lines { border-radius: 0 0 8px 8px; }
+    }
+</style>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const dropdown = document.querySelector('.nav-products-dropdown');
+        const categories = dropdown.querySelectorAll('.dropdown-category');
+        const linesInner = dropdown.querySelector('.dropdown-lines-inner');
+        categories.forEach(cat => {
+            cat.addEventListener('mouseenter', () => {
+                linesInner.style.display = 'flex';
+            });
+            cat.addEventListener('focus', () => {
+                linesInner.style.display = 'flex';
+            });
+            cat.addEventListener('mouseleave', () => {
+                linesInner.style.display = 'none';
+            });
+            cat.addEventListener('blur', () => {
+                linesInner.style.display = 'none';
+            });
+        });
+        dropdown.addEventListener('mouseleave', () => {
+            linesInner.style.display = 'none';
+        });
+        dropdown.addEventListener('focusout', () => {
+            linesInner.style.display = 'none';
+        });
+    });
+</script>
                     
                     <a href="{{ route('serial-lookup.index') }}" 
                        class="nav-icon-item {{ request()->routeIs('serial-lookup.*') ? 'active' : '' }}">
@@ -492,5 +626,44 @@
     </script>
 
     @stack('scripts')
+    <!-- Scroll to Top Button -->
+    <button id="scrollTopBtn" aria-label="Scroll to top" style="display:none;position:fixed;bottom:36px;right:36px;z-index:1200;width:56px;height:56px;border-radius:50%;background:#0051D5;color:#fff;border:none;box-shadow:0 4px 24px rgba(0,84,142,0.18);transition:background 0.2s,box-shadow 0.2s;outline:none;cursor:pointer;display:flex;align-items:center;justify-content:center;">
+    <i class="fas fa-arrow-up" style="font-size:2.1rem;font-weight:900;line-height:1;vertical-align:middle;display:inline-block;"></i>
+</button>
+<style>
+    #scrollTopBtn:hover, #scrollTopBtn:focus {
+        background: #34C759 !important;
+        color: #fff;
+    }
+    #scrollTopBtn:active {
+        box-shadow: 0 2px 8px rgba(0,84,142,0.12);
+    }
+    #scrollTopBtn .fa-arrow-up {
+        font-size: 2.1rem;
+        font-weight: 900;
+        line-height: 1;
+        vertical-align: middle;
+        display: inline-block;
+        text-shadow: 0 2px 8px rgba(0,84,142,0.07);
+    }
+</style>
+    <script>
+        (function(){
+            const btn = document.getElementById('scrollTopBtn');
+            let ticking = false;
+            window.addEventListener('scroll', function() {
+                if (!ticking) {
+                    window.requestAnimationFrame(function() {
+                        btn.style.display = (window.scrollY > 120) ? 'flex' : 'none';
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            });
+            btn.addEventListener('click', function() {
+                window.scrollTo({top: 0, behavior: 'smooth'});
+            });
+        })();
+    </script>
 </body>
 </html>

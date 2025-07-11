@@ -306,6 +306,10 @@
 @endpush
 
 @section('content')
+@php
+// Force SI mode as default
+$unit = 'si';
+@endphp
 <!-- Result Header -->
 <section class="result-header">
     <div class="container">
@@ -319,12 +323,48 @@
                 <div class="d-flex justify-content-center align-items-center flex-wrap gap-3 mb-3">
                     <span class="text-muted">{{ __('common.serial_number') }}:</span>
                     <span class="serial-display">{{ $soldProduct->serial_number }}</span>
-                    <div class="unit-toggle ms-3" style="background: #f8f9fa; border-radius: 12px; padding: 4px 12px; border: 1px solid #e0e0e0;">
-                        <div class="btn-group" role="group">
-                            <button type="button" class="btn{{ $unit === 'si' ? '' : ' active' }}" id="imperialBtn" style="font-weight:600;">{{ __('common.imperial_units') }}</button>
-                            <button type="button" class="btn{{ $unit === 'si' ? ' active' : '' }}" id="siBtn" style="font-weight:600;">{{ __('common.si_units') }}</button>
-                        </div>
-                    </div>
+                    <div class="unit-toggle-custom ms-3" tabindex="0">
+    <button type="button" class="unit-btn si-btn{{ $unit === 'si' ? ' active' : '' }}" id="siBtn">SI</button>
+    <button type="button" class="unit-btn imperial-btn{{ $unit === 'si' ? '' : ' active' }}" id="imperialBtn">Imperial</button>
+</div>
+<style>
+    .unit-toggle-custom {
+        display: inline-flex;
+        border-radius: 16px;
+        background: #f8f9fa;
+        border: 1.5px solid #b0d701;
+        overflow: hidden;
+        box-shadow: 0 2px 10px rgba(0,84,142,0.07);
+        transition: border-color 0.25s;
+        outline: none;
+    }
+    .unit-toggle-custom:focus-within {
+        border-color: #00548e;
+    }
+    .unit-btn {
+        border: none;
+        outline: none;
+        background: transparent;
+        color: #00548e;
+        font-weight: 700;
+        font-size: 1.07rem;
+        padding: 8px 24px;
+        transition: background 0.22s, color 0.22s, box-shadow 0.22s;
+        cursor: pointer;
+        border-radius: 0;
+    }
+    .unit-btn.active, 
+    .unit-btn:focus {
+        background: #00548e;
+        color: #fff;
+        box-shadow: 0 2px 8px rgba(176,215,1,0.13);
+        z-index: 2;
+    }
+    .unit-btn:hover:not(.active) {
+        background: #e5e7eb;
+        background-color: #b0d701;
+    }
+</style>
                 </div>
             </div>
             <div style="height: 32px;"></div>
@@ -340,7 +380,18 @@
 <div class="container main-container">
     @if($soldProduct && $soldProduct->product)
         <!-- Product Specifications Card -->
-        <div class="coverage-card animate-in mb-4 mt-20">
+        <div class="coverage-card animate-in mb-4 mt-20" style="position:relative;">
+    <button type="button"
+        class="btn btn-outline-danger"
+        id="pdfBtn"
+        style="position:absolute;top:28px;right:32px;z-index:10;display:inline-flex;align-items:center;font-weight:600;gap:8px;border-radius:8px;"
+        data-model_name="{{ $soldProduct->product->model_name ?? '-' }}"
+        data-line="{{ $soldProduct->product->line ?? '-' }}"
+        data-type="{{ $soldProduct->product->type ?? '-' }}"
+        data-image_url="{{ $soldProduct->product->image_url ? asset($soldProduct->product->image_url) : asset('images/fallback.webp') }}"
+>
+        <i class="fas fa-arrow-down me-2" aria-hidden="true"></i> Download PDF
+    </button>
             <div class="section-title mb-3">
                 <div class="section-icon product">
                     <i class="fas fa-cogs"></i>
@@ -350,7 +401,7 @@
             <div class="row align-items-stretch">
                 <div class="col-lg-4 text-center mb-4 mb-lg-0 d-flex align-items-stretch">
                     <div class="w-100 h-100 d-flex align-items-center justify-content-center" style="background: #f8f9fa; border-radius: 16px; min-height: 420px;">
-                        <img src="{{ $soldProduct->product->image_url ?? asset('images/no-image.png') }}" alt="{{ $soldProduct->product->model_name }}" class="product-image w-100 h-100" style="object-fit:contain; max-height:380px;">
+                        <img src="{{ $soldProduct->product->image_url ?? asset('images/fallback.webp') }}" alt="{{ $soldProduct->product->model_name }}" class="product-image w-100 h-100" style="object-fit:contain; max-height:380px;">
                     </div>
                 </div>
                 <div class="col-lg-8 d-flex align-items-center">
@@ -384,7 +435,7 @@
                                         ['label' => __('common.overall_length'), 'icon' => 'fa-ruler-horizontal', 'value' => display_range_unit_pair_lbft_default($product->overall_length, 'mm', __('common.unit_in'), fn($v) => number_format($v * 25.4, 1))],
                                         ['label' => __('common.overall_width'), 'icon' => 'fa-ruler-combined', 'value' => display_range_unit_pair_lbft_default($product->overall_width, 'mm', __('common.unit_in'), fn($v) => number_format($v * 25.4, 1))],
                                         ['label' => __('common.overall_height'), 'icon' => 'fa-ruler-vertical', 'value' => display_range_unit_pair_lbft_default($product->overall_height, 'mm', __('common.unit_in'), fn($v) => number_format($v * 25.4, 1))],
-                                        ['label' => __('common.required_oil_flow'), 'icon' => 'fa-tint', 'value' => display_range_unit_pair_lbft_default($product->required_oil_flow, 'L/min', __('common.unit_gal_min'), fn($v) => number_format($v * 3.78541, 1))],
+                                        ['label' => __('common.required_oil_flow'), 'icon' => 'fa-tint', 'value' => display_range_unit_pair_lbft_default($product->required_oil_flow, 'l/min', __('common.unit_gal_min'), fn($v) => number_format($v * 3.78541, 1))],
                                         ['label' => __('common.operating_pressure'), 'icon' => 'fa-tachometer-alt', 'value' => display_range_unit_pair_lbft_default($product->operating_pressure, 'kgf/cm²', __('common.unit_psi'), fn($v) => number_format($v * 0.070307, 1))],
                                         ['label' => __('common.impact_rate'), 'icon' => 'fa-bolt', 'value' => $product->impact_rate ? display_range_unit_pair_lbft_default($product->impact_rate, __('common.unit_bpm'), __('common.unit_bpm')) : ['si' => '- ' . __('common.unit_bpm'), 'imp' => '- ' . __('common.unit_bpm')]],
                                         ['label' => __('common.impact_rate_soft_rock'), 'icon' => 'fa-bolt', 'value' => $product->impact_rate_soft_rock ? display_range_unit_pair_lbft_default($product->impact_rate_soft_rock, __('common.unit_bpm'), __('common.unit_bpm')) : ['si' => '- ' . __('common.unit_bpm'), 'imp' => '- ' . __('common.unit_bpm')]],
@@ -424,68 +475,98 @@
                 <table class="table specs-table mb-0">
                     <tbody>
                         <tr><th><i class="fas fa-user me-2 text-secondary"></i>{{ __('common.name') }}</th><td>{{ $soldProduct->owner->name }}</td></tr>
-                        <tr><th><i class="fas fa-envelope me-2 text-secondary"></i>{{ __('common.email') }}</th><td>{{ $soldProduct->owner->email }}</td></tr>
                         <tr><th><i class="fas fa-building me-2 text-secondary"></i>{{ __('common.company') }}</th><td>{{ $soldProduct->owner->company ?? '-' }}</td></tr>
-                        <tr><th><i class="fas fa-city me-2 text-secondary"></i>{{ __('common.city') }}</th><td>{{ $soldProduct->owner->city ?? '-' }}</td></tr>
                         <tr><th><i class="fas fa-flag me-2 text-secondary"></i>{{ __('common.country') }}</th><td>{{ $soldProduct->owner->country ?? '-' }}</td></tr>
-                        <tr><th><i class="fas fa-phone me-2 text-secondary"></i>{{ __('common.phone_number') }}</th><td>{{ $soldProduct->owner->phone_number ?? '-' }}</td></tr>
                     </tbody>
                 </table>
             </div>
         </div>
         @endif
-        <!-- Warranty Status Card (restored style) -->
-        <div class="coverage-card animate-in">
+    <!-- Warranty Status Card (restored style) -->
+    <div class="coverage-card animate-in">
             <div class="section-title mb-3" style="font-size:1.5rem;">
                 <div class="section-icon warranty">
                     <i class="fas fa-shield-alt"></i>
                 </div>
                 <span style="font-size:1.25em; font-weight:600; vertical-align:middle;">{{ __('common.warranty_coverage') }}</span>
             </div>
-            @php
-                $purchaseDate = $soldProduct->sale_date ? $soldProduct->sale_date->format('F j, Y') : '-';
-                $warrantyStart = $soldProduct->warranty_start_date ? $soldProduct->warranty_start_date->format('F j, Y') : '-';
-                $warrantyEnd = $soldProduct->warranty_end_date ? $soldProduct->warranty_end_date->format('F j, Y') : '-';
-                $now = now();
-                $status = __('common.valid');
-                $daysLeft = $soldProduct->warranty_end_date ? $now->diffInDays($soldProduct->warranty_end_date, false) : null;
-                if ($soldProduct->warranty_end_date && $now->gt($soldProduct->warranty_end_date)) {
-                    $status = __('common.warranty_expired_status');
-                } elseif ($soldProduct->warranty_end_date && $daysLeft <= 180 && $daysLeft > 0) {
-                    $status = __('common.warranty_expiring_soon');
-                }
-                $totalDays = $soldProduct->warranty_start_date && $soldProduct->warranty_end_date ? $soldProduct->warranty_start_date->diffInDays($soldProduct->warranty_end_date) : 0;
-                $progressPercentage = $totalDays > 0 && $daysLeft > 0 ? max(0, ($daysLeft / $totalDays) * 100) : 0;
-                $progressClass = $status === __('common.valid') ? 'valid' : ($status === __('common.warranty_expiring_soon') ? 'expiring' : 'expired');
-            @endphp
-            <div class="row align-items-center">
-                <div class="col-md-8">
-                    <div class="d-flex align-items-center gap-3 mb-3">
-                        <span class="status-badge {{ strtolower(str_replace(' ', '', $status)) }}" style="font-size:1.2em;">
-                            @if($status === __('common.valid'))
-                                <i class="fas fa-check-circle me-2"></i>
-                            @elseif($status === __('common.warranty_expiring_soon'))
-                                <i class="fas fa-exclamation-triangle me-2"></i>
-                            @elseif($status === __('common.warranty_expired_status'))
-                                <i class="fas fa-times-circle me-2"></i>
+            @if($soldProduct->warranty_voided)
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <div class="d-flex align-items-center gap-3 mb-3">
+                            <span class="status-badge expired" style="font-size:1.2em; background: linear-gradient(135deg, var(--apple-red) 0%, #DC3545 100%);">
+                                <i class="fas fa-ban me-2"></i>
+                                {{ __('common.warranty_voided') }}
+                            </span>
+                        </div>
+                        <p class="mb-2" style="font-size:1.1em;">
+                            
+                            <strong>{{ __('common.warranty_voided_at') }}</strong> {{ $soldProduct->warranty_voided_at ? $soldProduct->warranty_voided_at->format('F j, Y H:i') : '-' }}
+                        </p>
+                       
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <div class="warranty-visual">
+                            <i class="fas fa-ban text-danger" style="font-size: 4rem;"></i>
+                        </div>
+                    </div>
+                </div>
+            @else
+                @php
+                    $purchaseDate = $soldProduct->sale_date ? $soldProduct->sale_date->format('F j, Y') : '-';
+                    $warrantyStart = $soldProduct->warranty_start_date ? $soldProduct->warranty_start_date->format('F j, Y') : '-';
+                    $warrantyEnd = $soldProduct->warranty_end_date ? $soldProduct->warranty_end_date->format('F j, Y') : '-';
+                    $now = now();
+                    $status = __('common.valid');
+                    $daysLeft = $soldProduct->warranty_end_date ? $now->diffInDays($soldProduct->warranty_end_date, false) : null;
+                    if ($soldProduct->warranty_end_date && $now->gt($soldProduct->warranty_end_date)) {
+                        $status = __('common.warranty_expired_status');
+                    } elseif ($soldProduct->warranty_end_date && $daysLeft <= 180 && $daysLeft > 0) {
+                        $status = __('common.warranty_expiring_soon');
+                    }
+                    $totalDays = $soldProduct->warranty_start_date && $soldProduct->warranty_end_date ? $soldProduct->warranty_start_date->diffInDays($soldProduct->warranty_end_date) : 0;
+                    $progressPercentage = $totalDays > 0 && $daysLeft > 0 ? max(0, ($daysLeft / $totalDays) * 100) : 0;
+                    $progressClass = $status === __('common.valid') ? 'valid' : ($status === __('common.warranty_expiring_soon') ? 'expiring' : 'expired');
+                @endphp
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <div class="d-flex align-items-center gap-3 mb-3">
+                            <span class="status-badge {{ strtolower(str_replace(' ', '', $status)) }}" style="font-size:1.2em;">
+                                @if($status === __('common.valid'))
+                                    <i class="fas fa-check-circle me-2"></i>
+                                @elseif($status === __('common.warranty_expiring_soon'))
+                                    <i class="fas fa-exclamation-triangle me-2"></i>
+                                @elseif($status === __('common.warranty_expired_status'))
+                                    <i class="fas fa-times-circle me-2"></i>
+                                @endif
+                                {{ $status }}
+                            </span>
+                        </div>
+                        <p class="mb-2" style="font-size:1.1em;">
+                            <strong>{{ __('common.warranty_expires') }}</strong> {{ $warrantyEnd }}
+                            @if($daysLeft !== null && $daysLeft > 0 && $status !== __('common.warranty_expired_status'))
+                                <span class="text-muted">({{ is_numeric($daysLeft) ? round($daysLeft) : $daysLeft }} {{ __('common.days_remaining') }})</span>
                             @endif
-                            {{ $status }}
-                        </span>
+                        </p>
+                        <div class="warranty-progress">
+                            <div class="warranty-progress-bar {{ $progressClass }}" style="width: {{ $progressPercentage }}%"></div>
+                        </div>
+                        <div class="mt-3" style="font-size:1.08em;">
+                            <span class="me-3"><i class="fas fa-shopping-cart me-1 text-secondary"></i><strong>{{ __('common.purchase_date') }}:</strong> {{ $purchaseDate }}</span>
+                            <span class="me-3"><i class="fas fa-play-circle me-1 text-secondary"></i><strong>{{ __('common.warranty_start') }}:</strong> {{ $warrantyStart }}</span>
+                            <span><i class="fas fa-calendar-check me-1 text-secondary"></i><strong>{{ __('common.warranty_end') }}:</strong> {{ $warrantyEnd }}</span>
+                        </div>
                     </div>
-                    <p class="mb-2" style="font-size:1.1em;">
-                        <strong>{{ __('common.warranty_expires') }}</strong> {{ $warrantyEnd }}
-                        @if($daysLeft !== null && $daysLeft > 0 && $status !== __('common.warranty_expired_status'))
-                            <span class="text-muted">({{ is_numeric($daysLeft) ? round($daysLeft) : $daysLeft }} {{ __('common.days_remaining') }})</span>
-                        @endif
-                    </p>
-                    <div class="warranty-progress">
-                        <div class="warranty-progress-bar {{ $progressClass }}" style="width: {{ $progressPercentage }}%"></div>
+                    <div class="col-md-4 text-center">
+                        <div class="warranty-visual">
+                            <i class="fas fa-{{ $status === __('common.valid') ? 'shield-check text-success' : ($status === __('common.warranty_expiring_soon') ? 'shield-alt text-warning' : 'shield-times text-danger') }}" style="font-size: 4rem;"></i>
+                        </div>
                     </div>
-                    <div class="mt-3" style="font-size:1.08em;">
-                        <span class="me-3"><i class="fas fa-shopping-cart me-1 text-secondary"></i><strong>{{ __('common.purchase_date') }}:</strong> {{ $purchaseDate }}</span>
-                        <span class="me-3"><i class="fas fa-play-circle me-1 text-secondary"></i><strong>{{ __('common.warranty_start') }}:</strong> {{ $warrantyStart }}</span>
-                        <span><i class="fas fa-calendar-check me-1 text-secondary"></i><strong>{{ __('common.warranty_end') }}:</strong> {{ $warrantyEnd }}</span>
-                    </div>
+                </div>
+            @endif
+        </div>
+</div>
+   
                 </div>
                 <div class="col-md-4 text-center">
                     <div class="warranty-visual">
@@ -512,80 +593,297 @@
         </div>
     @endif
 </div>
+<style>
+    .warranty-progress {
+        background: #e9ecef;
+        border-radius: 8px;
+        height: 18px;
+        min-height: 18px;
+        margin-bottom: 0.75rem;
+        overflow: visible;
+        box-shadow: 0 2px 10px 0 rgba(0,84,142,0.09);
+        border: 1.5px solid #e0e0e0;
+        position: relative;
+    }
+    .warranty-progress-bar {
+        height: 100%;
+        min-width: 2.5%;
+        border-radius: 8px;
+        transition: width 1.2s cubic-bezier(0.4,0,0.2,1), background 0.4s;
+        box-shadow: 0 1px 6px 0 rgba(0,84,142,0.07);
+        position: absolute;
+        left: 0; top: 0;
+    }
+    .warranty-progress-bar.valid {
+        background: #34C759;
+    }
+    .warranty-progress-bar.expiring {
+        background: #FFA500;
+    }
+    .warranty-progress-bar.expired {
+        background: #FF3B30;
+    }
+</style> 
 @endsection
 
 @push('scripts')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Unit toggle functionality
-    const siBtn = document.getElementById('siBtn');
-    const imperialBtn = document.getElementById('imperialBtn');
-    const unitValues = document.querySelectorAll('.unit-value');
+        document.addEventListener('DOMContentLoaded', function () {
+            // Unit toggle functionality
+            const siBtn = document.getElementById('siBtn');
+            const imperialBtn = document.getElementById('imperialBtn');
+            const unitValues = document.querySelectorAll('.unit-value');
 
-    if (siBtn && imperialBtn) {
-        siBtn.addEventListener('click', function() {
-            if (!this.classList.contains('active')) {
-                this.classList.add('active');
+            if (siBtn && imperialBtn) {
+                siBtn.classList.add('active');
                 imperialBtn.classList.remove('active');
                 switchUnits('si');
+
+                siBtn.addEventListener('click', function () {
+                    if (!this.classList.contains('active')) {
+                        this.classList.add('active');
+                        imperialBtn.classList.remove('active');
+                        switchUnits('si');
+                    }
+                });
+
+                imperialBtn.addEventListener('click', function () {
+                    if (!this.classList.contains('active')) {
+                        this.classList.add('active');
+                        siBtn.classList.remove('active');
+                        switchUnits('imperial');
+                    }
+                });
+            }
+
+            function switchUnits(unit) {
+                unitValues.forEach(element => {
+                    const value = element.getAttribute(`data-${unit}`);
+                    if (value) {
+                        element.style.opacity = '0';
+                        setTimeout(() => {
+                            element.textContent = value;
+                            element.style.opacity = '1';
+                        }, 150);
+                    }
+                });
+            }
+
+            // Animate elements on scroll
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.style.opacity = '1';
+                            entry.target.style.transform = 'translateY(0)';
+                        }, index * 200);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.coverage-card, .no-result-card').forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+                observer.observe(card);
+            });
+
+            // PDF Download Logic
+            const pdfBtn = document.getElementById('pdfBtn');
+            if (pdfBtn) {
+                pdfBtn.addEventListener('click', generatePdf);
+            }
+
+            function generatePdf() {
+                if (!window.jspdf) {
+                    alert('jsPDF library is missing. Please check the script order.');
+                    return;
+                }
+
+                // Fetch product info from data attributes on the PDF button for reliability
+                const pdfBtn = document.getElementById('pdfBtn');
+                const productName = pdfBtn?.dataset.model_name || '-';
+                const productLine = pdfBtn?.dataset.line || '-';
+                const productType = pdfBtn?.dataset.type || '-';
+                let productImgUrl = pdfBtn?.dataset.image_url || (window.location.origin + '/images/fallback.webp');
+
+                const doc = new window.jspdf.jsPDF({ unit: 'pt', format: 'a4' });
+                const pageWidth = doc.internal.pageSize.getWidth();
+                let y = 36;
+
+
+                // Build specs table (EXCLUDE model name, line, type)
+                const specsRows = [];
+                const specsTable = document.querySelector('.specs-table');
+                if (specsTable) {
+                    let rowIndex = 0;
+                    specsTable.querySelectorAll('tbody tr').forEach(row => {
+                        rowIndex++;
+                        // skip first 3 rows (model name, line, type)
+                        if (rowIndex <= 3) return;
+                        const label = row.querySelector('th')?.innerText || '-';
+                        const span = row.querySelector('td span.unit-value');
+                        const siValue = span ? (span.dataset.si || '-') : '-';
+                        const lbftValue = span ? (span.dataset.imperial || '-') : '-';
+                        specsRows.push([label, siValue, lbftValue]);
+                    });
+                } else {
+                    specsRows.push(['-', '-', '-']);
+                }
+                const specsHead = [['Specification', 'SI', 'lb-ft']];
+
+                // Warranty Info (robust extraction for all cases, no redundancy)
+                const warrantyRows = [];
+                const warrantyCard = document.querySelectorAll('.coverage-card')[2];
+                if (warrantyCard) {
+                    // Voided warranty
+                    const voidedElem = warrantyCard.querySelector('.status-badge.expired, .fa-ban');
+                    if (voidedElem) {
+                        const status = voidedElem.textContent.trim() || '-';
+                        const voidedAtElem = warrantyCard.querySelector('strong');
+                        let voidedAt = '-';
+                        if (voidedAtElem && voidedAtElem.nextSibling && voidedAtElem.nextSibling.textContent) {
+                            voidedAt = voidedAtElem.nextSibling.textContent.trim();
+                        }
+                        warrantyRows.push(['Status', status]);
+                        warrantyRows.push(['Voided At', voidedAt]);
+                    } else {
+                        // Normal warranty
+                        const purchaseDate = warrantyCard.querySelector('.fa-shopping-cart')?.parentElement?.innerText?.split(':')[1]?.trim() || '-';
+                        const warrantyStart = warrantyCard.querySelector('.fa-play-circle')?.parentElement?.innerText?.split(':')[1]?.trim() || '-';
+                        const warrantyEnd = warrantyCard.querySelector('.fa-calendar-check')?.parentElement?.innerText?.split(':')[1]?.trim() || '-';
+                        const statusElem = warrantyCard.querySelector('.status-badge');
+                        const status = statusElem ? statusElem.textContent.trim() : '-';
+                        let daysRemaining = '-';
+                        const daysElem = warrantyCard.querySelector('.text-muted');
+                        if (daysElem) {
+                            daysRemaining = daysElem.textContent.replace(/[^0-9]/g, '').trim();
+                        }
+                        warrantyRows.push(['Purchase Date', purchaseDate]);
+                        warrantyRows.push(['Warranty Start', warrantyStart]);
+                        warrantyRows.push(['Warranty End', warrantyEnd]);
+                        warrantyRows.push(['Status', status]);
+                        warrantyRows.push(['Days Remaining', daysRemaining]);
+                    }
+                } else {
+                    warrantyRows.push(['Purchase Date', '-']);
+                    warrantyRows.push(['Warranty Start', '-']);
+                    warrantyRows.push(['Warranty End', '-']);
+                    warrantyRows.push(['Status', '-']);
+                    warrantyRows.push(['Days Remaining', '-']);
+                }
+
+                // Owner Info (unchanged)
+                const ownerRows = [];
+                const ownerCard = document.querySelectorAll('.coverage-card')[1];
+                if (ownerCard) {
+                    const name = ownerCard.querySelector('.fa-user')?.parentElement?.nextElementSibling?.innerText || '-';
+                    const company = ownerCard.querySelector('.fa-building')?.parentElement?.nextElementSibling?.innerText || '-';
+                    const country = ownerCard.querySelector('.fa-flag')?.parentElement?.nextElementSibling?.innerText || '-';
+                    ownerRows.push(['Name', name]);
+                    ownerRows.push(['Company', company]);
+                    ownerRows.push(['Country', country]);
+                } else {
+                    ownerRows.push(['Name', '-']);
+                    ownerRows.push(['Company', '-']);
+                    ownerRows.push(['Country', '-']);
+                }
+
+                // Draw PDF
+                const logoUrl = window.location.origin + '/images/logo2.png';
+                const drawLogo = (cb) => {
+                    const img = new window.Image();
+                    img.crossOrigin = 'anonymous';
+                    img.onload = function () {
+                        doc.addImage(img, 'PNG', pageWidth - 156, 24, 120, 48);
+                        cb();
+                    };
+                    img.onerror = function () { cb(); };
+                    img.src = logoUrl;
+                };
+
+                drawLogo(() => {
+                    doc.setFontSize(20);
+                    doc.setFont('helvetica', 'bold');
+                    doc.text('Coverage Results - ' + productName, pageWidth / 2, y + 32, { align: 'center' });
+                    y += 64;
+
+                    // Product image and beside it: Model Name, Line, Type
+                    if (productImgUrl) {
+                        const img = new window.Image();
+                        img.crossOrigin = 'anonymous';
+                        img.onload = function () {
+                            doc.addImage(img, 'PNG', 40, y, 120, 90);
+                            doc.setFontSize(14);
+                            doc.setFont('helvetica', 'normal');
+                            // Draw Model Name, Line, Type beside image
+                            let infoY = y + 10;
+                            doc.text('Model Name: ' + productName, 180, infoY);
+                            doc.text('Line: ' + productLine, 180, infoY + 26);
+                            doc.text('Type: ' + productType, 180, infoY + 52);
+                            renderTables(y + 110);
+                        };
+                        img.onerror = function () {
+                            renderTables(y);
+                        };
+                        img.src = productImgUrl;
+                    } else {
+                        renderTables(y);
+                    }
+
+                    function renderTables(startY) {
+                        let tableY = startY + 40;
+
+                        doc.setFontSize(14);
+                        doc.setFont('helvetica', 'bold');
+                        doc.text('Product Specifications', 40, tableY);
+                        doc.autoTable({
+                            startY: tableY + 8,
+                            head: specsHead,
+                            body: specsRows,
+                            theme: 'grid',
+                            headStyles: { fillColor: [0, 84, 142] },
+                            styles: { font: 'helvetica', fontSize: 11 },
+                            margin: { left: 40, right: 40 }
+                        });
+                        tableY = doc.lastAutoTable.finalY + 16;
+
+                        doc.text('Owner Information', 40, tableY);
+                        doc.autoTable({
+                            startY: tableY + 8,
+                            head: [['Attribute', 'Value']],
+                            body: ownerRows,
+                            theme: 'grid',
+                            headStyles: { fillColor: [0, 84, 142] },
+                            styles: { font: 'helvetica', fontSize: 11 },
+                            margin: { left: 40, right: 40 }
+                        });
+                        tableY = doc.lastAutoTable.finalY + 16;
+
+                        doc.text('Warranty Information', 40, tableY);
+                        doc.autoTable({
+                            startY: tableY + 8,
+                            head: [['Attribute', 'Value']],
+                            body: warrantyRows,
+                            theme: 'grid',
+                            headStyles: { fillColor: [0, 84, 142] },
+                            styles: { font: 'helvetica', fontSize: 11 },
+                            margin: { left: 40, right: 40 }
+                        });
+
+                        doc.save('equipment-coverage-' + productLine + '-' + productType + '.pdf');
+                    }
+                });
             }
         });
-
-        imperialBtn.addEventListener('click', function() {
-            if (!this.classList.contains('active')) {
-                this.classList.add('active');
-                siBtn.classList.remove('active');
-                switchUnits('imperial');
-            }
-        });
-    }
-
-    function switchUnits(unit) {
-        unitValues.forEach(element => {
-            const value = element.getAttribute(`data-${unit}`);
-            if (value) {
-                element.style.opacity = '0';
-                setTimeout(() => {
-                    element.textContent = value;
-                    element.style.opacity = '1';
-                }, 150);
-            }
-        });
-    }
-
-    // Animate elements on scroll
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry, index) => {
-            if (entry.isIntersecting) {
-                setTimeout(() => {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }, index * 200);
-                observer.unobserve(entry.target);
-            }
-        });
-    }, observerOptions);
-
-    // Set initial state and observe cards
-    document.querySelectorAll('.coverage-card, .no-result-card').forEach(card => {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(30px)';
-        card.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
-        observer.observe(card);
-    });
-
-    // Animate warranty progress bar
-    const progressBar = document.querySelector('.warranty-progress-bar');
-    if (progressBar) {
-        setTimeout(() => {
-            progressBar.style.width = progressBar.style.width;
-        }, 1000);
-    }
-});
 </script>
 @endpush
+

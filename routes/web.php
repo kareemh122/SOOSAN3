@@ -23,6 +23,7 @@ Route::get('/categories/{category:id}', [ProductController::class, 'category'])-
 // Serial lookup routes
 Route::get('/serial-lookup', [SerialLookupController::class, 'index'])->name('serial-lookup.index');
 Route::post('/serial-lookup', [SerialLookupController::class, 'lookup'])->name('serial-lookup.lookup');
+Route::get('/serial-lookup/{id}/download-pdf', [SerialLookupController::class, 'downloadPdf'])->name('serial-lookup.downloadPdf');
 
 // Language switching route
 Route::get('/lang/{lang}', function ($lang) {
