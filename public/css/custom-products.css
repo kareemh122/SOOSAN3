@@ -33,7 +33,7 @@
 
 /* Interactive Card */
 .interactive-card {
-    border: 2px solid transparent;
+    border: 1px solid transparent;
     border-radius: 0.75rem;
     transition: border 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
     background-clip: border-box;
@@ -43,22 +43,13 @@
     overflow: hidden;
 }
 .interactive-card:hover {
-    border: 4px solid;
-    border-image: linear-gradient(90deg, #00548e 0%, #b0d701 100%);
-    border-image-slice: 1;
+    border: 1px solid #b0d701;
     box-shadow: 0 12px 40px rgba(0, 84, 142, 0.3);
     transform: translateY(-5px);
     z-index: 10;
     transition: all 0.3s ease;
 }
-.interactive-card a:hover .interactive-card {
-    border: 4px solid;
-    border-image: linear-gradient(90deg, #00548e 0%, #b0d701 100%);
-    border-image-slice: 1;
-    box-shadow: 0 12px 40px rgba(0, 84, 142, 0.3);
-    transform: translateY(-5px);
-    z-index: 10;
-}
+
 .interactive-card:focus,
 .interactive-card:active {
     border-color: transparent;

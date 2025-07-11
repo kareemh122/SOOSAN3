@@ -630,12 +630,12 @@
 
     @stack('scripts')
     <!-- Scroll to Top Button -->
-    <button id="scrollTopBtn" aria-label="Scroll to top" style="display:none;position:fixed;bottom:36px;right:36px;z-index:1200;width:56px;height:56px;border-radius:50%;background:#0051D5;color:#fff;border:none;box-shadow:0 4px 24px rgba(0,84,142,0.18);transition:background 0.2s,box-shadow 0.2s;outline:none;cursor:pointer;display:flex;align-items:center;justify-content:center;">
-    <i class="fas fa-arrow-up" style="font-size:2.1rem;font-weight:900;line-height:1;vertical-align:middle;display:inline-block;"></i>
-</button>
+    <button id="scrollTopBtn" aria-label="Scroll to top" style="display:none;position:fixed;bottom:36px;right:36px;z-index:1200;width:56px;height:56px;border-radius:50%;background:#00548e;color:#fff;border:none;box-shadow:0 4px 24px rgba(0,84,142,0.18);transition:background 0.2s,box-shadow 0.2s;outline:none;cursor:pointer;display:flex;align-items:center;justify-content:center;">
+        <i class="fas fa-arrow-up" style="font-size:1.6rem;font-weight:900;line-height:1;vertical-align:middle;display:inline-block;"></i>
+    </button>
 <style>
     #scrollTopBtn:hover, #scrollTopBtn:focus {
-        background: #34C759 !important;
+        background: #b0d701 !important;
         color: #fff;
     }
     #scrollTopBtn:active {

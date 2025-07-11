@@ -90,11 +90,9 @@
                     <i class="fas fa-share-alt me-2" aria-hidden="true"></i> Share
                 </button>
                 <button type="button" class="btn btn-outline-danger flex-grow-1" id="pdfBtn" style="border-radius: 8px; font-weight: 500;" aria-label="Download as PDF">
-                    <i class="fas fa-file-pdf me-2" aria-hidden="true"></i>
                     <i class="fas fa-arrow-down me-2" aria-hidden="true"></i> Download PDF
                 </button>
                 <button type="button" class="btn btn-outline-success flex-grow-1" id="csvBtn" style="border-radius: 8px; font-weight: 500;" aria-label="Download as CSV">
-                    <i class="fas fa-file-excel me-2" aria-hidden="true"></i>
                     <i class="fas fa-arrow-down me-2" aria-hidden="true"></i> Download CSV
                 </button>
             </div>
@@ -433,34 +431,6 @@
     pointer-events: auto;
 }
 
-/* Scroll to Top Button */
-#scrollTopBtn {
-    position: fixed;
-    bottom: 32px;
-    right: 32px;
-    z-index: 999;
-    background: linear-gradient(135deg, #0d6efd 0%, #0b5ed7 100%);
-    color: #fff;
-    border: none;
-    border-radius: 50px;
-    min-width: 64px;
-    height: 48px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    padding: 0 1.5rem;
-}
-#scrollTopBtn:hover {
-    background: linear-gradient(135deg, #0b5ed7 0%, #0a58ca 100%);
-    transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(13, 110, 253, 0.4);
-}
-
 /* Carousel Enhancements */
 .carousel-container {
     padding: 0 60px;
@@ -658,10 +628,6 @@
     left: -30px;
     right: auto;
 }
-[dir="rtl"] #scrollTopBtn {
-    left: 32px;
-    right: auto;
-}
 [dir="rtl"] .copy-toast {
     left: 32px;
     right: auto;
@@ -693,7 +659,6 @@
 }
 </style>
 
-<button id="scrollTopBtn" title="{{ __('common.back_to_top') }}" style="display:none;">{{ __('common.top') }}</button>
 
 @push('scripts')
 <!-- Font Awesome CDN -->
@@ -702,41 +667,30 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
 <script>
-document.addEventListener('DOMContentLoaded', function () {
-    // Unit toggle functionality
-    const siBtn = document.getElementById('siBtn');
-    const imperialBtn = document.getElementById('imperialBtn');
-    const unitValues = document.querySelectorAll('.unit-value');
+            document.addEventListener('DOMContentLoaded', function () {
+        // Unit toggle functionality
+        const siBtn = document.getElementById('siBtn');
+        const imperialBtn = document.getElementById('imperialBtn');
+        const unitValues = document.querySelectorAll('.unit-value');
 
-    function setUnit(mode) {
-        unitValues.forEach(el => el.classList.add('updating'));
-        setTimeout(() => {
-            unitValues.forEach(el => {
-                el.textContent = el.dataset[mode];
-                el.classList.remove('updating');
-            });
-        }, 150);
+        function setUnit(mode) {
+            unitValues.forEach(el => el.classList.add('updating'));
+            setTimeout(() => {
+                unitValues.forEach(el => {
+                    el.textContent = el.dataset[mode];
+                    el.classList.remove('updating');
+                });
+            }, 150);
 
-        siBtn.classList.toggle('active', mode === 'si');
-        imperialBtn.classList.toggle('active', mode === 'imperial');
-    }
+            siBtn.classList.toggle('active', mode === 'si');
+            imperialBtn.classList.toggle('active', mode === 'imperial');
+        }
 
-    if (siBtn && imperialBtn) {
-        siBtn.addEventListener('click', () => setUnit('si'));
-        imperialBtn.addEventListener('click', () => setUnit('imperial'));
-        setUnit('si'); // Always default to SI
-    }
-
-    // Scroll to top
-    const scrollBtn = document.getElementById('scrollTopBtn');
-    if (scrollBtn) {
-        window.addEventListener('scroll', () => {
-            scrollBtn.style.display = window.scrollY > 300 ? 'flex' : 'none';
-        });
-        scrollBtn.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-    }
+        if (siBtn && imperialBtn) {
+            siBtn.addEventListener('click', () => setUnit('si'));
+            imperialBtn.addEventListener('click', () => setUnit('imperial'));
+            setUnit('si');
+        }
 
         // Carousel
         const carousel = document.getElementById('similarProductsCarousel');
@@ -745,7 +699,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const indicators = document.querySelectorAll('.carousel-indicator');
         if (carousel && prevBtn && nextBtn) {
             let currentSlide = 0;
-            const cardWidth = 320 + 16; // Adjusted for gap
+            const cardWidth = 320 + 16;
             const visibleCards = window.innerWidth >= 992 ? 3 : (window.innerWidth >= 768 ? 2 : 1);
             const totalCards = carousel.children.length;
             const maxSlide = Math.max(0, Math.ceil(totalCards / visibleCards) - 1);
@@ -795,95 +749,115 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }
 
-    // Share functionality
-    const shareBtn = document.getElementById('shareBtn');
-    if (shareBtn) {
-        shareBtn.addEventListener('click', function (e) {
-            e.preventDefault();
-            const url = window.location.href;
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(url).then(() => {
-                    showToast('{{ __("common.link_copied") }}');
-                }).catch(err => {
-                    console.error('Clipboard API failed:', err);
+        // Share functionality
+        const shareBtn = document.getElementById('shareBtn');
+        if (shareBtn) {
+            shareBtn.addEventListener('click', function (e) {
+                e.preventDefault();
+                const url = window.location.href;
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(url).then(() => {
+                        showToast('{{ __("common.link_copied") }}');
+                    }).catch(err => {
+                        console.error('Clipboard API failed:', err);
+                        fallbackCopyTextToClipboard(url);
+                        showToast('{{ __("common.link_copied") }}');
+                    });
+                } else {
                     fallbackCopyTextToClipboard(url);
                     showToast('{{ __("common.link_copied") }}');
-                });
-            } else {
-                fallbackCopyTextToClipboard(url);
-                showToast('{{ __("common.link_copied") }}');
-            }
-        });
-    }
-
-    function fallbackCopyTextToClipboard(text) {
-        const textArea = document.createElement('textarea');
-        textArea.value = text;
-        textArea.style.position = 'fixed';
-        textArea.style.opacity = '0';
-        document.body.appendChild(textArea);
-        textArea.select();
-        try {
-            document.execCommand('copy');
-        } catch (err) {
-            console.error('Fallback copy failed:', err);
+                }
+            });
         }
-        document.body.removeChild(textArea);
-    }
 
-    const productData = {
-        model_name: "{{ $product->model_name }}",
-        line: "{{ $product->type ?? '-' }}",
-        type: "{{ $product->type ?? '-' }}",
-        body_weight: "{{ $product->body_weight ?? '-' }}",
-        operating_weight: "{{ $product->operating_weight ?? '-' }}",
-        overall_length: "{{ $product->overall_length ?? '-' }}",
-        overall_width: "{{ $product->overall_width ?? '-' }}",
-        overall_height: "{{ $product->overall_height ?? '-' }}",
-        required_oil_flow: "{{ $product->required_oil_flow ?? '-' }}",
-        operating_pressure: "{{ $product->operating_pressure ?? '-' }}",
-        impact_rate: "{{ $product->impact_rate_std ?? '-' }}",
-        impact_rate_soft_rock: "{{ $product->impact_rate_soft_rock ?? '-' }}",
-        hose_diameter: "{{ $product->hose_diameter ?? '-' }}",
-        rod_diameter: "{{ $product->rod_diameter ?? '-' }}",
-        applicable_carrier: "{{ $product->applicable_carrier ?? '-' }}"
-    };
+        function fallbackCopyTextToClipboard(text) {
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            textArea.style.position = 'fixed';
+            textArea.style.opacity = '0';
+            document.body.appendChild(textArea);
+            textArea.select();
+            try {
+                document.execCommand('copy');
+            } catch (err) {
+                console.error('Fallback copy failed:', err);
+            }
+            document.body.removeChild(textArea);
+        }
 
-    // PDF Download
-    const downloadPdfBtn = document.querySelector('#pdfBtn');
-    if (downloadPdfBtn) {
-        downloadPdfBtn.addEventListener('click', function (e) {
-            e.preventDefault();
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
+        const productData = {
+            model_name: "{{ $product->model_name }}",
+            line: "{{ $product->type ?? '-' }}",
+            type: "{{ $product->type ?? '-' }}",
+            body_weight: "{{ $product->body_weight ?? '-' }}",
+            operating_weight: "{{ $product->operating_weight ?? '-' }}",
+            overall_length: "{{ $product->overall_length ?? '-' }}",
+            overall_width: "{{ $product->overall_width ?? '-' }}",
+            overall_height: "{{ $product->overall_height ?? '-' }}",
+            required_oil_flow: "{{ $product->required_oil_flow ?? '-' }}",
+            operating_pressure: "{{ $product->operating_pressure ?? '-' }}",
+            impact_rate: "{{ $product->impact_rate_std ?? '-' }}",
+            impact_rate_soft_rock: "{{ $product->impact_rate_soft_rock ?? '-' }}",
+            hose_diameter: "{{ $product->hose_diameter ?? '-' }}",
+            rod_diameter: "{{ $product->rod_diameter ?? '-' }}",
+            applicable_carrier: "{{ $product->applicable_carrier ?? '-' }}"
+        };
 
-            if (typeof doc.autoTable !== 'function') {
-                alert('PDF libraries failed to load.');
-                return;
+        const downloadPdfBtn = document.querySelector('#pdfBtn');
+        if (downloadPdfBtn) {
+            downloadPdfBtn.addEventListener('click', function (e) {
+                e.preventDefault();
+                const { jsPDF } = window.jspdf;
+                // Use pt units and A4 format for perfect match
+                const doc = new jsPDF({ unit: 'pt', format: 'a4' });
+                const pageWidth = doc.internal.pageSize.getWidth();
+                let y = 36;
+
+                // Logo at top right (same as result PDF)
+                const logoUrl = window.location.origin + '/images/logo2.png';
+                const drawLogo = (cb) => {
+                    const img = new window.Image();
+                    img.crossOrigin = 'anonymous';
+                    img.onload = function () {
+                        doc.addImage(img, 'PNG', pageWidth - 156, 24, 125, 90);
+                        cb();
+                    };
+                    img.onerror = function () { cb(); };
+                    img.src = logoUrl;
+                };
+
+                drawLogo(() => {
+                    doc.setFontSize(20);
+                    doc.setFont('helvetica', 'bold');
+                    doc.text(`${productData.model_name} Specifications`, pageWidth / 2, y + 65, { align: 'center' });
+                    y += 100;
+
+            // Product image and beside it: Model Name, Line, Type
+            const imgUrl = "{{ $product->image_url ? asset($product->image_url) : asset('images/fallback.webp') }}";
+            if (imgUrl) {
+                const img = new window.Image();
+                img.crossOrigin = 'anonymous';
+                img.onload = function () {
+                    doc.addImage(img, 'PNG', 40, y, 130, 100);
+                    doc.setFontSize(14);
+                    doc.setFont('helvetica', 'normal');
+                    let infoY = y + 10;
+                    doc.text('Model Name: ' + productData.model_name, 180, infoY);
+                    doc.text('Line: ' + (productData.line && productData.line !== '-' ? productData.line : 'SB Line'), 180, infoY + 26);
+                    doc.text('Type: ' + (productData.type && productData.type !== '-' ? productData.type : 'TR-F'), 180, infoY + 52);
+                    renderTable(y + 110);
+                };
+                img.onerror = function () { renderTable(y); };
+                img.src = imgUrl;
+            } else {
+                renderTable(y);
             }
 
-            const logo = new Image();
-            logo.crossOrigin = 'anonymous';
-            logo.src = '{{ asset("images/logo2.png") }}';
-
-            logo.onload = function () {
-                const docWidth = doc.internal.pageSize.getWidth();
-                const logoWidth = 40;
-                const logoHeight = (logo.height * logoWidth) / logo.width;
-                
-                doc.addImage(logo, 'WEBP', docWidth - logoWidth - 15, 10, logoWidth, logoHeight);
-
-                doc.setFontSize(20);
+            function renderTable(startY) {
+                let tableY = startY + 40;
+                doc.setFontSize(14);
                 doc.setFont('helvetica', 'bold');
-                doc.text(`${productData.model_name} Specifications`, docWidth / 2, 25, { align: 'center' });
-
-                doc.setFontSize(12);
-                doc.setFont('helvetica', 'normal');
-                const line = productData.line && productData.line !== '-' ? productData.line : 'SB Line';
-                const type = productData.type && productData.type !== '-' ? productData.type : 'TR-F';
-                doc.text(`Line: ${line}`, 15, 40);
-                doc.text(`Type: ${type}`, 15, 47);
-
+                doc.text('Product Specifications', 40, tableY);
                 const tableData = [
                     ['Attribute', 'SI', 'Imperial'],
                     ['Body Weight', convertToSI('body_weight', productData.body_weight), formatImperial('body_weight', productData.body_weight)],
@@ -895,170 +869,167 @@ document.addEventListener('DOMContentLoaded', function () {
                     ['Operating Pressure', convertToSI('operating_pressure', productData.operating_pressure), formatImperial('operating_pressure', productData.operating_pressure)],
                     ['Impact Rate (STD Mode)', convertToSI('impact_rate', productData.impact_rate), formatImperial('impact_rate', productData.impact_rate)],
                     ['Impact Rate (Soft Rock)', convertToSI('impact_rate_soft_rock', productData.impact_rate_soft_rock), formatImperial('impact_rate_soft_rock', productData.impact_rate_soft_rock)],
-                    ['Hose Diameter', convertToSI('hose_diameter', productData.hose_diameter), formatImperial('hose_diameter', productData.hose_diameter)],
+                    ['Hose Diameter', ('hose_diameter', productData.hose_diameter), ('hose_diameter', productData.hose_diameter)],
                     ['Rod Diameter', convertToSI('rod_diameter', productData.rod_diameter), formatImperial('rod_diameter', productData.rod_diameter)],
                     ['Applicable Carrier', convertToSI('applicable_carrier', productData.applicable_carrier), formatImperial('applicable_carrier', productData.applicable_carrier)],
                 ];
-
                 doc.autoTable({
-                    startY: 55,
+                    startY: tableY + 8,
                     head: [tableData[0]],
                     body: tableData.slice(1),
                     theme: 'grid',
-                    styles: { font: 'helvetica', fontSize: 10, cellPadding: 5 },
-                    headStyles: { fillColor: [13, 110, 253], textColor: [255, 255, 255], fontStyle: 'bold', halign: 'center' },
-                    bodyStyles: { fillColor: [245, 245, 245], alternateFillColor: [255, 255, 255], halign: 'center' },
-                    margin: { top: 10, right: 10, bottom: 20, left: 10 }
+                    headStyles: { fillColor: [0, 84, 142] },
+                    styles: { font: 'helvetica', fontSize: 11 },
+                    margin: { left: 40, right: 40 }
                 });
-
                 const now = new Date();
-                doc.setFontSize(10);
+                doc.setFontSize(12);
                 doc.text(`Generated on: ${now.toLocaleString('en-US', {
                     month: 'long', day: '2-digit', year: 'numeric',
                     hour: '2-digit', minute: '2-digit', hour12: true
-                })} EEST`, docWidth / 2, 290, { align: 'center' });
-
+                })} EEST`, pageWidth / 2, doc.lastAutoTable.finalY + 18, { align: 'center' });
                 doc.save(`${productData.model_name}_specifications.pdf`);
-                showToast('{{ __("common.pdf_download_started") }}');
-            };
-
-            logo.onerror = () => alert("Failed to load logo image. PDF not generated.");
+                showToast(`PDF Download Started`);
+            }
         });
-    }
+    });
+}
 
-    // CSV Download
-    const downloadCsvBtn = document.querySelector('#csvBtn');
-    if (downloadCsvBtn) {
-        downloadCsvBtn.addEventListener('click', function (e) {
-            e.preventDefault();
+        // CSV Download
+        const downloadCsvBtn = document.querySelector('#csvBtn');
+        if (downloadCsvBtn) {
+            downloadCsvBtn.addEventListener('click', function (e) {
+                e.preventDefault();
 
-            const attributes = [
-                { label: 'Body Weight', key: 'body_weight' },
-                { label: 'Operating Weight', key: 'operating_weight' },
-                { label: 'Overall Length', key: 'overall_length' },
-                { label: 'Overall Width', key: 'overall_width' },
-                { label: 'Overall Height', key: 'overall_height' },
-                { label: 'Required Oil Flow', key: 'required_oil_flow' },
-                { label: 'Operating Pressure', key: 'operating_pressure' },
-                { label: 'Impact Rate (STD Mode)', key: 'impact_rate' },
-                { label: 'Impact Rate (Soft Rock)', key: 'impact_rate_soft_rock' },
-                { label: 'Hose Diameter', key: 'hose_diameter' },
-                { label: 'Rod Diameter', key: 'rod_diameter' },
-                { label: 'Applicable Carrier', key: 'applicable_carrier' }
-            ];
+                const attributes = [
+                    { label: 'Body Weight', key: 'body_weight' },
+                    { label: 'Operating Weight', key: 'operating_weight' },
+                    { label: 'Overall Length', key: 'overall_length' },
+                    { label: 'Overall Width', key: 'overall_width' },
+                    { label: 'Overall Height', key: 'overall_height' },
+                    { label: 'Required Oil Flow', key: 'required_oil_flow' },
+                    { label: 'Operating Pressure', key: 'operating_pressure' },
+                    { label: 'Impact Rate (STD Mode)', key: 'impact_rate' },
+                    { label: 'Impact Rate (Soft Rock)', key: 'impact_rate_soft_rock' },
+                    { label: 'Hose Diameter', key: 'hose_diameter' },
+                    { label: 'Rod Diameter', key: 'rod_diameter' },
+                    { label: 'Applicable Carrier', key: 'applicable_carrier' }
+                ];
 
-            const header = ["Attribute Name", "SI", "Imperial"];
+                const header = ["Attribute Name", "SI", "Imperial"];
 
-            const rows = attributes.map(attr => {
-                const rawValue = productData[attr.key]?.trim();
-                if (!rawValue || rawValue === '-') return [attr.label, '-', '-'];
-                const imperial = formatImperial(attr.key, rawValue);
-                const si = convertToSI(attr.key, rawValue, imperial);
-                return [attr.label, si, imperial];
+                const rows = attributes.map(attr => {
+                    const rawValue = productData[attr.key]?.trim();
+                    if (!rawValue || rawValue === '-') return [attr.label, '-', '-'];
+                    const imperial = formatImperial(attr.key, rawValue);
+                    const si = convertToSI(attr.key, rawValue, imperial);
+                    return [attr.label, si, imperial];
+                });
+
+                const csvLines = [
+                    `"Hydraulic Breaker Specifications - ${productData.model_name}","",""`,
+                    `"Model Name","${productData.model_name}"`,
+                    `"Line","${productData.line && productData.line !== '-' ? productData.line : 'SB Line'}"`,
+                    `"Type","${productData.type && productData.type !== '-' ? productData.type : 'TR-F'}"`,
+                    "",
+                    header.join(","),
+                    ...rows.map(row => row.map(cell => `"${cell.replace(/"/g, '""')}"`).join(','))
+                ];
+
+                const blob = new Blob([csvLines.join('\n')], { type: 'text/csv;charset=utf-8;' });
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `${productData.model_name}_specifications.csv`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
+                showToast('CSV Download Started');
             });
-
-            const csvLines = [
-                `"Hydraulic Breaker Specifications - ${productData.model_name}","",""`,
-                `"Model Name","${productData.model_name}"`,
-                `"Line","${productData.line && productData.line !== '-' ? productData.line : 'SB Line'}"`,
-                `"Type","${productData.type && productData.type !== '-' ? productData.type : 'TR-F'}"`,
-                "",
-                header.join(","),
-                ...rows.map(row => row.map(cell => `"${cell.replace(/"/g, '""')}"`).join(','))
-            ];
-
-            const blob = new Blob([csvLines.join('\n')], { type: 'text/csv;charset=utf-8;' });
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `${productData.model_name}_specifications.csv`;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            window.URL.revokeObjectURL(url);
-            showToast('{{ __("common.csv_download_started") }}');
-        });
-    }
-
-    function formatImperial(type, value) {
-        if (!value || value === '-') return '-';
-        if (value.includes('~') || value.includes('-')) {
-            const [min, max] = value.split(/~|-/).map(v => v.trim());
-            return `${number_format(min, 1)} - ${number_format(max, 1)} ${getImperialUnit(type)}`;
         }
-        return `${number_format(value, 1)} ${getImperialUnit(type)}`;
-    }
 
-    function getImperialUnit(type) {
-        switch (type) {
-            case 'body_weight':
-            case 'operating_weight':
-            case 'applicable_carrier': return 'lb';
-            case 'overall_length':
-            case 'overall_width':
-            case 'overall_height':
-            case 'hose_diameter':
-            case 'rod_diameter': return 'in';
-            case 'required_oil_flow': return 'gal/min';
-            case 'operating_pressure': return 'psi';
-            case 'impact_rate':
-            case 'impact_rate_soft_rock': return 'BPM';
-            default: return '';
+        function formatImperial(type, value) {
+            if (!value || value === '-') return '-';
+            if (value.includes('~') || value.includes('-')) {
+                const [min, max] = value.split(/~|-/).map(v => v.trim());
+                return `${number_format(min, 1)} - ${number_format(max, 1)} ${getImperialUnit(type)}`;
+            }
+            return `${number_format(value, 1)} ${getImperialUnit(type)}`;
         }
-    }
 
-    function convertToSI(type, value, imperial) {
-        if (!value || value === '-') return '-';
-        const toFormatted = (val, factor, unit) => isNaN(val) ? '-' : number_format(val * factor, 1) + ' ' + unit;
-        const isRange = value.includes('~') || value.includes('-');
-        const tryParseFloat = str => parseFloat(str.trim());
-
-        if (isRange) {
-            const [minRaw, maxRaw] = value.split(/~|-/);
-            const min = tryParseFloat(minRaw);
-            const max = tryParseFloat(maxRaw);
+        function getImperialUnit(type) {
             switch (type) {
-                case 'required_oil_flow': return `${number_format(min * 3.785411784, 1)} - ${number_format(max * 3.785411784, 1)} l/min`;
-                case 'operating_pressure': return `${number_format(min * 0.0703069578296, 1)} - ${number_format(max * 0.0703069578296, 1)} kgf/cm²`;
-                case 'applicable_carrier': return `${number_format(min * 0.00045359237, 1)} - ${number_format(max * 0.00045359237, 1)} ton`;
-                case 'impact_rate': 
-                case 'impact_rate_soft_rock': return `${number_format(min, 1)} - ${number_format(max, 1)} BPM`;
+                case 'body_weight':
+                case 'operating_weight':
+                case 'applicable_carrier': return 'lb';
+                case 'overall_length':
+                case 'overall_width':
+                case 'overall_height':
+                case 'hose_diameter': return 'in';
+                case 'rod_diameter': return 'in';
+                case 'required_oil_flow': return 'gal/min';
+                case 'operating_pressure': return 'psi';
+                case 'impact_rate':
+                case 'impact_rate_soft_rock': return 'BPM';
+                default: return '';
+            }
+        }
+
+        function convertToSI(type, value, imperial) {
+            if (!value || value === '-') return '-';
+            const toFormatted = (val, factor, unit) => isNaN(val) ? '-' : number_format(val * factor, 1) + ' ' + unit;
+            const isRange = value.includes('~') || value.includes('-');
+            const tryParseFloat = str => parseFloat(str.trim());
+
+            if (isRange) {
+                const [minRaw, maxRaw] = value.split(/~|-/);
+                const min = tryParseFloat(minRaw);
+                const max = tryParseFloat(maxRaw);
+                switch (type) {
+                    case 'required_oil_flow': return `${number_format(min * 3.785411784, 1)} - ${number_format(max * 3.785411784, 1)} l/min`;
+                    case 'operating_pressure': return `${number_format(min * 0.0703069578296, 1)} - ${number_format(max * 0.0703069578296, 1)} kgf/cm²`;
+                    case 'applicable_carrier': return `${number_format(min * 0.00045359237, 1)} - ${number_format(max * 0.00045359237, 1)} ton`;
+                    case 'impact_rate': 
+                    case 'impact_rate_soft_rock': return `${number_format(min, 1)} - ${number_format(max, 1)} BPM`;
+                    default: return value;
+                }
+            }
+
+            const num = tryParseFloat(value);
+            switch (type) {
+                case 'body_weight':
+                case 'operating_weight': return toFormatted(num, 0.45359237, 'kg');
+                case 'overall_length':
+                case 'overall_width':
+                case 'overall_height':
+                case 'rod_diameter': return toFormatted(num, 25.4, 'mm');
+                case 'hose_diameter': return imperial || '-';
+                case 'required_oil_flow': return toFormatted(num, 3.785411784, 'l/min');
+                case 'operating_pressure': return `${number_format(num * 0.0703069578296, 1)} kgf/cm²`;
+                case 'applicable_carrier': return toFormatted(num, 0.00045359237, 'ton');
+                case 'impact_rate':
+                case 'impact_rate_soft_rock': return `${number_format(num, 1)} BPM`;
                 default: return value;
             }
         }
 
-        const num = tryParseFloat(value);
-        switch (type) {
-            case 'body_weight':
-            case 'operating_weight': return toFormatted(num, 0.45359237, 'kg');
-            case 'overall_length':
-            case 'overall_width':
-            case 'overall_height':
-            case 'rod_diameter': return toFormatted(num, 25.4, 'mm');
-            case 'hose_diameter': return imperial || '-';
-            case 'required_oil_flow': return toFormatted(num, 3.785411784, 'l/min');
-            case 'operating_pressure': return `${number_format(num * 0.0703069578296, 1)} kgf/cm²`;
-            case 'applicable_carrier': return toFormatted(num, 0.00045359237, 'ton');
-            case 'impact_rate':
-            case 'impact_rate_soft_rock': return `${number_format(num, 1)} BPM`;
-            default: return value;
+        function number_format(number, decimals) {
+            const n = !isFinite(+number) ? 0 : +number;
+            return Number(n).toFixed(decimals).toString();
         }
-    }
 
-    function number_format(number, decimals) {
-        const n = !isFinite(+number) ? 0 : +number;
-        return Number(n).toFixed(decimals).toString();
-    }
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.className = 'copy-toast';
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.classList.add('active'), 10);
+            setTimeout(() => toast.classList.remove('active'), 2010);
+            setTimeout(() => document.body.removeChild(toast), 2210);
+        }
+    });
+    
 
-    function showToast(message) {
-        const toast = document.createElement('div');
-        toast.className = 'copy-toast';
-        toast.textContent = message;
-        document.body.appendChild(toast);
-        setTimeout(() => toast.classList.add('active'), 10);
-        setTimeout(() => toast.classList.remove('active'), 2010);
-        setTimeout(() => document.body.removeChild(toast), 2210);
-    }
-});
 </script>
 @endpush

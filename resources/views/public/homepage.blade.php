@@ -974,7 +974,7 @@
     .section-title {
         font-size: clamp(2.5rem, 5vw, 3.5rem);
         font-weight: 800;
-        color: var(--text-color);
+        color: black;
         margin-bottom: 1.5rem;
         line-height: 1.2;
     }
@@ -1093,7 +1093,7 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background: linear-gradient(135deg, rgba(37, 99, 235, 0.8), rgba(29, 78, 216, 0.8));
+        background: linear-gradient(135deg, #00548e, #0066a3);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -1108,7 +1108,7 @@
 
     .product-link {
         background: white;
-        color: var(--primary-color);
+        color: #b0d701;
         width: 60px;
         height: 60px;
         border-radius: 50%;
@@ -1126,7 +1126,7 @@
     }
 
     .product-link:hover {
-        background: var(--primary-color);
+        background: #b0d701;
         color: white;
         transform: scale(1.1);
     }
@@ -1153,7 +1153,7 @@
     }
 
     .product-btn {
-        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        background: #00548e;
         color: white;
         padding: 0.75rem 1.5rem;
         border-radius: 50px;
@@ -1188,20 +1188,6 @@
         box-shadow: 0 8px 24px rgba(37, 99, 235, 0.3);
         color: white;
         text-decoration: none;
-    }
-
-    .product-btn {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        color: var(--primary-color);
-        text-decoration: none;
-        font-weight: 600;
-        transition: all var(--transition-duration) ease;
-    }
-
-    .product-btn:hover {
-        color: var(--secondary-color);
     }
 
     /* Features Section */
@@ -2045,11 +2031,9 @@
 .section-title {
     font-size: clamp(2.5rem, 5vw, 3.5rem);
     font-weight: 800;
-    color: #00548e;
+    color: black;
     margin-bottom: 1.5rem;
-    background: linear-gradient(135deg, #00548e, #0066a3);
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
     background-clip: text;
     line-height: 1.2;
 }
@@ -2193,7 +2177,7 @@
     background: white;
     box-shadow: 0 20px 60px rgba(0, 84, 142, 0.15);
     max-width: 1000px;
-    width: 100%;
+    width: 1100px;
     margin: 0 auto;
     transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
@@ -2279,7 +2263,7 @@
 
 .breaker-product-split-card:hover .line-badge {
     background: linear-gradient(135deg, #b0d701, #9bc600);
-    color: #00548e;
+    color: #fff;
     transform: scale(1.05);
     box-shadow: 0 6px 25px rgba(176, 215, 1, 0.4);
 }
@@ -2411,20 +2395,17 @@
 
 .breaker-app-label {
     display: inline-block;
-    background: linear-gradient(135deg, #b0d701, #9bc600);
-    color: white;
+    background: rgba(176, 215, 1, 0.05);
     font-size: 0.9rem;
     font-weight: 600;
     border-radius: 1.5rem;
     padding: 0.5rem 1.25rem;
     margin: 0;
-    box-shadow: 0 4px 15px rgba(176, 215, 1, 0.3);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     border: 2px solid transparent;
 }
 
 .breaker-app-label:hover {
-    background: linear-gradient(135deg, #00548e, #0066a3);
     transform: translateY(-2px) scale(1.05);
     box-shadow: 0 6px 20px rgba(0, 84, 142, 0.4);
 }
@@ -2472,7 +2453,7 @@
 
 .breaker-product-btn:hover {
     background: linear-gradient(135deg, #b0d701, #9bc600);
-    color: #00548e;
+    color: #fff;
     transform: translateY(-3px) scale(1.05);
     box-shadow: 0 8px 30px rgba(176, 215, 1, 0.4);
 }
@@ -2624,9 +2605,30 @@
 <script>
         // Enhanced Data for each product line
         const breakerLinesData = {
+            'et-ii-line': {
+                name: 'ET-II Line',
+                image: 'https://res.cloudinary.com/dikwwdtgc/image/upload/v1751673317/ETII200-removebg-preview_kvxysk.png',
+                subtitle: 'Elite Technology Series',
+                description: `Open Type design built for heavy-duty efficiency, the ET-II Line delivers extreme breaking power, user-friendly maintenance, and exceptional durability, optimal for mining, quarrying, and large-scale construction projects worldwide.`,
+                features: [
+                    'State-of-the-art technology',
+                    'Maximum power output',
+                    'Advanced diagnostics',
+                    'Premium components',
+                    'Heavy-duty construction',
+                    'Superior reliability'
+                ],
+                applications: [
+                    'Large-scale mining',
+                    'Major infrastructure',
+                    'Industrial demolition',
+                    'Quarry operations'
+                ],
+                filter: 'ET-II Line',
+            },
             'sq-line': {
                 name: 'SQ Line',
-                image: 'https://res.cloudinary.com/dikwwdtgc/image/upload/v1751631832/SQ35_SSL_Easylube_p1ocrn.png',
+                image: 'https://res.cloudinary.com/dikwwdtgc/image/upload/v1752246624/SQ50_Easylube-removebg-preview_spzxzk.png',
                 subtitle: 'Premium Performance Series',
                 description: `The SQ Premium Series range of breakers integrates SOOSAN's unique technology to increase productivity, lower cost of operation and improve operator convenience. Built for excellence and engineered for the future.`,
                 features: [
@@ -2668,10 +2670,7 @@
             },
             'sb-e-line': {
                 name: 'SB-E Line',
-                image: [
-                    'https://res.cloudinary.com/dikwwdtgc/image/upload/v1751671246/SB35E_top_cap_i5orbu.jpg',
-                    'https://res.cloudinary.com/dikwwdtgc/image/upload/v1751671259/SBB30E_top_cap_fbb5qk.jpg',
-                ],
+                image:'https://res.cloudinary.com/dikwwdtgc/image/upload/v1751671252/SB40E_side-removebg-preview_x8vcb7.png',
                 subtitle: 'Enhanced Efficiency Series',
                 description: `Engineered for enhanced performance, the SB-E Line combines advanced technology, strong impact force, and increased longevity perfect for demanding jobsites, precision-driven operations, mining, quarrying, and large scale construction.`,
                 features: [
@@ -2689,27 +2688,6 @@
                     'Infrastructure maintenance'
                 ],
                 filter: 'SB-E Line',
-            },
-            'et-ii-line': {
-                name: 'ET-II Line',
-                image: 'https://res.cloudinary.com/dikwwdtgc/image/upload/v1751673317/ETII200-removebg-preview_kvxysk.png',
-                subtitle: 'Elite Technology Series',
-                description: `Open Type design built for heavy-duty efficiency, the ET-II Line delivers extreme breaking power, user-friendly maintenance, and exceptional durability, optimal for mining, quarrying, and large-scale construction projects worldwide.`,
-                features: [
-                    'State-of-the-art technology',
-                    'Maximum power output',
-                    'Advanced diagnostics',
-                    'Premium components',
-                    'Heavy-duty construction',
-                    'Superior reliability'
-                ],
-                applications: [
-                    'Large-scale mining',
-                    'Major infrastructure',
-                    'Industrial demolition',
-                    'Quarry operations'
-                ],
-                filter: 'ET-II Line',
             },
         };
 
@@ -3505,10 +3483,6 @@
                 <p class="section-description">{{ __('homepage.product_section_description') }}</p>
             </div>
             
-            <div class="product-categories">
-                <button class="category-btn" data-category="hydraulic">{{ __('homepage.hydraulic_rock_drill') }}</button>
-            </div>
-
             <div class="product-grid">
                 @if(isset($featuredProducts) && $featuredProducts->count() > 0)
                     @foreach($featuredProducts as $product)
@@ -3714,9 +3688,11 @@
             align-items: center;
             justify-content: center;
             margin: 0 auto;
+            transition: transform 0.3s ease;
         }
         .youtube-video-item:hover {
             box-shadow: 0 8px 32px rgba(37, 99, 235, 0.18);
+            transform: scale(1.1);
         }
         .youtube-video-item iframe {
             width: 100%;
@@ -3904,7 +3880,7 @@
                 transition: transform 0.32s cubic-bezier(.4,2,.3,1), box-shadow 0.32s, filter 0.25s;
                 min-width: 0;
                 position: relative;
-                min-height: 420px;
+                min-height: 390px;
                 width: 100%;
                 cursor: pointer;
                 will-change: transform, box-shadow, filter;
@@ -3964,14 +3940,14 @@
             }
             .industry-serve-apps {
                 display: flex;
-                flex-wrap: wrap;
+                flex-wrap: nowrap;
                 gap: 0.5rem 0.7rem;
                 padding: 0;
                 margin: 0 0 0.2rem 0;
                 list-style: none;
             }
             .industry-serve-apps li {
-                background: #b0d701;
+                background: #c2b22e;
                 color: #fff;
                 font-size: 0.86rem;
                 font-weight: 600;

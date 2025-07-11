@@ -25,7 +25,6 @@
                         <input type="text" name="search" id="search" class="form-control border-0 rounded-0 rounded-start-pill px-4 py-3" maxlength="100" value="{{ old('search', e($search ?? '')) }}" placeholder="Search by model, type, line, or specs..." style="font-size: 1.2rem; background: #fff;">
                         <button class="btn search-btn rounded-end-pill px-4 d-flex align-items-center" type="submit" style="background:#002147; color:#fff; border:none;">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" viewBox="0 0 16 16" class="me-2" style="vertical-align:middle;"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85zm-5.242 1.398a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11z"/></svg>
-                            <span>Search</span>
                         </button>
                     </div>
                 </form>
@@ -95,7 +94,7 @@
                                     @case('carrier-asc') Applicable Carrier (Low to High) @break
                                     @case('weight-desc') Operating Weight (High to Low) @break
                                     @case('weight-asc') Operating Weight (Low to High) @break
-                                    @default None (Default Order)
+                                    @default None (Default)
                                 @endswitch
                             </span>
                         </button>
@@ -116,7 +115,7 @@
                             @foreach ($products as $product)
                                 <div class="col-sm-6 col-lg-4 d-flex justify-content-center">
                                     <a href="{{ route('products.show', $product->id) }}" class="text-decoration-none text-dark">
-                                        <div class="card h-100 product-card shadow-sm border-0 interactive-card" style="min-height: 340px; width: 320px;">
+                                        <div class="card h-100 product-card shadow-sm border- interactive-card" style="min-height: 340px; width: 320px;">
                                             @if (!empty($product->image_url))
                                                 <div style="background: #fff; display: flex; align-items: center; justify-content: center; height: 200px;">
                                                     <img src="{{ $product->image_url }}" alt="{{ $product->model_name }}" class="card-img-top" style="max-height: 180px; max-width: 100%; object-fit: contain; width: auto; height: auto;" loading="lazy">
@@ -178,27 +177,8 @@
 </div>
 <div id="pageProgressBar"></div>
 <div id="copyToast" class="copy-toast">Link copied to clipboard</div>
-<button id="scrollTopBtn" title="Back to top" aria-label="Back to top">
-    <svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-        <path d="M12 18V6M12 6l-6 6M12 6l6 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-</button>
 @push('scripts')
 <script>
-    // Scroll-to-top button logic
-    const scrollBtn = document.getElementById('scrollTopBtn');
-    window.addEventListener('scroll', function() {
-        if (window.scrollY > 100) {
-            scrollBtn.style.display = 'flex';
-        } else {
-            scrollBtn.style.display = 'none';
-        }
-    });
-    scrollBtn.addEventListener('click', function(e) {
-        e.preventDefault();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-
     // Top progress bar logic
     function startProgressBar() {
         var bar = document.getElementById('pageProgressBar');
