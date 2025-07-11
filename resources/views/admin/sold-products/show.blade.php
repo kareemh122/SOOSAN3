@@ -146,7 +146,12 @@
                     <h3 class="mb-1">{{ __('sold-products.sale_number', ['id' => $soldProduct->id]) }}</h3>
                     <p class="text-muted mb-0">{{ $soldProduct->product->model_name ?? __('sold-products.na') }}</p>
                     <div class="mt-3">
-                        @if($soldProduct->warranty_end_date && $soldProduct->warranty_end_date >= now())
+                        @if($soldProduct->warranty_voided)
+                            <span class="warranty-badge warranty-expired">
+                                <i class="fas fa-ban"></i>
+                                {{ __('sold-products.warranty_voided') }}
+                            </span>
+                        @elseif($soldProduct->isUnderWarranty())
                             <span class="warranty-badge warranty-active">
                                 <i class="fas fa-shield-alt"></i>
                                 {{ __('sold-products.under_warranty') }}
@@ -337,6 +342,74 @@
             </div>
         </div>
         @endif
+
+        @if(auth()->user()->isAdmin() || auth()->user()->isEmployee())
+            @if(!$soldProduct->warranty_voided)
+                <!-- Button trigger modal -->
+                <button type="button" class="modern-btn modern-btn-secondary w-100" data-bs-toggle="modal" data-bs-target="#voidWarrantyModal">
+                    <i class="fas fa-ban me-2"></i>
+                    Void Warranty
+                </button>
+            @else
+                <div class="alert alert-warning mt-3" style="border-radius: 1rem;">
+                    <i class="fas fa-ban me-2"></i>
+                    Warranty Voided
+                    <br>
+                    <small>Voided by: {{ optional($soldProduct->warrantyVoidedBy)->name ?? '-' }}<br>
+                    Voided at: {{ $soldProduct->warranty_voided_at ? $soldProduct->warranty_voided_at->format('M d, Y H:i') : '-' }}</small>
+                    <br>
+                    <strong>Reason:</strong> {{ $soldProduct->warranty_void_reason }}
+                </div>
+            @endif
+        @endif
+
+        <!-- Modal -->
+        <div class="modal fade" id="voidWarrantyModal" tabindex="-1" aria-labelledby="voidWarrantyModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form method="POST" action="{{ route('admin.sold-products.void-warranty', $soldProduct) }}">
+                        @csrf
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="voidWarrantyModalLabel">Void Warranty</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul class="mb-0">
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+                            @if (session('success'))
+                                <div class="alert alert-success">
+                                    {{ session('success') }}
+                                </div>
+                            @endif
+                            @if (session('info'))
+                                <div class="alert alert-info">
+                                    {{ session('info') }}
+                                </div>
+                            @endif
+                            <div class="mb-3">
+                                <label for="warranty_void_reason" class="form-label">Reason for voiding</label>
+                                <textarea class="form-control" id="warranty_void_reason" name="warranty_void_reason" rows="3" required></textarea>
+                            </div>
+                            <div class="alert alert-warning">
+                                <i class="fas fa-exclamation-triangle me-2"></i>
+                                This action cannot be undone. The warranty will be permanently voided for this device.
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-danger">Confirm Void</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 @endsection

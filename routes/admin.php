@@ -20,20 +20,18 @@ Route::prefix('admin')->name('admin.')->middleware(['web'])->group(function () {
         return view('admin.auth.login');
     })->name('login');
 
-    Route::post('/login', function(\Illuminate\Http\Request $request) {
-        if (auth()->attempt($request->only('email', 'password'))) {
-            return redirect()->route('admin.dashboard');
-        }
-        return back()->with('error', 'Invalid credentials');
-    })->name('login.submit');
-
-    Route::post('/logout', function() {
+    // Admin logout route
+    Route::post('/logout', function(\Illuminate\Http\Request $request) {
         auth()->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
         return redirect()->route('admin.login');
     })->name('logout');
 
+  
+
     // Protected admin routes
-    Route::middleware(['auth', 'admin', 'employee.permission'])->group(function () {
+    Route::middleware([ 'admin', 'employee.permission'])->group(function () {
         
         // Dashboard
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -61,6 +59,7 @@ Route::prefix('admin')->name('admin.')->middleware(['web'])->group(function () {
 
         // Sold Products management
         Route::resource('sold-products', SoldProductController::class);
+        Route::post('sold-products/{soldProduct}/void-warranty', [SoldProductController::class, 'voidWarranty'])->name('sold-products.void-warranty');
 
         // Pending Changes management (Admin only)
         Route::prefix('pending-changes')->name('pending-changes.')->group(function () {

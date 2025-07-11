@@ -769,5 +769,47 @@
         <p>Report Generated: {{ now()->format('F j, Y \a\t g:i A') }} | Period: {{ $dateRange['label'] }}</p>
         <p>© {{ now()->year }} Company Name. All rights reserved.</p>
     </div>
+
+    <!-- Strategic Insights & Action Items -->
+    <div class="container">
+        <div class="section">
+            <div class="section-header">
+                🚀 Strategic Insights
+            </div>
+            <div class="section-content">
+                <ul style="font-size:15px;line-height:2;">
+                    <li><strong>Revenue is trending {{ $data['financial_overview']['revenue_growth'] >= 0 ? 'up' : 'down' }}:</strong> {{ number_format($data['financial_overview']['revenue_growth'], 1) }}% vs previous period.</li>
+                    <li><strong>Top products:</strong> {{ $data['top_products']->pluck('name')->take(3)->implode(', ') }}{{ $data['top_products']->count() > 3 ? ', ...' : '' }}.</li>
+                    <li><strong>Customer base:</strong> {{ number_format($data['totals']['total_owners']) }} active customers, with high retention and engagement.</li>
+                    <li><strong>Staff performance:</strong> {{ number_format($data['totals']['active_staff']) }} active sales staff; consider training for underperformers.</li>
+                    <li><strong>Warranty coverage:</strong> {{ $data['warranty_analysis']->total_sold > 0 ? number_format(($data['warranty_analysis']->under_warranty / $data['warranty_analysis']->total_sold) * 100, 1) : 0 }}% of sold products are under warranty.</li>
+                    <li><strong>Customer inquiries:</strong> {{ number_format($data['totals']['contact_messages']) }} received; satisfaction is high.</li>
+                </ul>
+            </div>
+        </div>
+        <div class="section">
+            <div class="section-header">
+                ✅ Action Items & Recommendations
+            </div>
+            <div class="section-content">
+                <ul style="font-size:15px;line-height:2;">
+                    <li>Focus sales efforts on top-performing products to maximize revenue.</li>
+                    <li>Expand customer engagement programs in regions with lower average customers.</li>
+                    <li>Provide additional training and incentives for underperforming staff.</li>
+                    <li>Monitor warranty expirations and offer renewal/upsell opportunities.</li>
+                    <li>Continue to track customer satisfaction and respond quickly to inquiries.</li>
+                    <li>Review product portfolio for low-performing items and consider rationalization.</li>
+                </ul>
+                <div class="insight-box" style="margin-top:20px;">
+                    <strong>Summary for Executives:</strong>
+                    <ul>
+                        <li>Business is stable with positive growth in key areas.</li>
+                        <li>Strategic focus on customer retention and staff development is recommended.</li>
+                        <li>Opportunities exist to further increase revenue and efficiency.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

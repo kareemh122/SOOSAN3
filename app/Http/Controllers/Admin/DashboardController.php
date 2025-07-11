@@ -239,13 +239,34 @@ class DashboardController extends Controller
 
     private function getSystemHealthData()
     {
+        // Store app start time in cache if not already set
+        if (!\Cache::has('app_start_time')) {
+            \Cache::forever('app_start_time', now());
+        }
+        $start = \Cache::get('app_start_time');
+        $uptime = $this->formatUptime($start);
         return [
             'database_size' => $this->getDatabaseSize(),
             'total_records' => User::count() + Product::count() + SoldProduct::count() + Owner::count(),
             'audit_logs_count' => AuditLog::count(),
             'last_backup' => 'N/A', // You can implement backup tracking
-            'system_uptime' => '99.9%', // You can implement uptime tracking
+            'system_uptime' => $uptime,
         ];
+    }
+
+    // Helper to format uptime duration
+    private function formatUptime($start)
+    {
+        $start = $start instanceof \Carbon\Carbon ? $start : \Carbon\Carbon::parse($start);
+        $diff = $start->diff(now());
+        $parts = [];
+        if ($diff->y) $parts[] = $diff->y . 'y';
+        if ($diff->m) $parts[] = $diff->m . 'mo';
+        if ($diff->d) $parts[] = $diff->d . 'd';
+        if ($diff->h) $parts[] = $diff->h . 'h';
+        if ($diff->i) $parts[] = $diff->i . 'm';
+        if ($diff->s && count($parts) < 1) $parts[] = $diff->s . 's';
+        return count($parts) ? implode(' ', $parts) : '0m';
     }
 
     private function getDatabaseSize()

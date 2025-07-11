@@ -12,6 +12,12 @@ return [
     |
     */
 
+    // Language Switching
+    'switch_language' => 'Switch Language',
+    'current_language' => 'Current Language',
+    'select_language' => 'Select Language',
+    'language_toggle' => 'Language Toggle',
+    
     // Login Page
     'welcome_back' => 'Welcome Back',
     'sign_in_to_account' => 'Sign in to your account to continue',

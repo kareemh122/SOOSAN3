@@ -499,6 +499,45 @@
                         </div>
                     </div>
                 @endif
+
+                <!-- Sold Products Section -->
+                @if($owner->soldProducts && $owner->soldProducts->count())
+                    <div class="owners-detail-section">
+                        <h3><i class="fas fa-box"></i> {{ __('owners.show.sections.sold_products') }}</h3>
+                        <div class="table-responsive">
+                            <table class="table table-bordered align-middle">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>{{ __('owners.show.labels.product') }}</th>
+                                        <th>{{ __('owners.show.labels.serial_number') }}</th>
+                                        <th>{{ __('owners.show.labels.sale_date') }}</th>
+                                        <th>{{ __('owners.show.labels.warranty_status') }}</th>
+                                        <th>{{ __('owners.show.labels.warranty_end') }}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($owner->soldProducts as $soldProduct)
+                                        <tr>
+                                            <td>{{ $soldProduct->product->model_name ?? '-' }}</td>
+                                            <td>{{ $soldProduct->serial_number }}</td>
+                                            <td>{{ $soldProduct->sale_date ? $soldProduct->sale_date->format('M d, Y') : '-' }}</td>
+                                            <td>
+                                                @if($soldProduct->warranty_voided)
+                                                    <span class="badge bg-danger">{{ __('owners.show.labels.warranty_voided') }}</span>
+                                                @elseif($soldProduct->warranty_end_date && now()->gt($soldProduct->warranty_end_date))
+                                                    <span class="badge bg-secondary">{{ __('owners.show.labels.warranty_expired') }}</span>
+                                                @else
+                                                    <span class="badge bg-success">{{ __('owners.show.labels.warranty_active') }}</span>
+                                                @endif
+                                            </td>
+                                            <td>{{ $soldProduct->warranty_end_date ? $soldProduct->warranty_end_date->format('M d, Y') : '-' }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                @endif
             </div>
         </div>
 

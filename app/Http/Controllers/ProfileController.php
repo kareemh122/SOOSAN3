@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
+use Illuminate\Support\Facades\Log;
 
 class ProfileController extends Controller
 {
@@ -31,31 +33,35 @@ class ProfileController extends Controller
     {
         $user = $request->user();
         $validatedData = $request->validated();
+        Log::info('Profile update request', ['user_id' => $user->id, 'data' => $validatedData]);
 
-        // Handle image upload
-        if ($request->hasFile('profile_image')) {
-            // Delete old image if it exists
-            if ($user->image_url && Storage::disk('public')->exists($user->image_url)) {
-                Storage::disk('public')->delete($user->image_url);
+        try {
+            // Handle image upload (local storage)
+            if ($request->hasFile('profile_image')) {
+                // Delete old image if it exists
+                if ($user->image_url && file_exists(public_path($user->image_url))) {
+                    @unlink(public_path($user->image_url));
+                }
+                $image = $request->file('profile_image');
+                $imageName = 'user_' . $user->id . '_' . time() . '.' . $image->getClientOriginalExtension();
+                $image->move(public_path('user_images'), $imageName);
+                $validatedData['image_url'] = 'user_images/' . $imageName;
             }
 
-            // Store new image
-            $image = $request->file('profile_image');
-            $imageName = 'profile_' . $user->id . '_' . time() . '.' . $image->getClientOriginalExtension();
-            $imagePath = $image->storeAs('profile_images', $imageName, 'public');
-            $validatedData['image_url'] = $imagePath;
+            // Fill user with validated data
+            $user->fill($validatedData);
+
+            if ($user->isDirty('email')) {
+                $user->email_verified_at = null;
+            }
+
+            $user->save();
+            Log::info('Profile updated successfully', ['user_id' => $user->id]);
+            return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        } catch (\Exception $e) {
+            Log::error('Profile update failed', ['error' => $e->getMessage()]);
+            return Redirect::route('profile.edit')->withErrors(['profile_error' => 'Profile update failed: ' . $e->getMessage()]);
         }
-
-        // Fill user with validated data
-        $user->fill($validatedData);
-
-        if ($user->isDirty('email')) {
-            $user->email_verified_at = null;
-        }
-
-        $user->save();
-
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
 
     /**
@@ -132,11 +138,10 @@ class ProfileController extends Controller
     {
         $user = $request->user();
         
-        // Delete image file if it exists
-        if ($user->image_url && Storage::disk('public')->exists($user->image_url)) {
-            Storage::disk('public')->delete($user->image_url);
+        // Delete image file from local storage if it exists
+        if ($user->image_url && file_exists(public_path($user->image_url))) {
+            @unlink(public_path($user->image_url));
         }
-        
         // Remove image URL from database
         $user->image_url = null;
         $user->save();

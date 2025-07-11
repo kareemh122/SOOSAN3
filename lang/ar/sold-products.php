@@ -173,6 +173,31 @@ return [
     'clear_filters' => 'مسح المرشحات',
     'search' => 'بحث',
     
+    // Quick Search
+    'quick_search_placeholder' => 'البحث السريع باسم المالك أو الرقم التسلسلي...',
+    
+    // Filtering and Search
+    'advanced_filters' => 'فلاتر متقدمة',
+    'toggle_filters' => 'تبديل الفلاتر',
+    'apply_filters' => 'تطبيق الفلاتر',
+    'clear_filters' => 'مسح جميع الفلاتر',
+    'search_owner_placeholder' => 'البحث باسم المالك...',
+    'search_serial_placeholder' => 'البحث بالرقم التسلسلي...',
+    'warranty_status' => 'حالة الضمان',
+    'all_warranties' => 'جميع الضمانات',
+    'warranty_active' => 'ضمان نشط',
+    'warranty_expiring_soon' => 'ينتهي قريباً (30 يوم)',
+    'all_products' => 'جميع المنتجات',
+    'date_from' => 'من تاريخ',
+    'date_to' => 'إلى تاريخ',
+    'sort_by' => 'ترتيب حسب',
+    'sort_order' => 'نوع الترتيب',
+    'newest_first' => 'الأحدث أولاً',
+    'oldest_first' => 'الأقدم أولاً',
+    'showing_results' => 'عرض :count نتيجة',
+    'this_month' => 'هذا الشهر',
+    'expiring_soon' => 'ينتهي قريباً',
+    
     // Pagination & Sorting
     'showing' => 'عرض',
     'of' => 'من',
@@ -222,6 +247,8 @@ return [
     'receipt_sent' => 'تم إرسال الإيصال بنجاح',
     'invoice_generated' => 'تم إنشاء الفاتورة بنجاح',
     'warranty_extended' => 'تم تمديد الضمان بنجاح',
+    'warranty_voided' => 'تم الإلغاء',
+    'warranty_voided_successfully' => 'تم إلغاء الضمان بنجاح.',
     
     // Error Messages
     'sale_not_found' => 'سجل البيع غير موجود',
@@ -238,6 +265,7 @@ return [
     'warranty_date_invalid' => 'تاريخ انتهاء الضمان يجب أن يكون بعد تاريخ البداية',
     'sale_date_future' => 'تاريخ البيع لا يمكن أن يكون في المستقبل',
     'unauthorized' => 'غير مخول لك تنفيذ هذا الإجراء',
+    'warranty_already_voided' => 'تم إلغاء الضمان مسبقًا لهذا البيع.',
     
     // Form Validation
     'required' => 'مطلوب',

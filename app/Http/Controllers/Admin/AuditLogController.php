@@ -159,17 +159,48 @@ class AuditLogController extends Controller
             ->with('user')
             ->get();
 
+        // Monthly activity for the last 12 months
+        $monthlyActivity = collect();
+        for ($i = 11; $i >= 0; $i--) {
+            $month = now()->subMonths($i);
+            $count = AuditLog::whereYear('created_at', $month->year)
+                ->whereMonth('created_at', $month->month)
+                ->count();
+            $monthlyActivity->push([
+                'month' => $month->format('M Y'),
+                'count' => $count
+            ]);
+        }
+
+        // Total logs
+        $totalLogs = AuditLog::count();
+        // Unique users
+        $uniqueUsers = AuditLog::whereNotNull('user_id')->distinct('user_id')->count('user_id');
+        // Most active day (last 30 days)
+        $mostActiveDayObj = AuditLog::selectRaw('DATE(created_at) as date, COUNT(*) as count')
+            ->where('created_at', '>=', now()->subDays(30))
+            ->groupBy('date')
+            ->orderByDesc('count')
+            ->first();
+        $mostActiveDay = $mostActiveDayObj
+            ? ['date' => $mostActiveDayObj->date, 'count' => $mostActiveDayObj->count]
+            : ['date' => '-', 'count' => 0];
+
         return view('admin.audit-logs.dashboard', compact(
             'recentLogs',
             'eventStats',
             'modelStats',
             'dailyActivity',
-            'activeUsers'
+            'activeUsers',
+            'monthlyActivity',
+            'totalLogs',
+            'uniqueUsers',
+            'mostActiveDay'
         ));
     }
 
     /**
-     * Export audit logs to CSV
+     * Export audit logs to CSV (user-friendly for non-technical users)
      */
     public function export(Request $request)
     {
@@ -179,69 +210,97 @@ class AuditLogController extends Controller
         if ($request->filled('date_from')) {
             $query->whereDate('created_at', '>=', $request->date_from);
         }
-        
         if ($request->filled('date_to')) {
             $query->whereDate('created_at', '<=', $request->date_to);
         }
-
         if ($request->filled('event')) {
             $query->where('event', $request->event);
         }
-
         if ($request->filled('model_type')) {
             $query->where('auditable_type', $request->model_type);
         }
-
         if ($request->filled('user_id')) {
             $query->where('user_id', $request->user_id);
         }
 
         $auditLogs = $query->orderBy('created_at', 'desc')->get();
-
         $filename = 'audit_logs_' . now()->format('Y-m-d_H-i-s') . '.csv';
-        
         $headers = [
             'Content-Type' => 'text/csv',
             'Content-Disposition' => "attachment; filename={$filename}",
         ];
-
-        $callback = function() use ($auditLogs) {
+        $locale = app()->getLocale();
+        $trans = function($key, $default = null) use ($locale) {
+            $t = __($key, [], $locale);
+            return $t === $key ? ($default ?? $key) : $t;
+        };
+        $callback = function() use ($auditLogs, $trans) {
             $file = fopen('php://output', 'w');
-            
-            // CSV headers
+            // User-friendly CSV headers (translated)
             fputcsv($file, [
-                'ID',
-                'Date Time',
-                'User',
-                'Event',
-                'Model Type',
-                'Model ID',
-                'IP Address',
-                'URL',
-                'Method',
-                'Old Values',
-                'New Values'
+                $trans('audit-logs.table.columns.time', 'Date/Time'),
+                $trans('audit-logs.table.columns.user', 'User'),
+                $trans('audit-logs.table.columns.event', 'Event'),
+                $trans('audit-logs.table.columns.model', 'Model'),
+                $trans('audit-logs.table.columns.details', 'Details'),
+                $trans('audit-logs.table.columns.ip_address', 'IP Address'),
+                $trans('audit-logs.table.columns.actions', 'Action'),
+                $trans('audit-logs.modal.old_values', 'Old Values'),
+                $trans('audit-logs.modal.new_values', 'New Values'),
             ]);
-
             foreach ($auditLogs as $log) {
+                // User-friendly event
+                $event = $trans('audit-logs.table.events.' . $log->event, ucfirst($log->event));
+                // User-friendly model
+                $model = class_basename($log->auditable_type);
+                // User-friendly details
+                $details = $log->url ? $log->url : $trans('audit-logs.table.na', 'N/A');
+                // User-friendly user
+                $user = $log->user ? $log->user->name : $trans('audit-logs.table.system', 'System');
+                // Pretty-print old/new values (one per line for Excel)
+                $prettyOld = self::prettyArray($log->old_values, $trans, true);
+                $prettyNew = self::prettyArray($log->new_values, $trans, true);
+                // Format time as readable (and not as Excel ######)
+                $time = $log->created_at ? $log->created_at->format('Y-m-d H:i:s') : $trans('audit-logs.table.na', 'N/A');
                 fputcsv($file, [
-                    $log->id,
-                    $log->created_at->format('Y-m-d H:i:s'),
-                    $log->user ? $log->user->name : 'System',
-                    $log->event,
-                    $log->auditable_type,
-                    $log->auditable_id,
-                    $log->ip_address,
-                    $log->url,
-                    $log->method,
-                    json_encode($log->old_values),
-                    json_encode($log->new_values)
+                    $time,
+                    $user,
+                    $event,
+                    $model,
+                    $details,
+                    $log->ip_address ?: $trans('audit-logs.table.na', 'N/A'),
+                    $log->method ?: $trans('audit-logs.table.na', 'N/A'),
+                    $prettyOld,
+                    $prettyNew,
                 ]);
             }
-
             fclose($file);
         };
-
         return response()->stream($callback, 200, $headers);
+    }
+
+    /**
+     * Convert array or JSON to a pretty, readable string for CSV export (line breaks for Excel)
+     */
+    private static function prettyArray($value, $trans, $useLineBreaks = false)
+    {
+        if (empty($value)) return $trans('audit-logs.table.na', 'N/A');
+        if (is_string($value)) {
+            $decoded = json_decode($value, true);
+            if (json_last_error() === JSON_ERROR_NONE && is_array($decoded)) {
+                $value = $decoded;
+            } else {
+                return $value;
+            }
+        }
+        if (is_array($value)) {
+            $lines = [];
+            foreach ($value as $k => $v) {
+                $lines[] = $k . ': ' . (is_scalar($v) ? $v : json_encode($v, JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES));
+            }
+            $sep = $useLineBreaks ? "\n" : "; ";
+            return implode($sep, $lines);
+        }
+        return (string)$value;
     }
 }

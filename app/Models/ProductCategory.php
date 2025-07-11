@@ -18,6 +18,7 @@ class ProductCategory extends Model implements HasMedia
         'name',
         'slug',
         'description',
+        'parent_id',
         'sort_order',
         'is_active',
     ];
@@ -25,6 +26,13 @@ class ProductCategory extends Model implements HasMedia
     protected $casts = [
         'is_active' => 'boolean',
     ];
+
+    protected $appends = ['icon'];
+
+    public function getIconAttribute()
+    {
+        return $this->getFirstMediaUrl('icon', 'thumb') ?: 'https://via.placeholder.com/64';
+    }
 
     // Media collections
     public function registerMediaCollections(): void
@@ -53,5 +61,15 @@ class ProductCategory extends Model implements HasMedia
     public function products()
     {
         return $this->hasMany(Product::class, 'category_id');
+    }
+
+    public function parent()
+    {
+        return $this->belongsTo(ProductCategory::class, 'parent_id');
+    }
+
+    public function children()
+    {
+        return $this->hasMany(ProductCategory::class, 'parent_id');
     }
 }

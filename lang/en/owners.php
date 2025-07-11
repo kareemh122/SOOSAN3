@@ -215,5 +215,20 @@ return [
     'portuguese' => 'Portuguese',
     
     // Update owner information in the drilling dashboard system
-    'update_owner_info_system' => 'Update owner information in the drilling dashboard system',
+    'update_owner_info_system' => 'Update owner information data',
+    
+    // Sold Products Table
+    'sold_products' => 'Sold Products',
+    'product' => 'Product',
+    'serial_number' => 'Serial Number',
+    'sale_date' => 'Sale Date',
+    'warranty_status' => 'Warranty Status',
+    'warranty_end' => 'Warranty End',
+    'warranty_active' => 'Active',
+    'warranty_expired' => 'Expired',
+    'warranty_voided' => 'Voided',
+    'sold_products_empty' => 'No sold products found for this owner.',
+    'sections' => [
+        'sold_products' => 'Sold Products',
+    ],
 ];

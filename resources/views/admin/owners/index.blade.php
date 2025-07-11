@@ -695,9 +695,14 @@
                 <div class="owners-card">
                     <!-- Owner Avatar -->
                     <div class="owners-avatar-section">
-                        <div class="owners-avatar">
-                            {{ strtoupper(substr($owner->name, 0, 1)) }}
-                        </div>
+                        @php $userImg = $owner->image_url; @endphp
+                        @if($userImg)
+                            <img src="{{ asset($userImg) }}" alt="{{ $owner->name }}" class="rounded-circle" style="width: 38px; height: 38px; object-fit: cover;">
+                        @else
+                            <div class="avatar-circle bg-primary text-white">
+                                {{ substr($owner->name, 0, 1) }}
+                            </div>
+                        @endif
                     </div>
                     
                     <!-- Owner Content -->

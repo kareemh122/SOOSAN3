@@ -1,6 +1,6 @@
 @extends('layouts.public')
 
-@section('title', __('homepage.hero_slide_1_title') . ' - SoosanEgypt')
+@section('title', __('homepage.hero_slide_1_title') . ' - SoosanEg')
 @section('description', __('homepage.hero_slide_1_description'))
 
 @push('styles')
@@ -584,10 +584,11 @@
     }
 
     .hero-title .highlight {
-        background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+        background: linear-gradient(135deg,  #00548e, #b0d701);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
+        position: relative;
     }
 
     .hero-subtitle {
@@ -611,7 +612,7 @@
     }
 
     .btn-primary-hero {
-        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        background: linear-gradient(135deg,rgb(1, 48, 82), #00548e);
         color: white;
         padding: 1.25rem 3rem;
         border-radius: 50px;
@@ -652,8 +653,8 @@
 
     .btn-secondary-hero {
         background: transparent;
-        border: 2px solid var(--primary-color);
-        color: var(--primary-color);
+        border: 2px solid #b0d701;
+        color: black;
         padding: 1.25rem 3rem;
         border-radius: 50px;
         font-size: 1.1rem;
@@ -674,7 +675,7 @@
         left: 0;
         width: 0;
         height: 100%;
-        background: var(--primary-color);
+        background: #b0d701;
         transition: width 0.4s ease;
         z-index: -1;
     }
@@ -2177,7 +2178,7 @@
     background: white;
     box-shadow: 0 20px 60px rgba(0, 84, 142, 0.15);
     max-width: 1000px;
-    width: 1100px;
+    width: 100%;
     margin: 0 auto;
     transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
@@ -2209,7 +2210,7 @@
 
 /* Enhanced Image Section */
 .breaker-product-split-card .card-image {
-    flex: 0 0 36%;
+    flex: 0 0 40%;
     position: relative;
     display: flex;
     align-items: center;
@@ -4294,6 +4295,7 @@
 <!-- AOS and Typed.js Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+
 <script>
     // Initialize AOS
     AOS.init({

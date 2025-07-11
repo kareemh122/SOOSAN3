@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\SoldProduct;
+use App\Models\Product;
 use App\Models\Owner;
 use App\Models\PendingChange;
-use App\Models\Product;
-use App\Models\SoldProduct;
 use Illuminate\Http\Request;
 
 class SoldProductController extends Controller
@@ -17,13 +17,13 @@ class SoldProductController extends Controller
 
         // Apply filters
         if ($request->filled('owner_name')) {
-            $query->whereHas('owner', function ($q) use ($request) {
-                $q->where('name', 'like', '%'.$request->owner_name.'%');
+            $query->whereHas('owner', function($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->owner_name . '%');
             });
         }
 
         if ($request->filled('serial_number')) {
-            $query->where('serial_number', 'like', '%'.$request->serial_number.'%');
+            $query->where('serial_number', 'like', '%' . $request->serial_number . '%');
         }
 
         if ($request->filled('warranty_status')) {
@@ -37,7 +37,7 @@ class SoldProductController extends Controller
                     break;
                 case 'expiring_soon':
                     $query->whereDate('warranty_end_date', '>=', $today)
-                        ->whereDate('warranty_end_date', '<=', now()->addDays(30)->toDateString());
+                          ->whereDate('warranty_end_date', '<=', now()->addDays(30)->toDateString());
                     break;
             }
         }
@@ -57,7 +57,7 @@ class SoldProductController extends Controller
         // Sorting
         $sortBy = $request->get('sort_by', 'sale_date');
         $sortOrder = $request->get('sort_order', 'desc');
-
+        
         $allowedSorts = ['sale_date', 'warranty_end_date', 'serial_number', 'purchase_price'];
         if (in_array($sortBy, $allowedSorts)) {
             $query->orderBy($sortBy, $sortOrder);
@@ -75,13 +75,13 @@ class SoldProductController extends Controller
         $stats = [
             'total' => SoldProduct::count(),
             'this_month' => SoldProduct::whereMonth('sale_date', now()->month)
-                ->whereYear('sale_date', now()->year)
-                ->count(),
+                                    ->whereYear('sale_date', now()->year)
+                                    ->count(),
             'warranty_active' => SoldProduct::whereDate('warranty_end_date', '>=', now()->toDateString())->count(),
             'warranty_expired' => SoldProduct::whereDate('warranty_end_date', '<', now()->toDateString())->count(),
             'expiring_soon' => SoldProduct::whereDate('warranty_end_date', '>=', now()->toDateString())
-                ->whereDate('warranty_end_date', '<=', now()->addDays(30)->toDateString())
-                ->count(),
+                                        ->whereDate('warranty_end_date', '<=', now()->addDays(30)->toDateString())
+                                        ->count(),
             'voided' => SoldProduct::where('warranty_voided', true)->count(),
         ];
 
@@ -92,7 +92,6 @@ class SoldProductController extends Controller
     {
         $products = Product::where('is_active', true)->orderBy('model_name')->get();
         $owners = Owner::orderBy('name')->get();
-
         return view('admin.sold-products.create', compact('products', 'owners'));
     }
 
@@ -122,7 +121,6 @@ class SoldProductController extends Controller
     public function show(SoldProduct $soldProduct)
     {
         $soldProduct->load('product', 'owner', 'employee');
-
         return view('admin.sold-products.show', compact('soldProduct'));
     }
 
@@ -130,12 +128,12 @@ class SoldProductController extends Controller
     {
         $products = Product::where('is_active', true)->orderBy('model_name')->get();
         $owners = Owner::orderBy('name')->get();
-
+        
         // Only include employees field for admins
-        $employees = auth()->user()->isAdmin()
+        $employees = auth()->user()->isAdmin() 
             ? \App\Models\User::whereIn('role', ['admin', 'employee'])->orderBy('name')->get()
             : collect();
-
+            
         return view('admin.sold-products.edit', compact('soldProduct', 'products', 'owners', 'employees'));
     }
 
@@ -144,7 +142,7 @@ class SoldProductController extends Controller
         $validated = $request->validate([
             'product_id' => 'required|exists:products,id',
             'owner_id' => 'required|exists:owners,id',
-            'serial_number' => 'required|string|unique:sold_products,serial_number,'.$soldProduct->id,
+            'serial_number' => 'required|string|unique:sold_products,serial_number,' . $soldProduct->id,
             'sale_date' => 'required|date',
             'warranty_start_date' => 'required|date',
             'warranty_end_date' => 'required|date|after_or_equal:warranty_start_date',
@@ -194,7 +192,6 @@ class SoldProductController extends Controller
 
         // If user is admin, delete directly
         $soldProduct->delete();
-
         return redirect()->route('admin.sold-products.index')
             ->with('success', 'Sale record deleted successfully.');
     }
@@ -202,7 +199,7 @@ class SoldProductController extends Controller
     public function voidWarranty(Request $request, SoldProduct $soldProduct)
     {
         $user = auth()->user();
-        if (! $user->isAdmin() && ! $user->isEmployee()) {
+        if (!$user->isAdmin() && !$user->isEmployee()) {
             abort(403, 'Unauthorized');
         }
         $validated = $request->validate([

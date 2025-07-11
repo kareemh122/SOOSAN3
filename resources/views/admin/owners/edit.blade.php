@@ -369,14 +369,7 @@ select.owners-form-control {
                         <option value="">{{ __('owners.select_language') }}</option>
                         <option value="en" {{ old('preferred_language', $owner->preferred_language) == 'en' ? 'selected' : '' }}>{{ __('owners.english') }}</option>
                         <option value="ar" {{ old('preferred_language', $owner->preferred_language) == 'ar' ? 'selected' : '' }}>{{ __('owners.arabic') }}</option>
-                        <option value="es" {{ old('preferred_language', $owner->preferred_language) == 'es' ? 'selected' : '' }}>{{ __('owners.spanish') }}</option>
-                        <option value="fr" {{ old('preferred_language', $owner->preferred_language) == 'fr' ? 'selected' : '' }}>{{ __('owners.french') }}</option>
-                        <option value="de" {{ old('preferred_language', $owner->preferred_language) == 'de' ? 'selected' : '' }}>{{ __('owners.german') }}</option>
-                        <option value="it" {{ old('preferred_language', $owner->preferred_language) == 'it' ? 'selected' : '' }}>{{ __('owners.italian') }}</option>
-                        <option value="pt" {{ old('preferred_language', $owner->preferred_language) == 'pt' ? 'selected' : '' }}>{{ __('owners.portuguese') }}</option>
-                        <option value="ru" {{ old('preferred_language', $owner->preferred_language) == 'ru' ? 'selected' : '' }}>{{ __('owners.russian') }}</option>
-                        <option value="zh" {{ old('preferred_language', $owner->preferred_language) == 'zh' ? 'selected' : '' }}>{{ __('owners.chinese') }}</option>
-                        <option value="ja" {{ old('preferred_language', $owner->preferred_language) == 'ja' ? 'selected' : '' }}>{{ __('owners.japanese') }}</option>
+                      
                     </select>
                     @error('preferred_language')
                         <div class="owners-invalid-feedback">{{ $message }}</div>
@@ -400,11 +393,11 @@ select.owners-form-control {
             <div class="owners-form-actions">
                 <a href="{{ route('admin.owners.index') }}" class="btn btn-secondary">
                     <i class="fas fa-arrow-left"></i>
-                    Back to Owners
+                    {{ __('owners.back_to_owners') }}
                 </a>
                 <button type="submit" class="btn btn-primary">
                     <i class="fas fa-save"></i>
-                    Update Owner
+                    {{ __('owners.update_owner') }}
                 </button>
             </div>
         </form>

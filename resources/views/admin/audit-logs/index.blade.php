@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', __('audit-logs.title'))
+@section('title', __('audit-logs.header.title'))
 
 @section('content')
 <div class="container-fluid">
@@ -10,17 +10,17 @@
             <div class="d-flex justify-content-between align-items-center">
                 <h1 class="h3 mb-0">
                     <i class="fas fa-eye text-primary"></i>
-                    System Activity Monitor
+                    {{ __('audit-logs.header.title') }}
                 </h1>
                 <div class="btn-group">
                     <a href="{{ route('admin.audit-logs.dashboard') }}" class="btn btn-info">
-                        <i class="fas fa-chart-bar"></i> Dashboard
+                        <i class="fas fa-chart-bar"></i> {{ __('audit-logs.header.dashboard_btn') }}
                     </a>
                     <button type="button" class="btn btn-success" onclick="exportLogs()">
-                        <i class="fas fa-download"></i> Export
+                        <i class="fas fa-download"></i> {{ __('audit-logs.header.export_btn') }}
                     </button>
                     <button type="button" class="btn btn-warning" id="realTimeToggle">
-                        <i class="fas fa-play"></i> Real-time
+                        <i class="fas fa-play"></i> {{ __('audit-logs.header.realtime_btn') }}
                     </button>
                 </div>
             </div>
@@ -35,7 +35,7 @@
                     <div class="d-flex align-items-center">
                         <i class="fas fa-list-alt fa-2x me-3"></i>
                         <div>
-                            <div class="small">Total Events</div>
+                            <div class="small">{{ __('audit-logs.stats.total_events') }}</div>
                             <div class="h4">{{ number_format($stats['total_logs']) }}</div>
                         </div>
                     </div>
@@ -48,7 +48,7 @@
                     <div class="d-flex align-items-center">
                         <i class="fas fa-calendar-day fa-2x me-3"></i>
                         <div>
-                            <div class="small">Today</div>
+                            <div class="small">{{ __('audit-logs.stats.today') }}</div>
                             <div class="h4">{{ number_format($stats['today_logs']) }}</div>
                         </div>
                     </div>
@@ -61,7 +61,7 @@
                     <div class="d-flex align-items-center">
                         <i class="fas fa-calendar-week fa-2x me-3"></i>
                         <div>
-                            <div class="small">This Week</div>
+                            <div class="small">{{ __('audit-logs.stats.this_week') }}</div>
                             <div class="h4">{{ number_format($stats['this_week_logs']) }}</div>
                         </div>
                     </div>
@@ -74,7 +74,7 @@
                     <div class="d-flex align-items-center">
                         <i class="fas fa-calendar-alt fa-2x me-3"></i>
                         <div>
-                            <div class="small">This Month</div>
+                            <div class="small">{{ __('audit-logs.stats.this_month') }}</div>
                             <div class="h4">{{ number_format($stats['this_month_logs']) }}</div>
                         </div>
                     </div>
@@ -87,9 +87,9 @@
     <div class="card mb-4">
         <div class="card-header">
             <h5 class="mb-0">
-                <i class="fas fa-filter"></i> Filters
+                <i class="fas fa-filter"></i> {{ __('audit-logs.filters.title') }}
                 <button class="btn btn-sm btn-outline-secondary ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#filtersCollapse">
-                    Toggle Filters
+                    {{ __('audit-logs.filters.toggle_btn') }}
                 </button>
             </h5>
         </div>
@@ -98,28 +98,28 @@
                 <form method="GET" action="{{ route('admin.audit-logs.index') }}" id="filterForm">
                     <div class="row g-3">
                         <div class="col-md-2">
-                            <label class="form-label">Date From</label>
+                            <label class="form-label">{{ __('audit-logs.filters.date_from') }}</label>
                             <input type="date" name="date_from" class="form-control" value="{{ request('date_from') }}">
                         </div>
                         <div class="col-md-2">
-                            <label class="form-label">Date To</label>
+                            <label class="form-label">{{ __('audit-logs.filters.date_to') }}</label>
                             <input type="date" name="date_to" class="form-control" value="{{ request('date_to') }}">
                         </div>
                         <div class="col-md-2">
-                            <label class="form-label">Event Type</label>
+                            <label class="form-label">{{ __('audit-logs.filters.event_type') }}</label>
                             <select name="event" class="form-select">
-                                <option value="">All Events</option>
+                                <option value="">{{ __('audit-logs.filters.all_events') }}</option>
                                 @foreach($events as $event)
                                     <option value="{{ $event }}" {{ request('event') == $event ? 'selected' : '' }}>
-                                        {{ ucfirst($event) }}
+                                        {{ __('audit-logs.table.events.' . $event) }}
                                     </option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="col-md-2">
-                            <label class="form-label">Model Type</label>
+                            <label class="form-label">{{ __('audit-logs.filters.model_type') }}</label>
                             <select name="model_type" class="form-select">
-                                <option value="">All Models</option>
+                                <option value="">{{ __('audit-logs.filters.all_models') }}</option>
                                 @foreach($modelTypes as $type)
                                     <option value="{{ $type }}" {{ request('model_type') == $type ? 'selected' : '' }}>
                                         {{ class_basename($type) }}
@@ -128,9 +128,9 @@
                             </select>
                         </div>
                         <div class="col-md-2">
-                            <label class="form-label">User</label>
+                            <label class="form-label">{{ __('audit-logs.filters.user') }}</label>
                             <select name="user_id" class="form-select">
-                                <option value="">All Users</option>
+                                <option value="">{{ __('audit-logs.filters.all_users') }}</option>
                                 @foreach($users as $user)
                                     <option value="{{ $user->id }}" {{ request('user_id') == $user->id ? 'selected' : '' }}>
                                         {{ $user->name }}
@@ -139,17 +139,17 @@
                             </select>
                         </div>
                         <div class="col-md-2">
-                            <label class="form-label">Search</label>
-                            <input type="text" name="search" class="form-control" placeholder="Search in changes..." value="{{ request('search') }}">
+                            <label class="form-label">{{ __('audit-logs.filters.search') }}</label>
+                            <input type="text" name="search" class="form-control" placeholder="{{ __('audit-logs.filters.search_placeholder') }}" value="{{ request('search') }}">
                         </div>
                     </div>
                     <div class="row mt-3">
                         <div class="col-12">
                             <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-search"></i> Apply Filters
+                                <i class="fas fa-search"></i> {{ __('audit-logs.filters.apply_btn') }}
                             </button>
                             <a href="{{ route('admin.audit-logs.index') }}" class="btn btn-secondary">
-                                <i class="fas fa-times"></i> Clear
+                                <i class="fas fa-times"></i> {{ __('audit-logs.filters.clear_btn') }}
                             </a>
                         </div>
                     </div>
@@ -162,11 +162,11 @@
     <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
             <h5 class="mb-0">
-                <i class="fas fa-history"></i> Activity Log
-                <span class="badge bg-secondary">{{ $auditLogs->total() }} entries</span>
+                <i class="fas fa-history"></i> {{ __('audit-logs.table.title') }}
+                <span class="badge bg-secondary">{{ $auditLogs->total() }} {{ __('audit-logs.table.entries') }}</span>
             </h5>
             <div id="realTimeStatus" class="text-muted small" style="display: none;">
-                <i class="fas fa-circle text-success blink"></i> Live monitoring
+                <i class="fas fa-circle text-success blink"></i> {{ __('audit-logs.table.live_monitoring') }}
             </div>
         </div>
         <div class="card-body p-0">
@@ -174,13 +174,13 @@
                 <table class="table table-hover mb-0" id="auditLogsTable">
                     <thead class="table-dark">
                         <tr>
-                            <th>Time</th>
-                            <th>User</th>
-                            <th>Event</th>
-                            <th>Model</th>
-                            <th>IP Address</th>
-                            <th>Details</th>
-                            <th>Actions</th>
+                            <th>{{ __('audit-logs.table.columns.time') }}</th>
+                            <th>{{ __('audit-logs.table.columns.user') }}</th>
+                            <th>{{ __('audit-logs.table.columns.event') }}</th>
+                            <th>{{ __('audit-logs.table.columns.model') }}</th>
+                            <th>{{ __('audit-logs.table.columns.ip_address') }}</th>
+                            <th>{{ __('audit-logs.table.columns.details') }}</th>
+                            <th>{{ __('audit-logs.table.columns.actions') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -194,16 +194,21 @@
                                 <td>
                                     @if($log->user)
                                         <div class="d-flex align-items-center">
-                                            <div class="avatar avatar-sm bg-primary text-white rounded-circle me-2">
-                                                {{ substr($log->user->name, 0, 1) }}
-                                            </div>
+                                            @php $userImg = $log->user->image_url; @endphp
+                                            @if($userImg)
+                                                <img src="{{ asset($userImg) }}" alt="{{ $log->user->name }}" class="rounded-circle" style="width: 38px; height: 38px; object-fit: cover;">
+                                            @else
+                                                <div class="avatar-circle bg-primary text-white">
+                                                    {{ substr($log->user->name, 0, 1) }}
+                                                </div>
+                                            @endif
                                             <div>
                                                 <div class="fw-bold">{{ $log->user->name }}</div>
                                                 <small class="text-muted">{{ ucfirst($log->user->role) }}</small>
                                             </div>
                                         </div>
                                     @else
-                                        <span class="text-muted">System</span>
+                                        <span class="text-muted">{{ __('audit-logs.table.system') }}</span>
                                     @endif
                                 </td>
                                 <td>
@@ -218,7 +223,7 @@
                                     @endphp
                                     <span class="badge bg-{{ $color }}">
                                         <i class="fas fa-{{ $log->event == 'created' ? 'plus' : ($log->event == 'updated' ? 'edit' : ($log->event == 'deleted' ? 'trash' : 'undo')) }}"></i>
-                                        {{ ucfirst($log->event) }}
+                                        {{ __('audit-logs.table.events.' . $log->event) }}
                                     </span>
                                 </td>
                                 <td>
@@ -228,7 +233,7 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <span class="font-monospace small">{{ $log->ip_address ?: 'N/A' }}</span>
+                                    <span class="font-monospace small">{{ $log->ip_address ?: __('audit-logs.table.na') }}</span>
                                     @if($log->url)
                                         <br><small class="text-muted">{{ Str::limit($log->url, 30) }}</small>
                                     @endif
@@ -236,10 +241,10 @@
                                 <td>
                                     @if($log->new_values)
                                         <button class="btn btn-sm btn-outline-info" onclick="showChanges({{ json_encode($log->old_values) }}, {{ json_encode($log->new_values) }}, '{{ $log->event }}')">
-                                            <i class="fas fa-eye"></i> View Changes
+                                            <i class="fas fa-eye"></i> {{ __('audit-logs.table.view_changes') }}
                                         </button>
                                     @else
-                                        <span class="text-muted">No changes</span>
+                                        <span class="text-muted">{{ __('audit-logs.table.no_changes') }}</span>
                                     @endif
                                 </td>
                                 <td>
@@ -252,7 +257,7 @@
                             <tr>
                                 <td colspan="7" class="text-center py-4">
                                     <i class="fas fa-search fa-2x text-muted mb-3"></i>
-                                    <p class="text-muted">No audit logs found matching your criteria.</p>
+                                    <p class="text-muted">{{ __('audit-logs.table.empty_state') }}</p>
                                 </td>
                             </tr>
                         @endforelse

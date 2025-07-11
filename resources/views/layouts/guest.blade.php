@@ -309,6 +309,11 @@
         </style>
     </head>
     <body>
+        <!-- Language Toggle for Guest Pages -->
+        <div class="position-fixed top-0 end-0 p-3" style="z-index: 1060;">
+            <x-language-toggle style="background: rgba(255, 255, 255, 0.9); padding: 0.5rem; border-radius: 12px; backdrop-filter: blur(10px);" />
+        </div>
+        
         <div class="auth-container">
             <div class="auth-logo">
                 <img src="{{ asset('images/logo.png') }}" alt="SoosanEgypt" onerror="this.style.display='none';">

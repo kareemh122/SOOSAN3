@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'System Activity Dashboard')
+@section('title', __('audit-logs.header.dashboard_btn'))
 
 @section('content')
 <div class="container-fluid">
@@ -10,11 +10,11 @@
             <div class="d-flex justify-content-between align-items-center">
                 <h1 class="h3 mb-0">
                     <i class="fas fa-chart-bar text-primary"></i>
-                    System Activity Dashboard
+                    {{ __('audit-logs.header.dashboard_btn') }}
                 </h1>
                 <div class="btn-group">
                     <a href="{{ route('admin.audit-logs.index') }}" class="btn btn-primary">
-                        <i class="fas fa-list"></i> View All Logs
+                        <i class="fas fa-list"></i> {{ __('audit-logs.header.title') }}
                     </a>
                 </div>
             </div>
@@ -28,7 +28,7 @@
                 <div class="card-header">
                     <h5 class="mb-0">
                         <i class="fas fa-chart-line"></i>
-                        Daily Activity (Last 7 Days)
+                        {{ __('audit-logs.dashboard.daily_activity', [], app()->getLocale()) }}
                     </h5>
                 </div>
                 <div class="card-body">
@@ -41,7 +41,7 @@
                 <div class="card-header">
                     <h5 class="mb-0">
                         <i class="fas fa-chart-pie"></i>
-                        Event Types (Last 30 Days)
+                        {{ __('audit-logs.dashboard.event_types', [], app()->getLocale()) }}
                     </h5>
                 </div>
                 <div class="card-body">
@@ -58,7 +58,7 @@
                 <div class="card-header">
                     <h5 class="mb-0">
                         <i class="fas fa-database"></i>
-                        Most Active Models (Last 30 Days)
+                        {{ __('audit-logs.dashboard.most_active_models', [], app()->getLocale()) }}
                     </h5>
                 </div>
                 <div class="card-body">
@@ -66,9 +66,9 @@
                         <table class="table table-sm">
                             <thead>
                                 <tr>
-                                    <th>Model</th>
-                                    <th>Activity Count</th>
-                                    <th>Percentage</th>
+                                    <th>{{ __('audit-logs.dashboard.model', [], app()->getLocale()) }}</th>
+                                    <th>{{ __('audit-logs.dashboard.activity_count', [], app()->getLocale()) }}</th>
+                                    <th>{{ __('audit-logs.dashboard.percentage', [], app()->getLocale()) }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -100,7 +100,7 @@
                 <div class="card-header">
                     <h5 class="mb-0">
                         <i class="fas fa-users"></i>
-                        Most Active Users (Last 30 Days)
+                        {{ __('audit-logs.dashboard.most_active_users', [], app()->getLocale()) }}
                     </h5>
                 </div>
                 <div class="card-body">
@@ -108,9 +108,9 @@
                         <table class="table table-sm">
                             <thead>
                                 <tr>
-                                    <th>User</th>
-                                    <th>Activity Count</th>
-                                    <th>Percentage</th>
+                                    <th>{{ __('audit-logs.dashboard.user', [], app()->getLocale()) }}</th>
+                                    <th>{{ __('audit-logs.dashboard.activity_count', [], app()->getLocale()) }}</th>
+                                    <th>{{ __('audit-logs.dashboard.percentage', [], app()->getLocale()) }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -119,9 +119,14 @@
                                     <tr>
                                         <td>
                                             <div class="d-flex align-items-center">
-                                                <div class="avatar avatar-sm bg-primary text-white rounded-circle me-2">
-                                                    {{ substr($userStat->user->name, 0, 1) }}
-                                                </div>
+                                                @php $userImg = $userStat->user->image_url; @endphp
+                                                @if($userImg)
+                                                    <img src="{{ asset($userImg) }}" alt="{{ $userStat->user->name }}" class="rounded-circle" style="width: 38px; height: 38px; object-fit: cover;">
+                                                @else
+                                                    <div class="avatar avatar-sm bg-primary text-white rounded-circle me-2">
+                                                        {{ substr($userStat->user->name, 0, 1) }}
+                                                    </div>
+                                                @endif
                                                 <strong>{{ $userStat->user->name }}</strong>
                                             </div>
                                         </td>
@@ -144,6 +149,38 @@
         </div>
     </div>
 
+    <!-- Extra Stats & Graphs Row -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="stats-card primary text-center mb-3">
+                <div class="fs-2 fw-bold">{{ number_format($totalLogs) }}</div>
+                <div class="small">{{ __('audit-logs.dashboard.total_logs', [], app()->getLocale()) }}</div>
+            </div>
+            <div class="stats-card info text-center mb-3">
+                <div class="fs-2 fw-bold">{{ number_format($uniqueUsers) }}</div>
+                <div class="small">{{ __('audit-logs.dashboard.unique_users', [], app()->getLocale()) }}</div>
+            </div>
+            <div class="stats-card success text-center mb-3">
+                <div class="fs-5">{{ __('audit-logs.dashboard.most_active_day', [], app()->getLocale()) }}</div>
+                <div class="fw-bold">{{ $mostActiveDay['date'] ?? '-' }}</div>
+                <div class="small">{{ $mostActiveDay['count'] ?? '-' }} {{ __('audit-logs.dashboard.logs', [], app()->getLocale()) }}</div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-chart-bar"></i>
+                        {{ __('audit-logs.dashboard.monthly_activity', [], app()->getLocale()) }}
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <canvas id="monthlyActivityChart" height="120"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Recent Activity -->
     <div class="row">
         <div class="col-md-12">
@@ -151,21 +188,21 @@
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="mb-0">
                         <i class="fas fa-clock"></i>
-                        Recent Activity
+                        {{ __('audit-logs.dashboard.recent_activity', [], app()->getLocale()) }}
                     </h5>
-                    <span class="badge bg-primary">{{ $recentLogs->count() }} latest entries</span>
+                    <span class="badge bg-primary">{{ $recentLogs->count() }} {{ __('audit-logs.dashboard.latest_entries', [], app()->getLocale()) }}</span>
                 </div>
                 <div class="card-body p-0">
                     <div class="table-responsive">
                         <table class="table table-hover mb-0">
                             <thead class="table-light">
                                 <tr>
-                                    <th>Time</th>
-                                    <th>User</th>
-                                    <th>Event</th>
-                                    <th>Model</th>
-                                    <th>Summary</th>
-                                    <th>Actions</th>
+                                    <th>{{ __('audit-logs.table.columns.time') }}</th>
+                                    <th>{{ __('audit-logs.table.columns.user') }}</th>
+                                    <th>{{ __('audit-logs.table.columns.event') }}</th>
+                                    <th>{{ __('audit-logs.table.columns.model') }}</th>
+                                    <th>{{ __('audit-logs.dashboard.summary', [], app()->getLocale()) }}</th>
+                                    <th>{{ __('audit-logs.table.columns.actions') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -179,16 +216,21 @@
                                         <td>
                                             @if($log->user)
                                                 <div class="d-flex align-items-center">
-                                                    <div class="avatar avatar-sm bg-primary text-white rounded-circle me-2">
-                                                        {{ substr($log->user->name, 0, 1) }}
-                                                    </div>
+                                                    @php $userImg = $log->user->image_url; @endphp
+                                                    @if($userImg)
+                                                        <img src="{{ asset($userImg) }}" alt="{{ $log->user->name }}" class="rounded-circle" style="width: 38px; height: 38px; object-fit: cover;">
+                                                    @else
+                                                        <div class="avatar avatar-sm bg-primary text-white rounded-circle me-2">
+                                                            {{ substr($log->user->name, 0, 1) }}
+                                                        </div>
+                                                    @endif
                                                     <div>
                                                         <div class="fw-bold small">{{ $log->user->name }}</div>
                                                         <small class="text-muted">{{ ucfirst($log->user->role) }}</small>
                                                     </div>
                                                 </div>
                                             @else
-                                                <span class="text-muted">System</span>
+                                                <span class="text-muted">{{ __('audit-logs.table.system') }}</span>
                                             @endif
                                         </td>
                                         <td>
@@ -202,7 +244,7 @@
                                                 $color = $eventColors[$log->event] ?? 'secondary';
                                             @endphp
                                             <span class="badge bg-{{ $color }}">
-                                                {{ ucfirst($log->event) }}
+                                                {{ __('audit-logs.table.events.' . $log->event, [], app()->getLocale()) }}
                                             </span>
                                         </td>
                                         <td>
@@ -217,13 +259,13 @@
                                                     $changedFields = collect($log->new_values)->keys()->take(3);
                                                 @endphp
                                                 <small class="text-muted">
-                                                    Changed: {{ $changedFields->implode(', ') }}
+                                                    {{ __('audit-logs.dashboard.changed', [], app()->getLocale()) }}: {{ $changedFields->implode(', ') }}
                                                     @if(count($log->new_values) > 3)
-                                                        <span class="badge bg-light text-dark">+{{ count($log->new_values) - 3 }} more</span>
+                                                        <span class="badge bg-light text-dark">+{{ count($log->new_values) - 3 }} {{ __('audit-logs.dashboard.more', [], app()->getLocale()) }}</span>
                                                     @endif
                                                 </small>
                                             @else
-                                                <small class="text-muted">{{ ucfirst($log->event) }} {{ class_basename($log->auditable_type) }}</small>
+                                                <small class="text-muted">{{ __('audit-logs.table.events.' . $log->event, [], app()->getLocale()) }} {{ class_basename($log->auditable_type) }}</small>
                                             @endif
                                         </td>
                                         <td>
@@ -239,7 +281,7 @@
                 </div>
                 <div class="card-footer text-center">
                     <a href="{{ route('admin.audit-logs.index') }}" class="btn btn-primary">
-                        View All Activity Logs
+                        {{ __('audit-logs.dashboard.view_all_activity_logs', [], app()->getLocale()) }}
                     </a>
                 </div>
             </div>
@@ -256,6 +298,21 @@
     justify-content: center;
     font-size: 14px;
     font-weight: bold;
+}
+.stats-card {
+    padding: 20px;
+    border-radius: 8px;
+    color: #fff;
+    margin-bottom: 1rem;
+}
+.stats-card.primary {
+    background-color: #007bff;
+}
+.stats-card.info {
+    background-color: #17a2b8;
+}
+.stats-card.success {
+    background-color: #28a745;
 }
 </style>
 
@@ -317,6 +374,33 @@ const eventTypesChart = new Chart(eventTypesCtx, {
             legend: {
                 position: 'bottom'
             }
+        }
+    }
+});
+
+// Monthly Activity Chart
+const monthlyActivityCtx = document.getElementById('monthlyActivityChart').getContext('2d');
+const monthlyActivityChart = new Chart(monthlyActivityCtx, {
+    type: 'bar',
+    data: {
+        labels: {!! json_encode($monthlyActivity->pluck('month')) !!},
+        datasets: [{
+            label: 'Logs',
+            data: {!! json_encode($monthlyActivity->pluck('count')) !!},
+            backgroundColor: 'rgba(54, 162, 235, 0.7)',
+            borderColor: 'rgba(54, 162, 235, 1)',
+            borderWidth: 1,
+            borderRadius: 6,
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            y: { beginAtZero: true }
+        },
+        plugins: {
+            legend: { display: false }
         }
     }
 });

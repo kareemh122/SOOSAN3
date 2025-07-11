@@ -80,6 +80,7 @@ return [
     // Edit Owner Page
     'edit_owner_details' => 'تعديل تفاصيل المالك',
     'update_owner_info' => 'تحديث معلومات المالك والإعدادات',
+    'update_owner_info_system' => 'تحديث معلومات المالك  ',
     'view_owner_details' => 'عرض تفاصيل المالك',
     'essential_owner_details' => 'تفاصيل المالك الأساسية والمعلومات',
     

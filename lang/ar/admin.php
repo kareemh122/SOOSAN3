@@ -18,6 +18,9 @@ return [
     'reports' => 'التقارير',
     'settings' => 'الإعدادات',
     'logout' => 'تسجيل الخروج',
+    'system_monitor' => 'مراقبة النظام',
+    'activity_log' => 'سجل النشاطات',
+    'view_website' => 'عرض الموقع',
     
     // Statistics Cards
     'total_users' => 'إجمالي الموظفين',
@@ -161,4 +164,17 @@ return [
     'error' => 'حدث خطأ',
     'warning' => 'تحذير',
     'info' => 'معلومات',
+    'profile' => 'الملف الشخصي',
+    'signed_in_as' => 'تم تسجيل الدخول باسم',
+    
+    // Notifications
+    'notifications' => 'الإشعارات',
+    'no_notifications' => 'لا توجد إشعارات جديدة',
+    'view_all_notifications' => 'عرض جميع الإشعارات',
+    'notification_marked_read' => 'تم تعليم الإشعار كمقروء',
+    'all_notifications_marked_read' => 'تم تعليم جميع الإشعارات كمقروءة',
+    'no_notifications_yet' => 'لا توجد إشعارات بعد',
+    'notifications_help' => 'ستتلقى هنا إشعارات حول طلبات التغيير الخاصة بك.',
+    'notification_sound' => 'تشغيل صوت الإشعار',
+    'real_time_notifications' => 'تم تفعيل الإشعارات الفورية',
 ];

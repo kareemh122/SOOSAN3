@@ -67,15 +67,14 @@ class SoldProduct extends Model
         if ($this->warranty_voided ?? false) {
             return false;
         }
-
         return now()->between($this->warranty_start_date, $this->warranty_end_date);
     }
 
     /**
      * Void the warranty for this sold product.
      *
-     * @param  string  $reason
-     * @param  \App\Models\User  $user
+     * @param string $reason
+     * @param \App\Models\User $user
      * @return bool
      */
     public function voidWarranty($reason, $user)
@@ -89,7 +88,6 @@ class SoldProduct extends Model
             'warranty_voided_by' => $user->id,
             'warranty_voided_at' => now(),
         ]);
-
         return true;
     }
 }

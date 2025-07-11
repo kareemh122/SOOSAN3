@@ -12,6 +12,12 @@ return [
     |
     */
 
+    // Language Switching
+    'switch_language' => 'تبديل اللغة',
+    'current_language' => 'اللغة الحالية',
+    'select_language' => 'اختيار اللغة',
+    'language_toggle' => 'تبديل اللغة',
+    
     // Login Page
     'welcome_back' => 'مرحباً بعودتك',
     'sign_in_to_account' => 'قم بتسجيل الدخول إلى حسابك للمتابعة',

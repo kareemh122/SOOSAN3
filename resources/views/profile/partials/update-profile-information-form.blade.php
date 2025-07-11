@@ -6,10 +6,11 @@
         <div class="col-12 text-center mb-3">
             <div class="position-relative d-inline-block">
                 <img id="profileImagePreview" 
-                     src="{{ $user->image_url ? asset('storage/' . $user->image_url) : asset('images/fallback.webp') }}" 
+                     src="{{ $user->image_url ? asset($user->image_url) : asset('images/fallback.webp') }}" 
                      alt="Profile Image" 
                      class="rounded-circle shadow" 
-                     style="width: 120px; height: 120px; object-fit: cover; border: 4px solid var(--primary-color); background: #fff;">
+                     style="width: 120px; height: 120px; object-fit: cover; border: 4px solid var(--primary-color); background: #fff;"
+                     onerror="this.onerror=null;this.src='{{ asset('images/fallback.webp') }}';">
                 
                 <!-- Image Upload Button -->
                 <div class="position-absolute" style="bottom: 5px; right: 5px;">
@@ -27,13 +28,9 @@
             <!-- Image Actions -->
             <div class="mt-3">
                 @if($user->image_url)
-                    <form method="post" action="{{ route('profile.remove-image') }}" class="d-inline" id="removeImageForm">
-                        @csrf
-                        @method('delete')
-                        <button type="button" class="btn btn-outline-danger btn-sm me-2" onclick="confirmRemoveImage()">
-                            <i class="fas fa-trash me-1"></i>{{ __('common.remove_photo') }}
-                        </button>
-                    </form>
+                    <button type="button" class="btn btn-outline-danger btn-sm me-2" onclick="document.getElementById('removeImageForm').submit();">
+                        <i class="fas fa-trash me-1"></i>{{ __('common.remove_photo') }}
+                    </button>
                 @endif
                 <small class="text-muted d-block mt-2">
                     <i class="fas fa-info-circle me-1"></i>
@@ -187,10 +184,21 @@
             <i class="fas fa-save me-2"></i>{{ __('common.save_changes') }}
         </button>
     </div>
+
+    @if ($errors->has('profile_error'))
+        <div class="alert alert-danger mt-2">{{ $errors->first('profile_error') }}</div>
+    @endif
 </form>
 
 @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
     <form id="send-verification" method="post" action="{{ route('verification.send') }}" class="d-none">
         @csrf
     </form>
+@endif
+
+@if($user->image_url)
+<form method="post" action="{{ route('profile.remove-image') }}" id="removeImageForm" style="display:none;">
+    @csrf
+    @method('delete')
+</form>
 @endif

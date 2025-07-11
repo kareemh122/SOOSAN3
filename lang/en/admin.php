@@ -18,6 +18,9 @@ return [
     'reports' => 'Reports',
     'settings' => 'Settings',
     'logout' => 'Logout',
+    'system_monitor' => 'System Monitor',
+    'activity_log' => 'Activity Log',
+    'view_website' => 'View Website',
     
     // Statistics Cards
     'total_users' => 'Total Staff',
@@ -185,4 +188,8 @@ return [
     'notifications_help' => 'You will receive notifications about your change requests here.',
     'notification_sound' => 'Play notification sound',
     'real_time_notifications' => 'Real-time notifications enabled',
+    
+    // User Dropdown
+    'profile' => 'Profile',
+    'signed_in_as' => 'Signed in as',
 ];

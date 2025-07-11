@@ -27,4 +27,15 @@ class NotificationController extends Controller
         Auth::user()->unreadNotifications->markAsRead();
         return redirect()->back()->with('success', __('admin.all_notifications_marked_read'));
     }
+
+    /**
+     * Return notifications as JSON for AJAX polling
+     */
+    public function fetch()
+    {
+        $notifications = auth()->user()->unreadNotifications()->latest()->take(10)->get();
+        return response()->json([
+            'notifications' => $notifications
+        ]);
+    }
 }

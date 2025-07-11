@@ -20,15 +20,23 @@
     <!-- Custom Admin Styles -->
     <style>
         :root {
-            --admin-primary: #3b82f6;
-            --admin-secondary: #6b7280;
+            /* SOOSAN EGYPT Brand Colors */
+            --soosan-primary: #e63946;
+            --soosan-secondary: #457b9d;
+            --soosan-dark: #1d3557;
+            --soosan-light: #f8f9fa;
+            --soosan-accent: #ffb703;
+            
+            /* Keep original admin colors for backward compatibility */
+            --admin-primary: var(--soosan-primary);
+            --admin-secondary: var(--soosan-secondary);
             --admin-success: #10b981;
             --admin-danger: #ef4444;
             --admin-warning: #f59e0b;
             --admin-info: #06b6d4;
-            --admin-dark: #1f2937;
-            --admin-light: #f8fafc;
-            --sidebar-width: 280px;
+            --admin-dark: var(--soosan-dark);
+            --admin-light: var(--soosan-light);
+            --sidebar-width: 230px;
         }
 
         body {
@@ -58,8 +66,8 @@
             border-bottom: 1px solid #e5e7eb;
             padding: 1rem 2rem;
             display: flex;
-            justify-content: between;
             align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
         }
 
         .sidebar-brand {
@@ -107,12 +115,12 @@
         }
 
         .submenu-link.active {
-            border-left-color: #007bff;
-            background-color: rgba(0, 123, 255, 0.1);
+            border-left-color: var(--admin-primary);
+            background-color: rgba(230, 57, 70, 0.1);
         }
 
         .submenu-link:hover {
-            background-color: rgba(0, 123, 255, 0.05);
+            background-color: rgba(230, 57, 70, 0.05);
         }
 
         .admin-card {
@@ -134,8 +142,8 @@
         }
 
         .btn-admin-primary:hover {
-            background-color: #2563eb;
-            border-color: #2563eb;
+            background-color: #d1303c;
+            border-color: #d1303c;
         }
 
         .alert-custom {
@@ -156,6 +164,22 @@
             border-bottom: 2px solid #e5e7eb;
             font-weight: 600;
             color: var(--admin-dark);
+        }
+
+        /* Header Elements Styling */
+        .avatar-circle {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .fs-xs {
+            font-size: 0.75rem;
         }
 
         /* Notification Badge Styling */
@@ -181,7 +205,30 @@
 
         .notification-badge.badge-new {
             animation: bounce 0.6s ease-in-out;
-            background-color: #dc3545 !important;
+            background-color: var(--admin-danger) !important;
+        }
+
+        /* Notification Bell Button Styling */
+        .notification-bell-btn {
+            transition: transform 0.2s;
+        }
+
+        .notification-bell-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .notification-bell-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Notification Icon Styling */
+        .notification-icon {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
         }
 
         @keyframes pulse {
@@ -272,6 +319,9 @@
         }
     </style>
 
+    {{-- Additional CSS --}}
+    <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
+
     @stack('styles')
 </head>
 <body>
@@ -348,17 +398,17 @@
                            data-bs-toggle="collapse" data-bs-target="#auditLogsSubmenu" 
                            aria-expanded="{{ request()->routeIs('admin.audit-logs.*') ? 'true' : 'false' }}">
                             <i class="fas fa-eye text-primary"></i>
-                            System Monitor
+                            {{ __('admin.system_monitor') }}
                         </a>
                         <div class="collapse {{ request()->routeIs('admin.audit-logs.*') ? 'show' : '' }}" id="auditLogsSubmenu">
                             <div class="submenu">
                                 <a href="{{ route('admin.audit-logs.dashboard') }}" class="nav-link submenu-link {{ request()->routeIs('admin.audit-logs.dashboard') ? 'active' : '' }}">
                                     <i class="fas fa-chart-bar"></i>
-                                    Dashboard
+                                    {{ __('admin.dashboard') }}
                                 </a>
                                 <a href="{{ route('admin.audit-logs.index') }}" class="nav-link submenu-link {{ request()->routeIs('admin.audit-logs.index') ? 'active' : '' }}">
                                     <i class="fas fa-list"></i>
-                                    Activity Log
+                                    {{ __('admin.activity_log') }}
                                 </a>
                             </div>
                         </div>
@@ -377,7 +427,7 @@
                 
                 <a href="{{ route('homepage') }}" class="nav-link" target="_blank">
                     <i class="fas fa-external-link-alt"></i>
-                    View Website
+                    {{ __('admin.view_website') }}
                 </a>
                 
                 <form method="POST" action="{{ route('admin.logout') }}">
@@ -394,42 +444,53 @@
         <div class="admin-content">
             <!-- Top Navbar -->
             <nav class="admin-navbar">
-                <div class="d-flex align-items-center">
-                    <button class="btn btn-link d-md-none me-3" id="sidebarToggle">
-                        <i class="fas fa-bars"></i>
-                    </button>
-                    <h5 class="mb-0">@yield('page-title', 'Dashboard')</h5>
-                </div>
-                
-                <div class="d-flex align-items-center gap-3">
-                    <!-- Language Switcher -->
-                    <div class="dropdown">
-                        <button class="btn btn-outline-primary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                            <i class="fas fa-language me-1"></i>
-                            {{ app()->isLocale('ar') ? 'العربية' : 'English' }}
+                <div class="d-flex justify-content-between align-items-center w-100">
+                    <div class="d-flex align-items-center">
+                        <button class="btn btn-link d-md-none me-3 text-secondary" id="sidebarToggle">
+                            <i class="fas fa-bars"></i>
                         </button>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{{ request()->fullUrlWithQuery(['lang' => 'en']) }}">
-                                <i class="fas fa-flag-usa me-2"></i>English
-                            </a></li>
-                            <li><a class="dropdown-item" href="{{ request()->fullUrlWithQuery(['lang' => 'ar']) }}">
-                                <i class="fas fa-flag me-2"></i>العربية
-                            </a></li>
+                        <h5 class="mb-0 fw-semibold text-dark">@yield('page-title', 'Dashboard')</h5>
+                    </div>
+                    
+                    <div class="d-flex align-items-center gap-4">
+                        <!-- Language Switcher -->
+                        <div class="dropdown">
+                            <button class="btn btn-sm btn-outline-secondary rounded-pill px-3 d-flex align-items-center gap-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-globe"></i>
+                                <span>{{ app()->isLocale('ar') ? 'العربية' : 'English' }}</span>
+                                <i class="fas fa-chevron-down fs-xs ms-1"></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0">
+                                <li>
+                                    <a class="dropdown-item d-flex align-items-center {{ app()->isLocale('en') ? 'active bg-light' : '' }}" href="{{ url('/lang/en') }}">
+                                        <span class="me-2">🇺🇸</span> English
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item d-flex align-items-center {{ app()->isLocale('ar') ? 'active bg-light' : '' }}" href="{{ url('/lang/ar') }}">
+                                    <span class="me-2">🇪🇬</span> العربية
+                                </a>
+                            </li>
                         </ul>
                     </div>
                     
                     <!-- Notifications -->
                     <div class="dropdown">
-                        <button class="btn btn-outline-secondary btn-sm dropdown-toggle position-relative" type="button" data-bs-toggle="dropdown">
-                            <i class="fas fa-bell"></i>
+                        <button class="btn btn-sm position-relative bg-white border-0 shadow-none notification-bell-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-bell fs-5 text-secondary"></i>
                             <span class="notification-badge position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" 
                                   style="display: {{ auth()->user()->unreadNotifications->count() > 0 ? 'inline-block' : 'none' }};"
                                   data-initial-count="{{ auth()->user()->unreadNotifications->count() }}">
                                 {{ auth()->user()->unreadNotifications->count() > 0 ? auth()->user()->unreadNotifications->count() : '0' }}
                             </span>
                         </button>
-                        <ul class="dropdown-menu dropdown-menu-end notification-dropdown-content" style="width: 350px; max-height: 400px; overflow-y: auto;">
-                            <li><h6 class="dropdown-header">{{ __('admin.notifications') }}</h6></li>
+                        <ul class="dropdown-menu dropdown-menu-end shadow-sm border notification-dropdown-content" style="width: 350px; max-height: 400px; overflow-y: auto;">
+                            <li class="py-2 px-3 bg-light border-bottom">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h6 class="mb-0 fw-semibold">{{ __('admin.notifications') }}</h6>
+                                    <a href="{{ route('notifications.index') }}" class="text-decoration-none small">{{ __('admin.view_all') }}</a>
+                                </div>
+                            </li>
                             @forelse(auth()->user()->unreadNotifications->take(5) as $notification)
                                 <li>
                                     <a class="dropdown-item py-2 notification-item {{ !$notification->read_at ? 'unread' : '' }}" 
@@ -437,9 +498,11 @@
                                        data-notification-id="{{ $notification->id }}">
                                         <div class="d-flex">
                                             <div class="flex-shrink-0">
-                                                <i class="{{ $notification->data['icon'] ?? 'fas fa-exclamation-triangle' }} text-{{ $notification->data['color'] ?? 'warning' }}"></i>
+                                                <div class="notification-icon bg-light text-{{ $notification->data['color'] ?? 'warning' }} rounded-circle p-2 text-center">
+                                                    <i class="{{ $notification->data['icon'] ?? 'fas fa-exclamation-triangle' }}"></i>
+                                                </div>
                                             </div>
-                                            <div class="flex-grow-1 ms-2">
+                                            <div class="flex-grow-1 ms-3">
                                                 <div class="fw-bold text-truncate">{{ $notification->data['title'] ?? __('admin.notifications') }}</div>
                                                 <div class="text-muted small text-truncate">{{ Str::limit($notification->data['message'] ?? '', 60) }}</div>
                                                 @if(isset($notification->data['reason']) && $notification->data['reason'])
@@ -451,28 +514,46 @@
                                     </a>
                                 </li>
                             @empty
-                                <li><span class="dropdown-item-text text-muted">{{ __('admin.no_notifications') }}</span></li>
+                                <li><span class="dropdown-item-text py-3 text-center text-muted">{{ __('admin.no_notifications') }}</span></li>
                             @endforelse
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item text-center" href="{{ route('notifications.index') }}">{{ __('admin.view_all_notifications') }}</a></li>
+                            <li class="border-top"><a class="dropdown-item text-center py-2" href="{{ route('notifications.index') }}">{{ __('admin.view_all_notifications') }}</a></li>
                         </ul>
                     </div>
                     
                     <!-- User Menu -->
                     <div class="dropdown">
-                        <button class="btn btn-link dropdown-toggle text-decoration-none" type="button" data-bs-toggle="dropdown">
-                            <i class="fas fa-user-circle me-2"></i>
-                            {{ auth()->user()->name }}
+                        <button class="btn d-flex align-items-center gap-2 bg-white border-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            @php $userImg = auth()->user()->image_url; @endphp
+                            @if($userImg)
+                                <img src="{{ asset($userImg) }}" alt="{{ auth()->user()->name }}" class="rounded-circle" style="width: 38px; height: 38px; object-fit: cover;">
+                            @else
+                                <div class="avatar-circle bg-primary text-white">
+                                    {{ substr(auth()->user()->name, 0, 1) }}
+                                </div>
+                            @endif
+                            <div class="d-none d-md-block text-start">
+                                <div class="fw-semibold text-dark">{{ auth()->user()->name }}</div>
+                                <div class="text-muted small">{{ auth()->user()->roles && auth()->user()->roles->first() ? auth()->user()->roles->first()->name : 'User' }}</div>
+                            </div>
+                            <i class="fas fa-chevron-down ms-1 text-muted fs-xs"></i>
                         </button>
-                        <ul class="dropdown-menu">
+                        <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0">
+                            <li class="dropdown-header">
+                                <div class="text-muted small">{{ __('admin.signed_in_as') }}</div>
+                                <div class="fw-semibold">{{ auth()->user()->email }}</div>
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="{{ route('profile.edit') }}">
-                                <i class="fas fa-user me-2"></i>{{ __('common.profile') }}
+                                <i class="fas fa-user me-2 text-muted"></i>{{ __('admin.profile') }}
+                            </a></li>
+                            <li><a class="dropdown-item" href="{{ route('notifications.index') }}">
+                                <i class="fas fa-bell me-2 text-muted"></i>{{ __('admin.notifications') }}
                             </a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li>
                                 <form method="POST" action="{{ route('admin.logout') }}">
                                     @csrf
-                                    <button type="submit" class="dropdown-item logout-btn">
+                                    <button type="submit" class="dropdown-item text-danger">
                                         <i class="fas fa-sign-out-alt me-2"></i>{{ __('admin.logout') }}
                                     </button>
                                 </form>
@@ -519,37 +600,122 @@
     @endif
 
     <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <!-- Custom JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
     <script>
-        // Sidebar toggle for mobile
-        document.getElementById('sidebarToggle')?.addEventListener('click', function() {
-            document.getElementById('sidebar').classList.toggle('show');
-        });
-
-        // Auto-hide alerts after 5 seconds
-        setTimeout(function() {
-            document.querySelectorAll('.alert').forEach(function(alert) {
-                if (alert.classList.contains('alert-success')) {
-                    alert.style.opacity = '0';
-                    setTimeout(() => alert.remove(), 300);
-                }
+        document.addEventListener('DOMContentLoaded', function() {
+            // Toggle sidebar on mobile
+            document.getElementById('sidebarToggle')?.addEventListener('click', function() {
+                document.getElementById('sidebar').classList.toggle('show');
             });
-        }, 5000);
 
-        // Confirm delete actions
-        document.querySelectorAll('[data-confirm]').forEach(function(element) {
-            element.addEventListener('click', function(e) {
-                if (!confirm(this.dataset.confirm)) {
-                    e.preventDefault();
-                }
+            // Auto-hide alerts after 5 seconds
+            setTimeout(function() {
+                document.querySelectorAll('.alert').forEach(function(alert) {
+                    if (alert.classList.contains('alert-success')) {
+                        alert.style.opacity = '0';
+                        setTimeout(() => alert.remove(), 300);
+                    }
+                });
+            }, 5000);
+
+            // Confirm delete actions
+            document.querySelectorAll('[data-confirm]').forEach(function(element) {
+                element.addEventListener('click', function(e) {
+                    if (!confirm(this.dataset.confirm)) {
+                        e.preventDefault();
+                    }
+                });
             });
+            
+            // Enhanced Notification Badge Animation
+            const notificationBadge = document.querySelector('.notification-badge');
+            if (notificationBadge && parseInt(notificationBadge.textContent.trim()) > 0) {
+                notificationBadge.classList.add('badge-new');
+                setTimeout(() => {
+                    notificationBadge.classList.remove('badge-new');
+                }, 2000);
+            }
+
+            // Mark notifications as read when clicked
+            document.querySelectorAll('.notification-item').forEach(function(item) {
+                item.addEventListener('click', function(e) {
+                    const notificationId = this.dataset.notificationId;
+                    if (notificationId) {
+                        fetch(`/notifications/${notificationId}/mark-as-read`, {
+                            method: 'POST',
+                            headers: {
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                                'Content-Type': 'application/json',
+                                'Accept': 'application/json',
+                            }
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                this.classList.remove('unread');
+                                // Update badge count
+                                updateNotificationBadge();
+                            }
+                        })
+                        .catch(error => console.error('Error marking notification as read:', error));
+                    }
+                });
+            });
+
+            // Function to update notification badge
+            function updateNotificationBadge() {
+                const badge = document.querySelector('.notification-badge');
+                const currentCount = parseInt(badge.textContent.trim());
+                if (currentCount > 1) {
+                    badge.textContent = currentCount - 1;
+                    badge.classList.add('badge-pulse');
+                    setTimeout(() => {
+                        badge.classList.remove('badge-pulse');
+                    }, 1000);
+                } else {
+                    badge.style.display = 'none';
+                }
+            }
         });
     </script>
 
     <!-- Real-time notifications -->
     <script src="{{ asset('js/notifications.js') }}"></script>
+
+    @push('scripts')
+    <script>
+        function updateNotifications() {
+            fetch('{{ route('notifications.fetch') }}')
+                .then(response => response.json())
+                .then(data => {
+                    // Update badge
+                    const badge = document.querySelector('.notification-badge');
+                    if (badge) {
+                        const count = data.notifications.length;
+                        badge.textContent = count > 0 ? count : '0';
+                        badge.style.display = count > 0 ? 'inline-block' : 'none';
+                    }
+                    // Update dropdown list
+                    const dropdown = document.querySelector('.notification-dropdown-content');
+                    if (dropdown) {
+                        let html = '';
+                        if (data.notifications.length > 0) {
+                            data.notifications.forEach(notification => {
+                                html += `<li><a class="dropdown-item py-2 notification-item unread" href=\"${'{{ route('notifications.index') }}'}\" data-notification-id=\"${notification.id}\"><div class=\"d-flex\"><div class=\"flex-shrink-0\"><div class=\"notification-icon bg-light text-warning rounded-circle p-2 text-center\"><i class=\"fas fa-bell\"></i></div></div><div class=\"flex-grow-1 ms-3\"><div class=\"fw-bold text-truncate\">${notification.data.title ?? 'Notification'}</div><div class=\"text-muted small text-truncate\">${notification.data.message ?? ''}</div><div class=\"text-muted small\">${new Date(notification.created_at).toLocaleString()}</div></div></div></a></li>`;
+                            });
+                        } else {
+                            html = `<li><span class=\"dropdown-item-text py-3 text-center text-muted\">{{ __('admin.no_notifications') }}</span></li>`;
+                        }
+                        html += `<li class=\"border-top\"><a class=\"dropdown-item text-center py-2\" href=\"${'{{ route('notifications.index') }}'}\">{{ __('admin.view_all_notifications') }}</a></li>`;
+                        dropdown.innerHTML = html;
+                    }
+                });
+        }
+        setInterval(updateNotifications, 15000);
+        document.addEventListener('DOMContentLoaded', updateNotifications);
+    </script>
+    @endpush
 
     @stack('scripts')
 </body>
