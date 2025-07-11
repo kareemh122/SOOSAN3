@@ -2209,7 +2209,7 @@
 
 /* Enhanced Image Section */
 .breaker-product-split-card .card-image {
-    flex: 0 0 40%;
+    flex: 0 0 36%;
     position: relative;
     display: flex;
     align-items: center;
@@ -4294,7 +4294,6 @@
 <!-- AOS and Typed.js Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
-
 <script>
     // Initialize AOS
     AOS.init({

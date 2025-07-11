@@ -164,6 +164,14 @@
         border: 1px solid rgba(226, 232, 240, 0.8);
         overflow: hidden;
     }
+    .contact-form-section .send-message {
+        background: #00548e;
+        color: white;
+        font-size: 19px;
+    }
+    .contact-form-section .send-message:hover {
+        background: #0066a3;
+    }
 
     .form-header {
         background: linear-gradient(135deg, #f8fafc, #e2e8f0);
@@ -268,6 +276,7 @@
         width: 100%;
         text-align: left;
         padding: 1.25rem 1.5rem;
+        font-size: 20px;
         font-weight: 600;
         color: #374151;
         cursor: pointer;
@@ -289,6 +298,9 @@
     }
 
     .faq-answer.active {
+        margin-top: 15px;
+        font-size:17px;
+        line-height: 1.7;
         display: block;
         animation: fadeInDown 0.3s ease;
     }
@@ -648,7 +660,7 @@
                                     </div>
                                     <div class="col-12">
                                         <div class="d-grid">
-                                            <button type="submit" class="btn btn-primary btn-lg py-3 fw-semibold">
+                                            <button type="submit" class="btn py-3 send-message">
                                                 <i class="fas fa-paper-plane me-2"></i>{{ __('common.send_message') }}
                                             </button>
                                         </div>
@@ -683,9 +695,6 @@
                         </div>
                         <h3 class="h5 fw-bold mb-3">{{ __('common.sales_team') }}</h3>
                         <p class="text-muted mb-3">{{ __('common.equipment_quotes_pricing') }}</p>
-                        <a href="mailto:sales@soosancebotics.com" class="btn btn-outline-primary btn-sm">
-                            sales@soosancebotics.com
-                        </a>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
@@ -695,9 +704,6 @@
                         </div>
                         <h3 class="h5 fw-bold mb-3">{{ __('common.technical_support') }}</h3>
                         <p class="text-muted mb-3">{{ __('common.equipment_troubleshooting') }}</p>
-                        <a href="mailto:support@soosancebotics.com" class="btn btn-outline-primary btn-sm">
-                            support@soosancebotics.com
-                        </a>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
@@ -707,9 +713,6 @@
                         </div>
                         <h3 class="h5 fw-bold mb-3">{{ __('common.parts_service') }}</h3>
                         <p class="text-muted mb-3">{{ __('common.spare_parts_maintenance') }}</p>
-                        <a href="mailto:parts@soosancebotics.com" class="btn btn-outline-primary btn-sm">
-                            parts@soosancebotics.com
-                        </a>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
@@ -719,9 +722,6 @@
                         </div>
                         <h3 class="h5 fw-bold mb-3">{{ __('common.customer_service') }}</h3>
                         <p class="text-muted mb-3">{{ __('common.general_inquiries_account') }}</p>
-                        <a href="mailto:service@soosancebotics.com" class="btn btn-outline-primary btn-sm">
-                            service@soosancebotics.com
-                        </a>
                     </div>
                 </div>
             </div>

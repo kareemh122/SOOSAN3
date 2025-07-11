@@ -6,28 +6,57 @@
 @push('styles')
 <style>
     :root {
-        --apple-blue: #007AFF;
-        --apple-green: #34C759;
-        --apple-red: #FF3B30;
-        --apple-orange: #FF9500;
-        --apple-gray: #8E8E93;
-        --apple-light-gray: #F2F2F7;
-        --apple-dark: #1D1D1F;
-        --apple-secondary: #86868B;
+        --primary-blue: #00548e;
+        --accent-green: #b0d701;
+        --gradient-primary: linear-gradient(135deg, #00548e 0%, #0066a3 100%);
+        --gradient-accent: linear-gradient(135deg, #b0d701 0%, #9bc600 100%);
+        --gradient-success: linear-gradient(135deg, #34C759 0%, #28A745 100%);
+        --gradient-warning: linear-gradient(135deg, #FF9500 0%, #FF8C00 100%);
+        --gradient-danger: linear-gradient(135deg, #FF3B30 0%, #DC3545 100%);
+        --shadow-primary: 0 20px 60px rgba(0, 84, 142, 0.15);
+        --shadow-hover: 0 30px 80px rgba(0, 84, 142, 0.25);
+        --border-radius: 24px;
+        --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     body {
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
         min-height: 100vh;
+        position: relative;
+        overflow-x: hidden;
     }
 
+    /* Animated Background */
+    body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: 
+            radial-gradient(circle at 20% 80%, rgba(0, 84, 142, 0.08) 0%, transparent 50%),
+            radial-gradient(circle at 80% 20%, rgba(176, 215, 1, 0.08) 0%, transparent 50%),
+            radial-gradient(circle at 40% 40%, rgba(0, 84, 142, 0.04) 0%, transparent 50%);
+        z-index: -1;
+        animation: backgroundFloat 25s ease-in-out infinite;
+    }
+
+    @keyframes backgroundFloat {
+        0%, 100% { transform: translateY(0px) rotate(0deg); }
+        33% { transform: translateY(-30px) rotate(2deg); }
+        66% { transform: translateY(15px) rotate(-2deg); }
+    }
+
+    /* Result Header */
     .result-header {
-        background: linear-gradient(135deg, var(--apple-dark) 0%, #2c2c2e 100%);
+        background: var(--gradient-primary);
         color: white;
-        padding: 40px 0 20px;
+        padding: 4rem 0 2rem;
         position: relative;
         overflow: hidden;
+        clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
     }
 
     .result-header::before {
@@ -37,9 +66,14 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background: url('data:image/svg+xml,<svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="smallGrid" width="8" height="8" patternUnits="userSpaceOnUse"><path d="M 8 0 L 0 0 0 8" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23smallGrid)" /></svg>');
+        background: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse"><path d="M 60 0 L 0 0 0 60" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)" /></svg>');
         opacity: 0.3;
-        z-index: 1;
+        animation: gridMove 40s linear infinite;
+    }
+
+    @keyframes gridMove {
+        0% { transform: translate(0, 0); }
+        100% { transform: translate(60px, 60px); }
     }
 
     .result-header > * {
@@ -50,256 +84,529 @@
     .back-button {
         display: inline-flex;
         align-items: center;
-        color: var(--apple-blue);
+        color: white;
         text-decoration: none;
         font-weight: 600;
-        margin-bottom: 20px;
-        padding: 8px 16px;
-        border-radius: 20px;
-        background: rgba(0, 122, 255, 0.1);
-        transition: all 0.3s ease;
+        margin-bottom: 2rem;
+        padding: 0.75rem 1.5rem;
+        border-radius: 50px;
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(10px);
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        transition: var(--transition);
     }
 
     .back-button:hover {
-        background: rgba(0, 122, 255, 0.2);
-        color: var(--apple-blue);
-        transform: translateX(-4px);
+        background: rgba(255, 255, 255, 0.25);
+        color: white;
+        transform: translateX(-8px) scale(1.05);
+        box-shadow: 0 8px 32px rgba(255, 255, 255, 0.2);
     }
 
     .serial-display {
-        font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, monospace;
-        background: rgba(255, 255, 255, 0.1);
-        padding: 8px 16px;
-        border-radius: 12px;
-        font-size: 1.1rem;
-        letter-spacing: 1px;
-        margin: 0 8px;
+        font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+        background: rgba(255, 255, 255, 0.15);
+        padding: 0.75rem 1.5rem;
+        border-radius: 16px;
+        font-size: 1.25rem;
+        font-weight: 700;
+        letter-spacing: 2px;
+        margin: 0 1rem;
         backdrop-filter: blur(10px);
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        animation: serialGlow 3s ease-in-out infinite alternate;
     }
 
-    .unit-toggle {
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: 12px;
-        padding: 4px;
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.2);
+    @keyframes serialGlow {
+        0% { box-shadow: 0 0 20px rgba(176, 215, 1, 0.3); }
+        100% { box-shadow: 0 0 40px rgba(176, 215, 1, 0.6); }
     }
 
-    .unit-toggle .btn {
+    /* Unit Toggle */
+    .unit-toggle-custom {
+        display: inline-flex;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.15);
+        border: 2px solid rgba(176, 215, 1, 0.5);
+        overflow: hidden;
+        backdrop-filter: blur(10px);
+        transition: var(--transition);
+        margin-left: 1rem;
+    }
+
+    .unit-toggle-custom:focus-within {
+        border-color: var(--accent-green);
+        box-shadow: 0 0 0 4px rgba(176, 215, 1, 0.2);
+    }
+
+    .unit-btn {
         border: none;
-        padding: 8px 20px;
-        border-radius: 8px;
+        outline: none;
         background: transparent;
-        color: rgba(255, 255, 255, 0.7);
-        transition: all 0.3s ease;
+        color: white;
+        font-weight: 700;
+        font-size: 1rem;
+        padding: 0.75rem 1.5rem;
+        transition: var(--transition);
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
     }
 
-    .unit-toggle .btn.active {
-        background: white;
-        color: var(--apple-dark);
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    .unit-btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: var(--gradient-accent);
+        transition: left 0.3s ease;
+        z-index: -1;
     }
 
+    .unit-btn.active::before,
+    .unit-btn:hover::before {
+        left: 0;
+    }
+
+    .unit-btn.active,
+    .unit-btn:hover {
+        color: var(--primary-blue);
+        transform: scale(1.05);
+    }
+
+    /* Main Container */
     .main-container {
-        margin-top: -40px;
+        margin-top: -60px;
         position: relative;
         z-index: 10;
     }
 
+    /* Coverage Cards */
     .coverage-card {
         background: white;
-        border-radius: 24px;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
-        padding: 40px;
-        margin-bottom: 24px;
-        border: 1px solid rgba(0, 0, 0, 0.05);
-        transition: all 0.3s ease;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow-primary);
+        padding: 3rem;
+        margin-bottom: 2rem;
+        margin-top: 1.2rem;
+        border: 2px solid rgba(0, 84, 142, 0.1);
+        transition: var(--transition);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .coverage-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(176, 215, 1, 0.05), transparent);
+        transition: left 0.8s ease;
+    }
+
+    .coverage-card:hover::before {
+        left: 100%;
     }
 
     .coverage-card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 30px 80px rgba(0, 0, 0, 0.15);
+        transform: translateY(-8px);
+        box-shadow: var(--shadow-hover);
+        border-color: var(--accent-green);
     }
 
+    /* PDF Download Button */
+    .pdf-download-btn {
+        position: absolute;
+        top: 0.8rem;
+        right: 2rem;
+        z-index: 10;
+        background: var(--gradient-danger);
+        color: white;
+        border: none;
+        border-radius: 12px;
+        padding: 0.75rem 1.5rem;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: var(--transition);
+        box-shadow: 0 4px 16px rgba(255, 59, 48, 0.3);
+    }
+
+    .pdf-download-btn:hover {
+        transform: translateY(-2px) scale(1.05);
+        box-shadow: 0 8px 32px rgba(255, 59, 48, 0.4);
+        background: var(--gradient-accent);
+        color: var(--primary-blue);
+    }
+
+    /* Status Badges */
     .status-badge {
         display: inline-flex;
         align-items: center;
-        padding: 12px 20px;
+        padding: 1rem 2rem;
         border-radius: 20px;
-        font-weight: 600;
-        font-size: 16px;
+        font-weight: 700;
+        font-size: 1.125rem;
         letter-spacing: 0.5px;
+        position: relative;
+        overflow: hidden;
+        animation: badgeGlow 4s ease-in-out infinite alternate;
+    }
+
+    .status-badge::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+        transition: left 0.6s ease;
+    }
+
+    .status-badge:hover::before {
+        left: 100%;
     }
 
     .status-badge.valid {
-        background: linear-gradient(135deg, var(--apple-green) 0%, #28A745 100%);
+        background: var(--gradient-success);
         color: white;
     }
 
     .status-badge.expiringsoon {
-        background: linear-gradient(135deg, var(--apple-orange) 0%, #FF8C00 100%);
+        background: var(--gradient-warning);
         color: white;
     }
 
     .status-badge.expired {
-        background: linear-gradient(135deg, var(--apple-red) 0%, #DC3545 100%);
+        background: var(--gradient-danger);
         color: white;
     }
 
     .status-badge.unknown {
-        background: linear-gradient(135deg, var(--apple-gray) 0%, #6C757D 100%);
+        background: linear-gradient(135deg, #8E8E93 0%, #6C757D 100%);
         color: white;
     }
 
-    .product-image {
-        max-height: 300px;
-        width: 100%;
-        object-fit: contain;
-        border-radius: 16px;
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
-        background: var(--apple-light-gray);
-        padding: 20px;
+    @keyframes badgeGlow {
+        0% { box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); }
+        100% { box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3); }
     }
 
+    /* Product Image */
+    .product-image {
+        max-height: 400px;
+        width: 100%;
+        object-fit: contain;
+        border-radius: 20px;
+        background: #f8fafc;
+        padding: 2rem;
+        transition: var(--transition);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    }
+
+    .product-image:hover {
+        transform: scale(1.05) rotate(2deg);
+        box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Specifications Table */
     .specs-table {
         background: white;
-        border-radius: 16px;
+        border-radius: 20px;
         overflow: hidden;
         border: none;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
     }
 
     .specs-table th {
-        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-        font-weight: 600;
-        color: var(--apple-dark);
-        padding: 16px 20px;
+        background: #eee;
+        color: black;
+        font-weight: 700;
+        padding: 1.25rem 1.5rem;
         border: none;
-        font-size: 14px;
+        font-size: 0.95rem;
         text-transform: uppercase;
         letter-spacing: 0.5px;
+        position: relative;
+    }
+
+    .specs-table th::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: #ccc;
+        opacity: 0.2;
     }
 
     .specs-table td {
-        padding: 16px 20px;
+        padding: 1.25rem 1.5rem;
         border: none;
         border-bottom: 1px solid #f0f0f0;
-        color: var(--apple-secondary);
-        font-weight: 500;
+        color: #374151;
+        font-weight: 600;
+        transition: var(--transition);
+    }
+
+    .specs-table tr:hover td {
+        background: rgba(0, 84, 142, 0.05);
+        transform: translateX(4px);
     }
 
     .specs-table tr:last-child td {
         border-bottom: none;
     }
 
+    /* Section Titles */
     .section-title {
-        font-size: 1.75rem;
-        font-weight: 700;
-        color: var(--apple-dark);
-        margin-bottom: 1.5rem;
+        font-size: 2rem;
+        font-weight: 800;
+        color: var(--primary-blue);
+        margin-bottom: 2rem;
         display: flex;
         align-items: center;
-        gap: 12px;
+        gap: 1rem;
+        position: relative;
+    }
+
+    .section-title::after {
+        content: '';
+        flex: 1;
+        height: 3px;
+        background: var(--gradient-accent);
+        border-radius: 2px;
+        margin-left: 1rem;
     }
 
     .section-icon {
-        width: 40px;
-        height: 40px;
-        border-radius: 12px;
+        width: 50px;
+        height: 50px;
+        border-radius: 15px;
         display: flex;
         align-items: center;
         justify-content: center;
         color: white;
-        font-size: 18px;
+        font-size: 1.5rem;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        transition: var(--transition);
+    }
+
+    .section-icon:hover {
+        transform: scale(1.1) rotate(10deg);
     }
 
     .section-icon.product {
-        background: linear-gradient(135deg, var(--apple-blue) 0%, #0051D5 100%);
+        background: var(--gradient-primary);
     }
 
     .section-icon.warranty {
-        background: linear-gradient(135deg, var(--apple-green) 0%, #28A745 100%);
+        background: var(--gradient-success);
     }
 
     .section-icon.owner {
-        background: linear-gradient(135deg, var(--apple-orange) 0%, #FF8C00 100%);
+        background: var(--gradient-warning);
     }
 
-    .no-result-card {
-        background: white;
-        border-radius: 24px;
-        padding: 60px 40px;
-        text-align: center;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
-    }
-
-    .no-result-icon {
-        width: 80px;
-        height: 80px;
-        border-radius: 20px;
-        background: linear-gradient(135deg, var(--apple-red) 0%, #DC3545 100%);
-        color: white;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 32px;
-        margin: 0 auto 20px;
-    }
-
+    /* Warranty Progress */
     .warranty-progress {
         background: #e9ecef;
-        border-radius: 10px;
-        height: 8px;
+        border-radius: 12px;
+        height: 20px;
+        margin: 1.5rem 0;
         overflow: hidden;
-        margin: 16px 0;
+        box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.1);
+        border: 2px solid #dee2e6;
+        position: relative;
+    }
+
+    .warranty-progress::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+        animation: progressShine 3s ease-in-out infinite;
+    }
+
+    @keyframes progressShine {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(100%); }
     }
 
     .warranty-progress-bar {
         height: 100%;
         border-radius: 10px;
-        transition: width 0.6s ease;
+        transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .warranty-progress-bar::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+        animation: barShine 2s ease-in-out infinite;
+    }
+
+    @keyframes barShine {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(100%); }
     }
 
     .warranty-progress-bar.valid {
-        background: linear-gradient(90deg, var(--apple-green) 0%, #28A745 100%);
+        background: var(--gradient-success);
     }
 
     .warranty-progress-bar.expiring {
-        background: linear-gradient(90deg, var(--apple-orange) 0%, #FF8C00 100%);
+        background: var(--gradient-warning);
     }
 
     .warranty-progress-bar.expired {
-        background: linear-gradient(90deg, var(--apple-red) 0%, #DC3545 100%);
+        background: var(--gradient-danger);
     }
 
-    @keyframes fadeInUp {
-        from {
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
+    /* No Result Card */
+    .no-result-card {
+        background: white;
+        border-radius: var(--border-radius);
+        padding: 4rem 3rem;
+        text-align: center;
+        box-shadow: var(--shadow-primary);
+        border: 2px solid rgba(255, 59, 48, 0.1);
     }
 
-    .animate-in {
-        animation: fadeInUp 0.6s ease-out forwards;
+    .no-result-icon {
+        width: 100px;
+        height: 100px;
+        border-radius: 25px;
+        background: var(--gradient-danger);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.5rem;
+        margin: 0 auto 2rem;
+        animation: iconPulse 3s ease-in-out infinite;
     }
 
+    @keyframes iconPulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+    }
+
+    /* Unit Value Transitions */
+    .unit-value {
+        transition: opacity 0.3s ease;
+    }
+
+    /* Floating Elements */
+    .floating-element {
+        position: fixed;
+        opacity: 0.05;
+        animation: float 25s ease-in-out infinite;
+        pointer-events: none;
+        z-index: -1;
+    }
+
+    .floating-element:nth-child(1) {
+        top: 10%;
+        left: 5%;
+        animation-delay: 0s;
+    }
+
+    .floating-element:nth-child(2) {
+        top: 30%;
+        right: 5%;
+        animation-delay: 8s;
+    }
+
+    .floating-element:nth-child(3) {
+        bottom: 20%;
+        left: 10%;
+        animation-delay: 16s;
+    }
+
+    @keyframes float {
+        0%, 100% { transform: translateY(0px) rotate(0deg); }
+        33% { transform: translateY(-40px) rotate(120deg); }
+        66% { transform: translateY(20px) rotate(240deg); }
+    }
+
+    /* Responsive Design */
     @media (max-width: 768px) {
+        .result-header {
+            padding: 3rem 0 2rem;
+        }
+        
         .coverage-card {
-            padding: 24px;
-            margin-bottom: 16px;
+            padding: 2rem 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .pdf-download-btn {
+            position: static;
+            margin-bottom: 1rem;
+            width: 100%;
+            justify-content: center;
         }
         
         .section-title {
             font-size: 1.5rem;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+        
+        .section-title::after {
+            width: 100%;
+            margin-left: 0;
         }
         
         .specs-table th,
         .specs-table td {
-            padding: 12px 16px;
+            padding: 1rem;
+        }
+        
+        .serial-display {
+            margin: 1rem 0;
+            font-size: 1rem;
+        }
+        
+        .unit-toggle-custom {
+            margin: 1rem 0 0 0;
+        }
+    }
+
+    /* Entrance Animations */
+    .animate-in {
+        opacity: 0;
+        transform: translateY(40px);
+        animation: slideInUp 0.8s ease-out forwards;
+    }
+
+    .animate-in:nth-child(1) { animation-delay: 0.1s; }
+    .animate-in:nth-child(2) { animation-delay: 0.2s; }
+    .animate-in:nth-child(3) { animation-delay: 0.3s; }
+    .animate-in:nth-child(4) { animation-delay: 0.4s; }
+
+    @keyframes slideInUp {
+        to {
+            opacity: 1;
+            transform: translateY(0);
         }
     }
 </style>
@@ -310,6 +617,18 @@
 // Force SI mode as default
 $unit = 'si';
 @endphp
+
+<!-- Floating Background Elements -->
+<div class="floating-element">
+    <i class="fas fa-cog" style="font-size: 4rem; color: var(--primary-blue);"></i>
+</div>
+<div class="floating-element">
+    <i class="fas fa-shield-alt" style="font-size: 3.5rem; color: var(--accent-green);"></i>
+</div>
+<div class="floating-element">
+    <i class="fas fa-chart-line" style="font-size: 3rem; color: var(--primary-blue);"></i>
+</div>
+
 <!-- Result Header -->
 <section class="result-header">
     <div class="container">
@@ -319,58 +638,33 @@ $unit = 'si';
         </a>
         @if($soldProduct && $soldProduct->product)
             <div class="text-center mb-4">
-                <h1 class="h2 mb-3">{{ $soldProduct->product->model_name }}</h1>
+                <h1 class="h2 mb-3" style="font-weight: 800; font-size: 2.5rem;">{{ $soldProduct->product->model_name }}</h1>
                 <div class="d-flex justify-content-center align-items-center flex-wrap gap-3 mb-3">
-                    <span class="text-muted">{{ __('common.serial_number') }}:</span>
+                    <span class="text-white-50 fs-5">{{ __('common.serial_number') }}:</span>
                     <span class="serial-display">{{ $soldProduct->serial_number }}</span>
-                    <div class="unit-toggle-custom ms-3" tabindex="0">
-    <button type="button" class="unit-btn si-btn{{ $unit === 'si' ? ' active' : '' }}" id="siBtn">SI</button>
-    <button type="button" class="unit-btn imperial-btn{{ $unit === 'si' ? '' : ' active' }}" id="imperialBtn">Imperial</button>
-</div>
-<style>
-    .unit-toggle-custom {
-        display: inline-flex;
-        border-radius: 16px;
-        background: #f8f9fa;
-        border: 1.5px solid #b0d701;
-        overflow: hidden;
-        box-shadow: 0 2px 10px rgba(0,84,142,0.07);
-        transition: border-color 0.25s;
-        outline: none;
-    }
-    .unit-toggle-custom:focus-within {
-        border-color: #00548e;
-    }
-    .unit-btn {
-        border: none;
-        outline: none;
-        background: transparent;
-        color: #00548e;
-        font-weight: 700;
-        font-size: 1.07rem;
-        padding: 8px 24px;
-        transition: background 0.22s, color 0.22s, box-shadow 0.22s;
-        cursor: pointer;
-        border-radius: 0;
-    }
-    .unit-btn.active, 
-    .unit-btn:focus {
-        background: #00548e;
-        color: #fff;
-        box-shadow: 0 2px 8px rgba(176,215,1,0.13);
-        z-index: 2;
-    }
-    .unit-btn:hover:not(.active) {
-        background: #e5e7eb;
-        background-color: #b0d701;
-    }
-</style>
+                    <div class="unit-toggle-custom" tabindex="0">
+                        <button type="button" class="unit-btn si-btn{{ $unit === 'si' ? ' active' : '' }}" id="siBtn">SI</button>
+                        <button type="button" class="unit-btn imperial-btn{{ $unit === 'si' ? '' : ' active' }}" id="imperialBtn">Imperial</button>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center gap-3 flex-wrap mt-4">
+                    <div class="d-flex align-items-center gap-2 bg-white bg-opacity-10 px-3 py-2 rounded-pill">
+                        <i class="fas fa-check-circle text-success"></i>
+                        <span>Verified Equipment</span>
+                    </div>
+                    <div class="d-flex align-items-center gap-2 bg-white bg-opacity-10 px-3 py-2 rounded-pill">
+                        <i class="fas fa-database text-info"></i>
+                        <span>Complete Records</span>
+                    </div>
+                    <div class="d-flex align-items-center gap-2 bg-white bg-opacity-10 px-3 py-2 rounded-pill">
+                        <i class="fas fa-shield-check text-warning"></i>
+                        <span>Warranty Tracked</span>
+                    </div>
                 </div>
             </div>
-            <div style="height: 32px;"></div>
         @else
             <div class="text-center">
-                <h1 class="h2 mb-3">{{ __('common.coverage_results') }}</h1>
+                <h1 class="h2 mb-3" style="font-weight: 800;">{{ __('common.coverage_results') }}</h1>
             </div>
         @endif
     </div>
@@ -380,28 +674,32 @@ $unit = 'si';
 <div class="container main-container">
     @if($soldProduct && $soldProduct->product)
         <!-- Product Specifications Card -->
-        <div class="coverage-card animate-in mb-4 mt-20" style="position:relative;">
-    <button type="button"
-        class="btn btn-outline-danger"
-        id="pdfBtn"
-        style="position:absolute;top:28px;right:32px;z-index:10;display:inline-flex;align-items:center;font-weight:600;gap:8px;border-radius:8px;"
-        data-model_name="{{ $soldProduct->product->model_name ?? '-' }}"
-        data-line="{{ $soldProduct->product->line ?? '-' }}"
-        data-type="{{ $soldProduct->product->type ?? '-' }}"
-        data-image_url="{{ $soldProduct->product->image_url ? asset($soldProduct->product->image_url) : asset('images/fallback.webp') }}"
->
-        <i class="fas fa-arrow-down me-2" aria-hidden="true"></i> Download PDF
-    </button>
-            <div class="section-title mb-3">
+        <div class="coverage-card animate-in" style="position: relative;">
+            <button type="button"
+                class="pdf-download-btn"
+                id="pdfBtn"
+                data-model_name="{{ $soldProduct->product->model_name ?? '-' }}"
+                data-line="{{ $soldProduct->product->line ?? '-' }}"
+                data-type="{{ $soldProduct->product->type ?? '-' }}"
+                data-image_url="{{ $soldProduct->product->image_url ? asset($soldProduct->product->image_url) : asset('images/fallback.webp') }}"
+            >
+                <i class="fas fa-download" aria-hidden="true"></i> Download PDF
+            </button>
+            
+            <div class="section-title mb-4">
                 <div class="section-icon product">
                     <i class="fas fa-cogs"></i>
                 </div>
                 {{ __('common.product_details') }}
             </div>
+            
             <div class="row align-items-stretch">
                 <div class="col-lg-4 text-center mb-4 mb-lg-0 d-flex align-items-stretch">
-                    <div class="w-100 h-100 d-flex align-items-center justify-content-center" style="background: #f8f9fa; border-radius: 16px; min-height: 420px;">
-                        <img src="{{ $soldProduct->product->image_url ?? asset('images/fallback.webp') }}" alt="{{ $soldProduct->product->model_name }}" class="product-image w-100 h-100" style="object-fit:contain; max-height:380px;">
+                    <div class="w-100 h-100 d-flex align-items-center justify-content-center" style="background: linear-gradient(135deg, #f8fafc, #e2e8f0); border-radius: 20px; min-height: 450px; border: 2px solid rgba(0, 84, 142, 0.1);">
+                        <img src="{{ $soldProduct->product->image_url ?? asset('images/fallback.webp') }}" 
+                             alt="{{ $soldProduct->product->model_name }}" 
+                             class="product-image w-100 h-100" 
+                             style="object-fit: contain; max-height: 400px;">
                     </div>
                 </div>
                 <div class="col-lg-8 d-flex align-items-center">
@@ -450,7 +748,7 @@ $unit = 'si';
                                 @endphp
                                 @foreach($specs as $spec)
                                     <tr>
-                                        <th><i class="fas {{ $spec['icon'] }} me-2 text-secondary"></i>{{ $spec['label'] }}</th>
+                                        <th><i class="fas {{ $spec['icon'] }} me-2"></i>{{ $spec['label'] }}</th>
                                         <td>
                                             <span class="unit-value" data-si="{{ $spec['value']['si'] }}" data-imperial="{{ $spec['value']['imp'] }}">{{ $unit === 'si' ? $spec['value']['si'] : $spec['value']['imp'] }}</span>
                                         </td>
@@ -462,9 +760,10 @@ $unit = 'si';
                 </div>
             </div>
         </div>
+
         <!-- Owner Information Card -->
         @if($soldProduct->owner)
-        <div class="coverage-card animate-in mb-4">
+        <div class="coverage-card animate-in">
             <div class="section-title">
                 <div class="section-icon owner">
                     <i class="fas fa-user-circle"></i>
@@ -474,40 +773,40 @@ $unit = 'si';
             <div class="table-responsive">
                 <table class="table specs-table mb-0">
                     <tbody>
-                        <tr><th><i class="fas fa-user me-2 text-secondary"></i>{{ __('common.name') }}</th><td>{{ $soldProduct->owner->name }}</td></tr>
-                        <tr><th><i class="fas fa-building me-2 text-secondary"></i>{{ __('common.company') }}</th><td>{{ $soldProduct->owner->company ?? '-' }}</td></tr>
-                        <tr><th><i class="fas fa-flag me-2 text-secondary"></i>{{ __('common.country') }}</th><td>{{ $soldProduct->owner->country ?? '-' }}</td></tr>
+                        <tr><th><i class="fas fa-user me-2"></i>{{ __('common.name') }}</th><td>{{ $soldProduct->owner->name }}</td></tr>
+                        <tr><th><i class="fas fa-building me-2"></i>{{ __('common.company') }}</th><td>{{ $soldProduct->owner->company ?? '-' }}</td></tr>
+                        <tr><th><i class="fas fa-flag me-2"></i>{{ __('common.country') }}</th><td>{{ $soldProduct->owner->country ?? '-' }}</td></tr>
                     </tbody>
                 </table>
             </div>
         </div>
         @endif
-    <!-- Warranty Status Card (restored style) -->
-    <div class="coverage-card animate-in">
-            <div class="section-title mb-3" style="font-size:1.5rem;">
+
+        <!-- Warranty Status Card -->
+        <div class="coverage-card animate-in">
+            <div class="section-title mb-4">
                 <div class="section-icon warranty">
                     <i class="fas fa-shield-alt"></i>
                 </div>
-                <span style="font-size:1.25em; font-weight:600; vertical-align:middle;">{{ __('common.warranty_coverage') }}</span>
+                {{ __('common.warranty_coverage') }}
             </div>
             @if($soldProduct->warranty_voided)
                 <div class="row align-items-center">
                     <div class="col-md-8">
-                        <div class="d-flex align-items-center gap-3 mb-3">
-                            <span class="status-badge expired" style="font-size:1.2em; background: linear-gradient(135deg, var(--apple-red) 0%, #DC3545 100%);">
+                        <div class="d-flex align-items-center gap-3 mb-4">
+                            <span class="status-badge expired">
                                 <i class="fas fa-ban me-2"></i>
                                 {{ __('common.warranty_voided') }}
                             </span>
                         </div>
-                        <p class="mb-2" style="font-size:1.1em;">
-                            
-                            <strong>{{ __('common.warranty_voided_at') }}</strong> {{ $soldProduct->warranty_voided_at ? $soldProduct->warranty_voided_at->format('F j, Y H:i') : '-' }}
+                        <p class="mb-3 fs-5">
+                            <strong>{{ __('common.warranty_voided_at') }}</strong> 
+                            {{ $soldProduct->warranty_voided_at ? $soldProduct->warranty_voided_at->format('F j, Y H:i') : '-' }}
                         </p>
-                       
                     </div>
                     <div class="col-md-4 text-center">
                         <div class="warranty-visual">
-                            <i class="fas fa-ban text-danger" style="font-size: 4rem;"></i>
+                            <i class="fas fa-ban" style="font-size: 5rem; color: #FF3B30; animation: iconPulse 3s ease-in-out infinite;"></i>
                         </div>
                     </div>
                 </div>
@@ -530,8 +829,8 @@ $unit = 'si';
                 @endphp
                 <div class="row align-items-center">
                     <div class="col-md-8">
-                        <div class="d-flex align-items-center gap-3 mb-3">
-                            <span class="status-badge {{ strtolower(str_replace(' ', '', $status)) }}" style="font-size:1.2em;">
+                        <div class="d-flex align-items-center gap-3 mb-4">
+                            <span class="status-badge {{ strtolower(str_replace(' ', '', $status)) }}">
                                 @if($status === __('common.valid'))
                                     <i class="fas fa-check-circle me-2"></i>
                                 @elseif($status === __('common.warranty_expiring_soon'))
@@ -542,7 +841,7 @@ $unit = 'si';
                                 {{ $status }}
                             </span>
                         </div>
-                        <p class="mb-2" style="font-size:1.1em;">
+                        <p class="mb-3 fs-5">
                             <strong>{{ __('common.warranty_expires') }}</strong> {{ $warrantyEnd }}
                             @if($daysLeft !== null && $daysLeft > 0 && $status !== __('common.warranty_expired_status'))
                                 <span class="text-muted">({{ is_numeric($daysLeft) ? round($daysLeft) : $daysLeft }} {{ __('common.days_remaining') }})</span>
@@ -551,29 +850,29 @@ $unit = 'si';
                         <div class="warranty-progress">
                             <div class="warranty-progress-bar {{ $progressClass }}" style="width: {{ $progressPercentage }}%"></div>
                         </div>
-                        <div class="mt-3" style="font-size:1.08em;">
-                            <span class="me-3"><i class="fas fa-shopping-cart me-1 text-secondary"></i><strong>{{ __('common.purchase_date') }}:</strong> {{ $purchaseDate }}</span>
-                            <span class="me-3"><i class="fas fa-play-circle me-1 text-secondary"></i><strong>{{ __('common.warranty_start') }}:</strong> {{ $warrantyStart }}</span>
-                            <span><i class="fas fa-calendar-check me-1 text-secondary"></i><strong>{{ __('common.warranty_end') }}:</strong> {{ $warrantyEnd }}</span>
+                        <div class="mt-4 d-flex flex-wrap gap-4">
+                            <div class="d-flex align-items-center gap-2">
+                                <i class="fas fa-shopping-cart" style="color: var(--accent-green);"></i>
+                                <strong>{{ __('common.purchase_date') }}:</strong> {{ $purchaseDate }}
+                            </div>
+                            <div class="d-flex align-items-center gap-2">
+                                <i class="fas fa-play-circle" style="color: var(--accent-green);"></i>
+                                <strong>{{ __('common.warranty_start') }}:</strong> {{ $warrantyStart }}
+                            </div>
+                            <div class="d-flex align-items-center gap-2">
+                                <i class="fas fa-calendar-check" style="color: var(--accent-green);"></i>
+                                <strong>{{ __('common.warranty_end') }}:</strong> {{ $warrantyEnd }}
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-4 text-center">
                         <div class="warranty-visual">
-                            <i class="fas fa-{{ $status === __('common.valid') ? 'shield-check text-success' : ($status === __('common.warranty_expiring_soon') ? 'shield-alt text-warning' : 'shield-times text-danger') }}" style="font-size: 4rem;"></i>
+                            <i class="fas fa-{{ $status === __('common.valid') ? 'shield-check' : ($status === __('common.warranty_expiring_soon') ? 'shield-alt' : 'shield-times') }}" 
+                               style="font-size: 5rem; color: {{ $status === __('common.valid') ? '#34C759' : ($status === __('common.warranty_expiring_soon') ? '#FF9500' : '#FF3B30') }}; animation: iconPulse 3s ease-in-out infinite;"></i>
                         </div>
                     </div>
                 </div>
             @endif
-        </div>
-</div>
-   
-                </div>
-                <div class="col-md-4 text-center">
-                    <div class="warranty-visual">
-                        <i class="fas fa-{{ $status === __('common.valid') ? 'shield-check text-success' : ($status === __('common.warranty_expiring_soon') ? 'shield-alt text-warning' : 'shield-times text-danger') }}" style="font-size: 4rem;"></i>
-                    </div>
-                </div>
-            </div>
         </div>
     @else
         <!-- No Result Found -->
@@ -581,309 +880,374 @@ $unit = 'si';
             <div class="no-result-icon">
                 <i class="fas fa-search"></i>
             </div>
-            <h3 class="h4 mb-3">No Equipment Found</h3>
-            <p class="text-muted mb-4">
+            <h3 class="h4 mb-4" style="color: var(--primary-blue); font-weight: 800;">No Equipment Found</h3>
+            <p class="text-muted mb-4 fs-5">
                 We couldn't find any equipment matching the serial number you entered. 
                 Please double-check the serial number and try again.
             </p>
-            <a href="{{ route('serial-lookup.index') }}" class="btn btn-primary btn-lg">
+            <a href="{{ route('serial-lookup.index') }}" class="btn btn-lg" style="background: var(--gradient-primary); color: white; border-radius: 16px; padding: 1rem 2rem; font-weight: 700; text-decoration: none; transition: var(--transition);">
                 <i class="fas fa-arrow-left me-2"></i>
                 Try Another Search
             </a>
         </div>
     @endif
 </div>
-<style>
-    .warranty-progress {
-        background: #e9ecef;
-        border-radius: 8px;
-        height: 18px;
-        min-height: 18px;
-        margin-bottom: 0.75rem;
-        overflow: visible;
-        box-shadow: 0 2px 10px 0 rgba(0,84,142,0.09);
-        border: 1.5px solid #e0e0e0;
-        position: relative;
-    }
-    .warranty-progress-bar {
-        height: 100%;
-        min-width: 2.5%;
-        border-radius: 8px;
-        transition: width 1.2s cubic-bezier(0.4,0,0.2,1), background 0.4s;
-        box-shadow: 0 1px 6px 0 rgba(0,84,142,0.07);
-        position: absolute;
-        left: 0; top: 0;
-    }
-    .warranty-progress-bar.valid {
-        background: #34C759;
-    }
-    .warranty-progress-bar.expiring {
-        background: #FFA500;
-    }
-    .warranty-progress-bar.expired {
-        background: #FF3B30;
-    }
-</style> 
 @endsection
 
 @push('scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
 <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Unit toggle functionality
-            const siBtn = document.getElementById('siBtn');
-            const imperialBtn = document.getElementById('imperialBtn');
-            const unitValues = document.querySelectorAll('.unit-value');
+document.addEventListener('DOMContentLoaded', function () {
+    // Unit toggle functionality with enhanced animations
+    const siBtn = document.getElementById('siBtn');
+    const imperialBtn = document.getElementById('imperialBtn');
+    const unitValues = document.querySelectorAll('.unit-value');
 
-            if (siBtn && imperialBtn) {
-                siBtn.classList.add('active');
+    if (siBtn && imperialBtn) {
+        siBtn.classList.add('active');
+        imperialBtn.classList.remove('active');
+        switchUnits('si');
+
+        siBtn.addEventListener('click', function () {
+            if (!this.classList.contains('active')) {
+                this.classList.add('active');
                 imperialBtn.classList.remove('active');
                 switchUnits('si');
-
-                siBtn.addEventListener('click', function () {
-                    if (!this.classList.contains('active')) {
-                        this.classList.add('active');
-                        imperialBtn.classList.remove('active');
-                        switchUnits('si');
-                    }
-                });
-
-                imperialBtn.addEventListener('click', function () {
-                    if (!this.classList.contains('active')) {
-                        this.classList.add('active');
-                        siBtn.classList.remove('active');
-                        switchUnits('imperial');
-                    }
-                });
-            }
-
-            function switchUnits(unit) {
-                unitValues.forEach(element => {
-                    const value = element.getAttribute(`data-${unit}`);
-                    if (value) {
-                        element.style.opacity = '0';
-                        setTimeout(() => {
-                            element.textContent = value;
-                            element.style.opacity = '1';
-                        }, 150);
-                    }
-                });
-            }
-
-            // Animate elements on scroll
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            };
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach((entry, index) => {
-                    if (entry.isIntersecting) {
-                        setTimeout(() => {
-                            entry.target.style.opacity = '1';
-                            entry.target.style.transform = 'translateY(0)';
-                        }, index * 200);
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, observerOptions);
-
-            document.querySelectorAll('.coverage-card, .no-result-card').forEach(card => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(30px)';
-                card.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
-                observer.observe(card);
-            });
-
-            // PDF Download Logic
-            const pdfBtn = document.getElementById('pdfBtn');
-            if (pdfBtn) {
-                pdfBtn.addEventListener('click', generatePdf);
-            }
-
-            function generatePdf() {
-                if (!window.jspdf) {
-                    alert('jsPDF library is missing. Please check the script order.');
-                    return;
-                }
-
-                // Fetch product info from data attributes on the PDF button for reliability
-                const pdfBtn = document.getElementById('pdfBtn');
-                const productName = pdfBtn?.dataset.model_name || '-';
-                const productLine = pdfBtn?.dataset.line || '-';
-                const productType = pdfBtn?.dataset.type || '-';
-                let productImgUrl = pdfBtn?.dataset.image_url || (window.location.origin + '/images/fallback.webp');
-
-                const doc = new window.jspdf.jsPDF({ unit: 'pt', format: 'a4' });
-                const pageWidth = doc.internal.pageSize.getWidth();
-                let y = 36;
-
-
-                // Build specs table (EXCLUDE model name, line, type)
-                const specsRows = [];
-                const specsTable = document.querySelector('.specs-table');
-                if (specsTable) {
-                    let rowIndex = 0;
-                    specsTable.querySelectorAll('tbody tr').forEach(row => {
-                        rowIndex++;
-                        // skip first 3 rows (model name, line, type)
-                        if (rowIndex <= 3) return;
-                        const label = row.querySelector('th')?.innerText || '-';
-                        const span = row.querySelector('td span.unit-value');
-                        const siValue = span ? (span.dataset.si || '-') : '-';
-                        const lbftValue = span ? (span.dataset.imperial || '-') : '-';
-                        specsRows.push([label, siValue, lbftValue]);
-                    });
-                } else {
-                    specsRows.push(['-', '-', '-']);
-                }
-                const specsHead = [['Specification', 'SI', 'lb-ft']];
-
-                // Warranty Info (robust extraction for all cases, no redundancy)
-                const warrantyRows = [];
-                const warrantyCard = document.querySelectorAll('.coverage-card')[2];
-                if (warrantyCard) {
-                    // Voided warranty
-                    const voidedElem = warrantyCard.querySelector('.status-badge.expired, .fa-ban');
-                    if (voidedElem) {
-                        const status = voidedElem.textContent.trim() || '-';
-                        const voidedAtElem = warrantyCard.querySelector('strong');
-                        let voidedAt = '-';
-                        if (voidedAtElem && voidedAtElem.nextSibling && voidedAtElem.nextSibling.textContent) {
-                            voidedAt = voidedAtElem.nextSibling.textContent.trim();
-                        }
-                        warrantyRows.push(['Status', status]);
-                        warrantyRows.push(['Voided At', voidedAt]);
-                    } else {
-                        // Normal warranty
-                        const purchaseDate = warrantyCard.querySelector('.fa-shopping-cart')?.parentElement?.innerText?.split(':')[1]?.trim() || '-';
-                        const warrantyStart = warrantyCard.querySelector('.fa-play-circle')?.parentElement?.innerText?.split(':')[1]?.trim() || '-';
-                        const warrantyEnd = warrantyCard.querySelector('.fa-calendar-check')?.parentElement?.innerText?.split(':')[1]?.trim() || '-';
-                        const statusElem = warrantyCard.querySelector('.status-badge');
-                        const status = statusElem ? statusElem.textContent.trim() : '-';
-                        let daysRemaining = '-';
-                        const daysElem = warrantyCard.querySelector('.text-muted');
-                        if (daysElem) {
-                            daysRemaining = daysElem.textContent.replace(/[^0-9]/g, '').trim();
-                        }
-                        warrantyRows.push(['Purchase Date', purchaseDate]);
-                        warrantyRows.push(['Warranty Start', warrantyStart]);
-                        warrantyRows.push(['Warranty End', warrantyEnd]);
-                        warrantyRows.push(['Status', status]);
-                        warrantyRows.push(['Days Remaining', daysRemaining]);
-                    }
-                } else {
-                    warrantyRows.push(['Purchase Date', '-']);
-                    warrantyRows.push(['Warranty Start', '-']);
-                    warrantyRows.push(['Warranty End', '-']);
-                    warrantyRows.push(['Status', '-']);
-                    warrantyRows.push(['Days Remaining', '-']);
-                }
-
-                // Owner Info (unchanged)
-                const ownerRows = [];
-                const ownerCard = document.querySelectorAll('.coverage-card')[1];
-                if (ownerCard) {
-                    const name = ownerCard.querySelector('.fa-user')?.parentElement?.nextElementSibling?.innerText || '-';
-                    const company = ownerCard.querySelector('.fa-building')?.parentElement?.nextElementSibling?.innerText || '-';
-                    const country = ownerCard.querySelector('.fa-flag')?.parentElement?.nextElementSibling?.innerText || '-';
-                    ownerRows.push(['Name', name]);
-                    ownerRows.push(['Company', company]);
-                    ownerRows.push(['Country', country]);
-                } else {
-                    ownerRows.push(['Name', '-']);
-                    ownerRows.push(['Company', '-']);
-                    ownerRows.push(['Country', '-']);
-                }
-
-                // Draw PDF
-                const logoUrl = window.location.origin + '/images/logo2.png';
-                const drawLogo = (cb) => {
-                    const img = new window.Image();
-                    img.crossOrigin = 'anonymous';
-                    img.onload = function () {
-                        doc.addImage(img, 'PNG', pageWidth - 156, 24, 120, 48);
-                        cb();
-                    };
-                    img.onerror = function () { cb(); };
-                    img.src = logoUrl;
-                };
-
-                drawLogo(() => {
-                    doc.setFontSize(20);
-                    doc.setFont('helvetica', 'bold');
-                    doc.text('Coverage Results - ' + productName, pageWidth / 2, y + 32, { align: 'center' });
-                    y += 64;
-
-                    // Product image and beside it: Model Name, Line, Type
-                    if (productImgUrl) {
-                        const img = new window.Image();
-                        img.crossOrigin = 'anonymous';
-                        img.onload = function () {
-                            doc.addImage(img, 'PNG', 40, y, 120, 90);
-                            doc.setFontSize(14);
-                            doc.setFont('helvetica', 'normal');
-                            // Draw Model Name, Line, Type beside image
-                            let infoY = y + 10;
-                            doc.text('Model Name: ' + productName, 180, infoY);
-                            doc.text('Line: ' + productLine, 180, infoY + 26);
-                            doc.text('Type: ' + productType, 180, infoY + 52);
-                            renderTables(y + 110);
-                        };
-                        img.onerror = function () {
-                            renderTables(y);
-                        };
-                        img.src = productImgUrl;
-                    } else {
-                        renderTables(y);
-                    }
-
-                    function renderTables(startY) {
-                        let tableY = startY + 40;
-
-                        doc.setFontSize(14);
-                        doc.setFont('helvetica', 'bold');
-                        doc.text('Product Specifications', 40, tableY);
-                        doc.autoTable({
-                            startY: tableY + 8,
-                            head: specsHead,
-                            body: specsRows,
-                            theme: 'grid',
-                            headStyles: { fillColor: [0, 84, 142] },
-                            styles: { font: 'helvetica', fontSize: 11 },
-                            margin: { left: 40, right: 40 }
-                        });
-                        tableY = doc.lastAutoTable.finalY + 16;
-
-                        doc.text('Owner Information', 40, tableY);
-                        doc.autoTable({
-                            startY: tableY + 8,
-                            head: [['Attribute', 'Value']],
-                            body: ownerRows,
-                            theme: 'grid',
-                            headStyles: { fillColor: [0, 84, 142] },
-                            styles: { font: 'helvetica', fontSize: 11 },
-                            margin: { left: 40, right: 40 }
-                        });
-                        tableY = doc.lastAutoTable.finalY + 16;
-
-                        doc.text('Warranty Information', 40, tableY);
-                        doc.autoTable({
-                            startY: tableY + 8,
-                            head: [['Attribute', 'Value']],
-                            body: warrantyRows,
-                            theme: 'grid',
-                            headStyles: { fillColor: [0, 84, 142] },
-                            styles: { font: 'helvetica', fontSize: 11 },
-                            margin: { left: 40, right: 40 }
-                        });
-
-                        doc.save('equipment-coverage-' + productLine + '-' + productType + '.pdf');
-                    }
-                });
             }
         });
+
+        imperialBtn.addEventListener('click', function () {
+            if (!this.classList.contains('active')) {
+                this.classList.add('active');
+                siBtn.classList.remove('active');
+                switchUnits('imperial');
+            }
+        });
+    }
+
+    function switchUnits(unit) {
+        unitValues.forEach((element, index) => {
+            const value = element.getAttribute(`data-${unit}`);
+            if (value) {
+                // Staggered animation for smooth transition
+                setTimeout(() => {
+                    element.style.opacity = '0';
+                    element.style.transform = 'translateY(-10px)';
+                    
+                    setTimeout(() => {
+                        element.textContent = value;
+                        element.style.opacity = '1';
+                        element.style.transform = 'translateY(0)';
+                    }, 150);
+                }, index * 50);
+            }
+        });
+    }
+
+    // Enhanced scroll animations
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }, index * 200);
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    // Observe animated elements
+    document.querySelectorAll('.coverage-card, .no-result-card').forEach(card => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(40px)';
+        card.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+        observer.observe(card);
+    });
+
+    // Enhanced PDF Download Logic
+    const pdfBtn = document.getElementById('pdfBtn');
+    if (pdfBtn) {
+        pdfBtn.addEventListener('click', generatePdf);
+    }
+
+    function generatePdf() {
+        if (!window.jspdf) {
+            alert('jsPDF library is missing. Please check the script order.');
+            return;
+        }
+
+        // Add loading state
+        pdfBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Generating PDF...';
+        pdfBtn.disabled = true;
+
+        // Fetch product info from data attributes
+        const productName = pdfBtn?.dataset.model_name || '-';
+        const productLine = pdfBtn?.dataset.line || '-';
+        const productType = pdfBtn?.dataset.type || '-';
+        let productImgUrl = pdfBtn?.dataset.image_url || (window.location.origin + '/images/fallback.webp');
+
+        const doc = new window.jspdf.jsPDF({ unit: 'pt', format: 'a4' });
+        const pageWidth = doc.internal.pageSize.getWidth();
+        let y = 40;
+
+        // Build specs table (EXCLUDE model name, line, type)
+        const specsRows = [];
+        const specsTable = document.querySelector('.specs-table');
+        if (specsTable) {
+            let rowIndex = 0;
+            specsTable.querySelectorAll('tbody tr').forEach(row => {
+                rowIndex++;
+                // skip first 3 rows (model name, line, type)
+                if (rowIndex <= 3) return;
+                const label = row.querySelector('th')?.innerText || '-';
+                const span = row.querySelector('td span.unit-value');
+                const siValue = span ? (span.dataset.si || '-') : '-';
+                const lbftValue = span ? (span.dataset.imperial || '-') : '-';
+                specsRows.push([label, siValue, lbftValue]);
+            });
+        } else {
+            specsRows.push(['-', '-', '-']);
+        }
+        const specsHead = [['Specification', 'SI', 'Imperial']];
+
+        // Warranty Info
+        const warrantyRows = [];
+        const warrantyCard = document.querySelectorAll('.coverage-card')[2];
+        if (warrantyCard) {
+            const voidedElem = warrantyCard.querySelector('.status-badge.expired, .fa-ban');
+            if (voidedElem) {
+                const status = voidedElem.textContent.trim() || '-';
+                const voidedAtElem = warrantyCard.querySelector('strong');
+                let voidedAt = '-';
+                if (voidedAtElem && voidedAtElem.nextSibling && voidedAtElem.nextSibling.textContent) {
+                    voidedAt = voidedAtElem.nextSibling.textContent.trim();
+                }
+                warrantyRows.push(['Status', status]);
+                warrantyRows.push(['Voided At', voidedAt]);
+            } else {
+                const purchaseDate = warrantyCard.querySelector('.fa-shopping-cart')?.parentElement?.innerText?.split(':')[1]?.trim() || '-';
+                const warrantyStart = warrantyCard.querySelector('.fa-play-circle')?.parentElement?.innerText?.split(':')[1]?.trim() || '-';
+                const warrantyEnd = warrantyCard.querySelector('.fa-calendar-check')?.parentElement?.innerText?.split(':')[1]?.trim() || '-';
+                const statusElem = warrantyCard.querySelector('.status-badge');
+                const status = statusElem ? statusElem.textContent.trim() : '-';
+                let daysRemaining = '-';
+                const daysElem = warrantyCard.querySelector('.text-muted');
+                if (daysElem) {
+                    daysRemaining = daysElem.textContent.replace(/[^0-9]/g, '').trim();
+                }
+                warrantyRows.push(['Purchase Date', purchaseDate]);
+                warrantyRows.push(['Warranty Start', warrantyStart]);
+                warrantyRows.push(['Warranty End', warrantyEnd]);
+                warrantyRows.push(['Status', status]);
+                warrantyRows.push(['Days Remaining', daysRemaining]);
+            }
+        } else {
+            warrantyRows.push(['Purchase Date', '-']);
+            warrantyRows.push(['Warranty Start', '-']);
+            warrantyRows.push(['Warranty End', '-']);
+            warrantyRows.push(['Status', '-']);
+            warrantyRows.push(['Days Remaining', '-']);
+        }
+
+        // Owner Info
+        const ownerRows = [];
+        const ownerCard = document.querySelectorAll('.coverage-card')[1];
+        if (ownerCard) {
+            const name = ownerCard.querySelector('.fa-user')?.parentElement?.nextElementSibling?.innerText || '-';
+            const company = ownerCard.querySelector('.fa-building')?.parentElement?.nextElementSibling?.innerText || '-';
+            const country = ownerCard.querySelector('.fa-flag')?.parentElement?.nextElementSibling?.innerText || '-';
+            ownerRows.push(['Name', name]);
+            ownerRows.push(['Company', company]);
+            ownerRows.push(['Country', country]);
+        } else {
+            ownerRows.push(['Name', '-']);
+            ownerRows.push(['Company', '-']);
+            ownerRows.push(['Country', '-']);
+        }
+
+        // Draw PDF with enhanced styling
+        const logoUrl = window.location.origin + '/images/logo2.png';
+        const drawLogo = (cb) => {
+            const img = new window.Image();
+            img.crossOrigin = 'anonymous';
+            img.onload = function () {
+                doc.addImage(img, 'PNG', pageWidth - 180, 30, 150, 100);
+                cb();
+            };
+            img.onerror = function () { cb(); };
+            img.src = logoUrl;
+        };
+
+        drawLogo(() => {
+            // Enhanced header
+            doc.setFillColor(0, 84, 142);
+            doc.rect(0, 0, pageWidth, 140, 'F');
+            
+            doc.setTextColor(255, 255, 255);
+            doc.setFontSize(24);
+            doc.setFont('helvetica', 'bold');
+            doc.text('Equipment Coverage Report', 40, 80);
+            
+            doc.setFontSize(16);
+            doc.setFont('helvetica', 'normal');
+            doc.text(productName, 40, 110);
+            
+            y = 160;
+
+            // Product image and info
+            if (productImgUrl) {
+                const img = new window.Image();
+                img.crossOrigin = 'anonymous';
+                img.onload = function () {
+                    doc.addImage(img, 'PNG', 40, y, 150, 120);
+                    
+                    // Product info beside image
+                    doc.setTextColor(0, 0, 0);
+                    doc.setFontSize(14);
+                    doc.setFont('helvetica', 'bold');
+                    let infoY = y + 20;
+                    doc.text('Model: ' + productName, 210, infoY);
+                    doc.text('Line: ' + productLine, 210, infoY + 30);
+                    doc.text('Type: ' + productType, 210, infoY + 60);
+                    
+                    renderTables(y + 140);
+                };
+                img.onerror = function () {
+                    renderTables(y);
+                };
+                img.src = productImgUrl;
+            } else {
+                renderTables(y);
+            }
+
+            function renderTables(startY) {
+                let tableY = startY + 40;
+
+                // Enhanced table styling
+                doc.setFontSize(16);
+                doc.setFont('helvetica', 'bold');
+                doc.setTextColor(0, 84, 142);
+                doc.text('Technical Specifications', 40, tableY);
+                
+                doc.autoTable({
+                    startY: tableY + 10,
+                    head: specsHead,
+                    body: specsRows,
+                    theme: 'grid',
+                    headStyles: { 
+                        fillColor: [0, 84, 142],
+                        textColor: [255, 255, 255],
+                        fontStyle: 'bold'
+                    },
+                    styles: { 
+                        font: 'helvetica', 
+                        fontSize: 10,
+                        cellPadding: 8
+                    },
+                    alternateRowStyles: {
+                        fillColor: [248, 250, 252]
+                    },
+                    margin: { left: 40, right: 40 }
+                });
+                
+                tableY = doc.lastAutoTable.finalY + 40;
+
+                doc.setTextColor(0, 84, 142);
+                doc.text('Owner Information', 40, tableY);
+                doc.autoTable({
+                    startY: tableY + 10,
+                    head: [['Attribute', 'Value']],
+                    body: ownerRows,
+                    theme: 'grid',
+                    headStyles: { 
+                        fillColor: [0, 84, 142],
+                        textColor: [255, 255, 255],
+                        fontStyle: 'bold'
+                    },
+                    styles: { 
+                        font: 'helvetica', 
+                        fontSize: 10,
+                        cellPadding: 8
+                    },
+                    alternateRowStyles: {
+                        fillColor: [248, 250, 252]
+                    },
+                    margin: { left: 40, right: 40 }
+                });
+                
+                tableY = doc.lastAutoTable.finalY + 40;
+
+                doc.setTextColor(0, 84, 142);
+                doc.text('Warranty Information', 40, tableY);
+                doc.autoTable({
+                    startY: tableY + 10,
+
+                    body: warrantyRows,
+                    theme: 'grid',
+                    headStyles: { 
+                        fillColor: [0, 84, 142],
+                        textColor: [255, 255, 255],
+                        fontStyle: 'bold'
+                    },
+                    styles: { 
+                        font: 'helvetica', 
+                        fontSize: 10,
+                        cellPadding: 8
+                    },
+                    alternateRowStyles: {
+                        fillColor: [248, 250, 252]
+                    },
+                    margin: { left: 40, right: 40 }
+                });
+
+                // Footer
+                const pageCount = doc.internal.getNumberOfPages();
+                for (let i = 1; i <= pageCount; i++) {
+                    doc.setPage(i);
+                    doc.setFontSize(10);
+                    doc.setTextColor(128, 128, 128);
+                    doc.text('Generated on ' + new Date().toLocaleDateString(), 40, doc.internal.pageSize.getHeight() - 30);
+                    doc.text('Page ' + i + ' of ' + pageCount, pageWidth - 80, doc.internal.pageSize.getHeight() - 30);
+                }
+
+                // Reset button state
+                pdfBtn.innerHTML = '<i class="fas fa-download me-2"></i>Download PDF';
+                pdfBtn.disabled = false;
+
+                // Save with enhanced filename
+                const timestamp = new Date().toISOString().slice(0, 10);
+                doc.save(`equipment-coverage-${productLine}-${productType}-${timestamp}.pdf`);
+            }
+        });
+    }
+
+    // Add keyboard shortcuts
+    document.addEventListener('keydown', function(e) {
+        // Ctrl/Cmd + P for PDF download
+        if ((e.ctrlKey || e.metaKey) && e.key === 'p') {
+            e.preventDefault();
+            if (pdfBtn) pdfBtn.click();
+        }
+        
+        // Ctrl/Cmd + U for unit toggle
+        if ((e.ctrlKey || e.metaKey) && e.key === 'u') {
+            e.preventDefault();
+            if (siBtn && imperialBtn) {
+                if (siBtn.classList.contains('active')) {
+                    imperialBtn.click();
+                } else {
+                    siBtn.click();
+                }
+            }
+        }
+    });
+});
 </script>
 @endpush
-
