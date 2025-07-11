@@ -306,7 +306,7 @@
 }
 
 .specifications-table th {
-    background: linear-gradient(135deg, var(--primary-blue) 0%, #003d6b 100%);
+    background: #ccc;
     color: white;
     font-weight: 600;
     padding: 1rem;
