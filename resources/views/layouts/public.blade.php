@@ -56,10 +56,13 @@
                         <i class="fas fa-home nav-icon"></i>
                         <span class="nav-icon-label">{{ __('common.home') }}</span>
                     </a>
-                    
-                    <div class="nav-icon-item nav-products-dropdown {{ request()->routeIs('products.*') ? 'active' : '' }}" tabindex="0">
+                    <a href="{{ route('products.index') }}" 
+                       class="nav-icon-item {{ request()->routeIs('products.*') ? 'active' : '' }}">
                         <i class="fas fa-cogs nav-icon"></i>
                         <span class="nav-icon-label">{{ __('common.products') }}</span>
+                    </a>
+                    <div class="nav-icon-item nav-products-dropdown {{ request()->routeIs('products.*') ? 'active' : '' }}" tabindex="0">
+                        
                         <div class="products-dropdown-menu" aria-label="Product Categories">
                             <div class="dropdown-categories">
                                 @foreach($productCategories as $cat)

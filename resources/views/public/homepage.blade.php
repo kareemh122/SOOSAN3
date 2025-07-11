@@ -820,113 +820,7 @@
     }
 
     /* Modern Product Search Section */
-    .product-search-section {
-        background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
-        padding: 5rem 0;
-        position: relative;
-    }
-
-    .product-search-section::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="search-grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(37,99,235,0.05)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23search-grid)"/></svg>');
-    }
-
-    .search-content {
-        position: relative;
-        z-index: 2;
-        text-align: center;
-        max-width: 800px;
-        margin: 0 auto;
-    }
-
-    .search-intro {
-        font-size: 1rem;
-        color: var(--primary-color);
-        margin-bottom: 1rem;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-    }
-
-    .search-title {
-        font-size: clamp(2.5rem, 5vw, 3.5rem);
-        font-weight: 800;
-        margin-bottom: 1.5rem;
-        color: var(--text-color);
-        line-height: 1.2;
-    }
-
-    .search-subtitle {
-        font-size: 1.3rem;
-        margin-bottom: 3rem;
-        color: var(--text-muted);
-        line-height: 1.6;
-    }
-
-    .search-form {
-        max-width: 600px;
-        margin: 0 auto 3rem;
-    }
-
-    .search-input-container {
-        position: relative;
-        display: flex;
-        align-items: center;
-        background: white;
-        border: 2px solid #e5e7eb;
-        border-radius: 60px;
-        transition: all 0.3s ease;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
-        padding: 0.5rem;
-    }
-
-    .search-input-container:focus-within {
-        border-color: var(--primary-color);
-        box-shadow: 0 10px 40px rgba(37, 99, 235, 0.15);
-        transform: translateY(-2px);
-    }
-
-    .search-input {
-        flex: 1;
-        border: none;
-        outline: none;
-        padding: 1.25rem 2rem;
-        font-size: 1.1rem;
-        background: transparent;
-        color: var(--text-color);
-    }
-
-    .search-input::placeholder {
-        color: #9ca3af;
-    }
-
-    .search-input-btn {
-        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-        color: white;
-        border: none;
-        border-radius: 50px;
-        padding: 1.25rem 2rem;
-        font-size: 1.1rem;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        min-width: 120px;
-        justify-content: center;
-    }
-
-    .search-input-btn:hover {
-        transform: scale(1.05);
-        box-shadow: 0 8px 24px rgba(37, 99, 235, 0.3);
-    }
-
+    
     .search-tags {
         display: flex;
         align-items: center;
@@ -972,20 +866,6 @@
         font-size: 1rem;
         background: transparent;
         outline: none;
-    }
-
-    .search-input-btn {
-        background: var(--primary-color);
-        border: none;
-        color: white;
-        padding: 1rem 1.5rem;
-        border-radius: 0 var(--border-radius) var(--border-radius) 0;
-        cursor: pointer;
-        transition: all var(--transition-duration) ease;
-    }
-
-    .search-input-btn:hover {
-        background: var(--secondary-color);
     }
 
     .search-tags {
@@ -2063,411 +1943,952 @@
         </div>
     </section>
 
-    <!-- Hydraulic Breaker Product Lines Section (Modern Split Card) -->
-    <section class="breaker-lines-section" id="breaker-lines">  
-        <div class="container">
+    <!-- Hydraulic Breaker Product Lines Section -->
+<section class="breaker-lines-section" id="breaker-lines">  
+    <div class="container">
+        <!-- Section Header with Animation -->
+        <div class="section-header" data-aos="fade-up" data-aos-duration="800">
+            <div class="section-badge">
+                <i class="fas fa-cogs"></i>
+                PRODUCT EXCELLENCE
+            </div>
             <h2 class="section-title">Hydraulic Breaker Product Lines</h2>
             <p class="section-description">
                 Discover our comprehensive range of hydraulic breakers, each engineered to deliver exceptional performance across diverse applications and industries.
             </p>
-            <div class="breaker-tabs">
-            <button class="breaker-tab" data-line="et-ii-line">ET-II Line</button>
-                <button class="breaker-tab active" data-line="sq-line">SQ Line</button>
-                <button class="breaker-tab" data-line="sb-line">SB Line</button>
-                <button class="breaker-tab" data-line="sb-e-line">SB-E Line</button>
-            </div>
-            <div class="breaker-tab-content">
-                <!-- Card content will be injected here by JS -->
-            </div>
         </div>
-    </section> 
-    <style>
-            .breaker-lines-section {
-                margin-top: 4rem;
-            }
-            .breaker-lines-section .section-title, .breaker-lines-section .section-description{
-                text-align: center;
-            }
-            .breaker-tabs {
-                display: flex;
-                gap: 0.7rem;
-                margin-bottom: 2.3rem;
-                justify-content: center;
-                align-items: center;
-            }
-            .breaker-tab {
-                background: #fff;
-                color: #00548e;
-                border: none;
-                border-radius: 1.5rem 1.5rem 1.5rem 1.5rem;
-                padding: 0.7rem 2.2rem;
-                font-weight: 700;
-                font-size: 1.07rem;
-                box-shadow: 0 2px 10px rgba(0,84,142,0.07);
-                cursor: pointer;
-                transition: background 0.2s, color 0.2s;
-                outline: none;
-            }
-            .breaker-tab.active, .breaker-tab:hover, .breaker-tab:focus {
-                background: #00548e;
-                color: #fff;
-            }
-            .breaker-tab-content {
-                margin-top: 0.5rem;
-                min-height: 340px;
-                display: flex;
-                justify-content: center;
-                align-items: flex-start;
-            }
-            .breaker-product-split-card {
-                display: flex;
-                border-radius: 18px;
-                overflow: hidden;
-                box-shadow: 0 6px 32px rgba(0,84,142,0.10), 0 2px 8px rgba(176,215,1,0.10);
-                background: #fff;
-                min-height: 340px;
-                margin: 0 auto 2.5rem auto;
-                width: 100%;
-                max-width: 900px;
-                transition: box-shadow 0.3s;
-            }
-            .breaker-product-split-card .card-image {
-                flex: 0 0 33%;
-                min-width: 180px;
-                max-width: 280px;
-                position: relative;
-                display: flex;
-                align-items: stretch;
-                background: none;
-                justify-content: center;
-                min-height: 220px;
-            }
-            .breaker-product-split-card .card-image img {
-                width: 100%;
-                height: 100%;
-                object-fit: contain;
-                border-radius: 0;
-                filter: brightness(0.80);
-                background: #e5e7eb;
-            }
-            .breaker-product-split-card .card-image .overlay {
-                position: absolute;
-                top: 0; left: 0; right: 0; bottom: 0;
-                background: linear-gradient(120deg, #00548e 70%, #b0d701 100%);
-                opacity: 0.58;
-                z-index: 1;
-            }
-            .breaker-product-split-card .card-image .line-badge {
-                position: absolute;
-                top: 1.2rem;
-                left: 1.2rem;
-                z-index: 2;
-                background: #00548e;
-                color: #fff;
-                font-weight: 700;
-                font-size: 0.97rem;
-                padding: 0.38rem 1.1rem;
-                border-radius: 1.3rem;
-                letter-spacing: 0.5px;
-                box-shadow: 0 2px 10px rgba(0,0,0,0.10);
-            }
-            .breaker-product-split-card .card-info {
-                flex: 1 1 0%;
-                background: #fff;
-                padding: 2.3rem 2.7rem 2.3rem 2.2rem;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-            }
-            .breaker-product-split-card .subtitle {
-                color: #00548e;
-                font-weight: 800;
-                font-size: 1.65rem;
-                margin-bottom: 0.3rem;
-                display: flex;
-                align-items: center;
-                gap: 0.7rem;
-            }
-            .breaker-product-split-card .subtitle i {
-                color: #b0d701;
-                font-size: 1.2rem;
-            }
-            .breaker-product-split-card .description {
-                color:#222;
-                font-size:1.08rem;
-                margin-bottom: 1.1rem;
-                line-height: 1.8;
-            }
-            .breaker-product-split-card .features {
-                margin-bottom: 0.9rem;
-            }
-            .breaker-product-split-card .features-title {
-                color: #00548e;
-                font-weight: 700;
-                font-size: 1.2rem;
-                margin-bottom: 0.3rem;
-                display: flex;
-                align-items: center;
-                gap: 0.6rem;
-            }
-            .breaker-product-split-card .features-title i {
-                color: #b0d701;
-                font-size: 1.1rem;
-            }
-            .breaker-feature-list {
-                gap: 2.5rem;
-                margin: 0 0 0.7rem 0;
-                padding: 0;
-                font-size: 1.03rem;
-                font-weight: 600;
-            }
-            .breaker-feature-list li {
-                min-width: 0;
-                flex: 1 1 0;
-                display: flex;
-                align-items: center;
-                gap: 0.5rem;
-                text-align: left;
-                margin-bottom: 0.2rem;
-            }
-            .breaker-feature-list li i {
-                color:rgb(156, 191, 4);
-                font-size: 1.04rem;
-            }
-            .breaker-product-split-card .apps-title {
-                color: #00548e;
-                font-weight: 700;
-                font-size: 1.2rem;
-                margin-bottom: 0.35rem;
-                display: flex;
-                align-items: center;
-                gap: 0.6rem;
-            }
-            .breaker-product-split-card .apps-title i {
-                color: #b1d50e;
-                font-size: 1.rem;
-            }
-            .breaker-product-apps {
-                display: flex;
-                flex-wrap: nowrap;
-                gap: 1.1rem;
-                margin-bottom: 1.1rem;
-            }
-            .breaker-app-label {
-                display: inline-block;
-                background: #b1d50e;
-                color: #fff;
-                font-size: 0.85rem;
-                font-weight: 600;
-                border-radius: 1.2rem;
-                padding: 0.3rem 1.1rem;
-                margin: 0;
-                box-shadow: 0 2px 8px rgba(176,215,1,0.10);
-                transition: background 0.18s, color 0.18s;
-        }
-            .breaker-product-actions {
-                display: flex;
-                gap: 1.1rem;
-                margin-top: 1.1rem;
-            }
-            .breaker-product-btn {
-                background: #00548e;
-                color: #fff;
-                font-weight: 700;
-                border: none;
-                border-radius: 1.5rem;
-                padding: 0.7rem 2.2rem;
-                font-size: 1.03rem;
-                cursor: pointer;
-                transition: background 0.2s, color 0.2s, box-shadow 0.2s;
-                box-shadow: 0 2px 12px rgba(0,84,142,0.09);
-                outline: none;
-                display: flex;
-                align-items: center;
-                gap: 0.7rem;
-            }
-            .breaker-product-btn:hover, .breaker-product-btn:focus {
-                background: #b0d701;
-                color: #fff;
-            }
-            @media (max-width: 900px) {
-                .breaker-product-split-card {
-                    flex-direction: column;
-                    min-height: unset;
-                }
-                .breaker-product-split-card .card-image {
-                    min-width: 100%;
-                    height: 180px;
-                    max-width: unset;
-                }
-                .breaker-product-split-card .card-image img {
-                    min-height: 180px;
-                }
-                .breaker-product-split-card .card-info {
-                    padding: 1.5rem 1.1rem 1.3rem 1.1rem;
-                }
-            }
-            @media (max-width: 600px) {
-                .breaker-lines-section {
-                    padding: 2.1rem 0 1.2rem 0;
-                }
-                .breaker-tabs {
-                    gap: 0.4rem;
-                }
-                .breaker-tab {
-                    padding: 0.5rem 0.7rem;
-                    font-size: 0.92rem;
-                }
-                .breaker-tab-content {
-                    min-height: 0;
-                }
-                .breaker-product-split-card .card-info {
-                    padding: 1rem 0.5rem 1rem 0.5rem;
-                }
-            }
-    </style>
-    <script>
-            // Data for each product line
-            const breakerLinesData = {
-                'sq-line': {
-                    name: 'SQ Line',
-                    image: 'https://res.cloudinary.com/dikwwdtgc/image/upload/v1751631832/SQ35_SSL_Easylube_p1ocrn.png',
-                    subtitle: 'SQ Line',
-                    description: `The SQ Premium Series range of breakers integrates SOOSAN’s unique technology to increase productivity, lower cost of operation and improve operator convenience`,
-                    features: [
-                        'Reliable performance',
-                        'Cost-effective solution',
-                        'Easy maintenance',
-                        'Versatile applications',
-                    ],
-                    applications: [
-                        'General construction',
-                        'Road works',
-                        'Building demolition',
-                    ],
-                    filter: 'SQ Line',
-                },
-                'sb-line': {
-                    name: 'SB Line',
-                    image: 'https://res.cloudinary.com/dikwwdtgc/image/upload/v1751662920/SB100_side-removebg-preview_gahxhf.png',
-                    subtitle: 'Standard Excellence Series',
-                    description: `The SB Line offers proven durability and power, with a simple structure, high impact energy, and compatibility across carriers suitable for tough demolition, excavation work, mining, quarrying, and large scale construction.`,
-                    features: [
-                        'Reliable performance',
-                        'Cost-effective solution',
-                        'Easy maintenance',
-                        'Versatile applications',
-                    ],
-                    applications: [
-                        'General construction',
-                        'Road works',
-                        'Building demolition',
-                    ],
-                    filter: 'SB Line',
-                },
-                'sb-e-line': {
-                    name: 'SB-E Line',
-                    image: [
-                        'https://res.cloudinary.com/dikwwdtgc/image/upload/v1751671246/SB35E_top_cap_i5orbu.jpg',
-                        'https://res.cloudinary.com/dikwwdtgc/image/upload/v1751671259/SBB30E_top_cap_fbb5qk.jpg',
-                    ],
-                    subtitle: 'Enhanced Efficiency Series',
-                    description: `Engineered for enhanced performance, the SB-E Line combines advanced technology, strong impact force, and increased longevity perfect for demanding jobsites ,precision-driven operations, mining, quarrying, and large scale construction.`,
-                    features: [
-                        'Reliable performance',
-                        'Cost-effective solution',
-                        'Easy maintenance',
-                        'Versatile applications',
-                    ],
-                    applications: [
-                        'General construction',
-                        'Road works',
-                        'Building demolition',
-                    ],
-                    filter: 'SB-E Line',
-                },
-                'et-ii-line': {
-                    name: 'ET-II Line',
-                    image: 'https://res.cloudinary.com/dikwwdtgc/image/upload/v1751673317/ETII200-removebg-preview_kvxysk.png',
-                    subtitle: 'Elite Technology Series',
-                    description: `Open Type design built for heavy-duty efficiency, the ET-II Line delivers extreme breaking power, user-friendly maintenance, and exceptional durability, optimal for mining, quarrying, and large-scale construction`,
-                    features: [
-                        'State-of-the-art technology',
-                        'Maximum power output',
-                        'Advanced diagnostics',
-                        'Premium components',
-                    ],
-                    applications: [
-                        'Large-scale mining',
-                        'Major infrastructure',
-                        'Industrial demolition',
-                    ],
-                    filter: 'ET-II Line',
-                },
-            };
 
-            function renderBreakerSplitCard(lineKey) {
-                const data = breakerLinesData[lineKey];
-                if (!data) return '';
-                let imageHTML = '';
-                if (Array.isArray(data.image)) {
-                    imageHTML = data.image.map(img => `<img src="${img}" alt="${data.name}" onerror="this.src='https://via.placeholder.com/320x240?text=No+Image'" style="width:50%;display:inline-block;object-fit:cover;" />`).join('');
-                } else {
-                    imageHTML = `<img src="${data.image}" alt="${data.name}" onerror="this.src='https://via.placeholder.com/320x240?text=No+Image'" />`;
-                }
-                return `
-                <div class="breaker-product-split-card">
-                    <div class="card-image">
-                        ${imageHTML}
-                        <div class="line-badge">${data.name}</div>
+        <!-- Enhanced Tab Navigation -->
+        <div class="breaker-tabs" data-aos="fade-up" data-aos-delay="200">
+            <button class="breaker-tab active" data-line="sq-line">
+                <span class="tab-icon">SQ</span>
+                <span class="tab-text">SQ Line</span>
+                <div class="tab-glow"></div>
+            </button>
+            <button class="breaker-tab" data-line="sb-line">
+                <span class="tab-icon">SB</span>
+                <span class="tab-text">SB Line</span>
+                <div class="tab-glow"></div>
+            </button>
+            <button class="breaker-tab" data-line="sb-e-line">
+                <span class="tab-icon">SB-E</span>
+                <span class="tab-text">SB-E Line</span>
+                <div class="tab-glow"></div>
+            </button>
+            <button class="breaker-tab" data-line="et-ii-line">
+                <span class="tab-icon">ET-II</span>
+                <span class="tab-text">ET-II Line</span>
+                <div class="tab-glow"></div>
+            </button>
+        </div>
+
+        <!-- Enhanced Card Content -->
+        <div class="breaker-tab-content" data-aos="fade-up" data-aos-delay="400">
+            <!-- Content will be injected here by JS -->
+        </div>
+    </div>
+</section>
+
+<style>
+/* Enhanced Section Styling */
+.breaker-lines-section {
+    padding: 6rem 0;
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.breaker-lines-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%23e2e8f0" stroke-width="0.5" opacity="0.3"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+    opacity: 0.4;
+    z-index: 0;
+}
+
+.breaker-lines-section .container {
+    position: relative;
+    z-index: 1;
+}
+
+/* Enhanced Section Header */
+.section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.section-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: linear-gradient(135deg, #00548e, #0066a3);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 2rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 20px rgba(0, 84, 142, 0.3);
+    animation: pulse-glow 2s infinite;
+}
+
+@keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 4px 20px rgba(0, 84, 142, 0.3); }
+    50% { box-shadow: 0 4px 30px rgba(0, 84, 142, 0.5); }
+}
+
+.section-title {
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-weight: 800;
+    color: #00548e;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, #00548e, #0066a3);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.2;
+}
+
+.section-description {
+    font-size: 1.2rem;
+    color: #64748b;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.7;
+}
+
+/* Enhanced Tab Navigation */
+.breaker-tabs {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 3rem;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.breaker-tab {
+    position: relative;
+    background: white;
+    color: #00548e;
+    border: 2px solid #e2e8f0;
+    border-radius: 1.5rem;
+    padding: 1rem 2rem;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    outline: none;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-width: 140px;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(0, 84, 142, 0.1);
+}
+
+.breaker-tab::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transition: left 0.6s;
+}
+
+.breaker-tab:hover::before {
+    left: 100%;
+}
+
+.tab-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    background: linear-gradient(135deg, #00548e, #0066a3);
+    color: white;
+    border-radius: 50%;
+    font-size: 0.8rem;
+    font-weight: 800;
+    transition: all 0.4s ease;
+    box-shadow: 0 2px 10px rgba(0, 84, 142, 0.3);
+}
+
+.tab-text {
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.tab-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle, rgba(176, 215, 1, 0.3) 0%, transparent 70%);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.4s ease;
+    z-index: -1;
+}
+
+.breaker-tab:hover {
+    transform: translateY(-3px) scale(1.02);
+    border-color: #00548e;
+    box-shadow: 0 8px 25px rgba(0, 84, 142, 0.2);
+}
+
+.breaker-tab:hover .tab-icon {
+    transform: rotate(360deg) scale(1.1);
+    background: linear-gradient(135deg, #b0d701, #9bc600);
+}
+
+.breaker-tab:hover .tab-glow {
+    width: 120%;
+    height: 120%;
+}
+
+.breaker-tab.active {
+    background: linear-gradient(135deg, #00548e, #0066a3);
+    color: white;
+    border-color: #00548e;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0, 84, 142, 0.3);
+}
+
+.breaker-tab.active .tab-icon {
+    background: #b0d701;
+    color: #00548e;
+    transform: scale(1.1);
+}
+
+.breaker-tab.active .tab-text {
+    color: white;
+}
+
+/* Enhanced Card Content */
+.breaker-tab-content {
+    margin-top: 2rem;
+    min-height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+/* Enhanced Split Card */
+.breaker-product-split-card {
+    display: flex;
+    flex-direction: row;
+    border-radius: 2rem;
+    overflow: hidden;
+    background: white;
+    box-shadow: 0 20px 60px rgba(0, 84, 142, 0.15);
+    max-width: 1000px;
+    width: 100%;
+    margin: 0 auto;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    border: 1px solid rgba(0, 84, 142, 0.1);
+}
+
+.breaker-product-split-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(0, 84, 142, 0.05), rgba(176, 215, 1, 0.05));
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    border-radius: 2rem;
+    z-index: 1;
+}
+
+.breaker-product-split-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 30px 80px rgba(0, 84, 142, 0.25);
+}
+
+.breaker-product-split-card:hover::before {
+    opacity: 1;
+}
+
+/* Enhanced Image Section */
+.breaker-product-split-card .card-image {
+    flex: 0 0 40%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+    overflow: hidden;
+}
+
+.breaker-product-split-card .card-image::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(0, 84, 142, 0.1), rgba(176, 215, 1, 0.1));
+    z-index: 1;
+}
+
+.breaker-product-split-card .card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 2;
+    position: relative;
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.1));
+}
+
+.breaker-product-split-card:hover .card-image img {
+    transform: scale(1.1) rotate(2deg);
+    filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.2));
+}
+
+.breaker-product-split-card .card-image .line-badge {
+    position: absolute;
+    top: 1.5rem;
+    left: 1.5rem;
+    z-index: 3;
+    background: linear-gradient(135deg, #00548e, #0066a3);
+    color: white;
+    font-weight: 800;
+    font-size: 1rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 2rem;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 20px rgba(0, 84, 142, 0.3);
+    transition: all 0.4s ease;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.breaker-product-split-card:hover .line-badge {
+    background: linear-gradient(135deg, #b0d701, #9bc600);
+    color: #00548e;
+    transform: scale(1.05);
+    box-shadow: 0 6px 25px rgba(176, 215, 1, 0.4);
+}
+
+/* Enhanced Content Section */
+.breaker-product-split-card .card-info {
+    flex: 1;
+    background: white;
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+}
+
+.breaker-product-split-card .subtitle {
+    color: #00548e;
+    font-weight: 800;
+    font-size: 2rem;x
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    line-height: 1.2;
+}
+
+.breaker-product-split-card .subtitle i {
+    color: #b0d701;
+    font-size: 1.5rem;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-10px); }
+    60% { transform: translateY(-5px); }
+}
+
+.breaker-product-split-card .description {
+    color: #475569;
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    line-height: 1.8;
+    font-weight: 400;
+}
+
+/* Enhanced Features Section */
+.breaker-product-split-card .features {
+    margin-bottom: 2rem;
+}
+
+.breaker-product-split-card .features-title {
+    color: #00548e;
+    font-weight: 700;
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.breaker-product-split-card .features-title i {
+    color: #b0d701;
+    font-size: 1.2rem;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+.breaker-feature-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    list-style: none;
+    padding: 0;
+}
+
+.breaker-feature-list li {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: #334155;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+    background: rgba(176, 215, 1, 0.05);
+}
+
+.breaker-feature-list li:hover {
+    background: rgba(176, 215, 1, 0.1);
+    transform: translateX(5px);
+}
+
+.breaker-feature-list li i {
+    color: #b0d701;
+    font-size: 1.1rem;
+    min-width: 1.1rem;
+}
+
+/* Enhanced Applications Section */
+.breaker-product-split-card .apps-title {
+    color: #00548e;
+    font-weight: 700;
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.breaker-product-split-card .apps-title i {
+    color: #b0d701;
+    font-size: 1.2rem;
+}
+
+.breaker-product-apps {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+}
+
+.breaker-app-label {
+    display: inline-block;
+    background: linear-gradient(135deg, #b0d701, #9bc600);
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-radius: 1.5rem;
+    padding: 0.5rem 1.25rem;
+    margin: 0;
+    box-shadow: 0 4px 15px rgba(176, 215, 1, 0.3);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 2px solid transparent;
+}
+
+.breaker-app-label:hover {
+    background: linear-gradient(135deg, #00548e, #0066a3);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 6px 20px rgba(0, 84, 142, 0.4);
+}
+
+/* Enhanced Action Buttons */
+.breaker-product-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.breaker-product-btn {
+    background: linear-gradient(135deg, #00548e, #0066a3);
+    color: white;
+    font-weight: 700;
+    border: none;
+    border-radius: 2rem;
+    padding: 1rem 2.5rem;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 20px rgba(0, 84, 142, 0.3);
+    outline: none;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.breaker-product-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.6s;
+}
+
+.breaker-product-btn:hover::before {
+    left: 100%;
+}
+
+.breaker-product-btn:hover {
+    background: linear-gradient(135deg, #b0d701, #9bc600);
+    color: #00548e;
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 30px rgba(176, 215, 1, 0.4);
+}
+
+.breaker-product-btn i {
+    transition: transform 0.3s ease;
+}
+
+.breaker-product-btn:hover i {
+    transform: translateX(5px);
+}
+
+/* Card Enter Animation */
+@keyframes cardEnter {
+    from {
+        opacity: 0;
+        transform: translateY(50px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.breaker-product-split-card {
+    animation: cardEnter 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .breaker-product-split-card .card-info {
+        padding: 2rem;
+    }
+    
+    .breaker-product-split-card .subtitle {
+        font-size: 1.75rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .breaker-lines-section {
+        padding: 4rem 0;
+    }
+    
+    .breaker-tabs {
+        gap: 0.5rem;
+        padding: 0 1rem;
+    }
+    
+    .breaker-tab {
+        padding: 0.75rem 1.5rem;
+        min-width: auto;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .tab-icon {
+        width: 2rem;
+        height: 2rem;
+        font-size: 0.7rem;
+    }
+    
+    .tab-text {
+        font-size: 0.9rem;
+    }
+    
+    .breaker-product-split-card {
+        flex-direction: column;
+        margin: 0 1rem;
+    }
+    
+    .breaker-product-split-card .card-image {
+        flex: none;
+        height: 250px;
+    }
+    
+    .breaker-product-split-card .card-info {
+        padding: 2rem 1.5rem;
+    }
+    
+    .breaker-product-split-card .subtitle {
+        font-size: 1.5rem;
+    }
+    
+    .breaker-feature-list {
+        grid-template-columns: 1fr;
+    }
+    
+    .breaker-product-actions {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 480px) {
+    .section-title {
+        font-size: 2rem;
+    }
+    
+    .section-description {
+        font-size: 1rem;
+    }
+    
+    .breaker-tabs {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    
+    .breaker-tab {
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+    
+    .breaker-product-split-card .card-info {
+        padding: 1.5rem 1rem;
+    }
+    
+    .breaker-product-split-card .subtitle {
+        font-size: 1.25rem;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+}
+
+/* Loading Animation */
+.breaker-tab-content.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 400px;
+}
+
+.loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid #e2e8f0;
+    border-top: 4px solid #00548e;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+</style>
+
+<script>
+        // Enhanced Data for each product line
+        const breakerLinesData = {
+            'sq-line': {
+                name: 'SQ Line',
+                image: 'https://res.cloudinary.com/dikwwdtgc/image/upload/v1751631832/SQ35_SSL_Easylube_p1ocrn.png',
+                subtitle: 'Premium Performance Series',
+                description: `The SQ Premium Series range of breakers integrates SOOSAN's unique technology to increase productivity, lower cost of operation and improve operator convenience. Built for excellence and engineered for the future.`,
+                features: [
+                    'Advanced hydraulic system',
+                    'Superior impact energy',
+                    'Reduced maintenance costs',
+                    'Enhanced durability',
+                    'Precision engineering',
+                    'Smart control technology'
+                ],
+                applications: [
+                    'Heavy demolition',
+                    'Mining operations',
+                    'Infrastructure development',
+                    'Quarry operations'
+                ],
+                filter: 'SQ Line',
+            },
+            'sb-line': {
+                name: 'SB Line',
+                image: 'https://res.cloudinary.com/dikwwdtgc/image/upload/v1751662920/SB100_side-removebg-preview_gahxhf.png',
+                subtitle: 'Standard Excellence Series',
+                description: `The SB Line offers proven durability and power, with a simple structure, high impact energy, and compatibility across carriers suitable for tough demolition, excavation work, mining, quarrying, and large scale construction.`,
+                features: [
+                    'Reliable performance',
+                    'Cost-effective solution',
+                    'Easy maintenance',
+                    'Versatile applications',
+                    'Robust construction',
+                    'Wide compatibility'
+                ],
+                applications: [
+                    'General construction',
+                    'Road works',
+                    'Building demolition',
+                    'Excavation projects'
+                ],
+                filter: 'SB Line',
+            },
+            'sb-e-line': {
+                name: 'SB-E Line',
+                image: [
+                    'https://res.cloudinary.com/dikwwdtgc/image/upload/v1751671246/SB35E_top_cap_i5orbu.jpg',
+                    'https://res.cloudinary.com/dikwwdtgc/image/upload/v1751671259/SBB30E_top_cap_fbb5qk.jpg',
+                ],
+                subtitle: 'Enhanced Efficiency Series',
+                description: `Engineered for enhanced performance, the SB-E Line combines advanced technology, strong impact force, and increased longevity perfect for demanding jobsites, precision-driven operations, mining, quarrying, and large scale construction.`,
+                features: [
+                    'Energy-efficient design',
+                    'Smart control system',
+                    'Reduced fuel consumption',
+                    'Optimized performance',
+                    'Extended service life',
+                    'Advanced diagnostics'
+                ],
+                applications: [
+                    'Urban construction',
+                    'Renovation projects',
+                    'Precision demolition',
+                    'Infrastructure maintenance'
+                ],
+                filter: 'SB-E Line',
+            },
+            'et-ii-line': {
+                name: 'ET-II Line',
+                image: 'https://res.cloudinary.com/dikwwdtgc/image/upload/v1751673317/ETII200-removebg-preview_kvxysk.png',
+                subtitle: 'Elite Technology Series',
+                description: `Open Type design built for heavy-duty efficiency, the ET-II Line delivers extreme breaking power, user-friendly maintenance, and exceptional durability, optimal for mining, quarrying, and large-scale construction projects worldwide.`,
+                features: [
+                    'State-of-the-art technology',
+                    'Maximum power output',
+                    'Advanced diagnostics',
+                    'Premium components',
+                    'Heavy-duty construction',
+                    'Superior reliability'
+                ],
+                applications: [
+                    'Large-scale mining',
+                    'Major infrastructure',
+                    'Industrial demolition',
+                    'Quarry operations'
+                ],
+                filter: 'ET-II Line',
+            },
+        };
+
+        // Enhanced rendering function
+        function renderBreakerSplitCard(lineKey) {
+            const data = breakerLinesData[lineKey];
+            if (!data) return '';
+            
+            let imageHTML = '';
+            if (Array.isArray(data.image)) {
+                imageHTML = data.image.map(img => 
+                    `<img src="${img}" alt="${data.name}" onerror="this.src='https://via.placeholder.com/400x300/00548e/ffffff?text=${encodeURIComponent(data.name)}'" style="width:50%;display:inline-block;object-fit:contain;" />`
+                ).join('');
+            } else {
+                imageHTML = `<img src="${data.image}" alt="${data.name}" onerror="this.src='https://via.placeholder.com/400x300/00548e/ffffff?text=${encodeURIComponent(data.name)}'" />`;
+            }
+            
+            return `
+            <div class="breaker-product-split-card">
+                <div class="card-image">
+                    ${imageHTML}
+                    <div class="line-badge">${data.name}</div>
+                </div>
+                <div class="card-info">
+                    <div class="subtitle">
+                        <i class="fas fa-award"></i> 
+                        ${data.subtitle}
                     </div>
-                    <div class="card-info">
-                        <div class="subtitle"><i class="fas fa-award"></i> ${data.subtitle}</div>
-                        <div class="description">${data.description}</div>
-                        <div class="features">
-                            <div class="features-title"><i class="fas fa-bolt"></i> Key Features</div>
-                            <ul class="breaker-feature-list">
-                                ${data.features.map(f => `<li><i class='fas fa-check-circle'></i> ${f}</li>`).join('')}
-                            </ul>
+                    <div class="description">${data.description}</div>
+                    <div class="features">
+                        <div class="features-title">
+                            <i class="fas fa-bolt"></i> 
+                            Key Features
                         </div>
-                        <div class="apps-title"><i class="fas fa-industry"></i> Applications</div>
-                        <div class="breaker-product-apps">
-                            ${data.applications.map(app => `<span class="breaker-app-label">${app}</span>`).join('')}
-                        </div>
-                        <div class="breaker-product-actions">
-                            <button class="breaker-product-btn explore-btn" data-filter="${data.filter}"><i class="fas fa-arrow-right"></i> Explore More</button>
-                        </div>
+                        <ul class="breaker-feature-list">
+                            ${data.features.map(f => `<li><i class='fas fa-check-circle'></i> ${f}</li>`).join('')}
+                        </ul>
+                    </div>
+                    <div class="apps-title">
+                        <i class="fas fa-industry"></i> 
+                        Applications
+                    </div>
+                    <div class="breaker-product-apps">
+                        ${data.applications.map(app => `<span class="breaker-app-label">${app}</span>`).join('')}
+                    </div>
+                    <div class="breaker-product-actions">
+                        <button class="breaker-product-btn explore-btn" data-filter="${data.filter}">
+                            <i class="fas fa-arrow-right"></i> 
+                            Explore More
+                        </button>
                     </div>
                 </div>
-                `;
-            }
+            </div>
+            `;
+        }
 
-            document.addEventListener('DOMContentLoaded', function() {
-                const tabs = document.querySelectorAll('.breaker-tab');
-                const content = document.querySelector('.breaker-tab-content');
-                function setActiveTab(tab) {
-                    tabs.forEach(t => t.classList.remove('active'));
-                    tab.classList.add('active');
-                    const line = tab.getAttribute('data-line');
+        // Enhanced JavaScript functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabs = document.querySelectorAll('.breaker-tab');
+            const content = document.querySelector('.breaker-tab-content');
+            
+            // Enhanced tab switching with loading animation
+            function setActiveTab(tab) {
+                // Show loading state
+                content.innerHTML = '<div class="loading-spinner"></div>';
+                content.classList.add('loading');
+                
+                // Remove active class from all tabs
+                tabs.forEach(t => t.classList.remove('active'));
+                
+                // Add active class to clicked tab
+                tab.classList.add('active');
+                
+                // Get the line data
+                const line = tab.getAttribute('data-line');
+                
+                // Simulate loading delay for smooth transition
+                setTimeout(() => {
+                    content.classList.remove('loading');
                     content.innerHTML = renderBreakerSplitCard(line);
-                }
-                // Initial render
+                    
+                    // Add entrance animation
+                    const card = content.querySelector('.breaker-product-split-card');
+                    if (card) {
+                        card.style.opacity = '0';
+                        card.style.transform = 'translateY(30px)';
+                        
+                        setTimeout(() => {
+                            card.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+                            card.style.opacity = '1';
+                            card.style.transform = 'translateY(0)';
+                        }, 50);
+                    }
+                }, 300);
+            }
+            
+            // Initialize with first tab
+            if (tabs.length > 0) {
                 setActiveTab(tabs[0]);
-                tabs.forEach(tab => {
-                    tab.addEventListener('click', function() {
-                        setActiveTab(this);
-                    });
+            }
+            
+            // Add click event listeners to tabs
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    setActiveTab(this);
                 });
-                // Handle Explore More button click
-                content.addEventListener('click', function(e) {
-                    if (e.target.closest('.explore-btn')) {
-                        const btn = e.target.closest('.explore-btn');
-                        const filter = btn.getAttribute('data-filter');
-                        window.location.href = `/products?line[]=${encodeURIComponent(filter)}`;
+                
+                // Add keyboard support
+                tab.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        setActiveTab(this);
                     }
                 });
             });
-    </script>
+            
+            // Handle Explore More button click with enhanced animation
+            content.addEventListener('click', function(e) {
+                if (e.target.closest('.explore-btn')) {
+                    const btn = e.target.closest('.explore-btn');
+                    const filter = btn.getAttribute('data-filter');
+                    
+                    // Add click animation
+                    btn.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        btn.style.transform = '';
+                        window.location.href = `/products?line[]=${encodeURIComponent(filter)}`;
+                    }, 150);
+                }
+            });
+            
+            // Add intersection observer for scroll animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-in');
+                    }
+                });
+            }, observerOptions);
+            
+            // Observe section elements
+            const section = document.querySelector('.breaker-lines-section');
+            if (section) {
+                observer.observe(section);
+            }
+        });
+
+        // Add smooth scrolling for better UX
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+</script>
+
+<!-- AOS Library for scroll animations -->
+<link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script>
+    // Initialize AOS
+    AOS.init({
+        duration: 800,
+        easing: 'ease-in-out',
+        once: true,
+        offset: 100
+    });
+</script>
 
     
     <!-- Modern Stats Section -->
@@ -2900,20 +3321,180 @@
                         <input type="text" name="search" class="search-input" placeholder="{{ __('homepage.search_placeholder_text') }}" value="{{ request('search') }}">
                         <button type="submit" class="search-input-btn">
                             <i class="fas fa-search"></i>
-                            {{ __('homepage.search_btn') }}
                         </button>
                     </div>
                 </form>
 
                 <div class="search-tags">
                     <span class="tag-label">{{ __('homepage.popular_searches') }}</span>
-                    <a href="{{ route('products.index', ['search' => 'Hydraulic Breaker']) }}" class="search-tag">{{ __('homepage.hydraulic_breaker') }}</a>
-                    <a href="{{ route('products.index', ['search' => 'Rock Drill']) }}" class="search-tag">{{ __('homepage.rock_drill_title') }}</a>
-                    <a href="{{ route('products.index', ['search' => 'Crusher']) }}" class="search-tag">{{ __('homepage.crusher_title') }}</a>
+                    <a href="{{ route('products.index') }}" class="search-tag">Hydraulic Breakers</a>
+                    <a href="{{ route('products.index', ['type[]' => 'TR-F']) }}" class="search-tag">TR-F</a>
+                    <a href="{{ route('products.index', ['type[]' => 'Top Direct']) }}" class="search-tag">Top Direct</a>
+                    <a href="{{ route('products.index', ['type[]' => 'Skid Steer Loader']) }}" class="search-tag">SSL</a>
                 </div>
             </div>
         </div>
     </section>
+
+    <style>
+        .product-search-section {
+            background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+            padding: 5rem 0;
+            position: relative;
+        }
+
+        .product-search-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="search-grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(37,99,235,0.05)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23search-grid)"/></svg>');
+        }
+
+        .search-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .search-intro {
+            font-size: 1rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .search-title {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            color: var(--text-color);
+            line-height: 1.2;
+        }
+
+        .search-subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 3rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .search-form {
+            max-width: 600px;
+            margin: 0 auto 3rem;
+        }
+
+        .search-input-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 60px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            padding: 0.5rem;
+        }
+
+        .search-input-container:focus-within {
+            border-color: var(--primary-color);
+            box-shadow: 0 10px 40px rgba(37, 99, 235, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .search-input {
+            flex: 1;
+            border: none;
+            outline: none;
+            padding: 1.25rem 2rem;
+            font-size: 1.1rem;
+            background: transparent;
+            color: var(--text-color);
+        }
+
+        .search-input::placeholder {
+            color: #9ca3af;
+        }
+
+        .search-input-btn {
+            width: fit-content;
+            color: #00548e;
+            border: none;
+            background: transparent;
+            border-radius: 50px;
+            padding: 1.25rem 2rem;
+            font-size: 1.35rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+
+        .search-input-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 24px rgba(37, 99, 235, 0.3);
+        }
+
+        .search-tags {
+            margin-top: 1.1rem;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.8rem 1.1rem;
+        }
+        .tag-label {
+            font-size: 1.02rem;
+            font-weight: 600;
+            color: #00548e;
+            margin-right: 1.1rem;
+        }
+        .search-tag {
+            display: inline-block;
+            background: #00548e;
+            color: #fff;
+            font-size: 1.01rem;
+            font-weight: 700;
+            border-radius: 1.3rem;
+            padding: 0.45rem 1.5rem;
+            text-decoration: none;
+            transition: background 0.22s, color 0.22s, box-shadow 0.22s, transform 0.22s;
+            box-shadow: 0 2px 12px rgba(0,84,142,0.09);
+            position: relative;
+            outline: none;
+        }
+        .search-tag:hover, .search-tag:focus {
+            background: #b1d50e;
+            color: #fff;
+            box-shadow: 0 6px 20px rgba(0,84,142,0.18);
+            transform: translateY(-2px) scale(1.06);
+            text-decoration: none;
+        }
+        .search-tag:active {
+            background: #00548e;
+            color: #fff;
+            box-shadow: 0 2px 8px rgba(0,84,142,0.13);
+            transform: scale(0.98);
+        }
+        @media (max-width: 700px) {
+            .search-tags {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.7rem 0;
+            }
+            .tag-label {
+                margin-bottom: 0.5rem;
+            }
+        }
+    </style>
 
     <!-- Product Line Section -->
     <section class="product-line-section" id="products">

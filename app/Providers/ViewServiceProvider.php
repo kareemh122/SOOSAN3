@@ -23,7 +23,7 @@ class ViewServiceProvider extends ServiceProvider
     {
         // Share product categories globally for navbar dropdown
         View::composer('*', function ($view) {
-            $view->with('productCategories', ProductCategory::where('is_active', true)->orderBy('sort_order')->get());
+            $view->with('productCategories', ProductCategory::all());
         });
     }
 }
