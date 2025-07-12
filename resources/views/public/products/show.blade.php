@@ -306,8 +306,9 @@
 }
 
 .specifications-table th {
-    background: #ccc;
-    color: white;
+    background: #fbfbfb;
+    border-bottom: 1px solid #eee;
+    color: #6a6262;
     font-weight: 600;
     padding: 1rem;
     text-align: left;
@@ -317,11 +318,12 @@
 
 .specifications-table td {
     padding: 1rem;
-    border-bottom: 1px solid var(--border-light);
+    border-bottom: 1px solid #eee;
     background: white;
     transition: var(--transition);
 }
 
+.specifications-table tr:last-child th,
 .specifications-table tr:last-child td {
     border-bottom: none;
 }
@@ -349,6 +351,7 @@
     box-shadow: var(--shadow-lg);
     border: 1px solid var(--border-light);
     margin-top: 3rem;
+    position: relative;
 }
 
 .similar-products-title {
@@ -369,14 +372,14 @@
 
 .carousel-arrow {
     position: absolute;
-    top: 50%;
+    top: 47%;
     transform: translateY(-50%);
     background: var(--primary-blue);
     color: white;
     border: none;
     border-radius: 50%;
-    width: 50px;
-    height: 50px;
+    width: 48px;
+    height: 48px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -393,11 +396,11 @@
 }
 
 .carousel-arrow.prev {
-    left: -25px;
+    left: 0;
 }
 
 .carousel-arrow.next {
-    right: -25px;
+    right: 0;
 }
 
 .carousel-track {
@@ -532,11 +535,13 @@
     justify-content: center;
     gap: 0.5rem;
     margin-top: 2rem;
+    position: absolute;
+    bottom: 0;
 }
 
 .carousel-indicator {
-    width: 12px;
-    height: 12px;
+    width: 14px;
+    height: 14px;
     border-radius: 50%;
     border: 2px solid var(--primary-blue);
     background: transparent;
@@ -790,7 +795,7 @@
                         Share
                     </button>
                     <button type="button" class="action-btn btn-pdf" id="pdfBtn">
-                        <i class="fas fa-file-pdf"></i>
+                        <i class="fas fa-download"></i>
                         Download PDF
                     </button>
                     <button type="button" class="action-btn btn-csv" id="csvBtn">
@@ -915,11 +920,11 @@
         <h3 class="similar-products-title">{{ __('common.similar_products') }}</h3>
         
         <div class="carousel-container">
-            <button id="carouselPrevBtn" class="carousel-arrow prev" style="display: none;">
+            <button id="carouselPrevBtn" class="carousel-arrow prev d-none d-lg-flex">
                 <i class="fas fa-chevron-left"></i>
             </button>
             
-            <button id="carouselNextBtn" class="carousel-arrow next">
+            <button id="carouselNextBtn" class="carousel-arrow next d-none d-lg-flex">
                 <i class="fas fa-chevron-right"></i>
             </button>
             
@@ -994,7 +999,7 @@
             </div>
         </div>
         
-        <div class="carousel-indicators">
+        <div class="carousel-indicators d-none d-lg-flex">
             @for($i = 0; $i < ceil($similarProducts->count() / 3); $i++)
                 <button class="carousel-indicator {{ $i === 0 ? 'active' : '' }}" data-slide="{{ $i }}"></button>
             @endfor
@@ -1159,101 +1164,135 @@ document.addEventListener('DOMContentLoaded', function () {
         applicable_carrier: "{{ $product->applicable_carrier ?? '-' }}"
     };
 
-    // PDF Download functionality
-    const downloadPdfBtn = document.querySelector('#pdfBtn');
-    if (downloadPdfBtn) {
-        downloadPdfBtn.addEventListener('click', function (e) {
-            e.preventDefault();
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF({ unit: 'pt', format: 'a4' });
-            const pageWidth = doc.internal.pageSize.getWidth();
-            let y = 36;
+        // PDF Download functionality
+        const downloadPdfBtn = document.querySelector('#pdfBtn');
+        if (downloadPdfBtn) {
+            downloadPdfBtn.addEventListener('click', function (e) {
+                e.preventDefault();
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF({ unit: 'pt', format: 'a4' });
+                const pageWidth = doc.internal.pageSize.getWidth();
+                const logoUrl = window.location.origin + '/images/logo2.png';
 
-            // Logo at top right
-            const logoUrl = window.location.origin + '/images/logo2.png';
-            const drawLogo = (cb) => {
-                const img = new window.Image();
-                img.crossOrigin = 'anonymous';
-                img.onload = function () {
-                    doc.addImage(img, 'PNG', pageWidth - 156, 24, 125, 90);
-                    cb();
-                };
-                img.onerror = function () { cb(); };
-                img.src = logoUrl;
-            };
+                const logoImg = new window.Image();
+                logoImg.crossOrigin = 'anonymous';
+                logoImg.onload = function () {
+                    // --- BLUE HEADER BAR ---
+                    doc.setFillColor(0, 84, 142); // Soosan blue
+                    doc.rect(0, 0, pageWidth, 140, 'F');
 
-            drawLogo(() => {
-                doc.setFontSize(20);
-                doc.setFont('helvetica', 'bold');
-                doc.text(`${productData.model_name} Specifications`, pageWidth / 2, y + 65, { align: 'center' });
-                y += 100;
-
-                // Product image and info
-                const imgUrl = "{{ $product->image_url ? asset($product->image_url) : asset('images/fallback.webp') }}";
-                if (imgUrl) {
-                    const img = new window.Image();
-                    img.crossOrigin = 'anonymous';
-                    img.onload = function () {
-                        doc.addImage(img, 'PNG', 40, y, 130, 100);
-                        doc.setFontSize(14);
-                        doc.setFont('helvetica', 'normal');
-                        let infoY = y + 10;
-                        doc.text('Model Name: ' + productData.model_name, 180, infoY);
-                        doc.text('Line: ' + (productData.line && productData.line !== '-' ? productData.line : 'SB Line'), 180, infoY + 26);
-                        doc.text('Type: ' + (productData.type && productData.type !== '-' ? productData.type : 'TR-F'), 180, infoY + 52);
-                        renderTable(y + 110);
-                    };
-                    img.onerror = function () { renderTable(y); };
-                    img.src = imgUrl;
-                } else {
-                    renderTable(y);
-                }
-
-                function renderTable(startY) {
-                    let tableY = startY + 40;
-                    doc.setFontSize(14);
+                    // --- HEADER TEXT ---
+                    doc.setTextColor(255, 255, 255);
+                    doc.setFontSize(24);
                     doc.setFont('helvetica', 'bold');
-                    doc.text('Product Specifications', 40, tableY);
-                    
-                    const tableData = [
-                        ['Attribute', 'SI', 'Imperial'],
-                        ['Body Weight', convertToSI('body_weight', productData.body_weight), formatImperial('body_weight', productData.body_weight)],
-                        ['Operating Weight', convertToSI('operating_weight', productData.operating_weight), formatImperial('operating_weight', productData.operating_weight)],
-                        ['Overall Length', convertToSI('overall_length', productData.overall_length), formatImperial('overall_length', productData.overall_length)],
-                        ['Overall Width', convertToSI('overall_width', productData.overall_width), formatImperial('overall_width', productData.overall_width)],
-                        ['Overall Height', convertToSI('overall_height', productData.overall_height), formatImperial('overall_height', productData.overall_height)],
-                        ['Required Oil Flow', convertToSI('required_oil_flow', productData.required_oil_flow), formatImperial('required_oil_flow', productData.required_oil_flow)],
-                        ['Operating Pressure', convertToSI('operating_pressure', productData.operating_pressure), formatImperial('operating_pressure', productData.operating_pressure)],
-                        ['Impact Rate (STD Mode)', convertToSI('impact_rate', productData.impact_rate), formatImperial('impact_rate', productData.impact_rate)],
-                        ['Impact Rate (Soft Rock)', convertToSI('impact_rate_soft_rock', productData.impact_rate_soft_rock), formatImperial('impact_rate_soft_rock', productData.impact_rate_soft_rock)],
-                        ['Hose Diameter', formatImperial('hose_diameter', productData.hose_diameter), formatImperial('hose_diameter', productData.hose_diameter)],
-                        ['Rod Diameter', convertToSI('rod_diameter', productData.rod_diameter), formatImperial('rod_diameter', productData.rod_diameter)],
-                        ['Applicable Carrier', convertToSI('applicable_carrier', productData.applicable_carrier), formatImperial('applicable_carrier', productData.applicable_carrier)],
-                    ];
-                    
-                    doc.autoTable({
-                        startY: tableY + 8,
-                        head: [tableData[0]],
-                        body: tableData.slice(1),
-                        theme: 'grid',
-                        headStyles: { fillColor: [0, 84, 142] },
-                        styles: { font: 'helvetica', fontSize: 11 },
-                        margin: { left: 40, right: 40 }
-                    });
-                    
-                    const now = new Date();
-                    doc.setFontSize(12);
-                    doc.text(`Generated on: ${now.toLocaleString('en-US', {
-                        month: 'long', day: '2-digit', year: 'numeric',
-                        hour: '2-digit', minute: '2-digit', hour12: true
-                    })} EEST`, pageWidth / 2, doc.lastAutoTable.finalY + 18, { align: 'center' });
-                    
-                    doc.save(`${productData.model_name}_specifications.pdf`);
-                    showToast('PDF Download Started');
-                }
+                    doc.text('Equipment Coverage Report', 40, 80);
+                    doc.setFontSize(16);
+                    doc.setFont('helvetica', 'normal');
+                    doc.text(productData.model_name, 40, 110);
+
+                    // --- LOGO on top-right (AFTER header so it's visible)
+                    doc.addImage(logoImg, 'PNG', pageWidth - 190, 20, 160, 100);
+
+                    let y = 160;
+
+                    // --- PRODUCT IMAGE + INFO ---
+                    const imgUrl = "{{ $product->image_url ? asset($product->image_url) : asset('images/fallback.webp') }}";
+                    if (imgUrl) {
+                        const img = new window.Image();
+                        img.crossOrigin = 'anonymous';
+                        img.onload = function () {
+                            doc.addImage(img, 'PNG', 40, y, 150, 170);
+                            doc.setTextColor(0, 0, 0);
+                            doc.setFontSize(14);
+                            doc.setFont('helvetica', 'bold');
+                            let infoY = y + 20;
+                            doc.text('Model: ' + productData.model_name, 210, infoY);
+                            doc.text('Line: ' + (productData.line && productData.line !== '-' ? productData.line : 'SB Line'), 210, infoY + 30);
+                            doc.text('Type: ' + (productData.type && productData.type !== '-' ? productData.type : 'TR-F'), 210, infoY + 60);
+                            renderTable(y + 140);
+                        };
+                        img.onerror = function () { renderTable(y); };
+                        img.src = imgUrl;
+                    } else {
+                        renderTable(y);
+                    }
+
+                    function renderTable(startY) {
+                        let tableY = startY + 40;
+                        doc.setFontSize(16);
+                        doc.setFont('helvetica', 'bold');
+                        doc.setTextColor(0, 84, 142);
+                        doc.text('Technical Specifications', 40, tableY);
+
+                        const tableData = [
+                            ['Attribute', 'SI', 'Imperial'],
+                            ['Body Weight', convertToSI('body_weight', productData.body_weight), formatImperial('body_weight', productData.body_weight)],
+                            ['Operating Weight', convertToSI('operating_weight', productData.operating_weight), formatImperial('operating_weight', productData.operating_weight)],
+                            ['Overall Length', convertToSI('overall_length', productData.overall_length), formatImperial('overall_length', productData.overall_length)],
+                            ['Overall Width', convertToSI('overall_width', productData.overall_width), formatImperial('overall_width', productData.overall_width)],
+                            ['Overall Height', convertToSI('overall_height', productData.overall_height), formatImperial('overall_height', productData.overall_height)],
+                            ['Required Oil Flow', convertToSI('required_oil_flow', productData.required_oil_flow), formatImperial('required_oil_flow', productData.required_oil_flow)],
+                            ['Operating Pressure', convertToSI('operating_pressure', productData.operating_pressure), formatImperial('operating_pressure', productData.operating_pressure)],
+                            ['Impact Rate (STD Mode)', convertToSI('impact_rate', productData.impact_rate), formatImperial('impact_rate', productData.impact_rate)],
+                            ['Impact Rate (Soft Rock)', convertToSI('impact_rate_soft_rock', productData.impact_rate_soft_rock), formatImperial('impact_rate_soft_rock', productData.impact_rate_soft_rock)],
+                            ['Hose Diameter', productData.hose_diameter, productData.hose_diameter],
+                            ['Rod Diameter', convertToSI('rod_diameter', productData.rod_diameter), formatImperial('rod_diameter', productData.rod_diameter)],
+                            ['Applicable Carrier', convertToSI('applicable_carrier', productData.applicable_carrier), formatImperial('applicable_carrier', productData.applicable_carrier)],
+                        ];
+
+                        doc.autoTable({
+                            startY: tableY + 10,
+                            head: [tableData[0]],
+                            body: tableData.slice(1),
+                            theme: 'grid',
+                            headStyles: {
+                                fillColor: [0, 84, 142],
+                                textColor: [255, 255, 255],
+                                fontStyle: 'bold'
+                            },
+                            styles: {
+                                font: 'helvetica',
+                                fontSize: 10,
+                                cellPadding: 8
+                            },
+                            alternateRowStyles: {
+                                fillColor: [248, 250, 252]
+                            },
+                            margin: { left: 40, right: 40 }
+                        });
+
+                        const now = new Date();
+                        doc.setFontSize(12);
+                        doc.setTextColor(0, 0, 0);
+                        doc.text(`Generated on: ${now.toLocaleString('en-US', {
+                            month: 'long', day: '2-digit', year: 'numeric',
+                            hour: '2-digit', minute: '2-digit', hour12: true
+                        })}`, pageWidth / 2, doc.lastAutoTable.finalY + 18, { align: 'center' });
+
+                        doc.save(`${productData.model_name}_specifications.pdf`);
+                        showToast('PDF Download Started');
+                    }
+                };
+
+                logoImg.onerror = function () {
+                    console.warn("Logo image failed to load.");
+                    // Proceed without logo if it fails to load
+                    doc.setFillColor(0, 84, 142);
+                    doc.rect(0, 0, pageWidth, 140, 'F');
+                    doc.setTextColor(255, 255, 255);
+                    doc.setFontSize(24);
+                    doc.setFont('helvetica', 'bold');
+                    doc.text('Equipment Coverage Report', 40, 80);
+                    doc.setFontSize(16);
+                    doc.setFont('helvetica', 'normal');
+                    doc.text(productData.model_name, 40, 110);
+                    let y = 160;
+                    renderTable(y);
+                };
+
+                logoImg.src = logoUrl;
             });
-        });
-    }
+        }
 
     // CSV Download functionality
     const downloadCsvBtn = document.querySelector('#csvBtn');

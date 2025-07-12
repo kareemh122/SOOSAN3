@@ -4,15 +4,65 @@
 @section('description', __('common.get_in_touch') . ' - ' . __('common.ready_to_transform'))
 
 @push('styles')
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
 <style>
-    /* Modern Contact Page Styles */
+    :root {
+        --primary-color: #00548e;
+        --secondary-color: #b0d701;
+        --accent-color: #4ade80;
+        --background-color: #f8fafc;
+        --text-color: #111827;
+        --text-muted: #6b7280;
+        --border-color: #e2e8f0;
+        --shadow-color: rgba(0, 0, 0, 0.1);
+        --transition-duration: 0.3s;
+        --border-radius: 16px;
+        --card-shadow: 0 4px 20px rgba(0, 84, 142, 0.08);
+        --card-shadow-hover: 0 8px 32px rgba(0, 84, 142, 0.15);
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Inter', sans-serif;
+        line-height: 1.6;
+        color: var(--text-color);
+        background: var(--background-color);
+        overflow-x: hidden;
+    }
+
+    /* Scrollbar Styling */
+    ::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: var(--primary-color);
+        border-radius: var(--border-radius);
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: var(--secondary-color);
+    }
+
+    /* Enhanced Hero Section */
     .contact-hero {
-        background: #00548e;
+        background: linear-gradient(135deg, var(--primary-color) 0%, #0066a3 100%);
         color: white;
-        padding: 6rem 0 4rem;
+        padding: 8rem 0 5rem;
+        margin-top: 0;
         position: relative;
         overflow: hidden;
-        clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
     }
 
     .contact-hero::before {
@@ -23,28 +73,56 @@
         right: 0;
         bottom: 0;
         background: 
-            radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
-            radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.15) 0%, transparent 50%),
-            radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.1) 0%, transparent 50%);
+            radial-gradient(circle at 20% 30%, rgba(176, 215, 1, 0.15) 0%, transparent 50%),
+            radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+            url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="contact-grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23contact-grid)"/></svg>');
+        z-index: 1;
     }
 
     .hero-content {
         position: relative;
         z-index: 2;
+        text-align: center;
+        max-width: 800px;
+        margin: 0 auto;
     }
 
+    .contact-hero h1 {
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        font-weight: 800;
+        margin-bottom: 1.5rem;
+        text-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        line-height: 1.2;
+    }
+
+    .contact-hero .lead {
+        font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+        font-weight: 400;
+        opacity: 0.95;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        line-height: 1.6;
+        margin-bottom: 2rem;
+    }
+
+    /* Enhanced Hero Stats */
     .hero-stats {
         background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(10px);
+        backdrop-filter: blur(15px);
         border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 20px;
+        border-radius: var(--border-radius);
         padding: 2rem;
         margin-top: 3rem;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     }
 
     .stat-item {
         text-align: center;
         position: relative;
+        transition: all var(--transition-duration) ease;
+    }
+
+    .stat-item:hover {
+        transform: translateY(-5px);
     }
 
     .stat-item::after {
@@ -63,31 +141,72 @@
 
     .stat-number {
         font-size: 2.5rem;
-        font-weight: 700;
+        font-weight: 800;
         display: block;
         margin-bottom: 0.5rem;
-        background: #b0d701;
+        background: linear-gradient(135deg, var(--secondary-color), #9bc600);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
+        text-shadow: none;
     }
 
-    /* Contact Methods Grid */
+    /* Enhanced Contact Methods */
     .contact-methods {
-        padding: 5rem 0 3rem;
-        background: linear-gradient(to bottom, #f8fafc, #ffffff);
+        padding: 6rem 0;
+        background: linear-gradient(135deg, var(--background-color) 0%, #ffffff 100%);
+        position: relative;
+    }
+
+    .contact-methods::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="dots-pattern" width="40" height="40" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="1" fill="rgba(0,84,142,0.03)"/></pattern></defs><rect width="100" height="100" fill="url(%23dots-pattern)"/></svg>');
+        z-index: 0;
+    }
+
+    .contact-methods .container {
+        position: relative;
+        z-index: 1;
+    }
+
+    .section-header {
+        text-align: center;
+        margin-bottom: 4rem;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .section-title {
+        font-size: clamp(2.5rem, 5vw, 3.5rem);
+        font-weight: 800;
+        color: var(--text-color);
+        margin-bottom: 1.5rem;
+        line-height: 1.2;
+    }
+
+    .section-description {
+        font-size: 1.2rem;
+        color: var(--text-muted);
+        line-height: 1.6;
     }
 
     .contact-method-card {
         background: white;
         border-radius: 24px;
         padding: 2.5rem 2rem;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-        border: 1px solid rgba(226, 232, 240, 0.8);
+        box-shadow: var(--card-shadow);
+        border: 1px solid var(--border-color);
         transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         position: relative;
         overflow: hidden;
         height: 100%;
+        text-align: center;
     }
 
     .contact-method-card::before {
@@ -97,7 +216,7 @@
         left: 0;
         right: 0;
         height: 4px;
-        background: #b0d701;
+        background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
         transform: scaleX(0);
         transition: transform 0.4s ease;
     }
@@ -108,80 +227,111 @@
 
     .contact-method-card:hover {
         transform: translateY(-12px);
-        box-shadow: 0 20px 48px rgba(0, 0, 0, 0.15);
-        border-color: #b0d701;
+        box-shadow: var(--card-shadow-hover);
+        border-color: rgba(0, 84, 142, 0.2);
     }
 
     .method-icon {
         width: 80px;
         height: 80px;
         border-radius: 20px;
-        background: #b0d701;
+        background: linear-gradient(135deg, var(--primary-color), #0066a3);
         display: flex;
         align-items: center;
         justify-content: center;
         font-size: 2rem;
         color: white;
         margin: 0 auto 1.5rem;
-        box-shadow: 0 8px 24px rgba(37, 99, 235, 0.25);
+        box-shadow: 0 8px 24px rgba(0, 84, 142, 0.25);
         transition: all 0.4s ease;
     }
 
     .contact-method-card:hover .method-icon {
+        background: linear-gradient(135deg, var(--secondary-color), #9bc600);
         transform: scale(1.1) rotate(5deg);
-        box-shadow: 0 12px 32px rgba(37, 99, 235, 0.35);
+        box-shadow: 0 12px 32px rgba(176, 215, 1, 0.4);
     }
 
     .method-action {
-        background: #00548e;
+        background: var(--primary-color);
         color: white;
         border: none;
-        border-radius: 12px;
+        border-radius: 50px;
         padding: 0.75rem 1.5rem;
         font-weight: 600;
         text-decoration: none;
-        display: inline-block;
-        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: all var(--transition-duration) ease;
         margin-top: 1rem;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .method-action::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: left 0.6s;
+    }
+
+    .method-action:hover::before {
+        left: 100%;
     }
 
     .method-action:hover {
+        background: var(--secondary-color);
         transform: translateY(-2px);
-        box-shadow: 0 8px 24px rgba(37, 99, 235, 0.3);
+        box-shadow: 0 8px 24px rgba(176, 215, 1, 0.3);
         color: white;
+        text-decoration: none;
     }
 
-    /* Contact Form Section */
+    /* Enhanced Contact Form */
     .contact-form-section {
-        padding: 4rem 0;
+        padding: 6rem 0;
         background: white;
+        position: relative;
     }
 
     .contact-form-container {
         background: white;
         border-radius: 24px;
-        box-shadow: 0 16px 48px rgba(0, 0, 0, 0.1);
-        border: 1px solid rgba(226, 232, 240, 0.8);
+        box-shadow: 0 20px 60px rgba(0, 84, 142, 0.1);
+        border: 1px solid var(--border-color);
         overflow: hidden;
+        position: relative;
     }
-    .contact-form-section .send-message {
-        background: #00548e;
-        color: white;
-        font-size: 19px;
-    }
-    .contact-form-section .send-message:hover {
-        background: #0066a3;
+
+    .contact-form-container::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(135deg, rgba(0, 84, 142, 0.02), rgba(176, 215, 1, 0.02));
+        z-index: 1;
     }
 
     .form-header {
-        background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+        background: linear-gradient(135deg, var(--background-color), #e2e8f0);
         padding: 3rem 3rem 2rem;
         text-align: center;
-        border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+        border-bottom: 1px solid var(--border-color);
+        position: relative;
+        z-index: 2;
     }
 
     .form-body {
         padding: 3rem;
+        position: relative;
+        z-index: 2;
     }
 
     .form-group {
@@ -190,84 +340,169 @@
 
     .form-label {
         font-weight: 600;
-        color: #374151;
+        color: var(--text-color);
         margin-bottom: 0.5rem;
         font-size: 0.95rem;
+        display: block;
     }
 
     .form-control, .form-select {
-        border: 2px solid #e5e7eb;
-        border-radius: 12px;
+        border: 2px solid var(--border-color);
+        border-radius: var(--border-radius);
         padding: 0.875rem 1rem;
         font-size: 1rem;
-        transition: all 0.3s ease;
+        transition: all var(--transition-duration) ease;
         background: #fafafa;
+        width: 100%;
     }
 
     .form-control:focus, .form-select:focus {
         border-color: var(--primary-color);
-        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        box-shadow: 0 0 0 3px rgba(0, 84, 142, 0.1);
         background: white;
         transform: translateY(-1px);
+        outline: none;
     }
 
     .form-control::placeholder {
-        color: #9ca3af;
+        color: var(--text-muted);
     }
 
-    /* Department Cards */
+    .send-message {
+        background: var(--primary-color);
+        color: white;
+        font-size: 1.1rem;
+        font-weight: 700;
+        padding: 1rem 2rem;
+        border: none;
+        border-radius: 50px;
+        transition: all var(--transition-duration) ease;
+        position: relative;
+        overflow: hidden;
+        width: 100%;
+    }
+
+    .send-message::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: left 0.6s;
+    }
+
+    .send-message:hover::before {
+        left: 100%;
+    }
+
+    .send-message:hover {
+        background: var(--secondary-color);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(176, 215, 1, 0.3);
+    }
+
+    /* Enhanced Departments */
     .departments-section {
-        padding: 4rem 0;
-        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        padding: 6rem 0;
+        background: linear-gradient(135deg, var(--background-color) 0%, #e2e8f0 100%);
+        position: relative;
+    }
+
+    .departments-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="dept-grid" width="30" height="30" patternUnits="userSpaceOnUse"><circle cx="15" cy="15" r="1" fill="rgba(0,84,142,0.05)"/></pattern></defs><rect width="100" height="100" fill="url(%23dept-grid)"/></svg>');
+        z-index: 0;
+    }
+
+    .departments-section .container {
+        position: relative;
+        z-index: 1;
     }
 
     .department-card {
         background: white;
-        border-radius: 16px;
+        border-radius: var(--border-radius);
         padding: 2rem;
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-        border: 1px solid rgba(226, 232, 240, 0.8);
-        transition: all 0.3s ease;
+        box-shadow: var(--card-shadow);
+        border: 1px solid var(--border-color);
+        transition: all var(--transition-duration) ease;
         height: 100%;
         text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .department-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(135deg, rgba(0, 84, 142, 0.02), rgba(176, 215, 1, 0.02));
+        opacity: 0;
+        transition: opacity var(--transition-duration) ease;
+    }
+
+    .department-card:hover::before {
+        opacity: 1;
     }
 
     .department-card:hover {
         transform: translateY(-8px);
-        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+        box-shadow: var(--card-shadow-hover);
+        border-color: rgba(0, 84, 142, 0.2);
     }
 
     .dept-icon {
         width: 60px;
         height: 60px;
         border-radius: 12px;
-        background: #00548e;
+        background: linear-gradient(135deg, var(--primary-color), #0066a3);
         display: flex;
         align-items: center;
         justify-content: center;
         color: white;
         font-size: 1.5rem;
         margin: 0 auto 1rem;
-        box-shadow: 0 4px 16px rgba(37, 99, 235, 0.25);
+        box-shadow: 0 4px 16px rgba(0, 84, 142, 0.25);
+        transition: all var(--transition-duration) ease;
+        position: relative;
+        z-index: 2;
     }
 
-    /* FAQ Section */
+    .department-card:hover .dept-icon {
+        background: linear-gradient(135deg, var(--secondary-color), #9bc600);
+        transform: scale(1.1) rotate(5deg);
+        box-shadow: 0 6px 20px rgba(176, 215, 1, 0.4);
+    }
+
+    /* Enhanced FAQ Section */
     .faq-section {
-        padding: 4rem 0;
+        padding: 6rem 0;
         background: white;
     }
 
     .faq-item {
-        background: #f8fafc;
-        border-radius: 12px;
+        background: var(--background-color);
+        border-radius: var(--border-radius);
         margin-bottom: 1rem;
-        border: 1px solid #e2e8f0;
+        border: 1px solid var(--border-color);
         overflow: hidden;
-        transition: all 0.3s ease;
+        transition: all var(--transition-duration) ease;
+        box-shadow: 0 2px 8px rgba(0, 84, 142, 0.05);
     }
 
     .faq-item:hover {
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+        box-shadow: 0 4px 16px rgba(0, 84, 142, 0.1);
+        border-color: rgba(0, 84, 142, 0.2);
     }
 
     .faq-question {
@@ -276,36 +511,40 @@
         width: 100%;
         text-align: left;
         padding: 1.25rem 1.5rem;
-        font-size: 20px;
+        font-size: 1.1rem;
         font-weight: 600;
-        color: #374151;
+        color: var(--text-color);
         cursor: pointer;
         display: flex;
-        justify-content: between;
+        justify-content: space-between;
         align-items: center;
-        transition: all 0.3s ease;
+        transition: all var(--transition-duration) ease;
     }
 
     .faq-question:hover {
-        background: rgba(37, 99, 235, 0.05);
+        background: rgba(0, 84, 142, 0.05);
+        color: var(--primary-color);
+    }
+
+    .faq-question i {
+        transition: transform var(--transition-duration) ease;
+        color: var(--primary-color);
     }
 
     .faq-answer {
         padding: 0 1.5rem 1.25rem;
-        color: #6b7280;
-        line-height: 1.6;
+        color: var(--text-muted);
+        line-height: 1.7;
+        font-size: 1rem;
         display: none;
     }
 
     .faq-answer.active {
-        margin-top: 15px;
-        font-size:17px;
-        line-height: 1.7;
         display: block;
         animation: fadeInDown 0.3s ease;
     }
 
-    /* Floating Elements */
+    /* Enhanced Floating Contact */
     .floating-contact {
         position: fixed;
         bottom: 2rem;
@@ -317,22 +556,23 @@
         width: 60px;
         height: 60px;
         border-radius: 50%;
-        background: linear-gradient(135deg, #10b981, #059669);
+        background: linear-gradient(135deg, var(--secondary-color), #9bc600);
         color: white;
         border: none;
-        box-shadow: 0 8px 24px rgba(16, 185, 129, 0.4);
+        box-shadow: 0 8px 24px rgba(176, 215, 1, 0.4);
         font-size: 1.5rem;
         cursor: pointer;
-        transition: all 0.3s ease;
+        transition: all var(--transition-duration) ease;
         position: relative;
         animation: pulse 2s infinite;
     }
 
     .floating-btn:hover {
         transform: scale(1.1);
-        box-shadow: 0 12px 32px rgba(16, 185, 129, 0.5);
+        box-shadow: 0 12px 32px rgba(176, 215, 1, 0.5);
     }
 
+    /* Animations */
     @keyframes pulse {
         0%, 100% { transform: scale(1); }
         50% { transform: scale(1.05); }
@@ -349,10 +589,38 @@
         }
     }
 
-    /* Responsive Design */
+    @keyframes slideUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .animate-slide-in {
+        animation: slideUp 0.8s ease-out;
+    }
+
+    /* Enhanced Responsive Design */
+    @media (max-width: 1024px) {
+        .contact-hero {
+            padding: 6rem 0 4rem;
+        }
+        
+        .contact-methods,
+        .contact-form-section,
+        .departments-section,
+        .faq-section {
+            padding: 4rem 0;
+        }
+    }
+
     @media (max-width: 768px) {
         .contact-hero {
-            padding: 4rem 0 3rem;
+            padding: 5rem 0 3rem;
         }
         
         .hero-stats {
@@ -364,8 +632,11 @@
             font-size: 2rem;
         }
         
-        .contact-methods {
-            padding: 3rem 0 2rem;
+        .contact-methods,
+        .contact-form-section,
+        .departments-section,
+        .faq-section {
+            padding: 3rem 0;
         }
         
         .contact-method-card {
@@ -388,21 +659,151 @@
             height: 50px;
             font-size: 1.25rem;
         }
+
+        .section-title {
+            font-size: 2.5rem;
+        }
+
+        .section-description {
+            font-size: 1.1rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .contact-hero {
+            padding: 4rem 0 2rem;
+        }
+
+        .contact-hero h1 {
+            font-size: 2rem;
+        }
+
+        .contact-hero .lead {
+            font-size: 1rem;
+        }
+
+        .hero-stats {
+            padding: 1rem;
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+        }
+
+        .contact-method-card {
+            padding: 1.5rem 1rem;
+        }
+
+        .form-header,
+        .form-body {
+            padding: 1.5rem 1rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+        }
+
+        .faq-question {
+            font-size: 1rem;
+            padding: 1rem;
+        }
+
+        .faq-answer {
+            padding: 0 1rem 1rem;
+            font-size: 0.9rem;
+        }
+    }
+
+    /* RTL Support */
+    [dir="rtl"] .contact-hero {
+        text-align: center;
+    }
+
+    [dir="rtl"] .faq-question {
+        text-align: right;
+    }
+
+    [dir="rtl"] .floating-contact {
+        right: auto;
+        left: 2rem;
+    }
+
+    [dir="rtl"] .method-action,
+    [dir="rtl"] .send-message {
+        direction: rtl;
+    }
+
+    /* Print Styles */
+    @media print {
+        .contact-hero {
+            background: white !important;
+            color: black !important;
+            padding: 2rem 0 !important;
+        }
+        
+        .floating-contact {
+            display: none !important;
+        }
+        
+        .contact-method-card,
+        .department-card,
+        .faq-item {
+            box-shadow: none !important;
+            border: 1px solid #ccc !important;
+            break-inside: avoid;
+        }
+    }
+
+    /* Accessibility Enhancements */
+    @media (prefers-reduced-motion: reduce) {
+        * {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+        }
+    }
+
+    /* Focus States */
+    .contact-method-card:focus-within,
+    .department-card:focus-within,
+    .faq-item:focus-within {
+        outline: 2px solid var(--primary-color);
+        outline-offset: 2px;
+    }
+
+    .method-action:focus,
+    .send-message:focus,
+    .floating-btn:focus {
+        outline: 2px solid var(--secondary-color);
+        outline-offset: 4px;
+    }
+
+    /* High Contrast Mode */
+    @media (prefers-contrast: high) {
+        .contact-method-card,
+        .department-card,
+        .faq-item {
+            border: 2px solid var(--text-color);
+        }
+        
+        .section-title {
+            color: var(--text-color);
+        }
     }
 </style>
 @endpush
 
 @section('content')
-    <!-- Modern Hero Section -->
+    <!-- Enhanced Hero Section -->
     <section class="contact-hero">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 mx-auto">
-                    <div class="hero-content text-center">
+                    <div class="hero-content animate-slide-in">
                         <h1 class="display-3 fw-bold mb-4">
                             {{ __('common.get_in_touch') }}
                         </h1>
-                        <p class="fs-4 mb-4 opacity-90">
+                        <p class="lead mb-4">
                             {{ __('common.ready_to_transform') }}
                         </p>
                         <div class="d-flex flex-column flex-md-row gap-3 justify-content-center mb-4">
@@ -414,7 +815,7 @@
                             </a>
                         </div>
                         
-                        <!-- Stats -->
+                        <!-- Enhanced Stats -->
                         <div class="hero-stats">
                             <div class="row g-4">
                                 <div class="col-md-3 col-6">
@@ -425,7 +826,7 @@
                                 </div>
                                 <div class="col-md-3 col-6">
                                     <div class="stat-item">
-                                        <span class="stat-number">500+</span>
+                                        <span class="stat-number">1000+</span>
                                         <span class="fw-semibold">{{ __('common.projects') }}</span>
                                     </div>
                                 </div>
@@ -437,7 +838,7 @@
                                 </div>
                                 <div class="col-md-3 col-6">
                                     <div class="stat-item">
-                                        <span class="stat-number">15+</span>
+                                        <span class="stat-number">20+</span>
                                         <span class="fw-semibold">{{ __('common.years') }}</span>
                                     </div>
                                 </div>
@@ -449,18 +850,16 @@
         </div>
     </section>
 
-    <!-- Contact Methods -->
+    <!-- Enhanced Contact Methods -->
     <section class="contact-methods">
         <div class="container">
-            <div class="row justify-content-center mb-5">
-                <div class="col-lg-8 text-center">
-                    <h2 class="display-5 fw-bold mb-3">{{ __('common.multiple_ways_to_reach_us') }}</h2>
-                    <p class="fs-5 text-muted">{{ __('common.choose_contact_method') }}</p>
-                </div>
+            <div class="section-header">
+                <h2 class="section-title">{{ __('common.multiple_ways_to_reach_us') }}</h2>
+                <p class="section-description">{{ __('common.choose_contact_method') }}</p>
             </div>
             <div class="row g-4">
                 <div class="col-lg-3 col-md-6">
-                    <div class="contact-method-card text-center">
+                    <div class="contact-method-card">
                         <div class="method-icon">
                             <i class="fas fa-phone"></i>
                         </div>
@@ -476,7 +875,7 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
-                    <div class="contact-method-card text-center">
+                    <div class="contact-method-card">
                         <div class="method-icon">
                             <i class="fas fa-envelope"></i>
                         </div>
@@ -492,7 +891,7 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
-                    <div class="contact-method-card text-center">
+                    <div class="contact-method-card">
                         <div class="method-icon">
                             <i class="fab fa-whatsapp"></i>
                         </div>
@@ -508,7 +907,7 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
-                    <div class="contact-method-card text-center">
+                    <div class="contact-method-card">
                         <div class="method-icon">
                             <i class="fas fa-map-marker-alt"></i>
                         </div>
@@ -527,7 +926,7 @@
         </div>
     </section>
 
-    <!-- Contact Form -->
+    <!-- Enhanced Contact Form -->
     <section class="contact-form-section" id="contact-form">
         <div class="container">
             <div class="row justify-content-center">
@@ -678,14 +1077,12 @@
         </div>
     </section>
 
-    <!-- Departments -->
+    <!-- Enhanced Departments -->
     <section class="departments-section">
         <div class="container">
-            <div class="row justify-content-center mb-5">
-                <div class="col-lg-8 text-center">
-                    <h2 class="display-5 fw-bold mb-3">{{ __('common.specialized_departments') }}</h2>
-                    <p class="fs-5 text-muted">{{ __('common.connect_directly_with_teams') }}</p>
-                </div>
+            <div class="section-header">
+                <h2 class="section-title">{{ __('common.specialized_departments') }}</h2>
+                <p class="section-description">{{ __('common.connect_directly_with_teams') }}</p>
             </div>
             <div class="row g-4">
                 <div class="col-lg-3 col-md-6">
@@ -728,21 +1125,21 @@
         </div>
     </section>
 
-    <!-- FAQ Section -->
+    <!-- Enhanced FAQ Section -->
     <section class="faq-section">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-8">
-                    <div class="text-center mb-5">
-                        <h2 class="display-5 fw-bold mb-3">{{ __('common.frequently_asked_questions') }}</h2>
-                        <p class="fs-5 text-muted">{{ __('common.quick_answers_common_questions') }}</p>
+                    <div class="section-header">
+                        <h2 class="section-title">{{ __('common.frequently_asked_questions') }}</h2>
+                        <p class="section-description">{{ __('common.quick_answers_common_questions') }}</p>
                     </div>
                     
                     <div class="faq-container">
                         <div class="faq-item">
                             <button class="faq-question" onclick="toggleFAQ(this)">
                                 <span>{{ __('common.what_types_drilling_equipment') }}</span>
-                                <i class="fas fa-chevron-down ms-auto"></i>
+                                <i class="fas fa-chevron-down"></i>
                             </button>
                             <div class="faq-answer">
                                 {{ __('common.we_offer_comprehensive_range') }}
@@ -752,7 +1149,7 @@
                         <div class="faq-item">
                             <button class="faq-question" onclick="toggleFAQ(this)">
                                 <span>{{ __('common.do_you_provide_international_shipping') }}</span>
-                                <i class="fas fa-chevron-down ms-auto"></i>
+                                <i class="fas fa-chevron-down"></i>
                             </button>
                             <div class="faq-answer">
                                 {{ __('common.yes_we_ship_worldwide') }}
@@ -762,7 +1159,7 @@
                         <div class="faq-item">
                             <button class="faq-question" onclick="toggleFAQ(this)">
                                 <span>{{ __('common.what_warranty_do_you_offer') }}</span>
-                                <i class="fas fa-chevron-down ms-auto"></i>
+                                <i class="fas fa-chevron-down"></i>
                             </button>
                             <div class="faq-answer">
                                 {{ __('common.all_equipment_comes_with_warranty') }}
@@ -772,7 +1169,7 @@
                         <div class="faq-item">
                             <button class="faq-question" onclick="toggleFAQ(this)">
                                 <span>{{ __('common.do_you_provide_training') }}</span>
-                                <i class="fas fa-chevron-down ms-auto"></i>
+                                <i class="fas fa-chevron-down"></i>
                             </button>
                             <div class="faq-answer">
                                 {{ __('common.absolutely_we_provide_training') }}
@@ -782,7 +1179,7 @@
                         <div class="faq-item">
                             <button class="faq-question" onclick="toggleFAQ(this)">
                                 <span>{{ __('common.how_can_i_get_quote') }}</span>
-                                <i class="fas fa-chevron-down ms-auto"></i>
+                                <i class="fas fa-chevron-down"></i>
                             </button>
                             <div class="faq-answer">
                                 {{ __('common.you_can_request_quote') }}
@@ -794,59 +1191,175 @@
         </div>
     </section>
 
-    <!-- Floating Contact Button -->
+    <!-- Enhanced Floating Contact Button -->
     <div class="floating-contact">
         <button class="floating-btn" onclick="scrollToForm()" title="{{ __('common.send_message') }}">
             <i class="fas fa-comment"></i>
         </button>
     </div>
 
+@endsection
+
 @push('scripts')
 <script>
-    // FAQ Toggle
+    // Enhanced FAQ Toggle
     function toggleFAQ(button) {
         const answer = button.nextElementSibling;
         const icon = button.querySelector('i');
         const isActive = answer.classList.contains('active');
         
-        // Close all other FAQ items
+        // Close all other FAQ items with smooth animation
         document.querySelectorAll('.faq-answer.active').forEach(item => {
             if (item !== answer) {
                 item.classList.remove('active');
-                item.previousElementSibling.querySelector('i').style.transform = 'rotate(0deg)';
+                const otherIcon = item.previousElementSibling.querySelector('i');
+                otherIcon.style.transform = 'rotate(0deg)';
+                item.previousElementSibling.style.background = '';
             }
         });
         
-        // Toggle current item
+        // Toggle current item with enhanced animation
         if (isActive) {
             answer.classList.remove('active');
             icon.style.transform = 'rotate(0deg)';
+            button.style.background = '';
         } else {
             answer.classList.add('active');
             icon.style.transform = 'rotate(180deg)';
+            button.style.background = 'rgba(0, 84, 142, 0.05)';
         }
     }
     
-    // Scroll to form
+    // Enhanced scroll to form
     function scrollToForm() {
-        document.getElementById('contact-form').scrollIntoView({
-            behavior: 'smooth'
-        });
+        const formSection = document.getElementById('contact-form');
+        if (formSection) {
+            formSection.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+            
+            // Add focus to first form input
+            setTimeout(() => {
+                const firstInput = formSection.querySelector('input[type="text"]');
+                if (firstInput) {
+                    firstInput.focus();
+                }
+            }, 800);
+        }
     }
     
-    // Form validation
+    // Enhanced form validation
     document.addEventListener('DOMContentLoaded', function() {
         const forms = document.querySelectorAll('.needs-validation');
+        
         Array.from(forms).forEach(form => {
             form.addEventListener('submit', function(event) {
                 if (!form.checkValidity()) {
                     event.preventDefault();
                     event.stopPropagation();
+                    
+                    // Focus on first invalid field
+                    const firstInvalid = form.querySelector(':invalid');
+                    if (firstInvalid) {
+                        firstInvalid.focus();
+                        firstInvalid.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'center'
+                        });
+                    }
                 }
                 form.classList.add('was-validated');
             });
         });
+        
+        // Enhanced input animations
+        const inputs = document.querySelectorAll('.form-control, .form-select');
+        inputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.classList.add('focused');
+            });
+            
+            input.addEventListener('blur', function() {
+                this.parentElement.classList.remove('focused');
+                if (this.value) {
+                    this.parentElement.classList.add('filled');
+                } else {
+                    this.parentElement.classList.remove('filled');
+                }
+            });
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Enhanced scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationDelay = `${index * 0.1}s`;
+                    entry.target.classList.add('animate-slide-in');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animatable elements
+        document.querySelectorAll('.contact-method-card, .department-card, .faq-item').forEach(element => {
+            observer.observe(element);
+        });
+        
+        // Enhanced floating button behavior
+        let lastScrollY = window.scrollY;
+        const floatingBtn = document.querySelector('.floating-btn');
+        
+        window.addEventListener('scroll', () => {
+            const currentScrollY = window.scrollY;
+            
+            if (currentScrollY > lastScrollY && currentScrollY > 100) {
+                // Scrolling down
+                floatingBtn.style.transform = 'scale(0.8)';
+                floatingBtn.style.opacity = '0.7';
+            } else {
+                // Scrolling up
+                floatingBtn.style.transform = 'scale(1)';
+                floatingBtn.style.opacity = '1';
+            }
+            
+            lastScrollY = currentScrollY;
+        });
+        
+        // Enhanced error handling
+        window.addEventListener('error', function(e) {
+            console.warn('Contact page error:', e.error);
+        });
+        
+        // Enhanced performance monitoring
+        if ('performance' in window) {
+            window.addEventListener('load', function() {
+                setTimeout(() => {
+                    const perfData = performance.getEntriesByType('navigation')[0];
+                    if (perfData && perfData.loadEventEnd > 3000) {
+                        console.warn('Contact page loaded slowly:', perfData.loadEventEnd + 'ms');
+                    }
+                }, 0);
+            });
+        }
     });
 </script>
 @endpush
-@endsection
