@@ -147,6 +147,7 @@
         border: 1px solid rgba(0, 84, 142, 0.1);
         padding: 3rem;
         margin-bottom: 2rem;
+        margin-top: 2.5rem;
         position: relative;
         overflow: hidden;
         transition: var(--transition);
@@ -553,7 +554,7 @@
             <p class="fs-4 mb-4 opacity-90">{{ __('common.serial_lookup_subtitle') }}</p>
             <div class="d-flex justify-content-center gap-3 flex-wrap">
                 <div class="d-flex align-items-center gap-2 bg-white bg-opacity-10 px-3 py-2 rounded-pill">
-                    <i class="fas fa-shield-check text-success"></i>
+                    <i class="fas fa-check-circle text-success"></i>
                     <span>Instant Verification</span>
                 </div>
                 <div class="d-flex align-items-center gap-2 bg-white bg-opacity-10 px-3 py-2 rounded-pill">

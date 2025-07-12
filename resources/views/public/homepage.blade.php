@@ -3948,8 +3948,8 @@
                 list-style: none;
             }
             .industry-serve-apps li {
-                background: #c2b22e;
-                color: #fff;
+                background: rgba(176, 215, 1, 0.05);
+                color: #334155;
                 font-size: 0.86rem;
                 font-weight: 600;
                 border-radius: 1.1rem;

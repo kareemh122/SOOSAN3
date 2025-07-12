@@ -306,8 +306,9 @@
 }
 
 .specifications-table th {
-    background: #ccc;
-    color: white;
+    background: #fbfbfb;
+    border-bottom: 1px solid #eee;
+    color: #6a6262;
     font-weight: 600;
     padding: 1rem;
     text-align: left;
@@ -317,11 +318,12 @@
 
 .specifications-table td {
     padding: 1rem;
-    border-bottom: 1px solid var(--border-light);
+    border-bottom: 1px solid #eee;
     background: white;
     transition: var(--transition);
 }
 
+.specifications-table tr:last-child th,
 .specifications-table tr:last-child td {
     border-bottom: none;
 }
@@ -349,6 +351,7 @@
     box-shadow: var(--shadow-lg);
     border: 1px solid var(--border-light);
     margin-top: 3rem;
+    position: relative;
 }
 
 .similar-products-title {
@@ -369,14 +372,14 @@
 
 .carousel-arrow {
     position: absolute;
-    top: 50%;
+    top: 47%;
     transform: translateY(-50%);
     background: var(--primary-blue);
     color: white;
     border: none;
     border-radius: 50%;
-    width: 50px;
-    height: 50px;
+    width: 48px;
+    height: 48px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -393,11 +396,11 @@
 }
 
 .carousel-arrow.prev {
-    left: -25px;
+    left: 0;
 }
 
 .carousel-arrow.next {
-    right: -25px;
+    right: 0;
 }
 
 .carousel-track {
@@ -532,11 +535,13 @@
     justify-content: center;
     gap: 0.5rem;
     margin-top: 2rem;
+    position: absolute;
+    bottom: 0;
 }
 
 .carousel-indicator {
-    width: 12px;
-    height: 12px;
+    width: 14px;
+    height: 14px;
     border-radius: 50%;
     border: 2px solid var(--primary-blue);
     background: transparent;
@@ -790,7 +795,7 @@
                         Share
                     </button>
                     <button type="button" class="action-btn btn-pdf" id="pdfBtn">
-                        <i class="fas fa-file-pdf"></i>
+                        <i class="fas fa-download"></i>
                         Download PDF
                     </button>
                     <button type="button" class="action-btn btn-csv" id="csvBtn">
@@ -915,11 +920,11 @@
         <h3 class="similar-products-title">{{ __('common.similar_products') }}</h3>
         
         <div class="carousel-container">
-            <button id="carouselPrevBtn" class="carousel-arrow prev" style="display: none;">
+            <button id="carouselPrevBtn" class="carousel-arrow prev d-none d-lg-flex">
                 <i class="fas fa-chevron-left"></i>
             </button>
             
-            <button id="carouselNextBtn" class="carousel-arrow next">
+            <button id="carouselNextBtn" class="carousel-arrow next d-none d-lg-flex">
                 <i class="fas fa-chevron-right"></i>
             </button>
             
@@ -994,7 +999,7 @@
             </div>
         </div>
         
-        <div class="carousel-indicators">
+        <div class="carousel-indicators d-none d-lg-flex">
             @for($i = 0; $i < ceil($similarProducts->count() / 3); $i++)
                 <button class="carousel-indicator {{ $i === 0 ? 'active' : '' }}" data-slide="{{ $i }}"></button>
             @endfor

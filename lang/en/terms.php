@@ -18,10 +18,10 @@ return [
     // Use License
     'use_license' => 'Use License',
     'use_license_description' => 'Permission is granted to temporarily download one copy of the materials on SoosanEgypt website for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not:',
-    'modify_or_copy' => 'modify or copy the materials',
-    'use_for_commercial' => 'use the materials for any commercial purpose or for any public display (commercial or non-commercial)',
-    'attempt_decompile' => 'attempt to decompile or reverse engineer any software contained on the website',
-    'remove_copyright' => 'remove any copyright or other proprietary notations from the materials',
+    'modify_or_copy' => 'Modify or copy the materials',
+    'use_for_commercial' => 'Use the materials for any commercial purpose or for any public display (commercial or non-commercial)',
+    'attempt_decompile' => 'Attempt to decompile or reverse engineer any software contained on the website',
+    'remove_copyright' => 'Remove any copyright or other proprietary notations from the materials',
     
     // Product Information
     'product_information' => 'Product Information',
