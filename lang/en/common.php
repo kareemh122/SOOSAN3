@@ -42,7 +42,8 @@ return [
     'specifications' => 'Specifications',
     'applications' => 'Applications',
     'related_products' => 'Related Products',
-
+    'warranty_voided' => 'Warranty Voided',
+    'warranty_voided_at' => 'Warranty voided at',
     // Serial Lookup
     'serial_lookup_title' => 'Serial Number Lookup',
     'serial_lookup_subtitle' => 'Verify the authenticity and find details about your SoosanEgypt product.',

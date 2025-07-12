@@ -686,7 +686,7 @@
     @push('scripts')
     <script>
         function updateNotifications() {
-            fetch('{{ route('notifications.fetch') }}')
+            fetch('{{ route('notifications.index') }}')
                 .then(response => response.json())
                 .then(data => {
                     // Update badge

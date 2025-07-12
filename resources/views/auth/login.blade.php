@@ -25,7 +25,7 @@
                         @endif
 
                         <!-- Login Form -->
-                        <form method="POST" action="{{ route('admin.login.submit') }}" id="adminLoginForm">
+                        <form method="POST" action="{{ route('admin.login') }}" id="adminLoginForm">
                             @csrf
 
                             <!-- Email Field -->

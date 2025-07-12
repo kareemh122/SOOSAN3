@@ -16,9 +16,6 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('admin')->name('admin.')->middleware(['web'])->group(function () {
     
     // Admin authentication routes
-    Route::get('/login', function() {
-        return view('admin.auth.login');
-    })->name('login');
 
     // Admin logout route
     Route::post('/logout', function(\Illuminate\Http\Request $request) {

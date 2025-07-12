@@ -150,7 +150,8 @@ return [
     'no_products_message' => 'حاول تعديل معايير البحث أو التصفية.',
     'clear_filters' => 'إزالة جميع المرشحات',
     'view_details' => 'عرض التفاصيل',
-    
+    'warranty_voided' => 'تم إلغاء الضمان',
+    'warranty_voided_at' => 'تم إلغاء الضمان في',
     // Error Messages
     'please_enter_serial' => 'يرجى إدخال رقم تسلسلي.',
     'serial_min_length' => 'يجب أن يكون الرقم التسلسلي مكونًا من 3 أحرف على الأقل.',
