@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
     <div class="container">
-        <a class="navbar-brand" href="{{ route('dashboard') }}">
+        <a class="navbar-brand" href="{{ route('dashboard') }}" style="font-size: 1.4rem;">
             {{ config('app.name', 'Laravel') }}
         </a>
         

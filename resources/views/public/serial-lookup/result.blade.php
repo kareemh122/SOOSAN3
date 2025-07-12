@@ -971,40 +971,46 @@ document.addEventListener('DOMContentLoaded', function () {
         observer.observe(card);
     });
 
-    // Enhanced PDF Download Logic
-    const pdfBtn = document.getElementById('pdfBtn');
-    if (pdfBtn) {
-        pdfBtn.addEventListener('click', generatePdf);
+const pdfBtn = document.getElementById('pdfBtn');
+if (pdfBtn) {
+    pdfBtn.addEventListener('click', generatePdf);
+}
+
+function generatePdf() {
+    if (!window.jspdf) {
+        alert('jsPDF is missing.');
+        return;
     }
 
-    function generatePdf() {
-        if (!window.jspdf) {
-            alert('jsPDF library is missing. Please check the script order.');
-            return;
-        }
+    pdfBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Generating PDF...';
+    pdfBtn.disabled = true;
 
-        // Add loading state
-        pdfBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Generating PDF...';
-        pdfBtn.disabled = true;
+    const productName = pdfBtn?.dataset.model_name || '-';
+    const productLine = pdfBtn?.dataset.line || '-';
+    const productType = pdfBtn?.dataset.type || '-';
+    const productImgUrl = pdfBtn?.dataset.image_url || (window.location.origin + '/images/fallback.webp');
 
-        // Fetch product info from data attributes
-        const productName = pdfBtn?.dataset.model_name || '-';
-        const productLine = pdfBtn?.dataset.line || '-';
-        const productType = pdfBtn?.dataset.type || '-';
-        let productImgUrl = pdfBtn?.dataset.image_url || (window.location.origin + '/images/fallback.webp');
+    const doc = new window.jspdf.jsPDF({ unit: 'pt', format: 'a4' });
+    const pageWidth = doc.internal.pageSize.getWidth();
 
-        const doc = new window.jspdf.jsPDF({ unit: 'pt', format: 'a4' });
-        const pageWidth = doc.internal.pageSize.getWidth();
-        let y = 40;
+    // ---------------------- UTILITIES -------------------------
+    function loadImage(url) {
+        return new Promise((resolve, reject) => {
+            const img = new Image();
+            img.crossOrigin = 'anonymous';
+            img.onload = () => resolve(img);
+            img.onerror = reject;
+            img.src = url;
+        });
+    }
 
-        // Build specs table (EXCLUDE model name, line, type)
+    function extractTableData() {
         const specsRows = [];
         const specsTable = document.querySelector('.specs-table');
         if (specsTable) {
             let rowIndex = 0;
             specsTable.querySelectorAll('tbody tr').forEach(row => {
                 rowIndex++;
-                // skip first 3 rows (model name, line, type)
                 if (rowIndex <= 3) return;
                 const label = row.querySelector('th')?.innerText || '-';
                 const span = row.querySelector('td span.unit-value');
@@ -1012,221 +1018,189 @@ document.addEventListener('DOMContentLoaded', function () {
                 const lbftValue = span ? (span.dataset.imperial || '-') : '-';
                 specsRows.push([label, siValue, lbftValue]);
             });
-        } else {
-            specsRows.push(['-', '-', '-']);
         }
-        const specsHead = [['Specification', 'SI', 'Imperial']];
+        return specsRows;
+    }
 
-        // Warranty Info
-        const warrantyRows = [];
-        const warrantyCard = document.querySelectorAll('.coverage-card')[2];
-        if (warrantyCard) {
-            const voidedElem = warrantyCard.querySelector('.status-badge.expired, .fa-ban');
+    function getWarrantyData() {
+        const rows = [];
+        const card = document.querySelectorAll('.coverage-card')[2];
+        if (card) {
+            const voidedElem = card.querySelector('.status-badge.expired, .fa-ban');
             if (voidedElem) {
                 const status = voidedElem.textContent.trim() || '-';
-                const voidedAtElem = warrantyCard.querySelector('strong');
+                const voidedAtElem = card.querySelector('strong');
                 let voidedAt = '-';
-                if (voidedAtElem && voidedAtElem.nextSibling && voidedAtElem.nextSibling.textContent) {
+                if (voidedAtElem?.nextSibling?.textContent) {
                     voidedAt = voidedAtElem.nextSibling.textContent.trim();
                 }
-                warrantyRows.push(['Status', status]);
-                warrantyRows.push(['Voided At', voidedAt]);
+                rows.push(['Status', status]);
+                rows.push(['Voided At', voidedAt]);
             } else {
-                const purchaseDate = warrantyCard.querySelector('.fa-shopping-cart')?.parentElement?.innerText?.split(':')[1]?.trim() || '-';
-                const warrantyStart = warrantyCard.querySelector('.fa-play-circle')?.parentElement?.innerText?.split(':')[1]?.trim() || '-';
-                const warrantyEnd = warrantyCard.querySelector('.fa-calendar-check')?.parentElement?.innerText?.split(':')[1]?.trim() || '-';
-                const statusElem = warrantyCard.querySelector('.status-badge');
-                const status = statusElem ? statusElem.textContent.trim() : '-';
-                let daysRemaining = '-';
-                const daysElem = warrantyCard.querySelector('.text-muted');
-                if (daysElem) {
-                    daysRemaining = daysElem.textContent.replace(/[^0-9]/g, '').trim();
-                }
-                warrantyRows.push(['Purchase Date', purchaseDate]);
-                warrantyRows.push(['Warranty Start', warrantyStart]);
-                warrantyRows.push(['Warranty End', warrantyEnd]);
-                warrantyRows.push(['Status', status]);
-                warrantyRows.push(['Days Remaining', daysRemaining]);
+                const get = (sel) => card.querySelector(sel)?.parentElement?.innerText?.split(':')[1]?.trim() || '-';
+                const purchaseDate = get('.fa-shopping-cart');
+                const warrantyStart = get('.fa-play-circle');
+                const warrantyEnd = get('.fa-calendar-check');
+                const status = card.querySelector('.status-badge')?.textContent.trim() || '-';
+                const daysRemaining = card.querySelector('.text-muted')?.textContent.replace(/[^0-9]/g, '') || '-';
+                rows.push(['Purchase Date', purchaseDate]);
+                rows.push(['Warranty Start', warrantyStart]);
+                rows.push(['Warranty End', warrantyEnd]);
+                rows.push(['Status', status]);
+                rows.push(['Days Remaining', daysRemaining]);
             }
-        } else {
-            warrantyRows.push(['Purchase Date', '-']);
-            warrantyRows.push(['Warranty Start', '-']);
-            warrantyRows.push(['Warranty End', '-']);
-            warrantyRows.push(['Status', '-']);
-            warrantyRows.push(['Days Remaining', '-']);
         }
+        return rows;
+    }
 
-        // Owner Info
-        const ownerRows = [];
-        const ownerCard = document.querySelectorAll('.coverage-card')[1];
-        if (ownerCard) {
-            const name = ownerCard.querySelector('.fa-user')?.parentElement?.nextElementSibling?.innerText || '-';
-            const company = ownerCard.querySelector('.fa-building')?.parentElement?.nextElementSibling?.innerText || '-';
-            const country = ownerCard.querySelector('.fa-flag')?.parentElement?.nextElementSibling?.innerText || '-';
-            ownerRows.push(['Name', name]);
-            ownerRows.push(['Company', company]);
-            ownerRows.push(['Country', country]);
-        } else {
-            ownerRows.push(['Name', '-']);
-            ownerRows.push(['Company', '-']);
-            ownerRows.push(['Country', '-']);
+    function getOwnerData() {
+        const rows = [];
+        const card = document.querySelectorAll('.coverage-card')[1];
+        if (card) {
+            const get = (icon) => card.querySelector(icon)?.parentElement?.nextElementSibling?.innerText || '-';
+            rows.push(['Name', get('.fa-user')]);
+            rows.push(['Company', get('.fa-building')]);
+            rows.push(['Country', get('.fa-flag')]);
         }
+        return rows;
+    }
 
-        // Draw PDF with enhanced styling
-        const logoUrl = window.location.origin + '/images/logo2.png';
-        const drawLogo = (cb) => {
-            const img = new window.Image();
-            img.crossOrigin = 'anonymous';
-            img.onload = function () {
-                doc.addImage(img, 'PNG', pageWidth - 180, 30, 150, 100);
-                cb();
-            };
-            img.onerror = function () { cb(); };
-            img.src = logoUrl;
-        };
-
-        drawLogo(() => {
-            // Enhanced header
+    // ---------------------- IMAGE LOAD + DRAW -------------------------
+    Promise.all([
+        loadImage(window.location.origin + '/images/logo2.png'),
+        loadImage(productImgUrl)
+    ])
+        .then(([logoImg, productImg]) => {
+            // HEADER
             doc.setFillColor(0, 84, 142);
             doc.rect(0, 0, pageWidth, 140, 'F');
-            
             doc.setTextColor(255, 255, 255);
             doc.setFontSize(24);
             doc.setFont('helvetica', 'bold');
             doc.text('Equipment Coverage Report', 40, 80);
-            
             doc.setFontSize(16);
             doc.setFont('helvetica', 'normal');
             doc.text(productName, 40, 110);
-            
-            y = 160;
 
-            // Product image and info
-            if (productImgUrl) {
-                const img = new window.Image();
-                img.crossOrigin = 'anonymous';
-                img.onload = function () {
-                    doc.addImage(img, 'PNG', 40, y, 150, 120);
-                    
-                    // Product info beside image
-                    doc.setTextColor(0, 0, 0);
-                    doc.setFontSize(14);
-                    doc.setFont('helvetica', 'bold');
-                    let infoY = y + 20;
-                    doc.text('Model: ' + productName, 210, infoY);
-                    doc.text('Line: ' + productLine, 210, infoY + 30);
-                    doc.text('Type: ' + productType, 210, infoY + 60);
-                    
-                    renderTables(y + 140);
-                };
-                img.onerror = function () {
-                    renderTables(y);
-                };
-                img.src = productImgUrl;
-            } else {
-                renderTables(y);
-            }
+            // Add logo
+            doc.addImage(logoImg, 'PNG', pageWidth - 180, 30, 150, 100);
 
-            function renderTables(startY) {
-                let tableY = startY + 40;
+            let y = 160;
 
-                // Enhanced table styling
-                doc.setFontSize(16);
-                doc.setFont('helvetica', 'bold');
-                doc.setTextColor(0, 84, 142);
-                doc.text('Technical Specifications', 40, tableY);
-                
-                doc.autoTable({
-                    startY: tableY + 10,
-                    head: specsHead,
-                    body: specsRows,
-                    theme: 'grid',
-                    headStyles: { 
-                        fillColor: [0, 84, 142],
-                        textColor: [255, 255, 255],
-                        fontStyle: 'bold'
-                    },
-                    styles: { 
-                        font: 'helvetica', 
-                        fontSize: 10,
-                        cellPadding: 8
-                    },
-                    alternateRowStyles: {
-                        fillColor: [248, 250, 252]
-                    },
-                    margin: { left: 40, right: 40 }
-                });
-                
-                tableY = doc.lastAutoTable.finalY + 40;
+            // Add product image and info
+            doc.addImage(productImg, 'PNG', 40, y, 150, 120);
+            doc.setTextColor(0, 0, 0);
+            doc.setFontSize(14);
+            doc.setFont('helvetica', 'bold');
+            doc.text('Model: ' + productName, 210, y + 20);
+            doc.text('Line: ' + productLine, 210, y + 50);
+            doc.text('Type: ' + productType, 210, y + 80);
 
-                doc.setTextColor(0, 84, 142);
-                doc.text('Owner Information', 40, tableY);
-                doc.autoTable({
-                    startY: tableY + 10,
-                    head: [['Attribute', 'Value']],
-                    body: ownerRows,
-                    theme: 'grid',
-                    headStyles: { 
-                        fillColor: [0, 84, 142],
-                        textColor: [255, 255, 255],
-                        fontStyle: 'bold'
-                    },
-                    styles: { 
-                        font: 'helvetica', 
-                        fontSize: 10,
-                        cellPadding: 8
-                    },
-                    alternateRowStyles: {
-                        fillColor: [248, 250, 252]
-                    },
-                    margin: { left: 40, right: 40 }
-                });
-                
-                tableY = doc.lastAutoTable.finalY + 40;
-
-                doc.setTextColor(0, 84, 142);
-                doc.text('Warranty Information', 40, tableY);
-                doc.autoTable({
-                    startY: tableY + 10,
-
-                    body: warrantyRows,
-                    theme: 'grid',
-                    headStyles: { 
-                        fillColor: [0, 84, 142],
-                        textColor: [255, 255, 255],
-                        fontStyle: 'bold'
-                    },
-                    styles: { 
-                        font: 'helvetica', 
-                        fontSize: 10,
-                        cellPadding: 8
-                    },
-                    alternateRowStyles: {
-                        fillColor: [248, 250, 252]
-                    },
-                    margin: { left: 40, right: 40 }
-                });
-
-                // Footer
-                const pageCount = doc.internal.getNumberOfPages();
-                for (let i = 1; i <= pageCount; i++) {
-                    doc.setPage(i);
-                    doc.setFontSize(10);
-                    doc.setTextColor(128, 128, 128);
-                    doc.text('Generated on ' + new Date().toLocaleDateString(), 40, doc.internal.pageSize.getHeight() - 30);
-                    doc.text('Page ' + i + ' of ' + pageCount, pageWidth - 80, doc.internal.pageSize.getHeight() - 30);
-                }
-
-                // Reset button state
-                pdfBtn.innerHTML = '<i class="fas fa-download me-2"></i>Download PDF';
-                pdfBtn.disabled = false;
-
-                // Save with enhanced filename
-                const timestamp = new Date().toISOString().slice(0, 10);
-                doc.save(`equipment-coverage-${productLine}-${productType}-${timestamp}.pdf`);
-            }
+            // Tables
+            renderAllTables(y + 140);
+        })
+        .catch(() => {
+            renderAllTables(160);
         });
+
+    // ---------------------- RENDER ALL TABLES -------------------------
+    function renderAllTables(startY) {
+        const specsRows = extractTableData();
+        const ownerRows = getOwnerData();
+        const warrantyRows = getWarrantyData();
+
+        const tableMargin = { left: 40, right: 40 };
+        let y = startY + 40;
+
+        doc.setFontSize(16);
+        doc.setFont('helvetica', 'bold');
+        doc.setTextColor(0, 84, 142);
+        doc.text('Technical Specifications', 40, y);
+
+        doc.autoTable({
+            startY: y + 10,
+            head: [['Specification', 'SI', 'Imperial']],
+            body: specsRows,
+            theme: 'grid',
+            headStyles: {
+                fillColor: [0, 84, 142],
+                textColor: [255, 255, 255]
+            },
+            styles: {
+                font: 'helvetica',
+                fontSize: 10,
+                cellPadding: 8
+            },
+            alternateRowStyles: { fillColor: [248, 250, 252] },
+            margin: tableMargin
+        });
+
+        y = doc.lastAutoTable.finalY + 40;
+
+        doc.setTextColor(0, 84, 142);
+        doc.text('Owner Information', 40, y);
+
+        doc.autoTable({
+            startY: y + 10,
+            head: [['Attribute', 'Value']],
+            body: ownerRows,
+            theme: 'grid',
+            headStyles: {
+                fillColor: [0, 84, 142],
+                textColor: [255, 255, 255]
+            },
+            styles: {
+                font: 'helvetica',
+                fontSize: 10,
+                cellPadding: 8
+            },
+            alternateRowStyles: { fillColor: [248, 250, 252] },
+            margin: tableMargin
+        });
+
+        y = doc.lastAutoTable.finalY + 40;
+
+        doc.setTextColor(0, 84, 142);
+        doc.text('Warranty Information', 40, y);
+
+        doc.autoTable({
+            startY: y + 10,
+            head: [['Attribute', 'Value']],
+            body: warrantyRows,
+            theme: 'grid',
+            headStyles: {
+                fillColor: [0, 84, 142],
+                textColor: [255, 255, 255]
+            },
+            styles: {
+                font: 'helvetica',
+                fontSize: 10,
+                cellPadding: 8
+            },
+            alternateRowStyles: { fillColor: [248, 250, 252] },
+            margin: tableMargin
+        });
+
+        // Footer
+        const pageCount = doc.internal.getNumberOfPages();
+        for (let i = 1; i <= pageCount; i++) {
+            doc.setPage(i);
+            doc.setFontSize(10);
+            doc.setTextColor(128, 128, 128);
+            doc.text('Generated on ' + new Date().toLocaleDateString(), 40, doc.internal.pageSize.getHeight() - 30);
+            doc.text('Page ' + i + ' of ' + pageCount, pageWidth - 80, doc.internal.pageSize.getHeight() - 30);
+        }
+
+        // Finish
+        const timestamp = new Date().toISOString().slice(0, 10);
+        doc.save(`equipment-coverage-${productLine}-${productType}-${timestamp}.pdf`);
+        pdfBtn.innerHTML = '<i class="fas fa-download me-2"></i>Download PDF';
+        pdfBtn.disabled = false;
     }
+}
+
+
+
 
     // Add keyboard shortcuts
     document.addEventListener('keydown', function(e) {
