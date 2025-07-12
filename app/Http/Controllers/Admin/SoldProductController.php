@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\Owner;
 use App\Models\PendingChange;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SoldProductController extends Controller
 {
@@ -110,7 +111,7 @@ class SoldProductController extends Controller
         ]);
 
         // 🔐 Automatically assign the logged-in user
-        $validated['user_id'] = auth()->id();
+        $validated['user_id'] = Auth::id();
 
         SoldProduct::create($validated);
 
@@ -130,7 +131,7 @@ class SoldProductController extends Controller
         $owners = Owner::orderBy('name')->get();
         
         // Only include employees field for admins
-        $employees = auth()->user()->isAdmin() 
+        $employees = Auth::user()->isAdmin() 
             ? \App\Models\User::whereIn('role', ['admin', 'employee'])->orderBy('name')->get()
             : collect();
             
@@ -152,14 +153,16 @@ class SoldProductController extends Controller
         ]);
 
         // If user is an employee, create a pending change instead of directly updating
-        if (auth()->user()->isEmployee()) {
+        if (Auth::user()->isEmployee()) {
+            // Always set user_id to the currently logged-in user
+            $validated['user_id'] = Auth::id();
             PendingChange::create([
                 'model_type' => SoldProduct::class,
                 'model_id' => $soldProduct->id,
                 'action' => 'update',
                 'original_data' => $soldProduct->toArray(),
                 'new_data' => $validated,
-                'requested_by' => auth()->id(),
+                'requested_by' => Auth::id(),
             ]);
 
             return redirect()->route('admin.sold-products.index')
@@ -176,14 +179,14 @@ class SoldProductController extends Controller
     public function destroy(SoldProduct $soldProduct)
     {
         // If user is an employee, create a pending change instead of directly deleting
-        if (auth()->user()->isEmployee()) {
+        if (Auth::user()->isEmployee()) {
             PendingChange::create([
                 'model_type' => SoldProduct::class,
                 'model_id' => $soldProduct->id,
                 'action' => 'delete',
                 'original_data' => $soldProduct->toArray(),
                 'new_data' => [], // No new data for deletion
-                'requested_by' => auth()->id(),
+                'requested_by' => Auth::id(),
             ]);
 
             return redirect()->route('admin.sold-products.index')
@@ -198,13 +201,28 @@ class SoldProductController extends Controller
 
     public function voidWarranty(Request $request, SoldProduct $soldProduct)
     {
-        $user = auth()->user();
+        $user = Auth::user();
         if (!$user->isAdmin() && !$user->isEmployee()) {
             abort(403, 'Unauthorized');
         }
         $validated = $request->validate([
             'warranty_void_reason' => 'required|string|max:1000',
         ]);
+
+        if ($user->isEmployee()) {
+            // Employees submit a pending change for voiding warranty
+            PendingChange::create([
+                'model_type' => SoldProduct::class,
+                'model_id' => $soldProduct->id,
+                'action' => 'void_warranty',
+                'original_data' => $soldProduct->toArray(),
+                'new_data' => ['warranty_void_reason' => $validated['warranty_void_reason']],
+                'requested_by' => $user->id,
+            ]);
+            return back()->with('info', __('admin.changes_submitted_for_approval'));
+        }
+
+        // Admins can void directly
         $result = $soldProduct->voidWarranty($validated['warranty_void_reason'], $user);
         if ($result) {
             return back()->with('success', __('sold-products.warranty_voided_successfully'));
