@@ -1,104 +1,52 @@
 <?php
 
 return [
-    // Meta Information
-    'title' => 'Privacy Policy - SoosanEgypt',
-    'description' => 'Learn how SoosanEgypt protects your personal information and privacy',
-    
-    // Hero Section
-    'privacy_policy' => 'Privacy Policy',
-    'privacy_important' => 'Your privacy is important to us. Learn how we protect your data.',
-    'last_updated' => 'Last updated: :date',
-    
-    // Information We Collect
-    'information_we_collect' => 'Information We Collect',
-    'information_collect_description' => 'We collect information you provide directly to us, such as when you create an account, make a purchase, request support, or contact us for any reason.',
-    'types_of_information' => 'Types of information we collect:',
-    'personal_identification' => 'Personal identification information (name, email, phone number)',
-    'business_information' => 'Business information (company name, industry, location)',
-    'equipment_information' => 'Equipment information (model numbers, serial numbers, specifications)',
-    'service_requests' => 'Service and support requests',
-    'website_usage' => 'Website usage data and analytics',
-    
-    // How We Use Information
-    'how_we_use_info' => 'How We Use Your Information',
-    'use_info_description' => 'We use the information we collect to provide, maintain, and improve our services, process transactions, and communicate with you about our products and services.',
-    'process_orders' => 'Process and fulfill your orders and service requests',
-    'provide_support' => 'Provide customer support and technical assistance',
-    'send_updates' => 'Send important updates about your equipment and services',
-    'improve_products' => 'Improve our products and services based on your feedback',
-    'comply_legal' => 'Comply with legal obligations and protect our rights',
-    
-    // Information Sharing
-    'information_sharing' => 'Information Sharing',
-    'sharing_description' => 'We do not sell, trade, or otherwise transfer your personal information to third parties without your consent, except as described in this policy or as required by law.',
-    'may_share_with' => 'We may share information with:',
-    'service_providers' => 'Service providers who assist us in operating our website and services',
-    'business_partners' => 'Business partners for joint marketing or service delivery',
-    'legal_requirements' => 'Law enforcement or regulatory agencies when required by law',
-    'business_transfers' => 'In connection with business transfers or reorganization',
-    
-    // Data Security
-    'data_security' => 'Data Security',
-    'security_description' => 'We implement appropriate technical and organizational security measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction.',
-    'security_measures' => 'Our security measures include:',
-    'encryption' => 'Data encryption in transit and at rest',
-    'access_controls' => 'Strict access controls and authentication',
-    'regular_audits' => 'Regular security audits and assessments',
-    'employee_training' => 'Employee training on data protection',
-    
-    // Your Rights
-    'your_rights' => 'Your Rights',
-    'rights_description' => 'You have certain rights regarding your personal information. You may:',
-    'access_data' => 'Access and review your personal data',
-    'correct_data' => 'Request correction of inaccurate information',
-    'delete_data' => 'Request deletion of your personal data',
-    'restrict_processing' => 'Restrict or object to certain processing',
-    'data_portability' => 'Request data portability where applicable',
-    
-    // Cookies
-    'cookies' => 'Cookies and Similar Technologies',
-    'cookies_description' => 'We use cookies and similar technologies to enhance your browsing experience, analyze website traffic, and personalize content.',
-    'cookie_types' => 'Types of cookies we use:',
-    'essential_cookies' => 'Essential cookies for website functionality',
-    'analytics_cookies' => 'Analytics cookies to understand user behavior',
-    'preference_cookies' => 'Preference cookies to remember your settings',
-    'marketing_cookies' => 'Marketing cookies for personalized advertising',
-    
-    // Updates to Policy
-    'policy_updates' => 'Updates to This Policy',
-    'updates_description' => 'We may update this privacy policy from time to time. We will notify you of any changes by posting the new policy on this page and updating the "Last updated" date.',
-    
-    // Data Security (Additional keys)
-    'data_security_title' => 'Data Security',
-    'data_security_description' => 'We implement appropriate security measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction.',
-    'ssl_encryption' => 'SSL encryption for data transmission',
-    'secure_storage' => 'Secure data storage with access controls',
-    'security_audits' => 'Regular security audits and updates',
-    'employee_training_security' => 'Employee training on data protection',
-    
-    // Your Rights (Additional keys)
-    'your_rights_title' => 'Your Rights',
-    'your_rights_description' => 'You have the right to access, update, or delete your personal information. You may also opt out of certain communications from us.',
-    'access_personal_data' => 'Access your personal data we hold',
-    'request_correction' => 'Request correction of inaccurate information',
-    'request_deletion' => 'Request deletion of your personal data',
-    'opt_out_marketing' => 'Opt out of marketing communications',
-    'data_portability_right' => 'Data portability where applicable',
-    
-    // International Data Transfers
-    'international_transfers' => 'International Data Transfers',
-    'international_description' => 'As a global company, we may transfer your information to countries other than your own. We ensure appropriate safeguards are in place to protect your data.',
-    
-    // Questions Section
-    'questions_privacy' => 'Questions About Privacy?',
-    'questions_description' => 'If you have any questions about this Privacy Policy or our data practices, please contact our privacy team.',
+    /*
+    |--------------------------------------------------------------------------
+    | Privacy Policy Language Lines
+    |--------------------------------------------------------------------------
+    */
+    'questions_privacy' => 'Questions About Privacy',
+    'questions_description' => 'If you have any questions about this Privacy Policy, please contact us at:',    
     'contact_privacy_team' => 'Contact Privacy Team',
-    
-    // Contact Information
-    'contact_information' => 'Contact Information',
-    'contact_description' => 'If you have any questions about this Privacy Policy or our data practices, please contact us.',
-    'contact_us' => 'Contact Us',
-    'data_protection_officer' => 'Data Protection Officer',
-    'email_privacy' => 'Email: privacy@soosanegypt.com',
+
+    'title' => 'Privacy Policy',
+    'description' => 'At SOOSAN Egypt, we respect your privacy and are committed to protecting the personal information you share with us.',
+
+    'last_updated' => 'Effective Date: 1/8/2025',
+    'hero_title' => 'Privacy Policy',
+
+    'introduction_title' => 'Introduction',
+    'introduction_content' => 'At SOOSAN Egypt, we respect your privacy and are committed to protecting the personal information you share with us. This Privacy Policy outlines how we collect, use, and protect your information when you visit our website or interact with our services.',
+
+    'information_collection_title' => 'Information We Collect',
+    'information_collection_content' => 'We may collect the following types of information:',
+    'info_item_1' => '<strong>Personal Information</strong> (e.g., name, email address, phone number) when you fill out contact forms or request information.',
+    'info_item_2' => '<strong>Technical Data</strong> (e.g., IP address, browser type, device info) via cookies or analytics tools.',
+    'info_item_3' => '<strong>Business Information</strong> if you request product quotes or services.',
+
+    'information_usage_title' => 'How We Use Your Information',
+    'information_usage_content' => 'Your information may be used to:',
+    'usage_item_1' => 'Respond to inquiries and service requests',
+    'usage_item_2' => 'Provide product information, quotes, or updates',
+    'usage_item_3' => 'Improve our website and user experience',
+    'usage_item_4' => 'Comply with legal or regulatory requirements',
+
+    'cookies_title' => 'Cookies',
+    'cookies_content' => 'Our website may use cookies to collect browsing data. These cookies help us analyze site traffic and enhance your experience. You can disable cookies in your browser settings.',
+
+    'data_sharing_title' => 'Sharing Your Data',
+    'data_sharing_content' => 'We do not sell or rent your personal data. We may share it with trusted partners (such as SOOSAN CEBOTICS or service providers) only as necessary to fulfill your request or maintain our service standards.',
+
+    'data_security_title' => 'Data Security',
+    'data_security_content' => 'We take reasonable precautions to safeguard your data through secure servers, encryption, and access controls. However, no internet transmission is 100% secure.',
+
+    'your_rights_title' => 'Your Rights',
+    'your_rights_content' => 'You may request to access, correct, or delete your personal data by contacting us at <a href="mailto:soosaninfo@madinagp.com">soosaninfo@madinagp.com</a>.',
+
+    'contact_us_title' => 'Contact Us',
+    'contact_us_content' => 'If you have any questions about this Privacy Policy, please contact us at:',
+    'contact_us_company' => 'SOOSAN Egypt',
+    'privacy_policy' => 'Privacy Policy',
+    'privacy_important' => 'Privacy Important',
 ];

@@ -685,121 +685,107 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-10">
-                    <!-- Enhanced Updated Info -->
-                    <div class="updated-info animate-slide-in">
+                      <!-- Enhanced Updated Info -->
+                      <div class="updated-info animate-slide-in">
                         <i class="fas fa-shield-alt"></i>
                         <span>{{ __('privacy.last_updated', ['date' => date('F j, Y')]) }}</span>
                     </div>
 
-                    <!-- Information We Collect -->
-                    <div class="privacy-card animate-slide-in">
-                        <div class="section-icon">
-                            <i class="fas fa-info-circle"></i>
+                    <!-- Introduction -->
+                    <div class="card privacy-card" id="introduction">
+                        <div class="card-header">
+                            <h3><i class="fas fa-info-circle text-primary"></i> {{ __('privacy.introduction_title') }}</h3>
                         </div>
-                        <h2 class="section-title">{{ __('privacy.information_we_collect') }}</h2>
-                        <p class="privacy-text">
-                            {{ __('privacy.information_collect_description') }}
-                        </p>
-                        
-                        <div class="privacy-highlight">
-                            <h4 class="mb-3">{{ __('privacy.types_of_information') }}</h4>
-                            <ul class="privacy-list">
-                                <li>{{ __('privacy.personal_identification') }}</li>
-                                <li>{{ __('privacy.business_information') }}</li>
-                                <li>{{ __('privacy.equipment_information') }}</li>
-                                <li>{{ __('privacy.service_requests') }}</li>
-                                <li>{{ __('privacy.website_usage') }}</li>
+                        <div class="card-body">
+                            <p>{!! __('privacy.introduction_content') !!}</p>
+                        </div>
+                    </div>
+
+                    <!-- Information Collection -->
+                    <div class="card privacy-card" id="information_collection">
+                        <div class="card-header">
+                            <h3><i class="fas fa-database text-primary"></i> {{ __('privacy.information_collection_title') }}</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>{{ __('privacy.information_collection_content') }}</p>
+                            <div class="info-list">
+                                <ul>
+                                    <li><i class="fas fa-check-circle text-success"></i> {!! __('privacy.info_item_1') !!}</li>
+                                    <li><i class="fas fa-check-circle text-success"></i> {!! __('privacy.info_item_2') !!}</li>
+                                    <li><i class="fas fa-check-circle text-success"></i> {!! __('privacy.info_item_3') !!}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Information Usage -->
+                    <div class="card privacy-card" id="information_usage">
+                        <div class="card-header">
+                            <h3><i class="fas fa-cogs text-primary"></i> {{ __('privacy.information_usage_title') }}</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>{{ __('privacy.information_usage_content') }}</p>
+                            <ul>
+                                <li><i class="fas fa-check-circle text-success"></i> {{ __('privacy.usage_item_1') }}</li>
+                                <li><i class="fas fa-check-circle text-success"></i> {{ __('privacy.usage_item_2') }}</li>
+                                <li><i class="fas fa-check-circle text-success"></i> {{ __('privacy.usage_item_3') }}</li>
+                                <li><i class="fas fa-check-circle text-success"></i> {{ __('privacy.usage_item_4') }}</li>
                             </ul>
                         </div>
                     </div>
 
-                    <!-- How We Use Information -->
-                    <div class="privacy-card animate-slide-in">
-                        <div class="section-icon">
-                            <i class="fas fa-cogs"></i>
+                    <!-- Cookies -->
+                    <div class="card privacy-card" id="cookies">
+                        <div class="card-header">
+                            <h3><i class="fas fa-cookie-bite text-primary"></i> {{ __('privacy.cookies_title') }}</h3>
                         </div>
-                        <h2 class="section-title">{{ __('privacy.how_we_use_info') }}</h2>
-                        <p class="privacy-text">
-                            {{ __('privacy.use_info_description') }}
-                        </p>
-                        
-                        <ul class="privacy-list">
-                            <li>{{ __('privacy.process_orders') }}</li>
-                            <li>{{ __('privacy.provide_support') }}</li>
-                            <li>{{ __('privacy.send_updates') }}</li>
-                            <li>{{ __('privacy.improve_products') }}</li>
-                            <li>{{ __('privacy.comply_legal') }}</li>
-                        </ul>
+                        <div class="card-body">
+                            <p>{!! __('privacy.cookies_content') !!}</p>
+                        </div>
                     </div>
 
-                    <!-- Information Sharing -->
-                    <div class="privacy-card animate-slide-in">
-                        <div class="section-icon">
-                            <i class="fas fa-share-alt"></i>
+                    <!-- Data Sharing -->
+                    <div class="card privacy-card" id="data_sharing">
+                        <div class="card-header">
+                            <h3><i class="fas fa-share-alt text-primary"></i> {{ __('privacy.data_sharing_title') }}</h3>
                         </div>
-                        <h2 class="section-title">{{ __('privacy.information_sharing') }}</h2>
-                        <p class="privacy-text">
-                            {{ __('privacy.sharing_description') }}
-                        </p>
-                        
-                        <div class="privacy-highlight">
-                            <h4 class="mb-3">{{ __('privacy.may_share_with') }}</h4>
-                            <ul class="privacy-list">
-                                <li>{{ __('privacy.service_providers') }}</li>
-                                <li>{{ __('privacy.business_partners') }}</li>
-                                <li>{{ __('privacy.legal_requirements') }}</li>
-                                <li>{{ __('privacy.business_transfers') }}</li>
-                            </ul>
+                        <div class="card-body">
+                            <p>{!! __('privacy.data_sharing_content') !!}</p>
                         </div>
                     </div>
 
                     <!-- Data Security -->
-                    <div class="privacy-card animate-slide-in">
-                        <div class="section-icon">
-                            <i class="fas fa-lock"></i>
+                    <div class="card privacy-card" id="data_security">
+                        <div class="card-header">
+                            <h3><i class="fas fa-shield-alt text-primary"></i> {{ __('privacy.data_security_title') }}</h3>
                         </div>
-                        <h2 class="section-title">{{ __('privacy.data_security_title') }}</h2>
-                        <p class="privacy-text">
-                            {{ __('privacy.data_security_description') }}
-                        </p>
-                        
-                        <ul class="privacy-list">
-                            <li>{{ __('privacy.ssl_encryption') }}</li>
-                            <li>{{ __('privacy.secure_storage') }}</li>
-                            <li>{{ __('privacy.security_audits') }}</li>
-                            <li>{{ __('privacy.employee_training_security') }}</li>
-                        </ul>
+                        <div class="card-body">
+                            <p>{!! __('privacy.data_security_content') !!}</p>
+                        </div>
                     </div>
 
                     <!-- Your Rights -->
-                    <div class="privacy-card animate-slide-in">
-                        <div class="section-icon">
-                            <i class="fas fa-user-check"></i>
+                    <div class="card privacy-card" id="your_rights">
+                        <div class="card-header">
+                            <h3><i class="fas fa-user-shield text-primary"></i> {{ __('privacy.your_rights_title') }}</h3>
                         </div>
-                        <h2 class="section-title">{{ __('privacy.your_rights_title') }}</h2>
-                        <p class="privacy-text">
-                            {{ __('privacy.your_rights_description') }}
-                        </p>
-                        
-                        <ul class="privacy-list">
-                            <li>{{ __('privacy.access_personal_data') }}</li>
-                            <li>{{ __('privacy.request_correction') }}</li>
-                            <li>{{ __('privacy.request_deletion') }}</li>
-                            <li>{{ __('privacy.opt_out_marketing') }}</li>
-                            <li>{{ __('privacy.data_portability_right') }}</li>
-                        </ul>
+                        <div class="card-body">
+                            <p>{!! __('privacy.your_rights_content') !!}</p>
+                        </div>
                     </div>
 
-                    <!-- International Transfers -->
-                    <div class="privacy-card animate-slide-in">
-                        <div class="section-icon">
-                            <i class="fas fa-globe"></i>
+                    <!-- Contact Us -->
+                    <div class="card privacy-card" id="contact_us">
+                        <div class="card-header">
+                            <h3><i class="fas fa-envelope text-primary"></i> {{ __('privacy.contact_us_title') }}</h3>
                         </div>
-                        <h2 class="section-title">{{ __('privacy.international_transfers') }}</h2>
-                        <p class="privacy-text">
-                            {{ __('privacy.international_description') }}
-                        </p>
+                        <div class="card-body">
+                            <p>{{ __('privacy.contact_us_content') }}</p>
+                            <p><strong>{{ __('privacy.contact_us_company') }}</strong></p>
+                        </div>
                     </div>
+
+                  
 
                     <!-- Enhanced Contact Section -->
                     <div class="contact-section animate-slide-in">

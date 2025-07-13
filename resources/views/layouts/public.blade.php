@@ -149,6 +149,7 @@
                     <p class="text-light small mb-3">{{ __('common.footer_description') }}</p>
                     <div class="d-flex gap-3">
                         <!-- Social links placeholder -->
+                        
                     </div>
                 </div>
 
@@ -194,8 +195,12 @@
             <div class="text-center">
                 <p class="text-light small mb-0">&copy; {{ date('Y') }} SoosanEgypt.
                     {{ __('common.copyright') }}</p>
+                    
             </div>
+            <p class="text-light small mb-0">Powered By <a href="https://almadinacontracting.com/" target="_blank" rel="noopener noreferrer">Al Madina Contracting Company</a></p>  
         </div>
+        <img src="{{ asset('images/products/madina.png') }}" alt="Logo" class="img-fluid" style="width: 100px; height: 100px; object-fit: cover;">
+
     </footer>
 
     <!-- Scripts -->

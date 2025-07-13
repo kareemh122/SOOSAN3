@@ -688,71 +688,68 @@
     <!-- Scroll Progress Indicator -->
     <div class="scroll-progress" id="scrollProgress"></div>
 
-    <!-- Enhanced Hero Section -->
-    <section class="terms-hero">
-        <div class="container">
-            <div class="terms-content animate-fade-in">
-                <h1 class="display-4 fw-bold mb-3">{{ __('terms.terms_of_service') }}</h1>
-                <p class="lead">{{ __('terms.please_read_carefully') }}</p>
-            </div>
+    <!-- Hero Section -->
+    <header class="terms-hero">
+        <div class="terms-content">
+            <h1 class="animate-slide-in">{{ __('terms.hero_title') }}</h1>
         </div>
-    </section>
+    </header>
 
-    <!-- Enhanced Terms Content Section -->
-    <section class="terms-section">
+    <!-- Main Terms Section -->
+    <main class="terms-section">
         <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-10">
+            <div class="row">
+                <div class="col-lg-10 mx-auto">
+
                     <!-- Enhanced Updated Info -->
                     <div class="updated-info animate-slide-in">
                         <i class="fas fa-calendar-alt"></i>
-                        <span>{{ __('terms.last_updated', ['date' => date('F j, Y')]) }}</span>
+                        <span>{{ __('terms.last_updated', ['date' => '1/8/2025']) }}</span>
                     </div>
 
-                    <!-- Acceptance of Terms -->
+                    <!-- Welcome -->
                     <div class="terms-card animate-slide-in">
                         <div class="section-icon">
                             <i class="fas fa-handshake"></i>
                         </div>
-                        <h2 class="section-title">{{ __('terms.acceptance_of_terms') }}</h2>
-                        <p class="terms-text">
-                            {{ __('terms.acceptance_description_1') }}
-                        </p>
-                        <p class="terms-text">
-                            {{ __('terms.acceptance_description_2') }}
-                        </p>
+                        <h2 class="section-title">{{ __('terms.welcome_title') }}</h2>
+                        <p class="terms-text">{!! __('terms.welcome_content') !!}</p>
                     </div>
 
-                    <!-- Use License -->
+                    <!-- Use of Website -->
                     <div class="terms-card animate-slide-in">
                         <div class="section-icon">
-                            <i class="fas fa-certificate"></i>
+                            <i class="fas fa-laptop-code"></i>
                         </div>
-                        <h2 class="section-title">{{ __('terms.use_license') }}</h2>
-                        <p class="terms-text">
-                            {{ __('terms.use_license_description') }}
-                        </p>
-                        
-                        <div class="terms-highlight">
-                            <h4 class="mb-3">{{ __('terms.prohibited_uses') }}</h4>
-                            <ul class="terms-list">
-                                <li>{{ __('terms.modify_or_copy') }}</li>
-                                <li>{{ __('terms.use_for_commercial') }}</li>
-                                <li>{{ __('terms.attempt_decompile') }}</li>
-                                <li>{{ __('terms.remove_copyright') }}</li>
-                            </ul>
+                        <h2 class="section-title">{{ __('terms.use_of_website_title') }}</h2>
+                        <p class="terms-text">{{ __('terms.use_of_website_content') }}</p>
+                    </div>
+
+                    <!-- Intellectual Property -->
+                    <div class="terms-card animate-slide-in">
+                        <div class="section-icon">
+                            <i class="fas fa-copyright"></i>
                         </div>
+                        <h2 class="section-title">{{ __('terms.intellectual_property_title') }}</h2>
+                        <p class="terms-text">{{ __('terms.intellectual_property_content') }}</p>
                     </div>
 
                     <!-- Product Information -->
                     <div class="terms-card animate-slide-in">
                         <div class="section-icon">
-                            <i class="fas fa-info-circle"></i>
+                            <i class="fas fa-box-open"></i>
                         </div>
-                        <h2 class="section-title">{{ __('terms.product_information') }}</h2>
-                        <p class="terms-text">
-                            {{ __('terms.product_info_description') }}
-                        </p>
+                        <h2 class="section-title">{{ __('terms.product_information_title') }}</h2>
+                        <p class="terms-text">{{ __('terms.product_information_content') }}</p>
+                    </div>
+
+                    <!-- External Links -->
+                    <div class="terms-card animate-slide-in">
+                        <div class="section-icon">
+                            <i class="fas fa-external-link-alt"></i>
+                        </div>
+                        <h2 class="section-title">{{ __('terms.external_links_title') }}</h2>
+                        <p class="terms-text">{!! __('terms.external_links_content') !!}</p>
                     </div>
 
                     <!-- Disclaimer -->
@@ -760,51 +757,43 @@
                         <div class="section-icon">
                             <i class="fas fa-exclamation-triangle"></i>
                         </div>
-                        <h2 class="section-title">{{ __('terms.disclaimer') }}</h2>
-                        <p class="terms-text">
-                            {{ __('terms.disclaimer_description') }}
-                        </p>
+                        <h2 class="section-title">{{ __('terms.disclaimer_title') }}</h2>
+                        <p class="terms-text">{{ __('terms.disclaimer_content') }}</p>
                     </div>
 
-                    <!-- Limitations -->
+                    <!-- Limitation of Liability -->
                     <div class="terms-card animate-slide-in">
                         <div class="section-icon">
-                            <i class="fas fa-shield-alt"></i>
+                            <i class="fas fa-ban"></i>
                         </div>
-                        <h2 class="section-title">{{ __('terms.limitations') }}</h2>
-                        <p class="terms-text">
-                            {{ __('terms.limitations_description') }}
-                        </p>
+                        <h2 class="section-title">{{ __('terms.limitation_of_liability_title') }}</h2>
+                        <p class="terms-text">{{ __('terms.limitation_of_liability_content') }}</p>
                     </div>
 
-                    <!-- Governing Law -->
+                    <!-- Changes to Terms -->
                     <div class="terms-card animate-slide-in">
                         <div class="section-icon">
                             <i class="fas fa-gavel"></i>
                         </div>
-                        <h2 class="section-title">{{ __('terms.governing_law') }}</h2>
-                        <p class="terms-text">
-                            {{ __('terms.governing_law_description') }}
-                        </p>
-                    </div>
+                        <div class="term-card">
+                            <h2 class="term-title"><i class="fas fa-gavel text-muted"></i> {{ __('terms.changes_to_terms_title') }}</h2>
+                            <p>{{ __('terms.changes_to_terms_content') }}</p>
+                        </div>
 
-                    <!-- Enhanced Contact Section -->
-                    <div class="contact-section animate-slide-in">
-                        <div class="contact-content">
-                            <h3 class="mb-3">{{ __('terms.have_questions') }}</h3>
-                            <p class="mb-0">
-                                {{ __('terms.contact_description') }}
-                            </p>
-                            <a href="{{ route('contact') }}" class="cta-button">
-                                <i class="fas fa-envelope"></i>
-                                {{ __('terms.contact_us') }}
+                        <div class="term-card contact-section">
+                            <h2 class="term-title"><i class="fas fa-envelope-open-text text-primary"></i> {{ __('terms.contact_title') }}</h2>
+                            <p>{{ __('terms.contact_description') }}</p>
+                            <a href="{{ route('contact') }}" class="btn btn-primary btn-lg mt-3">
+                                <i class="fas fa-paper-plane"></i> {{ __('terms.contact_button') }}
                             </a>
                         </div>
+
                     </div>
+
                 </div>
             </div>
         </div>
-    </section>
+    </main>
 @endsection
 
 @push('scripts')
