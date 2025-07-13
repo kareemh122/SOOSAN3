@@ -6,12 +6,13 @@
 <style>
     .modern-page-header {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        padding: 3rem 0;
-        margin: -2rem -2rem 2rem;
-        border-radius: 0 0 1rem 1rem;
+        color: #ffffff;
+        padding: 2rem 1.5rem;
+        margin: -1rem -1rem 2rem;
+        border-radius: 0 0 24px 24px;
         position: relative;
         overflow: hidden;
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
     }
     .modern-page-header::before {
         content: '';

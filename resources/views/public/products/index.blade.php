@@ -8,7 +8,7 @@
         <div class="row">
             <div class="col-12">
                 <h1 class="products-heading text-start text-center text-md-start" style="font-size: clamp(2rem, 5vw, 3.3rem); font-weight: 700; margin-bottom: 0.3rem;">
-                    Hydraulic Breakers
+                    {{ __('common.products_title') }}
                 </h1>
             </div>
         </div>
@@ -297,18 +297,18 @@
             flex: 0 0 100%;
             max-width: 100%;
         }
-        
+
         .product-card {
             width: 100% !important;
             max-width: 350px;
             margin: 0 auto;
         }
-        
+
         .unit-toggle-btn {
             padding: 0.5rem 0.75rem;
             font-size: 0.8rem;
         }
-        
+
         .search-btn .d-none {
             display: none !important;
         }
@@ -319,7 +319,7 @@
             padding: 0.5rem 0.75rem;
             font-size: 0.875rem;
         }
-        
+
         .sort-dropdown .dropdown-toggle .d-none {
             display: none !important;
         }
@@ -364,11 +364,11 @@
                 <form id="mainSearchForm" method="GET" action="{{ route('products.index') }}" autocomplete="off">
                     <div class="input-group shadow-sm rounded-pill" style="background: #fff;">
                         <input type="hidden" name="unit" value="{{ $unit }}">
-                        <input type="text" name="search" id="search" 
-                               class="form-control border-0 rounded-start-pill px-4 py-3" 
-                               maxlength="100" 
-                               value="{{ old('search', e($search ?? '')) }}" 
-                               placeholder="Search by model, type, line, or specs..." 
+                        <input type="text" name="search" id="search"
+                               class="form-control border-0 rounded-start-pill px-4 py-3"
+                               maxlength="100"
+                               value="{{ old('search', e($search ?? '')) }}"
+                               placeholder="Search by model, type, line, or specs..."
                                style="font-size: 1.3rem; background: #fff;">
                         <button class="btn search-btn rounded-end-pill px-3 px-md-4 d-flex align-items-center" type="submit">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="white" viewBox="0 0 16 16" class="me-md-2">
@@ -382,6 +382,9 @@
 
         <!-- Controls Row -->
         <div class="row align-items-center justify-content-between mb-4">
+                <div class="mb-3" id="productsCount" style="margin-left:50%;">
+                    <h5 class="fw-semibold" style="color: #00548e; margin-top: 15px; font-size: 23px;">Total {{ $products->total() }} Products</h5>
+                </div>
             <div class="col-12 col-md-auto mb-3 mb-md-0">
                 <div class="d-flex align-items-center gap-3">
                     <!-- Unit Toggle -->
@@ -395,7 +398,7 @@
                             <span class="d-inline d-sm-none">IMP</span>
                         </button>
                     </div>
-                    
+
                     <!-- Mobile Filter Toggle -->
                     <button type="button" class="mobile-filter-toggle d-lg-none" id="mobileFilterBtn">
                         <i class="fas fa-filter"></i>
@@ -403,10 +406,10 @@
                     </button>
                 </div>
             </div>
-            
+
             <div class="col-12 col-md-auto">
                 <div class="dropdown sort-dropdown">
-                    <button class="btn btn-outline-primary dropdown-toggle d-flex align-items-center gap-2" 
+                    <button class="btn btn-outline-primary dropdown-toggle d-flex align-items-center gap-2"
                             type="button" id="sortDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fas fa-sort"></i>
                         <span id="sortLabel" class="d-none d-md-inline">
@@ -450,26 +453,26 @@
                 <form id="filterForm" method="GET" action="{{ route('products.index') }}">
                     <input type="hidden" name="unit" id="unitInput" value="{{ $unit }}">
                     <input type="hidden" name="sort" id="sortInput" value="{{ $sort ?? 'none' }}">
-                    
+
                     <div class="card shadow-sm border-0 filter-sidebar">
                         <div class="card-body p-4">
                             <div class="d-flex justify-content-between align-items-center mb-4">
                                 <h5 class="fw-bold mb-0">
                                     <i class="fas fa-filter me-2"></i>{{ __('common.filter') }}
                                 </h5>
-                                <button type="button" id="resetFiltersBtn" 
-                                        class="btn btn-link p-0 m-0" 
-                                        title="{{ __('common.reset_filters') }}" 
+                                <button type="button" id="resetFiltersBtn"
+                                        class="btn btn-link p-0 m-0"
+                                        title="{{ __('common.reset_filters') }}"
                                         style="color: var(--primary-blue); font-size: 1.2rem;">
                                     <i class="fas fa-rotate-right"></i>
                                 </button>
                             </div>
-                            
+
                             @foreach ([
-                                [__('common.line'), $lines, 'line'], 
-                                [__('common.type'), $types, 'type'], 
-                                [__('common.operating_weight'), $operating_weights, 'operating_weight'], 
-                                [__('common.required_oil_flow'), $required_oil_flows, 'required_oil_flow'], 
+                                [__('common.line'), $lines, 'line'],
+                                [__('common.type'), $types, 'type'],
+                                [__('common.operating_weight'), $operating_weights, 'operating_weight'],
+                                [__('common.required_oil_flow'), $required_oil_flows, 'required_oil_flow'],
                                 [__('common.applicable_carrier'), $applicable_carriers, 'applicable_carrier']
                             ] as $i => [$label, $options, $name])
                                 <div class="filter-category mb-3">
@@ -480,11 +483,11 @@
                                     <div id="filter-{{ $name }}" class="filter-options">
                                         @foreach ($options as $option)
                                             <div class="form-check mb-2">
-                                                <input class="form-check-input filter-checkbox" 
-                                                       type="checkbox" 
-                                                       name="{{ $name }}[]" 
-                                                       value="{{ $option }}" 
-                                                       id="{{ $name }}-{{ $option }}" 
+                                                <input class="form-check-input filter-checkbox"
+                                                       type="checkbox"
+                                                       name="{{ $name }}[]"
+                                                       value="{{ $option }}"
+                                                       id="{{ $name }}-{{ $option }}"
                                                        {{ in_array($option, (array)request($name, [])) ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="{{ $name }}-{{ $option }}">
                                                     {{ $option }}
@@ -513,18 +516,18 @@
                                         <div class="card h-100 product-card" style="min-height: 340px; max-width: 350px; margin: 0 auto;">
                                             @if (!empty($product->image_url))
                                                 <div style="background: #fff; display: flex; align-items: center; justify-content: center; height: 200px; position: relative;">
-                                                    <img src="{{ $product->image_url }}" 
-                                                         alt="{{ $product->model_name }}" 
-                                                         class="card-img-top" 
-                                                         style="max-height: 180px; max-width: 100%; object-fit: contain; width: auto; height: auto;" 
+                                                    <img src="{{ $product->image_url }}"
+                                                         alt="{{ $product->model_name }}"
+                                                         class="card-img-top"
+                                                         style="max-height: 180px; max-width: 100%; object-fit: contain; width: auto; height: auto;"
                                                          loading="lazy">
                                                 </div>
                                             @elseif (method_exists($product, 'getFirstMediaUrl'))
                                                 <div style="background: #fff; display: flex; align-items: center; justify-content: center; height: 200px; position: relative;">
-                                                    <img src="{{ $product->getFirstMediaUrl('images') }}" 
-                                                         alt="{{ $product->model_name }}" 
-                                                         class="card-img-top" 
-                                                         style="max-height: 180px; max-width: 100%; object-fit: contain; width: auto; height: auto;" 
+                                                    <img src="{{ $product->getFirstMediaUrl('images') }}"
+                                                         alt="{{ $product->model_name }}"
+                                                         class="card-img-top"
+                                                         style="max-height: 180px; max-width: 100%; object-fit: contain; width: auto; height: auto;"
                                                          loading="lazy">
                                                 </div>
                                             @else
@@ -532,31 +535,31 @@
                                                     <i class="fas fa-image text-muted" style="font-size: 2rem;"></i>
                                                 </div>
                                             @endif
-                                            
+
                                             <div class="card-body p-3">
                                                 <h5 class="card-title mb-3" style="font-size: 1.5rem;; font-weight: 600;">
                                                     {{ $product->model_name }}
                                                 </h5>
                                                 <ul class="list-unstyled mb-0">
                                                     <li class="attribute-row">
-                                                        <span class="attribute-label">{{ __('common.operating_weight') }}:</span> 
+                                                        <span class="attribute-label">{{ __('common.operating_weight') }}:</span>
                                                         <span class="attribute-value unit-operating-weight" data-lb="{{ $product->operating_weight }}">
                                                             {{ $product->operating_weight }} {{ __('common.unit_lb') }}
                                                         </span>
                                                     </li>
                                                     <li class="attribute-row">
-                                                        <span class="attribute-label">{{ __('common.required_oil_flow') }}:</span> 
+                                                        <span class="attribute-label">{{ __('common.required_oil_flow') }}:</span>
                                                         <span class="attribute-value">{{ $product->required_oil_flow }} {{ __('common.unit_gal_min') }}</span>
                                                     </li>
                                                     <li class="attribute-row">
-                                                        <span class="attribute-label">{{ __('common.applicable_carrier') }}:</span> 
+                                                        <span class="attribute-label">{{ __('common.applicable_carrier') }}:</span>
                                                         <span class="attribute-value unit-carrier" data-lb="{{ $product->applicable_carrier }}">
                                                             {{ $product->applicable_carrier }} {{ __('common.unit_lb') }}
                                                         </span>
                                                     </li>
                                                 </ul>
                                             </div>
-                                            
+
                                             <button class="copy-link-btn" data-url="{{ route('products.show', $product->id) }}">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="white" viewBox="0 0 16 16">
                                                     <path d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H6z"/>
@@ -568,7 +571,7 @@
                                 </div>
                             @endforeach
                         </div>
-                        
+
                         <!-- Pagination -->
                         <div class="mb-4">
                             <div class="text-center text-muted small mb-3">
@@ -593,7 +596,7 @@
                         </div>
                     @endif
                 </div>
-                
+
                 <div id="productsLoading" class="text-center py-5" style="display: none;">
                     <div class="spinner-border spinner-border-primary" role="status">
                         <span class="visually-hidden">{{ __('common.loading') }}</span>
@@ -617,26 +620,26 @@
             <i class="fas fa-times" style="font-size: 1.25rem;"></i>
         </button>
     </div>
-    
+
     <div class="p-4">
         <form id="mobileFilterForm" method="GET" action="{{ route('products.index') }}">
             <input type="hidden" name="unit" value="{{ $unit }}">
             <input type="hidden" name="sort" value="{{ $sort ?? 'none' }}">
-            
+
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <span class="fw-semibold">Active Filters</span>
-                <button type="button" id="resetMobileFiltersBtn" 
-                        class="btn btn-link p-0 m-0" 
+                <button type="button" id="resetMobileFiltersBtn"
+                        class="btn btn-link p-0 m-0"
                         style="color: var(--primary-blue);">
                     <i class="fas fa-rotate-right"></i> Reset
                 </button>
             </div>
-            
+
             @foreach ([
-                [__('common.line'), $lines, 'line'], 
-                [__('common.type'), $types, 'type'], 
-                [__('common.operating_weight'), $operating_weights, 'operating_weight'], 
-                [__('common.required_oil_flow'), $required_oil_flows, 'required_oil_flow'], 
+                [__('common.line'), $lines, 'line'],
+                [__('common.type'), $types, 'type'],
+                [__('common.operating_weight'), $operating_weights, 'operating_weight'],
+                [__('common.required_oil_flow'), $required_oil_flows, 'required_oil_flow'],
                 [__('common.applicable_carrier'), $applicable_carriers, 'applicable_carrier']
             ] as $i => [$label, $options, $name])
                 <div class="filter-category mb-4">
@@ -647,11 +650,11 @@
                     <div id="mobile-filter-{{ $name }}" class="filter-options">
                         @foreach ($options as $option)
                             <div class="form-check mb-2">
-                                <input class="form-check-input mobile-filter-checkbox" 
-                                       type="checkbox" 
-                                       name="{{ $name }}[]" 
-                                       value="{{ $option }}" 
-                                       id="mobile-{{ $name }}-{{ $option }}" 
+                                <input class="form-check-input mobile-filter-checkbox"
+                                       type="checkbox"
+                                       name="{{ $name }}[]"
+                                       value="{{ $option }}"
+                                       id="mobile-{{ $name }}-{{ $option }}"
                                        {{ in_array($option, (array)request($name, [])) ? 'checked' : '' }}>
                                 <label class="form-check-label" for="mobile-{{ $name }}-{{ $option }}">
                                     {{ $option }}
@@ -664,7 +667,7 @@
                     <hr class="my-3" style="border-top: 1px solid var(--border-color); opacity: 0.5;">
                 @endif
             @endforeach
-            
+
             <div class="d-grid gap-2 mt-4">
                 <button type="submit" class="btn btn-primary" style="background: var(--primary-blue); border-color: var(--primary-blue);">
                     Apply Filters
@@ -687,7 +690,7 @@
         bar.style.display = 'block';
         setTimeout(function() { bar.style.width = '60%'; }, 50);
     }
-    
+
     function finishProgressBar() {
         var bar = document.getElementById('pageProgressBar');
         if (!bar) return;
@@ -732,14 +735,14 @@
             mobileForm.addEventListener('submit', function(e) {
                 e.preventDefault();
                 closeMobileFilterFunc();
-                
+
                 // Copy mobile filter values to desktop form
                 const desktopForm = document.getElementById('filterForm');
                 const mobileCheckboxes = mobileForm.querySelectorAll('.mobile-filter-checkbox');
-                
+
                 // Clear desktop filters first
                 desktopForm.querySelectorAll('.filter-checkbox').forEach(cb => cb.checked = false);
-                
+
                 // Apply mobile selections to desktop
                 mobileCheckboxes.forEach(mobileCb => {
                     if (mobileCb.checked) {
@@ -751,7 +754,7 @@
                         }
                     }
                 });
-                
+
                 // Trigger desktop form submission
                 desktopForm.dispatchEvent(new Event('submit'));
             });
@@ -766,7 +769,7 @@
             startProgressBar();
             productsGrid.style.display = 'none';
             productsLoading.style.display = 'block';
-            
+
             fetch(url + (formData ? ('?' + formData) : ''), {
                 headers: { 'X-Requested-With': 'XMLHttpRequest', 'Accept': 'text/html' },
                 credentials: 'same-origin',
@@ -780,22 +783,26 @@
                 const parser = new DOMParser();
                 const doc = parser.parseFromString(html, 'text/html');
                 const newGrid = doc.getElementById('productsGrid');
-                
+                const newCount = doc.getElementById('productsCount');
+
                 if (newGrid) {
                     productsGrid.innerHTML = newGrid.innerHTML;
                 }
-                
+                if (newCount) {
+                    document.getElementById('productsCount').innerHTML = newCount.innerHTML;
+                }
+
                 productsGrid.style.display = '';
                 productsLoading.style.display = 'none';
                 finishProgressBar();
                 convertUnits && convertUnits();
-                
+
                 if (window.history && window.history.pushState) {
                     let urlBase = url.split('?')[0];
                     let newUrl = urlBase + (formData ? ('?' + formData) : '');
                     window.history.pushState({}, '', newUrl);
                 }
-                
+
                 afterAjaxUpdate && afterAjaxUpdate();
             })
             .catch(() => {
@@ -809,7 +816,7 @@
         const siBtn = document.getElementById('siBtn');
         const imperialBtn = document.getElementById('imperialBtn');
         const unitInput = document.getElementById('unitInput');
-        
+
         if (siBtn) {
             siBtn.addEventListener('click', function() {
                 unitInput.value = 'si';
@@ -818,7 +825,7 @@
                 convertUnits();
             });
         }
-        
+
         if (imperialBtn) {
             imperialBtn.addEventListener('click', function() {
                 unitInput.value = 'imperial';
@@ -887,7 +894,7 @@
         // Unit conversion
         function convertUnits() {
             const isImperial = document.getElementById('imperialBtn')?.classList.contains('active');
-            
+
             document.querySelectorAll('.unit-operating-weight').forEach(function(el) {
                 const lb = parseFloat(el.dataset.lb);
                 if (!isNaN(lb)) {
@@ -896,15 +903,15 @@
                     el.textContent = isImperial ? '- lb' : '- kg';
                 }
             });
-            
+
             document.querySelectorAll('.unit-oil-flow').forEach(function(el) {
                 const galmin = el.dataset.galmin?.split('~') || [];
                 if (galmin.length === 2) {
                     const min = parseFloat(galmin[0]);
                     const max = parseFloat(galmin[1]);
                     if (!isNaN(min) && !isNaN(max)) {
-                        el.textContent = isImperial ? 
-                            min.toFixed(1) + '~' + max.toFixed(1) + ' gal/min' : 
+                        el.textContent = isImperial ?
+                            min.toFixed(1) + '~' + max.toFixed(1) + ' gal/min' :
                             (min * 3.78541).toFixed(1) + '~' + (max * 3.78541).toFixed(1) + ' l/min';
                     } else {
                         el.textContent = isImperial ? '- gal/min' : '- l/min';
@@ -918,15 +925,15 @@
                     }
                 }
             });
-            
+
             document.querySelectorAll('.unit-carrier').forEach(function(el) {
                 const lb = el.dataset.lb?.split('~') || [];
                 if (lb.length === 2) {
                     const min = parseFloat(lb[0]);
                     const max = parseFloat(lb[1]);
                     if (!isNaN(min) && !isNaN(max)) {
-                        el.textContent = isImperial ? 
-                            min.toLocaleString(undefined, { maximumFractionDigits: 1 }) + '~' + max.toLocaleString(undefined, { maximumFractionDigits: 1 }) + ' lb' : 
+                        el.textContent = isImperial ?
+                            min.toLocaleString(undefined, { maximumFractionDigits: 1 }) + '~' + max.toLocaleString(undefined, { maximumFractionDigits: 1 }) + ' lb' :
                             (min * 0.000453592).toFixed(1) + '~' + (max * 0.000453592).toFixed(1) + ' ton';
                     } else {
                         el.textContent = isImperial ? '- lb' : '- ton';
@@ -934,8 +941,8 @@
                 } else if (lb.length === 1) {
                     const val = parseFloat(lb[0]);
                     if (!isNaN(val)) {
-                        el.textContent = isImperial ? 
-                            val.toLocaleString(undefined, { maximumFractionDigits: 1 }) + ' lb' : 
+                        el.textContent = isImperial ?
+                            val.toLocaleString(undefined, { maximumFractionDigits: 1 }) + ' lb' :
                             (val * 0.000453592).toFixed(1) + ' ton';
                     } else {
                         el.textContent = isImperial ? '- lb' : '- ton';
@@ -960,11 +967,11 @@
         // Filter reset functionality
         const resetFiltersBtn = document.getElementById('resetFiltersBtn');
         const resetMobileFiltersBtn = document.getElementById('resetMobileFiltersBtn');
-        
+
         function resetFilters() {
             filterForm?.querySelectorAll('.filter-checkbox').forEach(cb => { cb.checked = false; });
             mobileForm?.querySelectorAll('.mobile-filter-checkbox').forEach(cb => { cb.checked = false; });
-            
+
             const params = new URLSearchParams();
             params.append('unit', unitInput?.value || 'imperial');
             if (filterForm) {
@@ -1050,20 +1057,20 @@
                 if (filterForm) {
                     const filterFormData = new FormData(filterForm);
                     const searchFormData = new FormData(mainSearchForm);
-                    
+
                     for (const [key, value] of searchFormData.entries()) {
                         if (!filterFormData.has(key)) {
                             filterFormData.append(key, value);
                         }
                     }
-                    
+
                     filterFormData.set('sort', sortValue);
-                    
+
                     const params = new URLSearchParams();
                     for (const pair of filterFormData.entries()) {
                         params.append(pair[0], pair[1]);
                     }
-                    
+
                     const urlBase = filterForm.action;
                     const newUrl = urlBase + (params.toString() ? ('?' + params.toString()) : '');
                     window.location = newUrl;
@@ -1079,7 +1086,7 @@
             btn.addEventListener('click', function (e) {
                 e.preventDefault();
                 e.stopPropagation();
-                
+
                 const url = this.getAttribute('data-url');
                 navigator.clipboard.writeText(url).then(() => {
                     copyToast?.classList.add('active');
@@ -1096,13 +1103,13 @@
         function afterAjaxUpdate() {
             expandAllFilterCategories();
             convertUnits();
-            
+
             // Re-attach copy link event listeners
             document.querySelectorAll('.copy-link-btn').forEach(btn => {
                 btn.addEventListener('click', function (e) {
                     e.preventDefault();
                     e.stopPropagation();
-                    
+
                     const url = this.getAttribute('data-url');
                     navigator.clipboard.writeText(url).then(() => {
                         copyToast?.classList.add('active');

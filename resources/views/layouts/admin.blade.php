@@ -82,9 +82,8 @@
             top: 0;
             left: var(--sidebar-width);
             right: 0;
-            z-index: 1000;
-            overflow-x: auto;
-            overflow-y: visible;
+            z-index: 1055;
+            overflow: visible;
             box-sizing: border-box;
         }
 
@@ -304,6 +303,10 @@
 
         /* Notification Bell Button Styling */
         .notification-bell-btn {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background-color: #eee;
             transition: transform 0.2s;
         }
 
@@ -438,6 +441,17 @@
             .admin-sidebar.show {
                 transform: translateX(0);
             }
+        }
+        /* Ensure dropdowns and menus render above navbar */
+        .dropdown-menu, .dropdown-menu.show {
+            z-index: 2000 !important;
+        }
+        .notification-dropdown-content {
+            z-index: 2001 !important;
+        }
+        /* Prevent horizontal scroll on navbar */
+        html, body {
+            overflow-x: hidden;
         }
     </style>
 
@@ -620,7 +634,7 @@
                         <!-- Notifications -->
                         <div class="dropdown">
                             <button
-                                class="btn btn-sm position-relative bg-white border-0 shadow-none notification-bell-btn"
+                                class="btn btn-sm position-relative bg border-0 shadow-none notification-bell-btn"
                                 type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fas fa-bell fs-5 text-secondary"></i>
                                 <span

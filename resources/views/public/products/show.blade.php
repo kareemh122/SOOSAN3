@@ -586,21 +586,21 @@
         grid-template-columns: repeat(3, 1fr);
         gap: 0.75rem;
     }
-    
+
     .action-buttons {
         grid-template-columns: 1fr;
         gap: 0.75rem;
     }
-    
+
     .carousel-arrow {
         width: 40px;
         height: 40px;
     }
-    
+
     .carousel-arrow.prev {
         left: -20px;
     }
-    
+
     .carousel-arrow.next {
         right: -20px;
     }
@@ -610,39 +610,39 @@
     .product-container {
         padding: 1rem 0;
     }
-    
+
     .product-title {
         font-size: 2rem;
     }
-    
+
     .specs-grid {
         grid-template-columns: 1fr;
         gap: 1rem;
     }
-    
+
     .specifications-header {
         flex-direction: column;
         gap: 1rem;
         align-items: stretch;
     }
-    
+
     .specifications-table th,
     .specifications-table td {
         padding: 0.75rem;
     }
-    
+
     .carousel-container {
         padding: 0.5rem;
     }
-    
+
     .carousel-product-card {
         flex: 0 0 280px;
     }
-    
+
     .carousel-arrow {
         display: none;
     }
-    
+
     .copy-toast {
         bottom: 1rem;
         right: 1rem;
@@ -655,16 +655,16 @@
     .product-title {
         font-size: 1.75rem;
     }
-    
+
     .specifications-section,
     .similar-products-section {
         padding: 1rem;
     }
-    
+
     .carousel-product-card {
         flex: 0 0 240px;
     }
-    
+
     .unit-toggle .btn {
         padding: 0.5rem 1rem;
         font-size: 0.875rem;
@@ -724,7 +724,7 @@
                 <div class="product-badge">
                     {{ $product->category->name ?? __('common.product_category') }}
                 </div>
-                
+
                 <h1 class="product-title">{{ $product->model_name }}</h1>
 
                 <!-- Quick Specs Grid -->
@@ -740,7 +740,7 @@
                         </div>
                         <div class="spec-label">{{ __('common.operating_weight') }}</div>
                     </div>
-                    
+
                     <div class="spec-card">
                         <div class="spec-value">
                             @php
@@ -763,7 +763,7 @@
                         </div>
                         <div class="spec-label">{{ __('common.required_oil_flow') }}</div>
                     </div>
-                    
+
                     <div class="spec-card">
                         <div class="spec-value">
                             @php
@@ -792,15 +792,15 @@
                 <div class="action-buttons">
                     <button type="button" class="action-btn btn-share" id="shareBtn">
                         <i class="fas fa-share-alt"></i>
-                        Share
+                        {{ __('common.copy_link') }}
                     </button>
                     <button type="button" class="action-btn btn-pdf" id="pdfBtn">
                         <i class="fas fa-download"></i>
-                        Download PDF
+                        {{ __('common.download_pdf') }}
                     </button>
                     <button type="button" class="action-btn btn-csv" id="csvBtn">
                         <i class="fas fa-file-csv"></i>
-                        Download CSV
+                        {{ __('common.download_csv') }}
                     </button>
                 </div>
             </div>
@@ -815,7 +815,7 @@
                     <button type="button" class="btn btn-outline-primary" id="imperialBtn">{{ __('common.imperial') }}</button>
                 </div>
             </div>
-            
+
             <div class="table-responsive">
                 <table class="table specifications-table">
                     <tbody>
@@ -918,16 +918,16 @@
 <div class="container">
     <div class="similar-products-section">
         <h3 class="similar-products-title">{{ __('common.similar_products') }}</h3>
-        
+
         <div class="carousel-container">
             <button id="carouselPrevBtn" class="carousel-arrow prev d-none d-lg-flex">
                 <i class="fas fa-chevron-left"></i>
             </button>
-            
+
             <button id="carouselNextBtn" class="carousel-arrow next d-none d-lg-flex">
                 <i class="fas fa-chevron-right"></i>
             </button>
-            
+
             <div id="similarProductsCarousel" class="carousel-track">
                 @foreach($similarProducts as $sim)
                 <a href="{{ route('products.show', $sim->id) }}" class="carousel-product-card">
@@ -941,10 +941,10 @@
                             </div>
                         @endif
                     </div>
-                    
+
                     <div class="carousel-card-body">
                         <h5 class="carousel-card-title">{{ $sim->model_name }}</h5>
-                        
+
                         <ul class="carousel-specs-list">
                             <li class="carousel-spec-item">
                                 <span class="carousel-spec-label">{{ __('common.operating_weight') }}:</span>
@@ -989,7 +989,7 @@
                                 </span>
                             </li>
                         </ul>
-                        
+
                         <div class="carousel-view-btn">
                             {{ __('common.view_details') }}
                         </div>
@@ -998,7 +998,7 @@
                 @endforeach
             </div>
         </div>
-        
+
         <div class="carousel-indicators d-none d-lg-flex">
             @for($i = 0; $i < ceil($similarProducts->count() / 3); $i++)
                 <button class="carousel-indicator {{ $i === 0 ? 'active' : '' }}" data-slide="{{ $i }}"></button>
@@ -1032,7 +1032,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         siBtn.classList.toggle('active', mode === 'si');
         imperialBtn.classList.toggle('active', mode === 'imperial');
-        
+
         if (mode === 'si') {
             siBtn.classList.remove('btn-outline-primary');
             siBtn.classList.add('btn-primary');
@@ -1057,7 +1057,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const prevBtn = document.getElementById('carouselPrevBtn');
     const nextBtn = document.getElementById('carouselNextBtn');
     const indicators = document.querySelectorAll('.carousel-indicator');
-    
+
+    // Detect direction
+    const isRTL = document.documentElement.getAttribute('dir') === 'rtl';
+
     if (carousel && prevBtn && nextBtn) {
         let currentSlide = 0;
         const cardWidth = 320 + 24; // card width + gap
@@ -1068,32 +1071,43 @@ document.addEventListener('DOMContentLoaded', function () {
         function updateCarousel() {
             const translateX = -(currentSlide * cardWidth * visibleCards);
             carousel.style.transform = `translateX(${translateX}px)`;
-            
-            prevBtn.style.display = currentSlide > 0 ? 'flex' : 'none';
-            nextBtn.style.display = currentSlide < maxSlide ? 'flex' : 'none';
-            
+
+            // Arrow logic: in RTL, swap meaning
+            if (!isRTL) {
+                prevBtn.style.display = currentSlide > 0 ? 'flex' : 'none';
+                nextBtn.style.display = currentSlide < maxSlide ? 'flex' : 'none';
+            } else {
+                nextBtn.style.display = currentSlide > 0 ? 'flex' : 'none';
+                prevBtn.style.display = currentSlide < maxSlide ? 'flex' : 'none';
+            }
+
             indicators.forEach((ind, i) => {
                 ind.classList.toggle('active', i === currentSlide);
             });
         }
 
-        function nextSlide() {
+        function goForward() {
             if (currentSlide < maxSlide) {
                 currentSlide++;
                 updateCarousel();
             }
         }
-
-        function prevSlide() {
+        function goBackward() {
             if (currentSlide > 0) {
                 currentSlide--;
                 updateCarousel();
             }
         }
 
-        prevBtn.addEventListener('click', prevSlide);
-        nextBtn.addEventListener('click', nextSlide);
-        
+        // Attach event listeners based on direction
+        if (!isRTL) {
+            prevBtn.addEventListener('click', goBackward);
+            nextBtn.addEventListener('click', goForward);
+        } else {
+            prevBtn.addEventListener('click', goForward);
+            nextBtn.addEventListener('click', goBackward);
+        }
+
         indicators.forEach((ind, i) => {
             ind.addEventListener('click', () => {
                 currentSlide = parseInt(ind.getAttribute('data-slide'), 10);
@@ -1102,9 +1116,8 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
         updateCarousel();
-        
+
         window.addEventListener('resize', () => {
-            const newVisibleCards = window.innerWidth >= 992 ? 3 : (window.innerWidth >= 768 ? 2 : 1);
             updateCarousel();
         });
     }
@@ -1390,7 +1403,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 case 'required_oil_flow': return `${number_format(min * 3.785411784, 1)} - ${number_format(max * 3.785411784, 1)} l/min`;
                 case 'operating_pressure': return `${number_format(min * 0.0703069578296, 1)} - ${number_format(max * 0.0703069578296, 1)} kgf/cm²`;
                 case 'applicable_carrier': return `${number_format(min * 0.00045359237, 1)} - ${number_format(max * 0.00045359237, 1)} ton`;
-                case 'impact_rate': 
+                case 'impact_rate':
                 case 'impact_rate_soft_rock': return `${number_format(min, 1)} - ${number_format(max, 1)} BPM`;
                 default: return value;
             }

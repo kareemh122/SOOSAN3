@@ -35,7 +35,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background: 
+        background:
             radial-gradient(circle at 20% 80%, rgba(0, 84, 142, 0.08) 0%, transparent 50%),
             radial-gradient(circle at 80% 20%, rgba(176, 215, 1, 0.08) 0%, transparent 50%),
             radial-gradient(circle at 40% 40%, rgba(0, 84, 142, 0.04) 0%, transparent 50%);
@@ -235,6 +235,12 @@
         gap: 0.5rem;
         transition: var(--transition);
         box-shadow: 0 4px 16px rgba(255, 59, 48, 0.3);
+    }
+
+    /* RTL support for Download PDF button */
+    [dir="rtl"] .pdf-download-btn {
+        right: auto !important;
+        left: 2rem !important;
     }
 
     .pdf-download-btn:hover {
@@ -551,41 +557,41 @@
         .result-header {
             padding: 3rem 0 2rem;
         }
-        
+
         .coverage-card {
             padding: 2rem 1.5rem;
             margin-bottom: 1.5rem;
         }
-        
+
         .pdf-download-btn {
             position: static;
             margin-bottom: 1rem;
             width: 100%;
             justify-content: center;
         }
-        
+
         .section-title {
             font-size: 1.5rem;
             flex-direction: column;
             align-items: flex-start;
             gap: 0.5rem;
         }
-        
+
         .section-title::after {
             width: 100%;
             margin-left: 0;
         }
-        
+
         .specs-table th,
         .specs-table td {
             padding: 1rem;
         }
-        
+
         .serial-display {
             margin: 1rem 0;
             font-size: 1rem;
         }
-        
+
         .unit-toggle-custom {
             margin: 1rem 0 0 0;
         }
@@ -683,22 +689,22 @@ $unit = 'si';
                 data-type="{{ $soldProduct->product->type ?? '-' }}"
                 data-image_url="{{ $soldProduct->product->image_url ? asset($soldProduct->product->image_url) : asset('images/fallback.webp') }}"
             >
-                <i class="fas fa-download" aria-hidden="true"></i> Download PDF
+                <i class="fas fa-download" aria-hidden="true"></i> {{ __('common.download_pdf') }}
             </button>
-            
+
             <div class="section-title mb-4">
                 <div class="section-icon product">
                     <i class="fas fa-cogs"></i>
                 </div>
                 {{ __('common.product_details') }}
             </div>
-            
+
             <div class="row align-items-stretch">
                 <div class="col-lg-4 text-center mb-4 mb-lg-0 d-flex align-items-stretch">
                     <div class="w-100 h-100 d-flex align-items-center justify-content-center" style="background: linear-gradient(135deg, #f8fafc, #e2e8f0); border-radius: 20px; min-height: 450px; border: 2px solid rgba(0, 84, 142, 0.1);">
-                        <img src="{{ $soldProduct->product->image_url ?? asset('images/fallback.webp') }}" 
-                             alt="{{ $soldProduct->product->model_name }}" 
-                             class="product-image w-100 h-100" 
+                        <img src="{{ $soldProduct->product->image_url ?? asset('images/fallback.webp') }}"
+                             alt="{{ $soldProduct->product->model_name }}"
+                             class="product-image w-100 h-100"
                              style="object-fit: contain; max-height: 400px;">
                     </div>
                 </div>
@@ -800,8 +806,12 @@ $unit = 'si';
                             </span>
                         </div>
                         <p class="mb-3 fs-5">
-                            <strong>{{ __('common.warranty_voided_at') }}</strong> 
+                            <strong>{{ __('common.warranty_voided_at') }}</strong>
                             {{ $soldProduct->warranty_voided_at ? $soldProduct->warranty_voided_at->format('F j, Y H:i') : '-' }}
+                        </p>
+                        <p class="mb-3 fs-5">
+                            <i class="fas fa-info-circle me-2"></i>
+                            <strong>{!! __('common.warranty_guidance', ['url' => route('contact')]) !!}</strong>
                         </p>
                     </div>
                     <div class="col-md-4 text-center">
@@ -867,7 +877,7 @@ $unit = 'si';
                     </div>
                     <div class="col-md-4 text-center">
                         <div class="warranty-visual">
-                            <i class="fas fa-{{ $status === __('common.valid') ? 'shield-check' : ($status === __('common.warranty_expiring_soon') ? 'shield-alt' : 'shield-times') }}" 
+                            <i class="fas fa-{{ $status === __('common.valid') ? 'shield-check' : ($status === __('common.warranty_expiring_soon') ? 'shield-alt' : 'shield-times') }}"
                                style="font-size: 5rem; color: {{ $status === __('common.valid') ? '#34C759' : ($status === __('common.warranty_expiring_soon') ? '#FF9500' : '#FF3B30') }}; animation: iconPulse 3s ease-in-out infinite;"></i>
                         </div>
                     </div>
@@ -882,7 +892,7 @@ $unit = 'si';
             </div>
             <h3 class="h4 mb-4" style="color: var(--primary-blue); font-weight: 800;">No Equipment Found</h3>
             <p class="text-muted mb-4 fs-5">
-                We couldn't find any equipment matching the serial number you entered. 
+                We couldn't find any equipment matching the serial number you entered.
                 Please double-check the serial number and try again.
             </p>
             <a href="{{ route('serial-lookup.index') }}" class="btn btn-lg" style="background: var(--gradient-primary); color: white; border-radius: 16px; padding: 1rem 2rem; font-weight: 700; text-decoration: none; transition: var(--transition);">
@@ -934,7 +944,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 setTimeout(() => {
                     element.style.opacity = '0';
                     element.style.transform = 'translateY(-10px)';
-                    
+
                     setTimeout(() => {
                         element.textContent = value;
                         element.style.opacity = '1';
@@ -1199,7 +1209,7 @@ function generatePdf() {
             doc.text('Page ' + i + ' of ' + pageCount, pageWidth - 80, doc.internal.pageSize.getHeight() - 30);
         }
 
-        pdfBtn.innerHTML = '<i class="fas fa-download me-2"></i>Download PDF';
+        pdfBtn.innerHTML = '<i class="fas fa-download me-2"></i>';
         pdfBtn.disabled = false;
 
         const timestamp = new Date().toISOString().slice(0, 10);
@@ -1216,7 +1226,7 @@ function generatePdf() {
             e.preventDefault();
             if (pdfBtn) pdfBtn.click();
         }
-        
+
         // Ctrl/Cmd + U for unit toggle
         if ((e.ctrlKey || e.metaKey) && e.key === 'u') {
             e.preventDefault();

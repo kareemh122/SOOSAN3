@@ -358,9 +358,9 @@
 }
 
 .owners-action-btn.view {
-    background: rgba(6, 182, 212, 0.1);
-    color: #06b6d4;
-    border: 1px solid rgba(6, 182, 212, 0.3);
+    background: transparent;
+    color: #3b82f6;
+    border: 1px solid #3b82f6;
 }
 
 .owners-action-btn.edit {
@@ -381,7 +381,7 @@
 }
 
 .owners-action-btn.view:hover {
-    background: #06b6d4;
+    background: #3b82f6;
     color: white;
 }
 
@@ -486,31 +486,31 @@
     .owners-admin-container {
         padding: 1rem;
     }
-    
+
     .owners-header {
         margin: -1rem -1rem 2rem -1rem;
         padding: 2rem 0;
     }
-    
+
     .owners-header-content {
         flex-direction: column;
         text-align: center;
         padding: 0 1rem;
     }
-    
+
     .owners-title-section h1 {
         font-size: 2rem;
     }
-    
+
     .owners-filter-grid {
         grid-template-columns: 1fr;
         gap: 1rem;
     }
-    
+
     .owners-grid {
         grid-template-columns: 1fr;
     }
-    
+
     .owners-stats {
         grid-template-columns: 1fr;
     }
@@ -520,11 +520,11 @@
     .owners-header-content {
         padding: 0 0.5rem;
     }
-    
+
     .owners-actions {
         flex-direction: column;
     }
-    
+
     .owners-action-btn {
         width: 100%;
     }
@@ -601,7 +601,7 @@
                 <p>{{ __('owners.total_owners') }}</p>
             </div>
         </div>
-        
+
         <div class="owners-stat-card">
             <div class="owners-stat-header">
                 <div class="owners-stat-icon" style="background: linear-gradient(135deg, #10b981, #059669);">
@@ -613,7 +613,7 @@
                 <p>{{ __('owners.with_email') }}</p>
             </div>
         </div>
-        
+
         <div class="owners-stat-card">
             <div class="owners-stat-header">
                 <div class="owners-stat-icon" style="background: linear-gradient(135deg, #f59e0b, #d97706);">
@@ -625,7 +625,7 @@
                 <p>{{ __('owners.with_phone') }}</p>
             </div>
         </div>
-        
+
         <div class="owners-stat-card">
             <div class="owners-stat-header">
                 <div class="owners-stat-icon" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed);">
@@ -645,19 +645,19 @@
             <i class="fas fa-search"></i>
             <h3>{{ __('owners.search_filter_owners') }}</h3>
         </div>
-        
+
         <form method="GET" action="{{ route('admin.owners.index') }}" id="filterForm">
             <div class="owners-filter-grid">
                 <div class="owners-form-group">
                     <label for="search">{{ __('owners.search_owners') }}</label>
-                    <input type="text" 
-                           id="search" 
-                           name="search" 
-                           class="owners-form-control" 
+                    <input type="text"
+                           id="search"
+                           name="search"
+                           class="owners-form-control"
                            placeholder="{{ __('owners.search_placeholder') }}"
                            value="{{ request('search') }}">
                 </div>
-                
+
                 <div class="owners-form-group">
                     <label for="country_filter">{{ __('owners.country') }}</label>
                     <select id="country_filter" name="country" class="owners-form-control">
@@ -669,7 +669,7 @@
                         @endforeach
                     </select>
                 </div>
-                
+
                 <div class="owners-form-group">
                     <label for="city_filter">{{ __('owners.city') }}</label>
                     <select id="city_filter" name="city" class="owners-form-control">
@@ -681,7 +681,7 @@
                         @endforeach
                     </select>
                 </div>
-                
+
                 <button type="submit" class="owners-search-btn">
                     <i class="fas fa-search"></i> {{ __('owners.search') }}
                 </button>
@@ -704,11 +704,11 @@
                             </div>
                         @endif
                     </div>
-                    
+
                     <!-- Owner Content -->
                     <div class="owners-content">
                         <h4 class="owners-card-title">{{ $owner->name }}</h4>
-                        
+
                         <!-- Owner Details -->
                         <div class="owners-details">
                             @if($owner->email)
@@ -757,7 +757,7 @@
                             @endif
                         </div>
                     </div>
-                    
+
                     <!-- Owner Actions -->
                     <div class="owners-actions">
                         <a href="{{ route('admin.owners.show', $owner) }}" class="owners-action-btn view">
@@ -766,8 +766,8 @@
                         <a href="{{ route('admin.owners.edit', $owner) }}" class="owners-action-btn edit">
                             <i class="fas fa-edit"></i> {{ __('owners.edit') }}
                         </a>
-                        <form method="POST" action="{{ route('admin.owners.destroy', $owner) }}" 
-                              style="display: inline; flex: 1;" 
+                        <form method="POST" action="{{ route('admin.owners.destroy', $owner) }}"
+                              style="display: inline; flex: 1;"
                               onsubmit="return confirm('{{ __('owners.delete_cannot_undone') }}')">
                             @csrf
                             @method('DELETE')
@@ -776,7 +776,7 @@
                             </button>
                         </form>
                     </div>
-                    
+
                     <!-- Owner Footer -->
                     <div class="owners-footer">
                         <div class="owners-created-date">
@@ -787,7 +787,7 @@
                 </div>
             @endforeach
         </div>
-        
+
         <!-- Pagination -->
         @if($owners->hasPages())
             <div class="owners-pagination-wrapper">
@@ -815,7 +815,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Auto-submit form on filter change
     const filterForm = document.getElementById('filterForm');
     const filterInputs = filterForm.querySelectorAll('select');
-    
+
     filterInputs.forEach(input => {
         input.addEventListener('change', function() {
             filterForm.submit();

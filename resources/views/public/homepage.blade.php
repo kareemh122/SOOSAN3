@@ -1,5 +1,7 @@
 @extends('layouts.public')
 
+@php use Illuminate\Support\Str; @endphp
+
 @section('title', __('homepage.hero_slide_1_title') . ' - SoosanEg')
 @section('description', __('homepage.hero_slide_1_description'))
 
@@ -617,32 +619,22 @@
             }
         }
 
-        .hero-content-section {
-            position: relative;
-            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-            padding: 6rem 0;
-            margin-top: -100px;
-            z-index: 10;
-            border-radius: 40px 40px 0 0;
-            box-shadow: 0 -20px 40px rgba(0, 0, 0, 0.1);
-        }
+    .hero-content-section {
+        position: relative;
+        background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+        padding: 6rem 0;
+        margin-top: -100px;
+        z-index: 10;
+        border-radius: 40px 40px 0 0;
+        box-shadow: 0 -20px 40px rgba(0, 0, 0, 0.1);
+    }
 
-        .hero-content-section::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--primary-color), var(--accent-color), var(--secondary-color));
-        }
-
-        .hero-content {
-            text-align: center;
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
+    .hero-content {
+        text-align: center;
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 0 2rem;
+    }
 
         .hero-badge {
             display: inline-block;
@@ -831,11 +823,12 @@
             height: 16px;
             border-radius: 50%;
             background: transparent;
-            border: 2px solid #00548e;
+            border: 2px solid #fff;
             cursor: pointer;
             transition: all 0.3s ease;
             position: relative;
             opacity: 0.95;
+
         }
 
         .dot.active {
@@ -1165,7 +1158,7 @@
         .product-image img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
             transition: transform 0.4s ease;
         }
 
@@ -2315,7 +2308,7 @@
 
         /* Enhanced Image Section */
         .breaker-product-split-card .card-image {
-            flex: 0 0 40%;
+            flex: 0 0 36%;
             position: relative;
             display: flex;
             align-items: center;
@@ -2389,8 +2382,7 @@
         .breaker-product-split-card .subtitle {
             color: #00548e;
             font-weight: 800;
-            font-size: 2rem;
-            x margin-bottom: 1rem;
+            font-size: 2rem;x
             display: flex;
             align-items: center;
             gap: 1rem;
@@ -2401,6 +2393,7 @@
             color: #b0d701;
             font-size: 1.5rem;
             animation: bounce 2s infinite;
+            padding-right: 7px;
         }
 
         @keyframes bounce {
@@ -2426,6 +2419,7 @@
             color: #475569;
             font-size: 1.1rem;
             margin-bottom: 2rem;
+            margin-top: 1rem;
             line-height: 1.8;
             font-weight: 400;
         }
@@ -2846,13 +2840,13 @@
                 </div>
                 <div class="card-info">
                     <div class="subtitle">
-                        <i class="fas fa-award"></i> 
+                        <i class="fas fa-award"></i>
                         ${data.subtitle}
                     </div>
                     <div class="description">${data.description}</div>
                     <div class="features">
                         <div class="features-title">
-                            <i class="fas fa-bolt"></i> 
+                            <i class="fas fa-bolt"></i>
                             {{ __('homepage.key_features') }}
                         </div>
                         <ul class="breaker-feature-list">
@@ -2860,7 +2854,7 @@
                         </ul>
                     </div>
                     <div class="apps-title">
-                        <i class="fas fa-industry"></i> 
+                        <i class="fas fa-industry"></i>
                         {{ __('homepage.applications') }}
                     </div>
                     <div class="breaker-product-apps">
@@ -2868,7 +2862,7 @@
                     </div>
                     <div class="breaker-product-actions">
                         <button class="breaker-product-btn explore-btn" data-filter="${data.filter}">
-                            <i class="fas fa-arrow-right"></i> 
+                            <i class="fas fa-arrow-right"></i>
                             {{ __('homepage.explore_more') }}
                         </button>
                     </div>
@@ -3009,25 +3003,25 @@
                 <div class="row">
                     <div class="col-md-3 col-6">
                         <div class="stat-card">
-                            <span class="stat-number">50+</span>
+                            <span class="stat-number">{{ __('common.country_numbers') }}</span>
                             <span class="stat-label">{{ __('homepage.countries_stat') }}</span>
                         </div>
                     </div>
                     <div class="col-md-3 col-6">
                         <div class="stat-card">
-                            <span class="stat-number">1000+</span>
+                            <span class="stat-number">{{ __('common.project_numbers') }}</span>
                             <span class="stat-label">{{ __('homepage.projects_stat') }}</span>
                         </div>
                     </div>
                     <div class="col-md-3 col-6">
                         <div class="stat-card">
-                            <span class="stat-number">24/7</span>
+                            <span class="stat-number">{{ __('common.support_numbers') }}</span>
                             <span class="stat-label">{{ __('homepage.support_stat') }}</span>
                         </div>
                     </div>
                     <div class="col-md-3 col-6">
                         <div class="stat-card">
-                            <span class="stat-number">20+</span>
+                            <span class="stat-number">{{ __('common.years_experience') }}</span>
                             <span class="stat-label">{{ __('homepage.years_stat') }}</span>
                         </div>
                     </div>
@@ -3090,19 +3084,19 @@
                         <div class="stats-grid row">
                             <div class="col-4 text-center">
                                 <div class="stat-item">
-                                    <h3 class="h2 fw-bold" style="color: #00548e">50+</h3>
+                                    <h3 class="h2 fw-bold" style="color: #00548e">{{ __('common.country_numbers') }}</h3>
                                     <p class="text-muted">{{ __('homepage.countries_stat') }}</p>
                                 </div>
                             </div>
                             <div class="col-4 text-center">
                                 <div class="stat-item">
-                                    <h3 class="h2 fw-bold" style="color: #00548e">1000+</h3>
+                                    <h3 class="h2 fw-bold" style="color: #00548e">{{ __('common.project_numbers') }}</h3>
                                     <p class="text-muted">{{ __('homepage.projects_stat') }}</p>
                                 </div>
                             </div>
                             <div class="col-4 text-center">
                                 <div class="stat-item">
-                                    <h3 class="h2 fw-bold" style="color: #00548e">24/7</h3>
+                                    <h3 class="h2 fw-bold" style="color: #00548e">{{ __('common.support_numbers') }}</h3>
                                     <p class="text-muted">{{ __('homepage.support_stat') }}</p>
                                 </div>
                             </div>
@@ -3164,8 +3158,8 @@
     <section class="highlights-section" id="highlights">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Highlights</h2>
-                <p class="section-description">Explore some of our featured moments.</p>
+                <h2 class="section-title">{{ __('homepage.highlights_section_title') }}</h2>
+                <p class="section-description">{{ __('homepage.highlights_section_description') }}</p>
             </div>
             <div class="highlights-grid">
                 <div class="highlight-item animate-fade-in">
@@ -3642,145 +3636,24 @@
                 <h2 class="section-title">{{ __('homepage.product_section_title') }}</h2>
                 <p class="section-description">{{ __('homepage.product_section_description') }}</p>
             </div>
-
             <div class="product-grid">
-                @if (isset($featuredProducts) && $featuredProducts->count() > 0)
-                    @foreach ($featuredProducts as $product)
-                        <div class="product-card" data-category="{{ $product->category ?? 'attachments' }}">
-                            <div class="product-image">
-                                @if (!empty($product->image_url))
-                                    <img src="{{ $product->image_url }}" alt="{{ $product->model_name }}">
-                                @elseif($product->getFirstMediaUrl('images'))
-                                    <img src="{{ $product->getFirstMediaUrl('images') }}"
-                                        alt="{{ $product->model_name }}">
-                                @else
-                                    <img src="https://res.cloudinary.com/dikwwdtgc/image/upload/v1751662869/SB10II_side-removebg-preview_lzzibc.png"
-                                        alt="{{ $product->model_name }}">
-                                @endif
-                                <div class="product-overlay">
-                                    <a href="{{ route('products.show', $product) }}" class="product-link">
-                                        <i class="fas fa-eye"></i>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="product-info">
-                                <h3 class="product-title">{{ $product->model_name }}</h3>
-                                <p class="product-description">{{ Str::limit($product->description, 100) }}</p>
-                                <a href="{{ route('products.show', $product) }}"
-                                    class="product-btn">{{ __('homepage.learn_more_btn') }}</a>
-                            </div>
-                        </div>
-                    @endforeach
-                @else
-                    <!-- Default products when no database products available -->
+                @foreach ($featuredProducts->whereIn('model_name', ['ET300II', 'SB200 TR-F', 'SB70E Side']) as $product)
                     <div class="product-card" data-category="attachments">
                         <div class="product-image">
-                            <img src="https://res.cloudinary.com/dikwwdtgc/image/upload/v1751662869/SB10II_side-removebg-preview_lzzibc.png"
-                                alt="Hydraulic Breaker">
+                            <img src="{{ $product->image_url ?? 'https://via.placeholder.com/400x300?text=' . urlencode($product->model_name) }}" alt="{{ $product->model_name }}" style="object-fit: contain; width: 100%; height: 100%;">
                             <div class="product-overlay">
-                                <a href="{{ route('products.index') }}" class="product-link">
+                                <a href="{{ url('/products/' . $product->id) }}" class="product-link" target="_blank" rel="noopener">
                                     <i class="fas fa-eye"></i>
                                 </a>
                             </div>
                         </div>
                         <div class="product-info">
-                            <h3 class="product-title">{{ __('homepage.hydraulic_breaker_title') }}</h3>
-                            <p class="product-description">{{ __('homepage.hydraulic_breaker_description') }}</p>
-                            <a href="{{ route('products.index') }}"
-                                class="product-btn">{{ __('homepage.learn_more_btn') }}</a>
+                            <h3 class="product-title">{{ $product->model_name }}</h3>
+                            <p class="product-description">{{ Str::limit($product->description, 100) }}</p>
+                            <a href="{{ url('/products/' . $product->id) }}" class="product-btn" target="_blank" rel="noopener">{{ __('homepage.learn_more_btn') }}</a>
                         </div>
                     </div>
-
-                    <div class="product-card" data-category="attachments">
-                        <div class="product-image">
-                            <img src="https://res.cloudinary.com/dikwwdtgc/image/upload/v1751662872/SB20II_side-removebg-preview_xnxixz.png"
-                                alt="Crusher">
-                            <div class="product-overlay">
-                                <a href="{{ route('products.index') }}" class="product-link">
-                                    <i class="fas fa-eye"></i>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="product-info">
-                            <h3 class="product-title">{{ __('homepage.crusher_title') }}</h3>
-                            <p class="product-description">{{ __('homepage.crusher_description') }}</p>
-                            <a href="{{ route('products.index') }}"
-                                class="product-btn">{{ __('homepage.learn_more_btn') }}</a>
-                        </div>
-                    </div>
-
-                    <div class="product-card" data-category="attachments">
-                        <div class="product-image">
-                            <img src="https://res.cloudinary.com/dikwwdtgc/image/upload/v1751662872/SB20II_side-removebg-preview_xnxixz.png"
-                                alt="Multi Processor">
-                            <div class="product-overlay">
-                                <a href="{{ route('products.index') }}" class="product-link">
-                                    <i class="fas fa-eye"></i>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="product-info">
-                            <h3 class="product-title">{{ __('homepage.multi_processor_title') }}</h3>
-                            <p class="product-description">{{ __('homepage.multi_processor_description') }}</p>
-                            <a href="{{ route('products.index') }}"
-                                class="product-btn">{{ __('homepage.learn_more_btn') }}</a>
-                        </div>
-                    </div>
-
-                    <div class="product-card" data-category="hydraulic">
-                        <div class="product-image">
-                            <img src="https://res.cloudinary.com/dikwwdtgc/image/upload/v1751662870/SB20II_side_3-pin_removebg_preview_dzqt0r.png"
-                                alt="Rock Drill">
-                            <div class="product-overlay">
-                                <a href="{{ route('products.index') }}" class="product-link">
-                                    <i class="fas fa-eye"></i>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="product-info">
-                            <h3 class="product-title">{{ __('homepage.rock_drill_title') }}</h3>
-                            <p class="product-description">{{ __('homepage.rock_drill_description') }}</p>
-                            <a href="{{ route('products.index') }}"
-                                class="product-btn">{{ __('homepage.learn_more_btn') }}</a>
-                        </div>
-                    </div>
-
-                    <div class="product-card" data-category="crane">
-                        <div class="product-image">
-                            <img src="https://images.pexels.com/photos/834892/pexels-photo-834892.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop"
-                                alt="Crane System">
-                            <div class="product-overlay">
-                                <a href="{{ route('products.index') }}" class="product-link">
-                                    <i class="fas fa-eye"></i>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="product-info">
-                            <h3 class="product-title">{{ __('homepage.crane_system_title') }}</h3>
-                            <p class="product-description">{{ __('homepage.crane_system_description') }}</p>
-                            <a href="{{ route('products.index') }}"
-                                class="product-btn">{{ __('homepage.learn_more_btn') }}</a>
-                        </div>
-                    </div>
-
-                    <div class="product-card" data-category="aerial">
-                        <div class="product-image">
-                            <img src="https://images.pexels.com/photos/1108101/pexels-photo-1108101.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop"
-                                alt="Aerial Platform">
-                            <div class="product-overlay">
-                                <a href="{{ route('products.index') }}" class="product-link">
-                                    <i class="fas fa-eye"></i>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="product-info">
-                            <h3 class="product-title">{{ __('homepage.aerial_platform_title') }}</h3>
-                            <p class="product-description">{{ __('homepage.aerial_platform_description') }}</p>
-                            <a href="{{ route('products.index') }}"
-                                class="product-btn">{{ __('homepage.learn_more_btn') }}</a>
-                        </div>
-                    </div>
-                @endif
+                @endforeach
             </div>
         </div>
     </section>
@@ -3966,7 +3839,7 @@
     <section class="industries-serve-section" id="industries-serve">
         <div class="container">
             <h2 class="industries-serve-title">{{ __('homepage.industries_serve_title') }}</h2>
-            <p class="industries-serve-desc">
+            <p class="industries-serve-desc section-description">
                 {{ __('homepage.industries_serve_desc_1') }}<br>
                 {{ __('homepage.industries_serve_desc_2') }}
             </p>
@@ -4058,7 +3931,7 @@
 
             .industries-serve-desc {
                 text-align: center;
-                color: #223;
+                color: var(--text-muted);
                 font-size: 1.13rem;
                 margin-bottom: 2.5rem;
                 line-height: 1.5;
@@ -4336,12 +4209,12 @@
                     opacity: 0;
                 }
             }
-            
+
             .nav-icon-item {
                 position: relative;
                 overflow: hidden;
             }
-            
+
             @keyframes iconEnter {
                 from {
                     opacity: 0;
@@ -4352,7 +4225,7 @@
                     transform: translateY(0) scale(1);
                 }
             }
-            
+
             .icon-nav .nav-icon-item {
                 animation: iconEnter 0.6s ease-out forwards;
                 opacity: 0;

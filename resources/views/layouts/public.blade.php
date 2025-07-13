@@ -28,6 +28,65 @@
     <!-- Additional head content -->
     @stack('head')
     @stack('styles')
+
+    <style>
+        .social-icons {
+            display: flex;
+            gap: 15px;
+        }
+        .social {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            color: #fff;
+            font-size: 18px;
+            text-decoration: none;
+            transition: transform 0.3s, box-shadow 0.3s;
+            padding-right: 7px;
+        }
+
+        .social:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .facebook {
+            background-color: #1877F2; /* Facebook Blue */
+        }
+
+        .linkedin {
+            background-color: #0A66C2; /* LinkedIn Blue */
+        }
+
+    .youtube {
+        background-color: #FF0000; /* YouTube Red */
+    }
+
+
+
+        .copy-right-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .copy-right-section img:first-child {
+            width: 150px;
+        }
+        .copy-right-section img:last-child {
+            width: 150px;
+        }
+        .copy-right-section p {
+            font-size: 20px;
+        }
+        .powered-by {
+            text-align: center;
+            font-size: 18px;
+            color: #ccc;
+        }
+    </style>
 </head>
 
 <body class="bg-light">
@@ -51,26 +110,26 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <!-- Enhanced Icon-based navigation for all pages -->
                 <div class="icon-nav ms-auto">
-                    <a href="{{ route('homepage') }}" 
+                    <a href="{{ route('homepage') }}"
                        class="nav-icon-item {{ request()->routeIs('homepage') ? 'active' : '' }}">
                         <i class="fas fa-home nav-icon"></i>
                         <span class="nav-icon-label">{{ __('common.home') }}</span>
                     </a>
-                    
-                    <a href="{{ route('products.index') }}" 
+
+                    <a href="{{ route('products.index') }}"
                        class="nav-icon-item {{ request()->routeIs('products.*') ? 'active' : '' }}">
                         <i class="fas fa-cogs nav-icon"></i>
                         <span class="nav-icon-label">{{ __('common.products') }}</span>
                     </a>
-                    
-                    <a href="{{ route('serial-lookup.index') }}" 
+
+                    <a href="{{ route('serial-lookup.index') }}"
                        class="nav-icon-item {{ request()->routeIs('serial-lookup.*') ? 'active' : '' }}">
                         <i class="fas fa-search nav-icon"></i>
                         <span class="nav-icon-label">{{ __('common.serial_lookup') }}</span>
                     </a>
 
                     @if(Route::has('about'))
-                        <a href="{{ route('about') }}" 
+                        <a href="{{ route('about') }}"
                            class="nav-icon-item {{ request()->routeIs('about') ? 'active' : '' }}">
                             <i class="fas fa-info-circle nav-icon"></i>
                             <span class="nav-icon-label">{{ __('common.about') }}</span>
@@ -78,7 +137,7 @@
                     @endif
 
                     @if(Route::has('contact'))
-                        <a href="{{ route('contact') }}" 
+                        <a href="{{ route('contact') }}"
                            class="nav-icon-item {{ request()->routeIs('contact') ? 'active' : '' }}">
                             <i class="fas fa-phone nav-icon"></i>
                             <span class="nav-icon-label">{{ __('common.contact') }}</span>
@@ -86,32 +145,32 @@
                     @endif
 
                     @if(Route::has('support'))
-                        <a href="{{ route('support') }}" 
+                        <a href="{{ route('support') }}"
                            class="nav-icon-item {{ request()->routeIs('support') ? 'active' : '' }}">
                             <i class="fas fa-headset nav-icon"></i>
                             <span class="nav-icon-label">{{ __('common.support') }}</span>
                         </a>
                     @endif
-                    
+
                     @auth('web')
-                        <a href="{{ route('admin.dashboard') }}" 
+                        <a href="{{ route('admin.dashboard') }}"
                            class="nav-icon-item {{ request()->routeIs('admin.*') ? 'active' : '' }}">
                             <i class="fas fa-user-shield nav-icon"></i>
                             <span class="nav-icon-label">{{ __('common.dashboard') }}</span>
                         </a>
-                        
-                        <a href="{{ route('profile.edit') }}" 
+
+                        <a href="{{ route('profile.edit') }}"
                            class="nav-icon-item {{ request()->routeIs('profile.*') ? 'active' : '' }}">
                             <i class="fas fa-user-cog nav-icon"></i>
                             <span class="nav-icon-label">{{ __('common.profile') }}</span>
                         </a>
                     @endauth
-                    
+
                     <!-- Authentication Icons -->
                     @auth('web')
                         <x-logout-button route="admin.logout" />
                     @else
-                        <a href="{{ route('admin.login') }}" 
+                        <a href="{{ route('admin.login') }}"
                            class="nav-icon-item {{ request()->routeIs('admin.login') ? 'active' : '' }}">
                             <i class="fas fa-sign-in-alt nav-icon"></i>
                             <span class="nav-icon-label">{{ __('common.login') }}</span>
@@ -147,9 +206,16 @@
                 <div class="col-md-3">
                     <h5 class="fw-semibold mb-3">SoosanEgypt</h5>
                     <p class="text-light small mb-3">{{ __('common.footer_description') }}</p>
-                    <div class="d-flex gap-3">
-                        <!-- Social links placeholder -->
-                        
+                    <div class="social-icons">
+                        <a href="https://www.facebook.com/share/1KvmELF3Kn/?mibextid=wwXIfr" class="social facebook" aria-label="Facebook" target="_blank" title="SOOSAN EGYPT FACEBOOK">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/company/madina-contracting-company/" class="social linkedin" aria-label="LinkedIn" target="_blank" title="AL MADINA COMPANY LINKEDIN">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="https://www.youtube.com/@soosancebotics" class="social youtube" aria-label="YouTube" target="_blank" title="SOOSAN CEBOTICS YOUTUBE">
+                            <i class="fab fa-youtube"></i>
+                        </a>
                     </div>
                 </div>
 
@@ -192,14 +258,20 @@
             </div>
 
             <hr class="border-secondary mt-4 mb-3">
-            <div class="text-center">
+            <div class="text-center copy-right-section">
+                <a href="https://soosancebotics.com/en/main" title="SOOSAN CEBOTICS" target="_blank">
+                    <img src="{{ asset('images/soosan_logo_en.svg') }}" alt="SOOSAN CEBOTICS">
+                </a>
                 <p class="text-light small mb-0">&copy; {{ date('Y') }} SoosanEgypt.
                     {{ __('common.copyright') }}</p>
-                    
+                <a href="https://madinagp.com/tag/al-madina-contracting-company/" title="AL MADINA CONRACTING COMPANY" target="_blank">
+                    <img src="{{ asset('images/almadina2.png') }}" alt="AL MADINA CONTRACTING COMPANY">
+                </a>
             </div>
-            <p class="text-light small mb-0">Powered By <a href="https://almadinacontracting.com/" target="_blank" rel="noopener noreferrer">Al Madina Contracting Company</a></p>  
+            <div>
+                <p class="powered-by">Powered By: AK</p>
+            </div>
         </div>
-        <img src="{{ asset('images/products/madina.png') }}" alt="Logo" class="img-fluid" style="width: 100px; height: 100px; object-fit: cover;">
 
     </footer>
 
@@ -209,24 +281,24 @@
         function initGlobalNavEffects() {
             const navbar = document.querySelector('.navbar');
             let lastScrollY = window.scrollY;
-            
+
             window.addEventListener('scroll', () => {
                 const currentScrollY = window.scrollY;
-                
+
                 // Add scrolled class when scrolling down
                 if (currentScrollY > 50) {
                     navbar.classList.add('scrolled');
                 } else {
                     navbar.classList.remove('scrolled');
                 }
-                
+
                 // Hide/show navbar on scroll (optional enhancement)
                 if (currentScrollY > lastScrollY && currentScrollY > 100) {
                     navbar.style.transform = 'translateY(-100%)';
                 } else {
                     navbar.style.transform = 'translateY(0)';
                 }
-                
+
                 lastScrollY = currentScrollY;
             });
         }
@@ -234,26 +306,26 @@
         // Enhanced Icon Animations for All Pages
         function initGlobalIconAnimations() {
             const iconItems = document.querySelectorAll('.nav-icon-item');
-            
+
             iconItems.forEach((item, index) => {
                 // Add staggered entrance animation
                 item.style.animationDelay = `${index * 0.1}s`;
-                
+
                 // Add click ripple effect
                 item.addEventListener('click', function(e) {
                     // Don't add ripple if it's a navigation click
                     if (e.target.closest('a')) return;
-                    
+
                     // Create ripple element
                     const ripple = document.createElement('span');
                     ripple.classList.add('ripple');
-                    
+
                     // Position ripple
                     const rect = this.getBoundingClientRect();
                     const size = Math.max(rect.width, rect.height);
                     const x = e.clientX - rect.left - size / 2;
                     const y = e.clientY - rect.top - size / 2;
-                    
+
                     ripple.style.cssText = `
                         position: absolute;
                         width: ${size}px;
@@ -267,20 +339,20 @@
                         pointer-events: none;
                         z-index: 1000;
                     `;
-                    
+
                     this.appendChild(ripple);
-                    
+
                     // Remove ripple after animation
                     setTimeout(() => {
                         ripple.remove();
                     }, 600);
                 });
-                
+
                 // Add hover effects
                 item.addEventListener('mouseenter', function() {
                     this.style.filter = 'drop-shadow(0 4px 8px rgba(37, 99, 235, 0.2))';
                 });
-                
+
                 item.addEventListener('mouseleave', function() {
                     this.style.filter = 'none';
                 });
@@ -290,7 +362,7 @@
         // Enhanced Button Interactions
         function initEnhancedButtons() {
             const buttons = document.querySelectorAll('.btn');
-            
+
             buttons.forEach(button => {
                 button.addEventListener('click', function(e) {
                     // Add loading class for form submissions
@@ -304,7 +376,7 @@
         // Enhanced Form Interactions
         function initEnhancedForms() {
             const forms = document.querySelectorAll('form');
-            
+
             forms.forEach(form => {
                 form.addEventListener('submit', function() {
                     const submitBtn = this.querySelector('button[type="submit"], input[type="submit"]');
@@ -319,12 +391,12 @@
         // Enhanced Card Interactions
         function initEnhancedCards() {
             const cards = document.querySelectorAll('.card');
-            
+
             cards.forEach(card => {
                 card.addEventListener('mouseenter', function() {
                     this.style.transform = 'translateY(-4px)';
                 });
-                
+
                 card.addEventListener('mouseleave', function() {
                     this.style.transform = 'translateY(0)';
                 });
@@ -356,11 +428,11 @@
             // Fade in page content
             document.body.style.opacity = '0';
             document.body.style.transition = 'opacity 0.3s ease';
-            
+
             window.addEventListener('load', function() {
                 document.body.style.opacity = '1';
             });
-            
+
             // Initialize all enhancements after DOM is ready
             if (document.readyState === 'loading') {
                 document.addEventListener('DOMContentLoaded', initializeEnhancements);
@@ -381,7 +453,7 @@
             if (typeof convertUnits === 'function') {
                 convertUnits(preferredUnit);
             }
-            
+
             // Initialize all global effects
             initGlobalNavEffects();
             initGlobalIconAnimations();
@@ -389,7 +461,7 @@
             initEnhancedForms();
             initEnhancedCards();
             initUnitSwitcher();
-            
+
             // Initialize language toggle with entrance animation
             const languageToggle = document.getElementById('languageToggle');
             if (languageToggle) {
@@ -421,16 +493,16 @@
         document.addEventListener('DOMContentLoaded', function() {
             // Smooth navigation without refresh
             const navLinks = document.querySelectorAll('.nav-icon-item[href]');
-            
+
             navLinks.forEach(link => {
                 link.addEventListener('click', function(e) {
                     // Add loading state
                     const icon = this.querySelector('.nav-icon');
                     const originalClass = icon.className;
-                    
+
                     // Show loading spinner briefly
                     icon.className = 'fas fa-spinner fa-spin nav-icon';
-                    
+
                     // Restore original icon after short delay
                     setTimeout(() => {
                         icon.className = originalClass;
@@ -441,16 +513,16 @@
             // Enhanced navbar scroll behavior
             let lastScrollTop = 0;
             const navbar = document.querySelector('.navbar');
-            
+
             window.addEventListener('scroll', function() {
                 const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                
+
                 if (scrollTop > 100) {
                     navbar.classList.add('scrolled');
                 } else {
                     navbar.classList.remove('scrolled');
                 }
-                
+
                 lastScrollTop = scrollTop;
             });
         });

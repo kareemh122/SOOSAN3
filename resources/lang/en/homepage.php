@@ -154,6 +154,10 @@ return [
     'warranty_check_description' => 'Enter your equipment serial number to check warranty status, ownership information, and service history.',
     'warranty_check_btn' => 'Check Warranty',
     'serial_number_placeholder' => 'Enter Serial Number',
+
+    // Highlights Section
+    'highlights_section_title' => 'Highlights',
+    'highlights_section_description' => 'Explore our latest innovations and industry-leading solutions designed to enhance productivity and efficiency in heavy equipment operations.',
     
     // Industries Section
     'industries_title' => 'Industries We Serve',

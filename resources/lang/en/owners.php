@@ -6,14 +6,14 @@ return [
     'owners_management' => 'Owners Management',
     'manage_owners' => 'Manage system owners and their information',
     'owner_information' => 'Owner Information',
-    
+
     // Statistics
     'total_owners' => 'Total Owners',
     'active_owners' => 'Active Owners',
     'inactive_owners' => 'Inactive Owners',
     'verified_owners' => 'Verified Owners',
     'owners_stats' => 'Owners Statistics',
-    
+
     // Search & Filter
     'search_filter_owners' => 'Search & Filter Owners',
     'search_owners' => 'Search Owners',
@@ -27,7 +27,7 @@ return [
     'filter_by' => 'Filter by',
     'apply_filters' => 'Apply Filters',
     'clear_filters' => 'Clear Filters',
-    
+
     // Owner Actions
     'add_owner' => 'Add Owner',
     'create_owner' => 'Create Owner',
@@ -42,7 +42,7 @@ return [
     'update_owner' => 'Update Owner',
     'cancel' => 'Cancel',
     'back_to_owners' => 'Back to Owners',
-    
+
     // Owner Details
     'name' => 'Name',
     'email' => 'Email',
@@ -62,7 +62,7 @@ return [
     'previous' => 'Previous',
     'next' => 'Next',
     'required' => '*',
-    
+
     // Create Owner Page
     'create_new_owner' => 'Create New Owner',
     'add_new_owner' => 'Add a new owner to the system',
@@ -76,13 +76,13 @@ return [
     'owner_options_desc' => 'Configure owner status and verification',
     'active_owner' => 'Active Owner',
     'verified_owner' => 'Verified Owner',
-    
+
     // Edit Owner Page
     'edit_owner_details' => 'Edit Owner Details',
     'update_owner_info' => 'Update owner information and settings',
     'view_owner_details' => 'View Owner Details',
     'essential_owner_details' => 'Essential owner details and information',
-    
+
     // Show Owner Page
     'owner_details' => 'Owner Details',
     'owner_profile' => 'Owner Profile',
@@ -93,7 +93,17 @@ return [
     'updated' => 'Updated',
     'n_a' => 'N/A',
     'normal' => 'Normal',
+    'show.sections.sold_products' => 'Sold Products',
+    'show.labels.product' => 'Product Model',
+    'show.labels.serial_number' => 'Serial Number',
+    'show.labels.sale_date' => 'Sale Date',
+    'show.labels.warranty_status' => 'Warranty Status',
+    'show.labels.warranty_end' => 'Warranty End',
+    'show.labels.warranty_active' => 'Active',
+    'show.labels.warranty_expired' => 'Expired',
+    'show.labels.warranty_voided' => 'Voided',
     
+
     // Show page translations
     'show' => [
         'title' => 'Owner Details',
@@ -128,7 +138,7 @@ return [
             'na' => 'N/A',
         ],
     ],
-    
+
     // Placeholders
     'enter_name' => 'Enter full name',
     'enter_email' => 'Enter email address',
@@ -141,24 +151,24 @@ return [
     'enter_company' => 'Enter company name',
     'enter_website' => 'Enter website URL',
     'enter_notes' => 'Enter additional notes',
-    
+
     // Empty State
     'no_owners_found' => 'No Owners Found',
     'start_adding_owners' => 'Start building your owner database by adding your first owner.',
     'add_first_owner' => 'Add First Owner',
-    
+
     // Pagination
     'showing_results' => 'Showing :first to :last of :total results',
-    
+
     // Confirmation Messages
     'delete_confirmation' => 'Are you sure you want to delete this owner?',
     'delete_cannot_undone' => 'Are you sure you want to delete this item? This action cannot be undone.',
-    
+
     // Processing States
     'processing' => 'Processing...',
     'creating_owner' => 'Creating Owner...',
     'updating_owner' => 'Updating Owner...',
-    
+
     // Messages
     'owner_created' => 'Owner created successfully',
     'owner_updated' => 'Owner updated successfully',
@@ -167,7 +177,7 @@ return [
     'owner_deactivated' => 'Owner deactivated successfully',
     'owner_verified' => 'Owner verified successfully',
     'owner_unverified' => 'Owner unverified successfully',
-    
+
     // Additional translations for index page
     'with_email' => 'With Email',
     'with_phone' => 'With Phone',
@@ -177,7 +187,7 @@ return [
     'no_contact_information' => 'No contact information',
     'employee_access' => 'Employee Access',
     'employee_access_desc' => 'You can create new owners and edit existing ones. Any edits to existing owners will be submitted for admin approval before taking effect.',
-    
+
     // Additional missing translations
     'location_information' => 'Location Information',
     'preferences' => 'Preferences',
@@ -191,10 +201,10 @@ return [
     'chinese' => 'Chinese',
     'japanese' => 'Japanese',
     'russian' => 'Russian',
-    
+
     // Additional missing translations
     'creating' => 'Creating...',
-    
+
     // Additional missing translations for edit page
     'full_name' => 'Full Name',
     'email_address' => 'Email Address',
@@ -202,7 +212,7 @@ return [
     'enter_email_example' => 'user@example.com',
     'phone_number' => 'Phone Number',
     'updating' => 'Updating...',
-    
+
     // Additional missing translations for edit page fields
     'company_name_placeholder' => 'Company name',
     'full_street_address' => 'Full street address',
@@ -213,10 +223,10 @@ return [
     'country_placeholder' => 'Country',
     'italian' => 'Italian',
     'portuguese' => 'Portuguese',
-    
+
     // Update owner information in the drilling dashboard system
     'update_owner_info_system' => 'Update owner information data',
-    
+
     // Sold Products Table
     'sold_products' => 'Sold Products',
     'product' => 'Product',

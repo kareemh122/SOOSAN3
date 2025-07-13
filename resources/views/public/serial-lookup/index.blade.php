@@ -150,6 +150,7 @@
         position: relative;
         overflow: hidden;
         transition: var(--transition);
+        margin-top: 50px;
     }
 
     .lookup-form::before {

@@ -24,6 +24,10 @@ return [
     'advanced_technology_text' => 'تقنية حديثة تضمن أقصى قدر من الكفاءة والأداء.',
     'global_support' => 'دعم عالمي',
     'global_support_text' => 'شبكة دعم وخدمة شاملة متوفرة في جميع أنحاء العالم.',
+    'country_numbers' => '٧٠+',
+    'project_numbers' => '١٠٠٠+',
+    'support_numbers' => '٢٤/٧',
+    'years_experience' => '٤٠+',
 
     // Footer
     'footer_description' => 'مزود رائد لمعدات وحلول الحفر للبناء والتعدين والتطبيقات الصناعية.',
@@ -55,7 +59,7 @@ return [
     'status' => 'الحالة',
     'genuine_product' => 'منتج أصلي',
     'not_found' => 'لم يتم العثور على الرقم التسلسلي',
-    
+
     // Serial Lookup Page
     'equipment_serial_lookup' => 'البحث بالرقم التسلسلي للمعدات',
     'equipment_serial_lookup_desc' => 'أدخل الرقم التسلسلي لمعداتك للتحقق الفوري من حالة الضمان والمواصفات ومعلومات التغطية.',
@@ -77,8 +81,8 @@ return [
     'call_support' => 'دعم الاتصال',
     'support_hours' => 'ساعات الدعم: 9 صباحاً - 6 مساءً (توقيت القاهرة)',
     'serial_not_found' => 'الرقم التسلسلي غير موجود',
-    
-    // Serial Lookup Result Page  
+
+    // Serial Lookup Result Page
     'coverage_results' => 'نتائج التغطية',
     'equipment_information' => 'معلومات المعدات',
     'back_to_serial_lookup' => 'العودة إلى البحث بالرقم التسلسلي',
@@ -89,6 +93,7 @@ return [
     'warranty_expiring_soon' => 'ينتهي قريباً',
     'warranty_expired_status' => 'منتهي الصلاحية',
     'warranty_unknown' => 'غير معروف',
+    'warranty_guidance' => 'إذا كان لديك أي استفسارات حول حالة الضمان الخاصة بك، يرجى الاتصال بفريق الدعم لدينا.',
     'product_details' => 'تفاصيل المنتج',
     'owner_details' => 'تفاصيل المالك',
     'name' => 'الاسم',
@@ -102,14 +107,15 @@ return [
     'si_units' => 'النظام الدولي',
     'imperial_units' => 'رطل قدم',
     'look_up_another' => 'البحث عن رقم تسلسلي آخر',
-    
+    'download_pdf' => 'تنزيل PDF',
+
     // Warranty Status Details
     'valid' => 'صالح',
     'purchase_date' => 'تاريخ الشراء',
     'warranty_start' => 'بداية الضمان',
     'warranty_end' => 'نهاية الضمان',
     'days_remaining' => 'يوم متبقي',
-    
+
     // Product Specification Labels
     'line' => 'الخط',
     'type' => 'النوع',
@@ -125,7 +131,10 @@ return [
     'hose_diameter' => 'قطر الخرطوم',
     'rod_diameter' => 'قطر القضيب',
     'applicable_carrier' => 'الناقل المطبق',
-    
+    'download_pdf' => 'تنزيل PDF',
+    'download_csv' => 'تنزيل CSV',
+    'copy_link' => 'نسخ الرابط',
+
     // Units
     'unit_lb' => 'رطل',
     'unit_in' => 'بوصة',
@@ -134,7 +143,7 @@ return [
     'unit_bpm' => 'ضربة/دقيقة',
 
     // Products Page
-    'products_title' => 'المنتجات',
+    'products_title' => 'القواطع الهيدروليكية',
     'products_description' => 'استعرض مجموعتنا الشاملة من معدات وآلات الحفر.',
     'enter_product_model' => 'أدخل اسم نموذج المنتج',
     'search_products' => 'بحث',
@@ -150,7 +159,7 @@ return [
     'no_products_message' => 'حاول تعديل معايير البحث أو التصفية.',
     'clear_filters' => 'إزالة جميع المرشحات',
     'view_details' => 'عرض التفاصيل',
-    
+
     // Error Messages
     'please_enter_serial' => 'يرجى إدخال رقم تسلسلي.',
     'serial_min_length' => 'يجب أن يكون الرقم التسلسلي مكونًا من 3 أحرف على الأقل.',
@@ -172,7 +181,7 @@ return [
     'message' => 'الرسالة',
     'submit' => 'إرسال',
     'contact_success' => 'تم إرسال رسالتك بنجاح. سنرد عليك قريبًا.',
-    
+
     // About
     'about_title' => 'عن سوسان مصر',
     'about_subtitle' => 'رائدة الصناعة في ابتكار وجودة معدات الحفر.',
@@ -190,7 +199,7 @@ return [
     'logout' => 'تسجيل الخروج',
     'dashboard' => 'لوحة التحكم',
     'profile' => 'الملف الشخصي',
-    
+
     // Contact Page
     'get_in_touch' => 'تواصل معنا',
     'ready_to_transform' => 'مستعد لتحويل عمليات الحفر الخاصة بك؟ فريق الخبراء لدينا هنا لمساعدتك في العثور على حلول المعدات المثالية.',
@@ -265,7 +274,7 @@ return [
     'how_can_i_get_quote' => 'كيف يمكنني الحصول على عرض سعر للمعدات؟',
     'you_can_request_quote' => 'يمكنك طلب عرض سعر من خلال ملء نموذج الاتصال أعلاه أو الاتصال بفريق المبيعات لدينا أو إرسال بريد إلكتروني إلى sales@soosancebotics.com. يرجى تضمين متطلبات مشروعك والجدول الزمني للحصول على أدق عرض سعر.',
     'contact_success' => 'شكراً لك على رسالتك. سنتواصل معك في أقرب وقت ممكن.',
-    
+
     // Support Page
     'expert_support_service' => 'دعم وخدمة الخبراء',
     'comprehensive_support_solutions' => 'حلول دعم شاملة مصممة لتعظيم أداء المعدات وتقليل أوقات التوقف عالمياً.',
@@ -377,7 +386,7 @@ return [
     'advanced_iot_monitoring_system' => 'نظام المراقبة المتقدم القائم على إنترنت الأشياء يوفر تشخيص المعدات في الوقت الفعلي وتحليلات الأداء وتنبيهات الصيانة التنبؤية ورؤى تحسين الاستخدام من خلال لوحات تحكم قابلة للتخصيص.',
     'what_warranty_coverage_included' => 'ما هي تغطية الضمان المشمولة مع المعدات؟',
     'all_equipment_comprehensive_warranty' => 'جميع المعدات تأتي مع تغطية ضمان شاملة تتراوح من 12-24 شهراً حسب المنتج. الضمان الممتد وخطط الحماية الشاملة متوفرة أيضاً للتغطية الإضافية.',
-    
+
     // Profile Pages
     'profile_settings' => 'إعدادات الملف الشخصي',
     'profile_settings_desc' => 'إدارة معلومات حسابك وتفضيلات الأمان',
@@ -415,7 +424,7 @@ return [
     'cancel' => 'إلغاء',
     'yes_delete' => 'نعم، احذف',
     'are_you_sure_remove_photo' => 'هل أنت متأكد أنك تريد حذف صورة ملفك الشخصي؟ لا يمكن التراجع عن هذا الإجراء.',
-    
+
     // Product Pages Extended
     'no_image' => 'لا توجد صورة',
     'showing_results' => 'عرض :first إلى :last من :total نتيجة',
@@ -436,7 +445,7 @@ return [
     'applications' => 'التطبيقات',
     'no_category_products' => 'لا توجد منتجات في هذه الفئة',
     'browse_other_categories' => 'تصفح فئات أخرى أو العودة إلى جميع المنتجات.',
-    
+
     // Additional Product Page Translation Keys
     'request_a_quote' => 'طلب عرض سعر',
     'call' => 'اتصال',
@@ -450,7 +459,7 @@ return [
     'no_products_found_in_category' => 'لا توجد منتجات في هذه الفئة',
     'check_back_later_new_products' => 'تحقق مرة أخرى لاحقاً للمنتجات الجديدة أو تصفح فئات أخرى.',
     'browse_all_products' => 'تصفح جميع المنتجات',
-    
+
     // Admin Products (if needed)
     'products_management' => 'إدارة المنتجات',
     'add_new_product' => 'إضافة منتج جديد',

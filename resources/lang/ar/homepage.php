@@ -155,6 +155,10 @@ return [
     'warranty_check_btn' => 'فحص الضمان',
     'serial_number_placeholder' => 'أدخل الرقم التسلسلي',
     
+    // Highlights Section
+    'highlights_section_title' => 'أبرز ما لدينا',
+    'highlights_section_description' => 'اكتشف كيف تضع سوسان مصر معايير جديدة في صناعة المعدات الثقيلة من خلال الابتكار والجودة والدعم العالمي.',
+
     // Industries Section
     'industries_title' => 'الصناعات التي نخدمها',
     'industries_description' => 'معداتنا تدعم المشاريع عبر صناعات متعددة حول العالم',

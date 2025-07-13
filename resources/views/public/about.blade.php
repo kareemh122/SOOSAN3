@@ -664,16 +664,16 @@
                 </p>
                 <div class="stats-container">
                     <div class="stat-item">
-                        <span class="stats-counter animate-counter" data-count="20">0</span>
+                        <span class="stats-counter animate-counter" data-count="40">0</span>
                         <p class="stat-label">{{ __('about.years_of_excellence') }}</p>
                     </div>
                     <div class="stat-item">
                         <span class="stats-counter animate-counter" data-count="1000"
-                            style="animation-delay: 0.2s;">0</span>
+                            style="animation-delay: 0.2s;">0</span>+
                         <p class="stat-label">{{ __('about.projects_completed') }}</p>
                     </div>
                     <div class="stat-item">
-                        <span class="stats-counter animate-counter" data-count="50" style="animation-delay: 0.4s;">0</span>
+                        <span class="stats-counter animate-counter" data-count="70" style="animation-delay: 0.4s;">0</span>
                         <p class="stat-label">{{ __('about.countries_served') }}</p>
                     </div>
                 </div>

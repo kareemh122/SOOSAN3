@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+<!-- @extends('layouts.admin')
 
 @section('title', __('sold-products.edit_sale'))
 @section('page-title', __('sold-products.edit_sale'))
@@ -305,4 +305,4 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
-@endsection
+@endsection -->

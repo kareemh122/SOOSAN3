@@ -37,6 +37,18 @@
         overflow-x: hidden;
     }
 
+    /* Scroll Progress Indicator */
+    .scroll-progress {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 0%;
+        height: 4px;
+        background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+        z-index: 9999;
+        transition: width 0.1s ease;
+    }
+
     /* Enhanced Hero Section */
     .privacy-hero {
         background: linear-gradient(135deg, var(--primary-color) 0%, #0066a3 100%);
@@ -108,13 +120,45 @@
         z-index: 1;
     }
 
+    /* Enhanced Updated Info */
+    .updated-info {
+        background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+        padding: 1.5rem 2rem;
+        border-radius: var(--border-radius);
+        border-left: 4px solid var(--primary-color);
+        margin-bottom: 3rem;
+        font-size: 1rem;
+        color: var(--primary-color);
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        font-weight: 600;
+        box-shadow: 0 4px 15px rgba(0, 84, 142, 0.1);
+        transition: all var(--transition-duration) ease;
+    }
+
+    .updated-info:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 84, 142, 0.15);
+    }
+
+    .updated-info i {
+        font-size: 1.2rem;
+        color: var(--primary-color);
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+    }
+
     /* Enhanced Privacy Cards */
     .privacy-card {
         background: white;
         border-radius: var(--border-radius);
         box-shadow: var(--card-shadow);
         border: 1px solid var(--border-color);
-        padding: 3rem;
         margin-bottom: 2.5rem;
         transition: all var(--transition-duration) cubic-bezier(0.4, 0, 0.2, 1);
         position: relative;
@@ -142,51 +186,42 @@
         width: 8px;
     }
 
-    /* Enhanced Section Icons */
-    .section-icon {
-        width: 60px;
-        height: 60px;
-        background: linear-gradient(135deg, var(--primary-color), #0066a3);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        margin-bottom: 1.5rem;
-        font-size: 1.5rem;
-        box-shadow: 0 4px 20px rgba(0, 84, 142, 0.3);
-        transition: all var(--transition-duration) ease;
+    /* Enhanced Card Headers */
+    .card-header {
+        background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+        border-bottom: 1px solid var(--border-color);
+        padding: 2rem 2.5rem 1.5rem;
+        border-radius: var(--border-radius) var(--border-radius) 0 0;
+        position: relative;
     }
 
-    .privacy-card:hover .section-icon {
-        background: linear-gradient(135deg, var(--secondary-color), #9bc600);
-        transform: scale(1.1) rotate(5deg);
-        box-shadow: 0 6px 25px rgba(176, 215, 1, 0.4);
-    }
-
-    /* Enhanced Section Titles */
-    .section-title {
+    .card-header h3 {
         color: var(--primary-color);
         font-weight: 700;
-        font-size: 1.8rem;
-        margin-bottom: 1.5rem;
-        position: relative;
+        font-size: 1.5rem;
+        margin: 0;
         display: flex;
         align-items: center;
         gap: 1rem;
         line-height: 1.3;
     }
 
-    .section-title::after {
-        content: '';
-        flex: 1;
-        height: 2px;
-        background: linear-gradient(90deg, var(--primary-color), transparent);
-        border-radius: 1px;
+    .card-header h3 i {
+        font-size: 1.3rem;
+        transition: all var(--transition-duration) ease;
     }
 
-    /* Enhanced Privacy Text */
-    .privacy-text {
+    .privacy-card:hover .card-header h3 i {
+        transform: scale(1.2) rotate(5deg);
+        color: var(--secondary-color);
+    }
+
+    /* Enhanced Card Bodies */
+    .card-body {
+        padding: 2.5rem;
+    }
+
+    .card-body p {
         line-height: 1.8;
         color: var(--text-color);
         font-size: 1.1rem;
@@ -194,105 +229,57 @@
         margin-bottom: 1.5rem;
     }
 
-    /* Enhanced Updated Info */
-    .updated-info {
-        background: linear-gradient(135deg, #dbeafe, #bfdbfe);
-        padding: 1.5rem 2rem;
-        border-radius: var(--border-radius);
-        border-left: 4px solid var(--primary-color);
-        margin-bottom: 3rem;
-        font-size: 1rem;
-        color: var(--primary-color);
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        font-weight: 600;
-        box-shadow: 0 4px 15px rgba(0, 84, 142, 0.1);
+    .card-body p:last-child {
+        margin-bottom: 0;
     }
 
-    .updated-info i {
-        font-size: 1.2rem;
-        color: var(--primary-color);
-    }
-
-    /* Enhanced Privacy Highlights */
-    .privacy-highlight {
-        background: linear-gradient(135deg, #f0fdf4, #dcfce7);
-        padding: 2rem;
-        border-radius: var(--border-radius);
-        border-left: 4px solid var(--secondary-color);
-        margin: 2rem 0;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .privacy-highlight::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 100px;
-        height: 100px;
-        background: radial-gradient(circle, rgba(176, 215, 1, 0.1) 0%, transparent 70%);
-        border-radius: 50%;
-        transform: translate(30px, -30px);
-    }
-
-    .privacy-highlight h4 {
-        color: var(--primary-color);
-        font-weight: 700;
-        font-size: 1.3rem;
-        margin-bottom: 1rem;
-        position: relative;
-        z-index: 2;
-    }
-
-    /* Enhanced Privacy Lists */
-    .privacy-list {
+    /* Enhanced Lists */
+    .info-list ul,
+    .card-body ul {
         list-style: none;
         padding: 0;
-        margin: 0;
+        margin: 1.5rem 0;
     }
 
-    .privacy-list li {
-        padding: 1rem 0;
+    .info-list li,
+    .card-body li {
+        padding: 0.75rem 0;
         border-bottom: 1px solid var(--border-color);
         position: relative;
-        padding-left: 3rem;
+        padding-left: 2.5rem;
         font-size: 1.05rem;
         color: var(--text-color);
         transition: all var(--transition-duration) ease;
-    }
-
-    .privacy-list li::before {
-        content: '';
-        position: absolute;
-        left: 0;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 20px;
-        height: 20px;
-        background: linear-gradient(135deg, var(--secondary-color), #9bc600);
-        border-radius: 50%;
         display: flex;
         align-items: center;
-        justify-content: center;
-        font-family: 'Font Awesome 6 Free';
-        font-weight: 900;
-        content: '\f00c';
-        color: white;
-        font-size: 0.8rem;
-        box-shadow: 0 2px 8px rgba(176, 215, 1, 0.3);
+        gap: 1rem;
     }
 
-    .privacy-list li:hover {
-        padding-left: 3.5rem;
+    .info-list li:hover,
+    .card-body li:hover {
+        padding-left: 3rem;
         color: var(--primary-color);
         background: rgba(0, 84, 142, 0.02);
+        border-radius: 8px;
     }
 
-    .privacy-list li:last-child {
+    .info-list li:last-child,
+    .card-body li:last-child {
         border-bottom: none;
+    }
+
+    .info-list li i,
+    .card-body li i {
+        color: var(--secondary-color);
+        font-size: 1rem;
+        min-width: 1rem;
+        transition: all var(--transition-duration) ease;
+    }
+
+    .info-list li:hover i,
+    .card-body li:hover i {
+        transform: scale(1.2);
+        color: var(--primary-color);
     }
 
     /* Enhanced Contact Section */
@@ -420,18 +407,6 @@
         }
     }
 
-    /* Scroll Progress Indicator */
-    .scroll-progress {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 0%;
-        height: 4px;
-        background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-        z-index: 9999;
-        transition: width 0.1s ease;
-    }
-
     /* Enhanced Responsive Design */
     @media (max-width: 1024px) {
         .privacy-hero {
@@ -442,8 +417,9 @@
             padding: 4rem 0;
         }
         
-        .privacy-card {
-            padding: 2.5rem;
+        .card-header,
+        .card-body {
+            padding: 2rem;
         }
     }
 
@@ -465,29 +441,22 @@
         }
         
         .privacy-card {
-            padding: 2rem;
             margin-bottom: 2rem;
         }
         
-        .section-title {
-            font-size: 1.5rem;
+        .card-header h3 {
+            font-size: 1.3rem;
             flex-direction: column;
             align-items: flex-start;
             gap: 0.5rem;
         }
         
-        .section-title::after {
-            width: 60px;
-            height: 2px;
+        .card-header,
+        .card-body {
+            padding: 1.5rem;
         }
         
-        .section-icon {
-            width: 50px;
-            height: 50px;
-            font-size: 1.2rem;
-        }
-        
-        .privacy-text {
+        .card-body p {
             font-size: 1rem;
         }
         
@@ -498,13 +467,10 @@
             gap: 0.75rem;
         }
         
-        .privacy-highlight {
-            padding: 1.5rem;
-        }
-        
-        .privacy-list li {
+        .info-list li,
+        .card-body li {
             padding: 0.75rem 0;
-            padding-left: 2.5rem;
+            padding-left: 2rem;
             font-size: 1rem;
         }
         
@@ -532,27 +498,19 @@
             padding: 4rem 0 2rem;
         }
         
-        .privacy-card {
-            padding: 1.5rem;
+        .card-header h3 {
+            font-size: 1.2rem;
         }
         
-        .section-title {
-            font-size: 1.3rem;
-        }
-        
-        .privacy-highlight {
+        .card-header,
+        .card-body {
             padding: 1.25rem;
         }
         
-        .privacy-list li {
-            padding-left: 2rem;
+        .info-list li,
+        .card-body li {
+            padding-left: 1.5rem;
             font-size: 0.95rem;
-        }
-        
-        .privacy-list li::before {
-            width: 16px;
-            height: 16px;
-            font-size: 0.7rem;
         }
         
         .contact-section {
@@ -575,28 +533,21 @@
         right: 0;
     }
 
-    [dir="rtl"] .section-title::after {
-        background: linear-gradient(270deg, var(--primary-color), transparent);
-    }
-
-    [dir="rtl"] .privacy-list li {
+    [dir="rtl"] .info-list li,
+    [dir="rtl"] .card-body li {
         padding-left: 0;
-        padding-right: 3rem;
+        padding-right: 2.5rem;
     }
 
-    [dir="rtl"] .privacy-list li::before {
-        left: auto;
-        right: 0;
+    [dir="rtl"] .info-list li:hover,
+    [dir="rtl"] .card-body li:hover {
+        padding-right: 3rem;
+        padding-left: 0;
     }
 
     [dir="rtl"] .updated-info {
         border-left: none;
         border-right: 4px solid var(--primary-color);
-    }
-
-    [dir="rtl"] .privacy-highlight {
-        border-left: none;
-        border-right: 4px solid var(--secondary-color);
     }
 
     [dir="rtl"] .cta-button:hover i {
@@ -655,11 +606,11 @@
             border: 2px solid var(--text-color);
         }
         
-        .section-title {
+        .card-header h3 {
             color: var(--text-color);
         }
         
-        .privacy-text {
+        .card-body p {
             color: var(--text-color);
         }
     }
@@ -685,16 +636,16 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-10">
-                      <!-- Enhanced Updated Info -->
-                      <div class="updated-info animate-slide-in">
+                    <!-- Enhanced Updated Info -->
+                    <div class="updated-info animate-slide-in">
                         <i class="fas fa-shield-alt"></i>
                         <span>{{ __('privacy.last_updated', ['date' => date('F j, Y')]) }}</span>
                     </div>
 
                     <!-- Introduction -->
-                    <div class="card privacy-card" id="introduction">
+                    <div class="card privacy-card animate-slide-in" id="introduction">
                         <div class="card-header">
-                            <h3><i class="fas fa-info-circle text-primary"></i> {{ __('privacy.introduction_title') }}</h3>
+                            <h3><i class="fas fa-info-circle"></i> {{ __('privacy.introduction_title') }}</h3>
                         </div>
                         <div class="card-body">
                             <p>{!! __('privacy.introduction_content') !!}</p>
@@ -702,42 +653,42 @@
                     </div>
 
                     <!-- Information Collection -->
-                    <div class="card privacy-card" id="information_collection">
+                    <div class="card privacy-card animate-slide-in" id="information_collection">
                         <div class="card-header">
-                            <h3><i class="fas fa-database text-primary"></i> {{ __('privacy.information_collection_title') }}</h3>
+                            <h3><i class="fas fa-database"></i> {{ __('privacy.information_collection_title') }}</h3>
                         </div>
                         <div class="card-body">
                             <p>{{ __('privacy.information_collection_content') }}</p>
                             <div class="info-list">
                                 <ul>
-                                    <li><i class="fas fa-check-circle text-success"></i> {!! __('privacy.info_item_1') !!}</li>
-                                    <li><i class="fas fa-check-circle text-success"></i> {!! __('privacy.info_item_2') !!}</li>
-                                    <li><i class="fas fa-check-circle text-success"></i> {!! __('privacy.info_item_3') !!}</li>
+                                    <li><i class="fas fa-check-circle"></i> {!! __('privacy.info_item_1') !!}</li>
+                                    <li><i class="fas fa-check-circle"></i> {!! __('privacy.info_item_2') !!}</li>
+                                    <li><i class="fas fa-check-circle"></i> {!! __('privacy.info_item_3') !!}</li>
                                 </ul>
                             </div>
                         </div>
                     </div>
 
                     <!-- Information Usage -->
-                    <div class="card privacy-card" id="information_usage">
+                    <div class="card privacy-card animate-slide-in" id="information_usage">
                         <div class="card-header">
-                            <h3><i class="fas fa-cogs text-primary"></i> {{ __('privacy.information_usage_title') }}</h3>
+                            <h3><i class="fas fa-cogs"></i> {{ __('privacy.information_usage_title') }}</h3>
                         </div>
                         <div class="card-body">
                             <p>{{ __('privacy.information_usage_content') }}</p>
                             <ul>
-                                <li><i class="fas fa-check-circle text-success"></i> {{ __('privacy.usage_item_1') }}</li>
-                                <li><i class="fas fa-check-circle text-success"></i> {{ __('privacy.usage_item_2') }}</li>
-                                <li><i class="fas fa-check-circle text-success"></i> {{ __('privacy.usage_item_3') }}</li>
-                                <li><i class="fas fa-check-circle text-success"></i> {{ __('privacy.usage_item_4') }}</li>
+                                <li><i class="fas fa-check-circle"></i> {{ __('privacy.usage_item_1') }}</li>
+                                <li><i class="fas fa-check-circle"></i> {{ __('privacy.usage_item_2') }}</li>
+                                <li><i class="fas fa-check-circle"></i> {{ __('privacy.usage_item_3') }}</li>
+                                <li><i class="fas fa-check-circle"></i> {{ __('privacy.usage_item_4') }}</li>
                             </ul>
                         </div>
                     </div>
 
                     <!-- Cookies -->
-                    <div class="card privacy-card" id="cookies">
+                    <div class="card privacy-card animate-slide-in" id="cookies">
                         <div class="card-header">
-                            <h3><i class="fas fa-cookie-bite text-primary"></i> {{ __('privacy.cookies_title') }}</h3>
+                            <h3><i class="fas fa-cookie-bite"></i> {{ __('privacy.cookies_title') }}</h3>
                         </div>
                         <div class="card-body">
                             <p>{!! __('privacy.cookies_content') !!}</p>
@@ -745,9 +696,9 @@
                     </div>
 
                     <!-- Data Sharing -->
-                    <div class="card privacy-card" id="data_sharing">
+                    <div class="card privacy-card animate-slide-in" id="data_sharing">
                         <div class="card-header">
-                            <h3><i class="fas fa-share-alt text-primary"></i> {{ __('privacy.data_sharing_title') }}</h3>
+                            <h3><i class="fas fa-share-alt"></i> {{ __('privacy.data_sharing_title') }}</h3>
                         </div>
                         <div class="card-body">
                             <p>{!! __('privacy.data_sharing_content') !!}</p>
@@ -755,9 +706,9 @@
                     </div>
 
                     <!-- Data Security -->
-                    <div class="card privacy-card" id="data_security">
+                    <div class="card privacy-card animate-slide-in" id="data_security">
                         <div class="card-header">
-                            <h3><i class="fas fa-shield-alt text-primary"></i> {{ __('privacy.data_security_title') }}</h3>
+                            <h3><i class="fas fa-shield-alt"></i> {{ __('privacy.data_security_title') }}</h3>
                         </div>
                         <div class="card-body">
                             <p>{!! __('privacy.data_security_content') !!}</p>
@@ -765,9 +716,9 @@
                     </div>
 
                     <!-- Your Rights -->
-                    <div class="card privacy-card" id="your_rights">
+                    <div class="card privacy-card animate-slide-in" id="your_rights">
                         <div class="card-header">
-                            <h3><i class="fas fa-user-shield text-primary"></i> {{ __('privacy.your_rights_title') }}</h3>
+                            <h3><i class="fas fa-user-shield"></i> {{ __('privacy.your_rights_title') }}</h3>
                         </div>
                         <div class="card-body">
                             <p>{!! __('privacy.your_rights_content') !!}</p>
@@ -775,9 +726,9 @@
                     </div>
 
                     <!-- Contact Us -->
-                    <div class="card privacy-card" id="contact_us">
+                    <div class="card privacy-card animate-slide-in" id="contact_us">
                         <div class="card-header">
-                            <h3><i class="fas fa-envelope text-primary"></i> {{ __('privacy.contact_us_title') }}</h3>
+                            <h3><i class="fas fa-envelope"></i> {{ __('privacy.contact_us_title') }}</h3>
                         </div>
                         <div class="card-body">
                             <p>{{ __('privacy.contact_us_content') }}</p>
@@ -785,13 +736,11 @@
                         </div>
                     </div>
 
-                  
-
                     <!-- Enhanced Contact Section -->
                     <div class="contact-section animate-slide-in">
                         <div class="contact-content">
                             <h3 class="mb-3">{{ __('privacy.questions_privacy') }}</h3>
-                            <p class="mb-0">
+                            <p class="mb-10">
                                 {{ __('privacy.questions_description') }}
                             </p>
                             <a href="{{ route('contact') }}" class="cta-button">
@@ -835,10 +784,10 @@
                     entry.target.classList.add('animate-slide-in');
                     
                     // Add entrance animation to icons
-                    const icon = entry.target.querySelector('.section-icon');
+                    const icon = entry.target.querySelector('.card-header h3 i');
                     if (icon) {
                         setTimeout(() => {
-                            icon.style.transform = 'scale(1.1) rotate(360deg)';
+                            icon.style.transform = 'scale(1.2) rotate(360deg)';
                             setTimeout(() => {
                                 icon.style.transform = 'scale(1) rotate(0deg)';
                             }, 300);
@@ -859,7 +808,7 @@
                 this.style.borderColor = 'rgba(0, 84, 142, 0.3)';
                 
                 // Animate list items on hover
-                const listItems = this.querySelectorAll('.privacy-list li');
+                const listItems = this.querySelectorAll('li');
                 listItems.forEach((item, index) => {
                     setTimeout(() => {
                         item.style.transform = 'translateX(5px)';
@@ -871,7 +820,7 @@
                 this.style.borderColor = 'var(--border-color)';
                 
                 // Reset list items
-                const listItems = this.querySelectorAll('.privacy-list li');
+                const listItems = this.querySelectorAll('li');
                 listItems.forEach(item => {
                     item.style.transform = 'translateX(0)';
                 });
@@ -992,7 +941,7 @@
         const sectionObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    const title = entry.target.querySelector('.section-title');
+                    const title = entry.target.querySelector('.card-header h3');
                     if (title) {
                         announceToScreenReader(`Now viewing: ${title.textContent}`);
                     }

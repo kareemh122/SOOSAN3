@@ -24,6 +24,10 @@ return [
     'advanced_technology_text' => 'State-of-the-art technology ensuring maximum efficiency and performance.',
     'global_support' => 'Global Support',
     'global_support_text' => 'Comprehensive support and service network available worldwide.',
+    'country_numbers' => '70+',
+    'project_numbers' => '1000+',
+    'support_numbers' => '24/7',
+    'years_experience' => '40+',
 
     // Footer
     'footer_description' => 'Leading provider of drilling equipment and solutions for construction, mining, and industrial applications.',
@@ -33,6 +37,7 @@ return [
     'copyright' => 'All rights reserved.',
 
     // Products
+    'products_title' => 'Hydraulic Breakers',
     'all_products' => 'All Products',
     'products_subtitle' => 'Explore our comprehensive range of drilling equipment and accessories.',
     'product_categories' => 'Product Categories',
@@ -55,7 +60,7 @@ return [
     'status' => 'Status',
     'genuine_product' => 'Genuine Product',
     'not_found' => 'Serial number not found',
-    
+
     // Serial Lookup Page
     'equipment_serial_lookup' => 'Equipment Serial Lookup',
     'equipment_serial_lookup_desc' => 'Enter your equipment serial number to instantly check warranty status, specifications, and coverage information.',
@@ -77,8 +82,8 @@ return [
     'call_support' => 'Call Support',
     'support_hours' => 'Support hours: 9 AM - 6 PM (Cairo Time)',
     'serial_not_found' => 'Serial Number Not Found',
-    
-    // Serial Lookup Result Page  
+
+    // Serial Lookup Result Page
     'coverage_results' => 'Coverage Results',
     'equipment_information' => 'Equipment Information',
     'back_to_serial_lookup' => 'Back to Serial Lookup',
@@ -88,7 +93,10 @@ return [
     'warranty_active' => 'Active',
     'warranty_expiring_soon' => 'Expiring Soon',
     'warranty_expired_status' => 'Expired',
+    'warranty_voided' => 'Voided',
+    'warranty_voided_at' => 'Warranty voided at:',
     'warranty_unknown' => 'Unknown',
+    'warranty_guidance' => 'If you believe this was a mistake or need further assistance, please contact our support team <a href=":url" target="_blank" style="color: #0077b6; text-decoration: underline;">here</a> for guidance.',
     'product_details' => 'Product Details',
     'owner_details' => 'Owner Details',
     'name' => 'Name',
@@ -102,14 +110,15 @@ return [
     'si_units' => 'SI',
     'imperial_units' => 'lb-ft',
     'look_up_another' => 'Look up another serial number',
-    
+    'download_pdf' => 'Download PDF',
+
     // Warranty Status Details
     'valid' => 'Valid',
     'purchase_date' => 'Purchase Date',
     'warranty_start' => 'Warranty Start',
     'warranty_end' => 'Warranty End',
     'days_remaining' => 'days remaining',
-    
+
     // Product Specification Labels
     'line' => 'Line',
     'type' => 'Type',
@@ -125,7 +134,7 @@ return [
     'hose_diameter' => 'Hose Diameter',
     'rod_diameter' => 'Rod Diameter',
     'applicable_carrier' => 'Applicable Carrier',
-    
+
     // Units
     'unit_lb' => 'lb',
     'unit_in' => 'in',
@@ -165,7 +174,9 @@ return [
     'hose_diameter' => 'Hose Diameter',
     'rod_diameter' => 'Rod Diameter',
     'view_details' => 'View Details',
-    
+    'download_csv' => 'Download CSV',
+    'copy_link' => 'Copy',
+
     // Error Messages
     'please_enter_serial' => 'Please enter a serial number.',
     'serial_min_length' => 'Serial number must be at least 3 characters long.',
@@ -205,7 +216,7 @@ return [
     'logout' => 'Logout',
     'dashboard' => 'Dashboard',
     'profile' => 'Profile',
-    
+
     // Contact Page
     'get_in_touch' => 'Get in Touch',
     'ready_to_transform' => 'Ready to transform your drilling operations? Our expert team is here to help you find the perfect equipment solutions.',
@@ -280,7 +291,7 @@ return [
     'how_can_i_get_quote' => 'How can I get a quote for equipment?',
     'you_can_request_quote' => 'You can request a quote by filling out our contact form above, calling our sales team, or sending an email to sales@soosancebotics.com. Please include your project requirements and timeline for the most accurate quote.',
     'contact_success' => 'Thank you for your message. We\'ll get back to you as soon as possible.',
-    
+
     // Support Page
     'expert_support_service' => 'Expert Support & Service',
     'comprehensive_support_solutions' => 'Comprehensive support solutions designed to maximize equipment performance and minimize downtime worldwide.',
@@ -392,7 +403,7 @@ return [
     'advanced_iot_monitoring_system' => 'Our advanced IoT monitoring system provides real-time equipment diagnostics, performance analytics, predictive maintenance alerts, and usage optimization insights through customizable dashboards.',
     'what_warranty_coverage_included' => 'What warranty coverage is included with equipment?',
     'all_equipment_comprehensive_warranty' => 'All equipment comes with comprehensive warranty coverage ranging from 12-24 months depending on the product. Extended warranty and total care protection plans are also available for additional coverage.',
-    
+
     // Profile Pages
     'profile_settings' => 'Profile Settings',
     'profile_settings_desc' => 'Manage your account information and security preferences',
@@ -430,7 +441,7 @@ return [
     'cancel' => 'Cancel',
     'yes_delete' => 'Yes, Delete',
     'are_you_sure_remove_photo' => 'Are you sure you want to remove your profile photo? This action cannot be undone.',
-    
+
     // Product Pages Extended
     'no_image' => 'No Image',
     'showing_results' => 'Showing :first to :last of :total results',
@@ -451,7 +462,7 @@ return [
     'applications' => 'Applications',
     'no_category_products' => 'No products found in this category',
     'browse_other_categories' => 'Browse other categories or return to all products.',
-    
+
     // Additional Product Page Translation Keys
     'request_a_quote' => 'Request a Quote',
     'call' => 'Call',
@@ -465,7 +476,7 @@ return [
     'no_products_found_in_category' => 'No products found in this category',
     'check_back_later_new_products' => 'Check back later for new products or browse other categories.',
     'browse_all_products' => 'Browse All Products',
-    
+
     // Admin Products (if needed)
     'products_management' => 'Products Management',
     'add_new_product' => 'Add New Product',
