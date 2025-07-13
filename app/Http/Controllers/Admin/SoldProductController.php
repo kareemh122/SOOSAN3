@@ -142,7 +142,7 @@ class SoldProductController extends Controller
     {
         $validated = $request->validate([
             'product_id' => 'required|exists:products,id',
-            'owner_id' => 'required|exists:owners,id',
+            'owner_id' => 'required|exists:owners,id', 
             'serial_number' => 'required|string|unique:sold_products,serial_number,' . $soldProduct->id,
             'sale_date' => 'required|date',
             'warranty_start_date' => 'required|date',

@@ -17,7 +17,7 @@ class LocaleMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $locale = 'en'; // default locale
+        $locale = 'ar'; // default locale
 
         // Check if language is set in the URL query string
         if ($request->has('lang')) {

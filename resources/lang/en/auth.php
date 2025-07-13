@@ -17,7 +17,7 @@ return [
     'current_language' => 'Current Language',
     'select_language' => 'Select Language',
     'language_toggle' => 'Language Toggle',
-    
+    'change_language' => 'Change Language',
     // Login Page
     'welcome_back' => 'Welcome Back',
     'sign_in_to_account' => 'Sign in to your account to continue',

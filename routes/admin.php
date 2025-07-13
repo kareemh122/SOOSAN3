@@ -20,6 +20,22 @@ Route::prefix('admin')->name('admin.')->middleware(['web'])->group(function () {
         return view('admin.auth.login');
     })->name('login');
 
+    Route::post('/login', function(\Illuminate\Http\Request $request) {
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
+
+        if (auth()->attempt($credentials, $request->boolean('remember'))) {
+            $request->session()->regenerate();
+            return redirect()->intended(route('admin.dashboard'));
+        }
+
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ])->onlyInput('email');
+    })->name('login.submit');
+
     // Admin logout route
     Route::post('/logout', function(\Illuminate\Http\Request $request) {
         auth()->logout();

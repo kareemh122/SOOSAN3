@@ -17,7 +17,7 @@ return [
     'current_language' => 'اللغة الحالية',
     'select_language' => 'اختيار اللغة',
     'language_toggle' => 'تبديل اللغة',
-    
+    'change_language' => 'تغيير اللغة',
     // Login Page
     'welcome_back' => 'مرحباً بعودتك',
     'sign_in_to_account' => 'قم بتسجيل الدخول إلى حسابك للمتابعة',
