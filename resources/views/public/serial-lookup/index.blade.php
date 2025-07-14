@@ -15,10 +15,6 @@
 @section('page-header')
     <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
         <h1 class="display-6 fw-bold text-dark mb-0">{{ __('common.serial_lookup_title') }}</h1>
-        <div class="d-flex align-items-center gap-2 text-muted">
-            <i class="fas fa-search"></i>
-            <span>{{ __('common.check_coverage') }}</span>
-        </div>
     </div>
 @endsection
 
@@ -51,7 +47,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background: 
+        background:
             radial-gradient(circle at 20% 80%, rgba(0, 84, 142, 0.1) 0%, transparent 50%),
             radial-gradient(circle at 80% 20%, rgba(176, 215, 1, 0.1) 0%, transparent 50%),
             radial-gradient(circle at 40% 40%, rgba(0, 84, 142, 0.05) 0%, transparent 50%);
@@ -354,6 +350,7 @@
         border-radius: 12px;
         transition: var(--transition);
         position: relative;
+        height: fit-content;
     }
 
     .feature-item:hover {
@@ -375,6 +372,8 @@
         box-shadow: 0 4px 16px rgba(0, 84, 142, 0.3);
         transition: var(--transition);
         flex-shrink: 0;
+        padding-right: 6px;
+        margin-left: 20px;
     }
 
     .feature-item:hover .feature-icon {
@@ -478,31 +477,31 @@
         .lookup-hero {
             padding: 4rem 0 3rem;
         }
-        
+
         .hero-icon {
             width: 80px;
             height: 80px;
             border-radius: 20px;
         }
-        
+
         .lookup-form {
             padding: 2rem 1.5rem;
             margin-bottom: 1.5rem;
         }
-        
+
         .sample-serials {
             padding: 1.5rem;
         }
-        
+
         .info-card {
             padding: 2rem 1.5rem;
             margin-bottom: 1.5rem;
         }
-        
+
         .feature-item {
             padding: 0.75rem;
         }
-        
+
         .feature-icon {
             width: 40px;
             height: 40px;
@@ -554,16 +553,16 @@
             <p class="fs-4 mb-4 opacity-90">{{ __('common.serial_lookup_subtitle') }}</p>
             <div class="d-flex justify-content-center gap-3 flex-wrap">
                 <div class="d-flex align-items-center gap-2 bg-white bg-opacity-10 px-3 py-2 rounded-pill">
-                    <i class="fas fa-shield-check text-success"></i>
-                    <span>Instant Verification</span>
+                    <i class="fas fa-check-circle" style="color: var(--accent-green);"></i>
+                    <span>{{ __('common.instant_verification') }}</span>
                 </div>
                 <div class="d-flex align-items-center gap-2 bg-white bg-opacity-10 px-3 py-2 rounded-pill">
                     <i class="fas fa-clock text-warning"></i>
-                    <span>24/7 Available</span>
+                    <span>{{ __('common.available') }}</span>
                 </div>
                 <div class="d-flex align-items-center gap-2 bg-white bg-opacity-10 px-3 py-2 rounded-pill">
                     <i class="fas fa-globe text-info"></i>
-                    <span>Global Coverage</span>
+                    <span>{{ __('common.global_coverage') }}</span>
                 </div>
             </div>
         </div>
@@ -588,11 +587,11 @@
                     @csrf
                     <div class="mb-4">
                         <label for="serial_number" class="form-label fw-bold fs-5" style="color: var(--primary-blue);">{{ __('common.serial_number') }}</label>
-                        <input type="text" 
-                               class="form-control serial-input @error('serial_number') is-invalid @enderror" 
-                               id="serial_number" 
-                               name="serial_number" 
-                               value="{{ old('serial_number') }}" 
+                        <input type="text"
+                               class="form-control serial-input @error('serial_number') is-invalid @enderror"
+                               id="serial_number"
+                               name="serial_number"
+                               value="{{ old('serial_number') }}"
                                placeholder="{{ __('common.enter_equipment_serial') }}"
                                required
                                autocomplete="off">
@@ -606,15 +605,12 @@
                     </div>
 
                     <div class="d-grid">
-                        <button type="submit" class="btn lookup-btn" id="lookupBtn">
+                        <button type="submit" class="btn lookup-btn d-flex align-items-center justify-content-center" id="lookupBtn">
                             <span class="btn-text">
                                 <i class="fas fa-search me-2"></i>
                                 {{ __('common.check_coverage') }}
                             </span>
-                            <span class="loading-spinner">
-                                <span class="spinner-border spinner-border-sm me-2" role="status"></span>
-                                {{ __('common.searching') }}
-                            </span>
+                            <span class="spinner-border spinner-border-sm ms-2 d-none" id="lookupSpinner" role="status" aria-hidden="true"></span>
                         </button>
                     </div>
                 </form>
@@ -638,15 +634,14 @@
                     <span class="sample-serial" onclick="fillSerial('TEST123')">TEST123</span>
                     <span class="sample-serial" onclick="fillSerial('HD1200-2025-001')">HD1200-2025-001</span>
                     <span class="sample-serial" onclick="fillSerial('SQ35-2024-789')">SQ35-2024-789</span>
-                    <span class="sample-serial" onclick="fillSerial('SB100-2023-456')">SB100-2023-456</span>
                 </div>
             </div>
 
             <!-- Information Cards -->
             <div class="row g-4">
-                <div class="col-md-6">
+                <div class="col-md-6 h-100">
                     <div class="info-card animate-in">
-                        <h5 class="fw-bold mb-4 d-flex align-items-center" style="color: var(--primary-blue);">
+                        <h5 class="fw-bold mb-4 d-flex align-items-center" style="color: var(--primary-blue); justify-content: center;">
                             <i class="fas fa-shield-check me-2" style="color: var(--accent-green);"></i>
                             {{ __('common.what_youll_get') }}
                         </h5>
@@ -704,8 +699,8 @@
                             <a href="https://wa.me/201000000000" class="support-btn" target="_blank">
                                 <i class="fab fa-whatsapp"></i>
                                 <div>
-                                    <strong>WhatsApp Support</strong>
-                                    <small class="d-block text-muted">Quick messaging</small>
+                                    <strong>{{ __('common.whatsapp_support') }}</strong>
+                                    <small class="d-block text-muted">{{ __('common.quick_messaging') }}</small>
                                 </div>
                             </a>
                         </div>
@@ -729,7 +724,7 @@ function fillSerial(serial) {
     const input = document.getElementById('serial_number');
     input.value = serial;
     input.focus();
-    
+
     // Add visual feedback
     input.style.transform = 'scale(1.02)';
     input.style.borderColor = 'var(--accent-green)';
@@ -743,21 +738,19 @@ document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('serialForm');
     const btn = document.getElementById('lookupBtn');
     const serialInput = document.getElementById('serial_number');
-    
+
     // Form submission handling
     form.addEventListener('submit', function() {
-        btn.classList.add('loading');
         btn.disabled = true;
-        
-        // Add loading animation to form
-        document.querySelector('.lookup-form').style.opacity = '0.7';
+        document.getElementById('lookupSpinner').classList.remove('d-none');
+        // Optionally: document.querySelector('.lookup-form').style.opacity = '1';
     });
 
     // Enhanced input validation
     serialInput.addEventListener('input', function() {
         // Clean input - allow only alphanumeric, hyphens, and underscores
         this.value = this.value.replace(/[^a-zA-Z0-9\-_]/g, '');
-        
+
         // Visual feedback
         if (this.value.length > 0) {
             this.classList.remove('is-invalid');
@@ -803,7 +796,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
             form.submit();
         }
-        
+
         // Escape to clear input
         if (e.key === 'Escape') {
             serialInput.value = '';
@@ -824,16 +817,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 animation: ripple 0.6s linear;
                 pointer-events: none;
             `;
-            
+
             const rect = this.getBoundingClientRect();
             const size = Math.max(rect.width, rect.height);
             ripple.style.width = ripple.style.height = size + 'px';
             ripple.style.left = (rect.width / 2 - size / 2) + 'px';
             ripple.style.top = (rect.height / 2 - size / 2) + 'px';
-            
+
             this.style.position = 'relative';
             this.appendChild(ripple);
-            
+
             setTimeout(() => ripple.remove(), 600);
         });
     });

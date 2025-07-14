@@ -365,11 +365,11 @@
                     <div class="input-group shadow-sm rounded-pill" style="background: #fff;">
                         <input type="hidden" name="unit" value="{{ $unit }}">
                         <input type="text" name="search" id="search"
-                               class="form-control border-0 rounded-start-pill px-4 py-3"
-                               maxlength="100"
-                               value="{{ old('search', e($search ?? '')) }}"
-                               placeholder="Search by model, type, line, or specs..."
-                               style="font-size: 1.3rem; background: #fff;">
+                            class="form-control border-0 rounded-start-pill px-4 py-3"
+                            maxlength="100"
+                            value="{{ old('search', e($search ?? '')) }}"
+                            placeholder="{{ __('common.products_search_placeholder') }}"
+                            style="font-size: 1.3rem; background: #fff;">
                         <button class="btn search-btn rounded-end-pill px-3 px-md-4 d-flex align-items-center" type="submit">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="white" viewBox="0 0 16 16" class="me-md-2">
                                 <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85zm-5.242 1.398a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11z"/>
@@ -383,7 +383,9 @@
         <!-- Controls Row -->
         <div class="row align-items-center justify-content-between mb-4">
                 <div class="mb-3" id="productsCount" style="margin-left:50%;">
-                    <h5 class="fw-semibold" style="color: #00548e; margin-top: 15px; font-size: 23px;">Total {{ $products->total() }} Products</h5>
+                    <h5 class="fw-semibold" style="color: #00548e; margin-top: 15px; font-size: 23px;">
+    {{ __('common.total_products', ['count' => $products->total()]) }}
+</h5>
                 </div>
             <div class="col-12 col-md-auto mb-3 mb-md-0">
                 <div class="d-flex align-items-center gap-3">
@@ -414,33 +416,33 @@
                         <i class="fas fa-sort"></i>
                         <span id="sortLabel" class="d-none d-md-inline">
                             @switch($sort ?? 'none')
-                                @case('carrier-desc') Carrier (High to Low) @break
-                                @case('carrier-asc') Carrier (Low to High) @break
-                                @case('weight-desc') Weight (High to Low) @break
-                                @case('weight-asc') Weight (Low to High) @break
-                                @default Sort @break
+                                @case('carrier-desc') {{ __('common.sort_carrier_desc') }} @break
+                                @case('carrier-asc') {{ __('common.sort_carrier_asc') }} @break
+                                @case('weight-desc') {{ __('common.sort_weight_desc') }} @break
+                                @case('weight-asc') {{ __('common.sort_weight_asc') }} @break
+                                @default {{ __('common.sort_default') }} @break
                             @endswitch
                         </span>
-                        <span class="d-inline d-md-none">Sort</span>
+                        <span class="d-inline d-md-none">{{ __('common.sort_default') }}</span>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="sortDropdown">
                         <li><a class="dropdown-item d-flex align-items-center sort-option" href="#" data-sort="none">
-                            <i class="fas fa-ban me-2"></i>None (Default Order)
-                        </a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item d-flex align-items-center sort-option" href="#" data-sort="carrier-desc">
-                            <i class="fas fa-arrow-down-wide-short me-2"></i>Applicable Carrier (High to Low)
-                        </a></li>
-                        <li><a class="dropdown-item d-flex align-items-center sort-option" href="#" data-sort="carrier-asc">
-                            <i class="fas fa-arrow-up-short-wide me-2"></i>Applicable Carrier (Low to High)
-                        </a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item d-flex align-items-center sort-option" href="#" data-sort="weight-desc">
-                            <i class="fas fa-arrow-down-wide-short me-2"></i>Operating Weight (High to Low)
-                        </a></li>
-                        <li><a class="dropdown-item d-flex align-items-center sort-option" href="#" data-sort="weight-asc">
-                            <i class="fas fa-arrow-up-short-wide me-2"></i>Operating Weight (Low to High)
-                        </a></li>
+    <i class="fas fa-ban me-2"></i>{{ __('common.sort_none') }}
+</a></li>
+<li><hr class="dropdown-divider"></li>
+<li><a class="dropdown-item d-flex align-items-center sort-option" href="#" data-sort="carrier-desc">
+    <i class="fas fa-arrow-down-wide-short me-2"></i>{{ __('common.sort_carrier_desc') }}
+</a></li>
+<li><a class="dropdown-item d-flex align-items-center sort-option" href="#" data-sort="carrier-asc">
+    <i class="fas fa-arrow-up-short-wide me-2"></i>{{ __('common.sort_carrier_asc') }}
+</a></li>
+<li><hr class="dropdown-divider"></li>
+<li><a class="dropdown-item d-flex align-items-center sort-option" href="#" data-sort="weight-desc">
+    <i class="fas fa-arrow-down-wide-short me-2"></i>{{ __('common.sort_weight_desc') }}
+</a></li>
+<li><a class="dropdown-item d-flex align-items-center sort-option" href="#" data-sort="weight-asc">
+    <i class="fas fa-arrow-up-short-wide me-2"></i>{{ __('common.sort_weight_asc') }}
+</a></li>
                     </ul>
                 </div>
             </div>
@@ -1039,13 +1041,22 @@
 
                 // Update label
                 const sortLabel = document.getElementById('sortLabel');
-                let labelText = 'Sort';
+                const sortTranslations = {
+                    'sort_default': "{{ __('common.sort_default') }}",
+                    'sort_none': "{{ __('common.sort_none') }}",
+                    'sort_carrier_desc': "{{ __('common.sort_carrier_desc') }}",
+                    'sort_carrier_asc': "{{ __('common.sort_carrier_asc') }}",
+                    'sort_weight_desc': "{{ __('common.sort_weight_desc') }}",
+                    'sort_weight_asc': "{{ __('common.sort_weight_asc') }}"
+                };
+                let labelText = sortTranslations['sort_default'];
                 switch (sortValue) {
-                    case 'carrier-desc': labelText = 'Carrier (High to Low)'; break;
-                    case 'carrier-asc': labelText = 'Carrier (Low to High)'; break;
-                    case 'weight-desc': labelText = 'Weight (High to Low)'; break;
-                    case 'weight-asc': labelText = 'Weight (Low to High)'; break;
-                    default: labelText = 'Sort'; break;
+                    case 'carrier-desc': labelText = sortTranslations['sort_carrier_desc']; break;
+                    case 'carrier-asc': labelText = sortTranslations['sort_carrier_asc']; break;
+                    case 'weight-desc': labelText = sortTranslations['sort_weight_desc']; break;
+                    case 'weight-asc': labelText = sortTranslations['sort_weight_asc']; break;
+                    case 'none': labelText = sortTranslations['sort_none']; break;
+                    default: labelText = sortTranslations['sort_default']; break;
                 }
                 if (sortLabel) sortLabel.textContent = labelText;
 

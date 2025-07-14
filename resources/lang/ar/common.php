@@ -81,6 +81,11 @@ return [
     'call_support' => 'دعم الاتصال',
     'support_hours' => 'ساعات الدعم: 9 صباحاً - 6 مساءً (توقيت القاهرة)',
     'serial_not_found' => 'الرقم التسلسلي غير موجود',
+    'instant_verification' => 'التحقق الفوري',
+    'available' => 'متاح ٢٤/٧',
+    'global_coverage' => 'تغطية عالمية',
+    'whatsapp_support' => 'دعم واتساب',
+    'quick_messaging' => 'رسائل سريعة للتواصل والدعم الفوري',
 
     // Serial Lookup Result Page
     'coverage_results' => 'نتائج التغطية',
@@ -92,8 +97,10 @@ return [
     'warranty_active' => 'نشط',
     'warranty_expiring_soon' => 'ينتهي قريباً',
     'warranty_expired_status' => 'منتهي الصلاحية',
+    'warranty_voided' => 'خارج الضمان',
     'warranty_unknown' => 'غير معروف',
-    'warranty_guidance' => 'إذا كان لديك أي استفسارات حول حالة الضمان الخاصة بك، يرجى الاتصال بفريق الدعم لدينا.',
+    'warranty_voided_at' => 'خارج الضمان في:',
+    'warranty_guidance' => 'إذا كان لديك أي استفسارات حول حالة الضمان الخاصة بك، يرجى الاتصال<a href=":url" target="_blank" style="color: #0077b6; text-decoration: none; hover: text-decoration: underline;" class="support-btn"> بفريق الدعم لدينا.</a>',
     'product_details' => 'تفاصيل المنتج',
     'owner_details' => 'تفاصيل المالك',
     'name' => 'الاسم',
@@ -147,18 +154,23 @@ return [
     'products_description' => 'استعرض مجموعتنا الشاملة من معدات وآلات الحفر.',
     'enter_product_model' => 'أدخل اسم نموذج المنتج',
     'search_products' => 'بحث',
+    'products_search_placeholder' => 'بحث المنتجات حسب اسم النموذج، الخط، المواصفات...',
+    'total_products' => 'إجمالي :count منتج',
     'filter' => 'تصفية',
     'reset_filters' => 'إعادة تعيين المرشحات',
     'show_all' => 'عرض الكل',
     'sort_by' => 'ترتيب حسب',
-    'sort_name_asc' => 'الاسم (أ-ي)',
-    'sort_name_desc' => 'الاسم (ي-أ)',
-    'sort_weight_asc' => 'الوزن (منخفض-عالي)',
-    'sort_weight_desc' => 'الوزن (عالي-منخفض)',
+    'sort_default' => 'ترتيب',
+    'sort_none' => 'لا شيء',
+    'sort_carrier_desc' => 'الناقل المطبق (منخفض-عالي)',
+    'sort_carrier_asc' => 'الناقل المطبق (عالي-منخفض)',
+    'sort_weight_asc' => 'وزن التشغيل (منخفض-عالي)',
+    'sort_weight_desc' => 'وزن التشغيل (عالي-منخفض)',
     'no_products_found' => 'لم يتم العثور على منتجات',
     'no_products_message' => 'حاول تعديل معايير البحث أو التصفية.',
     'clear_filters' => 'إزالة جميع المرشحات',
     'view_details' => 'عرض التفاصيل',
+    'generating_pdf' => 'جاري تحميل PDF',
 
     // Error Messages
     'please_enter_serial' => 'يرجى إدخال رقم تسلسلي.',
@@ -189,6 +201,7 @@ return [
     // Support
     'support_title' => 'دعم العملاء',
     'support_subtitle' => 'نحن هنا للمساعدة في أي أسئلة أو مشاكل قد تواجهها.',
+    
 
     // Common
     'learn_more' => 'اعرف المزيد',
@@ -338,6 +351,7 @@ return [
     'warranty_claim_assistance' => 'مساعدة مطالبة الضمان',
     'insurance_coordination' => 'تنسيق التأمين',
     'check_coverage' => 'تحقق من التغطية',
+    'searching' => 'جارٍ البحث...',
     'emergency_support_available' => 'الدعم الطارئ متوفر',
     'equipment_breakdown_costs' => 'عطل المعدات يمكن أن يكلفك آلاف الدولارات في الساعة. فريق الاستجابة الطارئة لدينا متواجد 24/7 لإعادتك للعمل بسرعة.',
     'less_than_1_hour' => '< ساعة واحدة',

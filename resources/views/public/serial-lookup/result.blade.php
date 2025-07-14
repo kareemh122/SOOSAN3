@@ -306,7 +306,7 @@
 
     /* Product Image */
     .product-image {
-        max-height: 400px;
+        max-height: 600px;
         width: 100%;
         object-fit: contain;
         border-radius: 20px;
@@ -403,6 +403,7 @@
         font-size: 1.5rem;
         box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
         transition: var(--transition);
+        padding-right: 6px;
     }
 
     .section-icon:hover {
@@ -646,25 +647,25 @@ $unit = 'si';
             <div class="text-center mb-4">
                 <h1 class="h2 mb-3" style="font-weight: 800; font-size: 2.5rem;">{{ $soldProduct->product->model_name }}</h1>
                 <div class="d-flex justify-content-center align-items-center flex-wrap gap-3 mb-3">
-                    <span class="text-white-50 fs-5">{{ __('common.serial_number') }}:</span>
+                    <span class="text-white fs-5 fw-bold" >{{ __('common.serial_number') }}:</span>
                     <span class="serial-display">{{ $soldProduct->serial_number }}</span>
                     <div class="unit-toggle-custom" tabindex="0">
-                        <button type="button" class="unit-btn si-btn{{ $unit === 'si' ? ' active' : '' }}" id="siBtn">SI</button>
-                        <button type="button" class="unit-btn imperial-btn{{ $unit === 'si' ? '' : ' active' }}" id="imperialBtn">Imperial</button>
+                        <button type="button" class="unit-btn si-btn{{ $unit === 'si' ? ' active' : '' }}" id="siBtn">{{ __('common.si_units') }}</button>
+                        <button type="button" class="unit-btn imperial-btn{{ $unit === 'si' ? '' : ' active' }}" id="imperialBtn">{{ __('common.imperial_units') }}</button>
                     </div>
                 </div>
                 <div class="d-flex justify-content-center gap-3 flex-wrap mt-4">
                     <div class="d-flex align-items-center gap-2 bg-white bg-opacity-10 px-3 py-2 rounded-pill">
-                        <i class="fas fa-check-circle text-success"></i>
-                        <span>Verified Equipment</span>
+                    <i class="fas fa-check-circle" style="color: var(--accent-green);"></i>
+                        <span>{{ __('common.instant_verification') }}</span>
                     </div>
                     <div class="d-flex align-items-center gap-2 bg-white bg-opacity-10 px-3 py-2 rounded-pill">
-                        <i class="fas fa-database text-info"></i>
-                        <span>Complete Records</span>
+                    <i class="fas fa-clock text-warning"></i>
+                        <span>{{ __('common.available') }}</span>
                     </div>
                     <div class="d-flex align-items-center gap-2 bg-white bg-opacity-10 px-3 py-2 rounded-pill">
-                        <i class="fas fa-shield-check text-warning"></i>
-                        <span>Warranty Tracked</span>
+                    <i class="fas fa-globe text-info"></i>
+                        <span>{{ __('common.global_coverage') }}</span>
                     </div>
                 </div>
             </div>
@@ -704,8 +705,7 @@ $unit = 'si';
                     <div class="w-100 h-100 d-flex align-items-center justify-content-center" style="background: linear-gradient(135deg, #f8fafc, #e2e8f0); border-radius: 20px; min-height: 450px; border: 2px solid rgba(0, 84, 142, 0.1);">
                         <img src="{{ $soldProduct->product->image_url ?? asset('images/fallback.webp') }}"
                              alt="{{ $soldProduct->product->model_name }}"
-                             class="product-image w-100 h-100"
-                             style="object-fit: contain; max-height: 400px;">
+                             class="product-image w-100 h-100">
                     </div>
                 </div>
                 <div class="col-lg-8 d-flex align-items-center">
@@ -807,7 +807,7 @@ $unit = 'si';
                         </div>
                         <p class="mb-3 fs-5">
                             <strong>{{ __('common.warranty_voided_at') }}</strong>
-                            {{ $soldProduct->warranty_voided_at ? $soldProduct->warranty_voided_at->format('F j, Y H:i') : '-' }}
+                            {{ $soldProduct->warranty_voided_at ? $soldProduct->warranty_voided_at->locale(app()->getLocale())->translatedFormat('j F Y H:i') : '-' }}
                         </p>
                         <p class="mb-3 fs-5">
                             <i class="fas fa-info-circle me-2"></i>
@@ -822,9 +822,9 @@ $unit = 'si';
                 </div>
             @else
                 @php
-                    $purchaseDate = $soldProduct->sale_date ? $soldProduct->sale_date->format('F j, Y') : '-';
-                    $warrantyStart = $soldProduct->warranty_start_date ? $soldProduct->warranty_start_date->format('F j, Y') : '-';
-                    $warrantyEnd = $soldProduct->warranty_end_date ? $soldProduct->warranty_end_date->format('F j, Y') : '-';
+                    $purchaseDate = $soldProduct->sale_date ? $soldProduct->sale_date->locale(app()->getLocale())->translatedFormat('j F Y') : '-';
+                    $warrantyStart = $soldProduct->warranty_start_date ? $soldProduct->warranty_start_date->locale(app()->getLocale())->translatedFormat('j F Y') : '-';
+                    $warrantyEnd = $soldProduct->warranty_end_date ? $soldProduct->warranty_end_date->locale(app()->getLocale())->translatedFormat('j F Y') : '-';
                     $now = now();
                     $status = __('common.valid');
                     $daysLeft = $soldProduct->warranty_end_date ? $now->diffInDays($soldProduct->warranty_end_date, false) : null;
@@ -909,7 +909,7 @@ $unit = 'si';
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    // Unit toggle functionality with enhanced animations
+    // Unit toggle functionality
     const siBtn = document.getElementById('siBtn');
     const imperialBtn = document.getElementById('imperialBtn');
     const unitValues = document.querySelectorAll('.unit-value');
@@ -940,11 +940,9 @@ document.addEventListener('DOMContentLoaded', function () {
         unitValues.forEach((element, index) => {
             const value = element.getAttribute(`data-${unit}`);
             if (value) {
-                // Staggered animation for smooth transition
                 setTimeout(() => {
                     element.style.opacity = '0';
                     element.style.transform = 'translateY(-10px)';
-
                     setTimeout(() => {
                         element.textContent = value;
                         element.style.opacity = '1';
@@ -973,7 +971,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }, observerOptions);
 
-    // Observe animated elements
     document.querySelectorAll('.coverage-card, .no-result-card').forEach(card => {
         card.style.opacity = '0';
         card.style.transform = 'translateY(40px)';
@@ -981,261 +978,262 @@ document.addEventListener('DOMContentLoaded', function () {
         observer.observe(card);
     });
 
-// Enhanced PDF Download Logic
-const pdfBtn = document.getElementById('pdfBtn');
-if (pdfBtn) {
-    pdfBtn.addEventListener('click', generatePdf);
-}
-
-function generatePdf() {
-    if (!window.jspdf) {
-        alert('jsPDF library is missing. Please check the script order.');
-        return;
+    // Enhanced PDF Download Logic
+    const pdfBtn = document.getElementById('pdfBtn');
+    if (pdfBtn) {
+        pdfBtn.addEventListener('click', generatePdf);
     }
 
-    pdfBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Generating PDF...';
-    pdfBtn.disabled = true;
+    function generatePdf() {
+        if (!window.jspdf) {
+            alert('jsPDF library is missing. Please check the script order.');
+            return;
+        }
 
-    const productName = pdfBtn?.dataset.model_name || '-';
-    const productLine = pdfBtn?.dataset.line || '-';
-    const productType = pdfBtn?.dataset.type || '-';
-    const productImgUrl = pdfBtn?.dataset.image_url || (window.location.origin + '/images/fallback.webp');
+        const isRtl = document.documentElement.getAttribute('dir') === 'rtl';
+        const loadingText = isRtl ? '...جاري تحميل PDF' : 'Generating PDF...';
+        pdfBtn.innerHTML = `<i class="fas fa-spinner fa-spin me-2"></i>${loadingText}`;
+        pdfBtn.disabled = true;
 
-    const doc = new window.jspdf.jsPDF({ unit: 'pt', format: 'a4' });
-    const pageWidth = doc.internal.pageSize.getWidth();
-    let y = 40;
+        const productName = pdfBtn?.dataset.model_name || '-';
+        const productLine = pdfBtn?.dataset.line || '-';
+        const productType = pdfBtn?.dataset.type || '-';
+        const productImgUrl = pdfBtn?.dataset.image_url || (window.location.origin + '/images/fallback.webp');
 
-    // ---- Specs Table ----
-    const specsRows = [];
-    const specsTable = document.querySelector('.specs-table');
-    if (specsTable) {
-        let rowIndex = 0;
-        specsTable.querySelectorAll('tbody tr').forEach(row => {
-            rowIndex++;
-            if (rowIndex <= 3) return;
-            const label = row.querySelector('th')?.innerText || '-';
-            const span = row.querySelector('td span.unit-value');
-            const siValue = span ? (span.dataset.si || '-') : '-';
-            const lbftValue = span ? (span.dataset.imperial || '-') : '-';
-            specsRows.push([label, siValue, lbftValue]);
-        });
-    } else {
-        specsRows.push(['-', '-', '-']);
-    }
-    const specsHead = [['Specification', 'SI', 'Imperial']];
+        const doc = new window.jspdf.jsPDF({ unit: 'pt', format: 'a4' });
+        const pageWidth = doc.internal.pageSize.getWidth();
+        let y = 40;
 
-    // ---- Warranty Info ----
-    const warrantyRows = [];
-    const warrantyCard = document.querySelectorAll('.coverage-card')[2];
-    if (warrantyCard) {
-        const voidedElem = warrantyCard.querySelector('.status-badge.expired, .fa-ban');
-        if (voidedElem) {
-            const status = voidedElem.textContent.trim() || '-';
-            const voidedAtElem = warrantyCard.querySelector('strong');
-            let voidedAt = '-';
-            if (voidedAtElem && voidedAtElem.nextSibling && voidedAtElem.nextSibling.textContent) {
-                voidedAt = voidedAtElem.nextSibling.textContent.trim();
-            }
-            warrantyRows.push(['Status', status]);
-            warrantyRows.push(['Voided At', voidedAt]);
+        const translations = window.serialLookupTranslations || {};
+        function t(key) { return translations[key] || key; }
+
+        // Specs
+        const specsRows = [];
+        const specsTable = document.querySelector('.specs-table');
+        if (specsTable) {
+            let rowIndex = 0;
+            specsTable.querySelectorAll('tbody tr').forEach(row => {
+                rowIndex++;
+                if (rowIndex <= 3) return;
+                let label = row.querySelector('th')?.dataset.key || row.querySelector('th')?.innerText || '-';
+                label = t(label.trim());
+                const span = row.querySelector('td span.unit-value');
+                const siValue = span ? (span.dataset.si || '-') : '-';
+                const lbftValue = span ? (span.dataset.imperial || '-') : '-';
+                specsRows.push(isRtl ? [lbftValue, siValue, label] : [label, siValue, lbftValue]);
+            });
         } else {
-            const purchaseDate = warrantyCard.querySelector('.fa-shopping-cart')?.parentElement?.innerText?.split(':')[1]?.trim() || '-';
-            const warrantyStart = warrantyCard.querySelector('.fa-play-circle')?.parentElement?.innerText?.split(':')[1]?.trim() || '-';
-            const warrantyEnd = warrantyCard.querySelector('.fa-calendar-check')?.parentElement?.innerText?.split(':')[1]?.trim() || '-';
-            const statusElem = warrantyCard.querySelector('.status-badge');
-            const status = statusElem ? statusElem.textContent.trim() : '-';
-            let daysRemaining = '-';
-            const daysElem = warrantyCard.querySelector('.text-muted');
-            if (daysElem) {
-                daysRemaining = daysElem.textContent.replace(/[^0-9]/g, '').trim();
+            specsRows.push(['-', '-', '-']);
+        }
+        const specsHead = [isRtl ? [t('imperial'), t('si'), t('specification')] : [t('specification'), t('si'), t('imperial')]];
+
+        // Warranty
+        const warrantyRows = [];
+        const warrantyCard = document.querySelectorAll('.coverage-card')[2];
+        if (warrantyCard) {
+            const voidedElem = warrantyCard.querySelector('.status-badge.expired, .fa-ban');
+            if (voidedElem) {
+                const status = voidedElem.textContent.trim() || '-';
+                const voidedAtElem = warrantyCard.querySelector('strong');
+                let voidedAt = '-';
+                if (voidedAtElem?.nextSibling?.textContent) {
+                    voidedAt = voidedAtElem.nextSibling.textContent.trim();
+                }
+                warrantyRows.push(isRtl ? [voidedAt, t('voided_at')] : [t('voided_at'), voidedAt]);
+                warrantyRows.push(isRtl ? [status, t('status')] : [t('status'), status]);
+            } else {
+                const purchaseDate = warrantyCard.querySelector('.fa-shopping-cart')?.parentElement?.innerText?.split(':')[1]?.trim() || '-';
+                const warrantyStart = warrantyCard.querySelector('.fa-play-circle')?.parentElement?.innerText?.split(':')[1]?.trim() || '-';
+                const warrantyEnd = warrantyCard.querySelector('.fa-calendar-check')?.parentElement?.innerText?.split(':')[1]?.trim() || '-';
+                const statusElem = warrantyCard.querySelector('.status-badge');
+                const status = statusElem ? statusElem.textContent.trim() : '-';
+                let daysRemaining = '-';
+                const daysElem = warrantyCard.querySelector('.text-muted');
+                if (daysElem) {
+                    daysRemaining = daysElem.textContent.replace(/[^0-9]/g, '').trim();
+                }
+                const rows = [
+                    [t('purchase_date'), purchaseDate],
+                    [t('warranty_start'), warrantyStart],
+                    [t('warranty_end'), warrantyEnd],
+                    [t('status'), status],
+                    [t('days_remaining'), daysRemaining]
+                ];
+                rows.forEach(row => warrantyRows.push(isRtl ? [row[1], row[0]] : row));
             }
-            warrantyRows.push(['Purchase Date', purchaseDate]);
-            warrantyRows.push(['Warranty Start', warrantyStart]);
-            warrantyRows.push(['Warranty End', warrantyEnd]);
-            warrantyRows.push(['Status', status]);
-            warrantyRows.push(['Days Remaining', daysRemaining]);
         }
-    }
 
-    // ---- Owner Info ----
-    const ownerRows = [];
-    const ownerCard = document.querySelectorAll('.coverage-card')[1];
-    if (ownerCard) {
-        const name = ownerCard.querySelector('.fa-user')?.parentElement?.nextElementSibling?.innerText || '-';
-        const company = ownerCard.querySelector('.fa-building')?.parentElement?.nextElementSibling?.innerText || '-';
-        const country = ownerCard.querySelector('.fa-flag')?.parentElement?.nextElementSibling?.innerText || '-';
-        ownerRows.push(['Name', name]);
-        ownerRows.push(['Company', company]);
-        ownerRows.push(['Country', country]);
-    }
+        // Owner Info
+        const ownerRows = [];
+        const ownerCard = document.querySelectorAll('.coverage-card')[1];
+        if (ownerCard) {
+            const name = ownerCard.querySelector('.fa-user')?.parentElement?.nextElementSibling?.innerText || '-';
+            const company = ownerCard.querySelector('.fa-building')?.parentElement?.nextElementSibling?.innerText || '-';
+            const country = ownerCard.querySelector('.fa-flag')?.parentElement?.nextElementSibling?.innerText || '-';
+            const rows = [
+                [t('name'), name],
+                [t('company'), company],
+                [t('country'), country]
+            ];
+            rows.forEach(row => ownerRows.push(isRtl ? [row[1], row[0]] : row));
+        }
 
-    // ---- Header & Logo ----
-    doc.setFillColor(0, 84, 142);
-    doc.rect(0, 0, pageWidth, 140, 'F');
-    doc.setTextColor(255, 255, 255);
-    doc.setFontSize(24);
-    doc.setFont('helvetica', 'bold');
-    doc.text('Equipment Coverage Report', 40, 80);
-    doc.setFontSize(16);
-    doc.setFont('helvetica', 'normal');
-    doc.text(productName, 40, 110);
-
-    y = 160;
-
-    // ---- Load logo and product image in parallel ----
-    Promise.all([
-        loadImage(window.location.origin + '/images/logo2.png'),
-        loadImage(productImgUrl)
-    ]).then(([logoImg, productImg]) => {
-        // Add logo
-        doc.addImage(logoImg, 'PNG', pageWidth - 180, 30, 150, 100);
-
-        // Add product image
-        doc.addImage(productImg, 'PNG', 40, y, 150, 120);
-
-        // Product info beside image
-        doc.setTextColor(0, 0, 0);
-        doc.setFontSize(14);
+        // Header
+        doc.setFillColor(0, 84, 142);
+        doc.rect(0, 0, pageWidth, 140, 'F');
+        doc.setTextColor(255, 255, 255);
+        doc.setFontSize(24);
         doc.setFont('helvetica', 'bold');
-        let infoY = y + 20;
-        doc.text('Model: ' + productName, 210, infoY);
-        doc.text('Line: ' + productLine, 210, infoY + 30);
-        doc.text('Type: ' + productType, 210, infoY + 60);
-
-        renderTables(y + 140);
-    }).catch(() => {
-        // If image loading fails
-        renderTables(y);
-    });
-
-    // Utility: load image as Promise
-    function loadImage(src) {
-        return new Promise((resolve, reject) => {
-            const img = new Image();
-            img.crossOrigin = 'anonymous';
-            img.onload = () => resolve(img);
-            img.onerror = reject;
-            img.src = src;
-        });
-    }
-
-    // ---- Render Tables ----
-    function renderTables(startY) {
-        let tableY = startY + 40;
-
+        doc.text('Equipment Coverage Report', 40, 80);
         doc.setFontSize(16);
-        doc.setFont('helvetica', 'bold');
-        doc.setTextColor(0, 84, 142);
-        doc.text('Technical Specifications', 40, tableY);
+        doc.setFont('helvetica', 'normal');
+        doc.text(productName, 40, 110);
 
-        doc.autoTable({
-            startY: tableY + 10,
-            head: specsHead,
-            body: specsRows,
-            theme: 'grid',
-            headStyles: {
-                fillColor: [0, 84, 142],
-                textColor: [255, 255, 255],
-                fontStyle: 'bold'
-            },
-            styles: {
-                font: 'helvetica',
-                fontSize: 10,
-                cellPadding: 8
-            },
-            alternateRowStyles: {
-                fillColor: [248, 250, 252]
-            },
-            margin: { left: 40, right: 40 }
+        y = 160;
+
+        Promise.all([
+            loadImage(window.location.origin + '/images/logo2.png'),
+            loadImage(productImgUrl)
+        ]).then(([logoImg, productImg]) => {
+            doc.addImage(logoImg, 'PNG', pageWidth - 180, 30, 150, 100);
+            doc.addImage(productImg, 'PNG', 40, y, 150, 120);
+            doc.setTextColor(0, 0, 0);
+            doc.setFontSize(14);
+            doc.setFont('helvetica', 'bold');
+            let infoY = y + 20;
+            doc.text('Model: ' + productName, 210, infoY);
+            doc.text('Line: ' + productLine, 210, infoY + 30);
+            doc.text('Type: ' + productType, 210, infoY + 60);
+            renderTables(y + 140);
+        }).catch(() => {
+            renderTables(y);
         });
 
-        tableY = doc.lastAutoTable.finalY + 40;
-
-        doc.setTextColor(0, 84, 142);
-        doc.text('Owner Information', 40, tableY);
-        doc.autoTable({
-            startY: tableY + 10,
-            head: [['Attribute', 'Value']],
-            body: ownerRows,
-            theme: 'grid',
-            headStyles: {
-                fillColor: [0, 84, 142],
-                textColor: [255, 255, 255],
-                fontStyle: 'bold'
-            },
-            styles: {
-                font: 'helvetica',
-                fontSize: 10,
-                cellPadding: 8
-            },
-            alternateRowStyles: {
-                fillColor: [248, 250, 252]
-            },
-            margin: { left: 40, right: 40 }
-        });
-
-        tableY = doc.lastAutoTable.finalY + 40;
-
-        doc.setTextColor(0, 84, 142);
-        doc.text('Warranty Information', 40, tableY);
-        doc.autoTable({
-            startY: tableY + 10,
-            body: warrantyRows,
-            head: [['Attribute', 'Value']],
-            theme: 'grid',
-            headStyles: {
-                fillColor: [0, 84, 142],
-                textColor: [255, 255, 255],
-                fontStyle: 'bold'
-            },
-            styles: {
-                font: 'helvetica',
-                fontSize: 10,
-                cellPadding: 8
-            },
-            alternateRowStyles: {
-                fillColor: [248, 250, 252]
-            },
-            margin: { left: 40, right: 40 }
-        });
-
-        // Footer
-        const pageCount = doc.internal.getNumberOfPages();
-        for (let i = 1; i <= pageCount; i++) {
-            doc.setPage(i);
-            doc.setFontSize(10);
-            doc.setTextColor(128, 128, 128);
-            doc.text('Generated on ' + new Date().toLocaleDateString(), 40, doc.internal.pageSize.getHeight() - 30);
-            doc.text('Page ' + i + ' of ' + pageCount, pageWidth - 80, doc.internal.pageSize.getHeight() - 30);
+        function loadImage(src) {
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+                img.crossOrigin = 'anonymous';
+                img.onload = () => resolve(img);
+                img.onerror = reject;
+                img.src = src;
+            });
         }
 
-        pdfBtn.innerHTML = '<i class="fas fa-download me-2"></i>';
-        pdfBtn.disabled = false;
+        function renderTables(startY) {
+            let tableY = startY + 40;
+            doc.setFontSize(16);
+            doc.setFont('helvetica', 'bold');
+            doc.setTextColor(0, 84, 142);
+            doc.text(t('Technical Specifications'), 40, tableY, {align: isRtl ? 'right' : 'left'});
 
-        const timestamp = new Date().toISOString().slice(0, 10);
-        doc.save(`equipment-coverage-${productLine}-${productType}-${timestamp}.pdf`);
+            doc.autoTable({
+                startY: tableY + 10,
+                head: specsHead,
+                body: specsRows,
+                theme: 'grid',
+                headStyles: {
+                    fillColor: [0, 84, 142],
+                    textColor: [255, 255, 255],
+                    fontStyle: 'bold',
+                    halign: isRtl ? 'right' : 'left',
+                    font: 'helvetica'
+                },
+                styles: {
+                    font: 'helvetica',
+                    fontSize: 10,
+                    cellPadding: 8,
+                    halign: isRtl ? 'right' : 'left',
+                    fontStyle: 'normal'
+                },
+                alternateRowStyles: {
+                    fillColor: [248, 250, 252]
+                },
+                margin: { left: 40, right: 40 }
+            });
+
+            tableY = doc.lastAutoTable.finalY + 40;
+
+            doc.text(t('Owner Information'), 40, tableY, {align: isRtl ? 'right' : 'left'});
+            doc.autoTable({
+                startY: tableY + 10,
+                head: [isRtl ? [t('value'), t('attribute')] : [t('attribute'), t('value')]],
+                body: ownerRows,
+                theme: 'grid',
+                headStyles: {
+                    fillColor: [0, 84, 142],
+                    textColor: [255, 255, 255],
+                    fontStyle: 'bold',
+                    halign: isRtl ? 'right' : 'left',
+                    font: 'helvetica'
+                },
+                styles: {
+                    font: 'helvetica',
+                    fontSize: 10,
+                    cellPadding: 8,
+                    halign: isRtl ? 'right' : 'left',
+                    fontStyle: 'normal'
+                },
+                alternateRowStyles: {
+                    fillColor: [248, 250, 252]
+                },
+                margin: { left: 40, right: 40 }
+            });
+
+            tableY = doc.lastAutoTable.finalY + 40;
+
+            doc.text(t('Warranty Information'), 40, tableY, {align: isRtl ? 'right' : 'left'});
+            doc.autoTable({
+                startY: tableY + 10,
+                head: [isRtl ? [t('value'), t('attribute')] : [t('attribute'), t('value')]],
+                body: warrantyRows,
+                theme: 'grid',
+                headStyles: {
+                    fillColor: [0, 84, 142],
+                    textColor: [255, 255, 255],
+                    fontStyle: 'bold',
+                    halign: isRtl ? 'right' : 'left',
+                    font: 'helvetica'
+                },
+                styles: {
+                    font: 'helvetica',
+                    fontSize: 10,
+                    cellPadding: 8,
+                    halign: isRtl ? 'right' : 'left',
+                    fontStyle: 'normal'
+                },
+                alternateRowStyles: {
+                    fillColor: [248, 250, 252]
+                },
+                margin: { left: 40, right: 40 }
+            });
+
+            const pageCount = doc.internal.getNumberOfPages();
+            for (let i = 1; i <= pageCount; i++) {
+                doc.setPage(i);
+                doc.setFontSize(10);
+                doc.setTextColor(128, 128, 128);
+                doc.text('Generated on ' + new Date().toLocaleDateString(), 40, doc.internal.pageSize.getHeight() - 30);
+                doc.text('Page ' + i + ' of ' + pageCount, pageWidth - 80, doc.internal.pageSize.getHeight() - 30);
+            }
+
+            pdfBtn.innerHTML = '<i class="fas fa-download me-2"></i>';
+            pdfBtn.disabled = false;
+
+            const timestamp = new Date().toISOString().slice(0, 10);
+            doc.save(`equipment-coverage-${productLine}-${productType}-${timestamp}.pdf`);
+        }
     }
-}
 
-
-
-    // Add keyboard shortcuts
+    // Keyboard Shortcuts
     document.addEventListener('keydown', function(e) {
-        // Ctrl/Cmd + P for PDF download
         if ((e.ctrlKey || e.metaKey) && e.key === 'p') {
             e.preventDefault();
             if (pdfBtn) pdfBtn.click();
         }
-
-        // Ctrl/Cmd + U for unit toggle
         if ((e.ctrlKey || e.metaKey) && e.key === 'u') {
             e.preventDefault();
             if (siBtn && imperialBtn) {
-                if (siBtn.classList.contains('active')) {
-                    imperialBtn.click();
-                } else {
-                    siBtn.click();
-                }
+                siBtn.classList.contains('active') ? imperialBtn.click() : siBtn.click();
             }
         }
     });

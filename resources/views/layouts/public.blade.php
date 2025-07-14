@@ -61,11 +61,9 @@
             background-color: #0A66C2; /* LinkedIn Blue */
         }
 
-    .youtube {
-        background-color: #FF0000; /* YouTube Red */
-    }
-
-
+        .youtube {
+            background-color: #FF0000; /* YouTube Red */
+        }
 
         .copy-right-section {
             display: flex;
@@ -529,6 +527,62 @@
     </script>
 
     @stack('scripts')
+
+@if (!request()->is('admin*') && !request()->is('dashboard*'))
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTopBtn" class="scroll-to-top-btn shadow rounded-circle d-flex align-items-center justify-content-center bg-primary"
+        aria-label="{{ __('common.scroll_to_top') }}"
+        style="position: fixed; bottom: 32px; right: 32px; width: 48px; height: 48px; color: #fff; border: none; z-index: 2000; display: none; transition: opacity 0.3s, visibility 0.3s;">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+    <style>
+        .scroll-to-top-btn {
+            opacity: 0;
+            visibility: hidden;
+            box-shadow: 0 8px 32px rgba(0, 84, 142, 0.18);
+            font-size: 1.5rem;
+            padding-right: 14px;
+        }
+        .scroll-to-top-btn.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        .scroll-to-top-btn:active {
+            transform: scale(0.95);
+        }
+        html[dir='rtl'] .scroll-to-top-btn {
+            right: auto;
+            left: 32px;
+        }
+    </style>
+    <script>
+        (function() {
+            const btn = document.getElementById('scrollToTopBtn');
+            let ticking = false;
+            function toggleBtn() {
+                if (window.scrollY > 200) {
+                    btn.classList.add('show');
+                    btn.style.display = 'flex';
+                } else {
+                    btn.classList.remove('show');
+                    setTimeout(() => { btn.style.display = 'none'; }, 300);
+                }
+            }
+            window.addEventListener('scroll', function() {
+                if (!ticking) {
+                    window.requestAnimationFrame(function() {
+                        toggleBtn();
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            });
+            btn.addEventListener('click', function() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        })();
+    </script>
+@endif
 </body>
 
 </html>

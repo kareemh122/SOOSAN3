@@ -1198,6 +1198,7 @@
             text-decoration: none;
             transition: all 0.3s ease;
             transform: scale(0.5);
+            padding-right: 7px;
         }
 
         .product-card:hover .product-link {

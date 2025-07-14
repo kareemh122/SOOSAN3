@@ -74,6 +74,7 @@
         margin: 0 auto 1rem;
         box-shadow: 0 8px 24px rgba(16, 185, 129, 0.3);
         transition: all 0.3s ease;
+        padding-right: 7px;
     }
 
     .badge-item:hover .badge-icon {
@@ -452,7 +453,7 @@
         justify-content: space-between;
         align-items: center;
         transition: all 0.3s ease;
-        font-size: 1.1rem;
+        font-size: 1.3rem;
     }
 
     .faq-question:hover {
@@ -466,6 +467,7 @@
         line-height: 1.8;
         display: none;
         font-size: 1.05rem;
+        margin-top: 12px;
     }
 
     .faq-answer.active {

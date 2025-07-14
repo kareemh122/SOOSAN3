@@ -820,25 +820,25 @@
                             <div class="row g-4">
                                 <div class="col-md-3 col-6">
                                     <div class="stat-item">
-                                        <span class="stat-number">24/7</span>
+                                        <span class="stat-number">{{ __('common.support_numbers') }}</span>
                                         <span class="fw-semibold">{{ __('common.support') }}</span>
                                     </div>
                                 </div>
                                 <div class="col-md-3 col-6">
                                     <div class="stat-item">
-                                        <span class="stat-number">1000+</span>
+                                        <span class="stat-number">{{ __('common.project_numbers') }}</span>
                                         <span class="fw-semibold">{{ __('common.projects') }}</span>
                                     </div>
                                 </div>
                                 <div class="col-md-3 col-6">
                                     <div class="stat-item">
-                                        <span class="stat-number">50+</span>
+                                        <span class="stat-number">{{ __('common.country_numbers') }}</span>
                                         <span class="fw-semibold">{{ __('common.countries') }}</span>
                                     </div>
                                 </div>
                                 <div class="col-md-3 col-6">
                                     <div class="stat-item">
-                                        <span class="stat-number">20+</span>
+                                        <span class="stat-number">{{ __('common.years_experience') }}</span>
                                         <span class="fw-semibold">{{ __('common.years') }}</span>
                                     </div>
                                 </div>

@@ -57,9 +57,6 @@
     font-family: "Cairo", sans-serif;
 }
 
-[dir="rtl"] .feature-icon {
-    margin: 0 auto 1rem;
-}
 
 .product-card:hover {
     transform: translateY(-5px);
