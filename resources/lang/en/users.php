@@ -192,8 +192,8 @@ return [
     'no_staff_match_filters' => 'No staff match your current filters.',
     
     // Additional role translations
-    'admin_staff' => 'Admin Staff',
-    'employee_staff' => 'Employee Staff',
+    'admin_staff' => 'Admins',
+    'employee_staff' => 'Employees',
     'verified_staff' => 'Verified Staff',
     
     // Bulk Actions

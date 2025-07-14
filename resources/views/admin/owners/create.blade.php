@@ -246,6 +246,58 @@
     margin-left: 0.25rem;
 }
 
+/* Image Upload Styling */
+.owners-image-upload-container {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    background: #f8fafc;
+    padding: 1.5rem;
+    border-radius: 12px;
+}
+
+.owners-image-preview-wrapper {
+    flex-shrink: 0;
+}
+
+.owners-image-preview {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid white;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    background-color: #e5e7eb;
+}
+
+.owners-image-upload-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.owners-image-upload-input {
+    display: none;
+}
+
+.owners-btn.secondary-outline {
+    background: transparent;
+    border-color: #667eea;
+    color: #667eea;
+    padding: 0.6rem 1.2rem;
+}
+
+.owners-btn.secondary-outline:hover {
+    background: #667eea;
+    color: white;
+}
+
+.owners-form-text {
+    font-size: 0.75rem;
+    color: #6b7280;
+    margin: 0;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .owners-create-container {
@@ -297,11 +349,31 @@
             <h2><i class="fas fa-user-edit"></i> {{ __('owners.owner_information') }}</h2>
         </div>
         
-        <form action="{{ route('admin.owners.store') }}" method="POST">
+        <form action="{{ route('admin.owners.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             
             <div class="owners-form-body">
                 <!-- Basic Information Section -->
+                <!-- Company Logo Section -->
+                <div class="owners-form-section">
+                    <h3><i class="fas fa-image"></i> {{ __('owners.company_logo') }}</h3>
+                    <div class="owners-image-upload-container">
+                        <div class="owners-image-preview-wrapper">
+                            <img id="imagePreview" src="{{ asset('images/default-building.svg') }}" alt="Image Preview" class="owners-image-preview">
+                        </div>
+                        <div class="owners-image-upload-actions">
+                            <label for="company_image" class="owners-btn secondary-outline">
+                                <i class="fas fa-upload"></i> {{ __('owners.upload_logo') }}
+                            </label>
+                            <input type="file" name="company_image" id="company_image" class="owners-image-upload-input" accept="image/png, image/jpeg, image/jpg, image/webp">
+                            <p class="owners-form-text">{{ __('owners.image_supported_formats_with_max_size') }}</p>
+                            @error('company_image')
+                                <div class="owners-invalid-feedback" style="display: block;">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                </div>
+
                 <div class="owners-form-section">
                     <h3><i class="fas fa-user"></i> {{ __('owners.basic_information') }}</h3>
                     <div class="owners-form-grid">
@@ -466,6 +538,26 @@ document.addEventListener('DOMContentLoaded', function() {
     const firstInput = document.querySelector('#name');
     if (firstInput) {
         firstInput.focus();
+    }
+
+    // Image preview logic
+    const imageInput = document.getElementById('company_image');
+    const imagePreview = document.getElementById('imagePreview');
+    const defaultImage = '{{ asset('images/default-building.svg') }}';
+
+    if (imageInput && imagePreview) {
+        imageInput.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    imagePreview.src = e.target.result;
+                }
+                reader.readAsDataURL(file);
+            } else {
+                imagePreview.src = defaultImage;
+            }
+        });
     }
 });
 </script>

@@ -1,58 +1,43 @@
 <?php
 
-use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Admin\ProductController;
-use App\Http\Controllers\Admin\ContactMessageController;
-use App\Http\Controllers\Admin\OwnerController;
-use App\Http\Controllers\Admin\ProductCategoryController;
-use App\Http\Controllers\Admin\SoldProductController;
-use App\Http\Controllers\Admin\PendingChangeController;
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AuditLogController;
+use App\Http\Controllers\Admin\ContactMessageController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\OwnerController;
+use App\Http\Controllers\Admin\PendingChangeController;
+use App\Http\Controllers\Admin\ProductCategoryController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ReportsController;
+use App\Http\Controllers\Admin\SoldProductController;
+use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
 // Admin prefix routes
 Route::prefix('admin')->name('admin.')->middleware(['web'])->group(function () {
-    
-    // Admin authentication routes
-    Route::get('/login', function() {
-        return view('admin.auth.login');
-    })->name('login');
 
-    Route::post('/login', function(\Illuminate\Http\Request $request) {
-        $credentials = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required'],
-        ]);
+    // --- Authentication Routes ---
+    // Routes for guests (not logged in). The 'guest' middleware redirects them if they are already logged in.
+    Route::middleware('guest:web')->group(function () {
+        Route::get('login', [AdminController::class, 'showLoginForm'])->name('login');
+        Route::post('login', [AdminController::class, 'login'])->name('login.submit');
+    });
 
-        if (auth()->attempt($credentials, $request->boolean('remember'))) {
-            $request->session()->regenerate();
-            return redirect()->intended(route('admin.dashboard'));
-        }
+    // Logout route for authenticated users
+    Route::post('logout', [AdminController::class, 'logout'])->name('logout');
+    // --- End Authentication Routes ---
 
-        return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
-        ])->onlyInput('email');
-    })->name('login.submit');
 
-    // Admin logout route
-    Route::post('/logout', function(\Illuminate\Http\Request $request) {
-        auth()->logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-        return redirect()->route('admin.login');
-    })->name('logout');
+    // Public product-details route (must be outside protected middleware group)
+    Route::get('owners/product-details', [OwnerController::class, 'productDetails'])->name('owners.product-details');
 
-  
-
-    // Protected admin routes
-    Route::middleware([ 'admin', 'employee.permission'])->group(function () {
-        
+    // --- Protected Admin Routes ---
+    // All routes in this group require the user to be authenticated and have the correct permissions.
+    Route::middleware(['auth:web', 'employee.permission'])->group(function () {
         // Dashboard
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
         Route::get('/dashboard/realtime', [DashboardController::class, 'getRealTimeData'])->name('dashboard.realtime');
-        Route::get('/', function() {
+        Route::get('/', function () {
             return redirect()->route('admin.dashboard');
         });
 
@@ -94,80 +79,15 @@ Route::prefix('admin')->name('admin.')->middleware(['web'])->group(function () {
 
         // Reports management (Admin/CEO only)
         Route::prefix('reports')->name('reports.')->group(function () {
-            Route::get('/', [\App\Http\Controllers\Admin\ReportsController::class, 'index'])->name('index');
-            Route::get('/comprehensive', [\App\Http\Controllers\Admin\ReportsController::class, 'downloadComprehensiveReport'])->name('comprehensive');
-            Route::get('/owners', [\App\Http\Controllers\Admin\ReportsController::class, 'downloadOwnersReport'])->name('owners');
-            Route::get('/sales', [\App\Http\Controllers\Admin\ReportsController::class, 'downloadSalesReport'])->name('sales');
+            Route::get('/', [ReportsController::class, 'index'])->name('index');
+            Route::get('/comprehensive', [ReportsController::class, 'downloadComprehensiveReport'])->name('comprehensive');
+            Route::get('/owners', [ReportsController::class, 'downloadOwnersReport'])->name('owners');
+            Route::get('/sales', [ReportsController::class, 'downloadSalesReport'])->name('sales');
         });
 
-        // Product Categories (if you have a controller for this)
-        // Route::resource('categories', CategoryController::class);
-
-        // Sold Products (if you have a controller for this)
-        // Route::resource('sold-products', SoldProductController::class);
-
-        // Simple test route
-        Route::get('/test-admin', function() {
-            return response()->json([
-                'status' => 'success',
-                'message' => 'Admin routes are working!',
-                'user' => auth()->user() ? auth()->user()->email : 'Not logged in',
-                'timestamp' => now()
-            ]);
-        })->name('test');
     });
+    // --- End Protected Admin Routes ---
 
-    // Fallback temporary routes (remove these once proper middleware is working)
-    Route::get('/dashboard-direct', function() {
-        try {
-            // Force login if not authenticated
-            if (!auth()->check()) {
-                auth()->loginUsingId(1); // Login as first user (admin)
-            }
-            
-            $stats = [
-                'total_users' => \App\Models\User::count(),
-                'total_products' => \App\Models\Product::count(),
-                'active_products' => \App\Models\Product::count(), // Remove is_active filter for now
-                'featured_products' => \App\Models\Product::count(), // Remove is_featured filter for now
-                'total_sold_products' => \App\Models\SoldProduct::count(),
-                'unread_messages' => \App\Models\ContactMessage::where('is_read', false)->count(),
-                'recent_users' => \App\Models\User::latest()->take(5)->get(),
-                'recent_messages' => \App\Models\ContactMessage::latest()->take(5)->get(),
-            ];
 
-            $monthlyStats = [
-                'new_users_this_month' => \App\Models\User::whereMonth('created_at', now()->month)->count(),
-                'messages_this_month' => \App\Models\ContactMessage::whereMonth('created_at', now()->month)->count(),
-            ];
-
-            return view('admin.dashboard', compact('stats', 'monthlyStats'));
-        } catch (\Exception $e) {
-            return '<h1>Admin Dashboard</h1><p>Database Error: ' . $e->getMessage() . '</p>';
-        }
-    })->name('dashboard.direct');
-
-    Route::get('/users-direct', function() {
-        try {
-            if (!auth()->check()) {
-                auth()->loginUsingId(1);
-            }
-            $users = \App\Models\User::paginate(15);
-            return view('admin.users.index', compact('users'));
-        } catch (\Exception $e) {
-            return '<h1>Users</h1><p>Error: ' . $e->getMessage() . '</p>';
-        }
-    })->name('users.direct');
-
-    Route::get('/contact-messages-direct', function() {
-        try {
-            if (!auth()->check()) {
-                auth()->loginUsingId(1);
-            }
-            $messages = \App\Models\ContactMessage::latest()->paginate(15);
-            return view('admin.contact-messages.index', compact('messages'));
-        } catch (\Exception $e) {
-            return '<h1>Contact Messages</h1><p>Error: ' . $e->getMessage() . '</p>';
-        }
-    })->name('contact-messages.direct');
 });
+// End of admin routes

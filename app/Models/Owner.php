@@ -19,6 +19,7 @@ class Owner extends Model
         'city',
         'country',
         'preferred_language',
+        'company_image_url',
     ];
 
     // Relationships

@@ -26,6 +26,12 @@ class AuthenticatedSessionController extends Controller
     {
         $request->authenticate();
 
+        if (!Auth::user()->is_verified) {
+            Auth::logout();
+
+            return redirect()->route('login')->withErrors(['email' => 'Your account is not verified. Please contact your admin.']);
+        }
+
         $request->session()->regenerate();
 
         return redirect()->intended(route('dashboard', absolute: false));

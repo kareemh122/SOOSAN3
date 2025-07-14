@@ -94,9 +94,8 @@ return [
     'updated' => 'تم التحديث',
     'n_a' => 'غير متوفر',
     'normal' => 'عادي',
-    ''
-
     // Show page translations
+    
     'show' => [
         'title' => 'تفاصيل المالك',
         'header' => [
@@ -235,4 +234,17 @@ return [
     'country_placeholder' => 'البلد',
     'italian' => 'الإيطالية',
     'portuguese' => 'البرتغالية',
+
+    // Analytics Translations
+    'analytics_chart' => 'مخطط تحليلي للمالكين',
+    'analytics_chart_title' => 'عدد الأجهزة المشتراة وإجمالي الإنفاق لكل مالك',
+    'devices_bought' => 'الأجهزة المشتراة',
+    'total_spent' => 'إجمالي الإنفاق',
+    'products_chart' => 'مخطط منتجات المالكين',
+    'products_chart_title' => 'اسم المنتج والسعر لكل مالك',
+
+    // Company Logo
+    'company_logo' => 'شعار الشركة',
+    'upload_logo' => 'تحميل الشعار',
+    'image_supported_formats_with_max_size' => 'الصيغ المدعومة: PNG, JPG, WEBP (الحد الأقصى 2 ميجابايت).',
 ];

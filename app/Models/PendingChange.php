@@ -81,6 +81,12 @@ class PendingChange extends Model
             if ($model) {
                 $model->delete();
             }
+        } elseif ($this->action === 'void_warranty' && $this->model_type === SoldProduct::class) {
+            $model = $this->model_type::find($this->model_id);
+            if ($model) {
+                $reason = $this->new_data['warranty_void_reason'] ?? 'Warranty voided by admin approval.';
+                $model->voidWarranty($reason, $admin);
+            }
         }
 
         // Send notification to the employee who requested the change

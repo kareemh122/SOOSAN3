@@ -110,13 +110,12 @@ class SoldProductController extends Controller
             'notes' => 'nullable|string|max:1000',
         ]);
 
-        // 🔐 Automatically assign the logged-in user
         $validated['user_id'] = Auth::id();
 
         SoldProduct::create($validated);
 
         return redirect()->route('admin.sold-products.index')
-            ->with('success', 'Sold product added successfully.');
+            ->with('success', 'Sale recorded successfully.');
     }
 
     public function show(SoldProduct $soldProduct)
@@ -202,32 +201,43 @@ class SoldProductController extends Controller
     public function voidWarranty(Request $request, SoldProduct $soldProduct)
     {
         $user = Auth::user();
-        if (!$user->isAdmin() && !$user->isEmployee()) {
-            abort(403, 'Unauthorized');
-        }
+
         $validated = $request->validate([
             'warranty_void_reason' => 'required|string|max:1000',
         ]);
 
-        if ($user->isEmployee()) {
-            // Employees submit a pending change for voiding warranty
+        // Admins can void the warranty directly.
+        if ($user->isAdmin()) {
+            $soldProduct->voidWarranty($validated['warranty_void_reason'], $user);
+            return back()->with('success', 'Warranty has been voided successfully.');
+        }
+
+        // Employees must submit a request for approval.
+        if ($user->isEmployee() && $user->is_verified) {
+            // Check if a pending request already exists to avoid duplicates
+            $existingRequest = PendingChange::where('model_type', SoldProduct::class)
+                ->where('model_id', $soldProduct->id)
+                ->where('action', 'void_warranty')
+                ->where('status', 'pending')
+                ->first();
+
+            if ($existingRequest) {
+                return back()->with('info', 'A request to void this warranty is already pending approval.');
+            }
+
             PendingChange::create([
                 'model_type' => SoldProduct::class,
                 'model_id' => $soldProduct->id,
                 'action' => 'void_warranty',
-                'original_data' => $soldProduct->toArray(),
-                'new_data' => ['warranty_void_reason' => $validated['warranty_void_reason']],
                 'requested_by' => $user->id,
+                'new_data' => ['warranty_void_reason' => $validated['warranty_void_reason']],
+                'status' => 'pending',
             ]);
-            return back()->with('info', __('admin.changes_submitted_for_approval'));
+
+            return back()->with('success', 'Request to void warranty has been submitted for admin approval.');
         }
 
-        // Admins can void directly
-        $result = $soldProduct->voidWarranty($validated['warranty_void_reason'], $user);
-        if ($result) {
-            return back()->with('success', __('sold-products.warranty_voided_successfully'));
-        } else {
-            return back()->with('info', __('sold-products.warranty_already_voided'));
-        }
+        // If the user is not an admin or a verified employee, deny access.
+        return back()->with('error', 'Access denied. You do not have permission to perform this action.');
     }
 }

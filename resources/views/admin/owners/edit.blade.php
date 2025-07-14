@@ -591,9 +591,44 @@ select.owners-form-control:focus {
     @endif
 
     <div class="owners-card">
-        <form method="POST" action="{{ route('admin.owners.update', $owner) }}" class="owners-form" id="ownerEditForm">
+                <form method="POST" action="{{ route('admin.owners.update', $owner) }}" class="owners-form" id="ownerEditForm" enctype="multipart/form-data">
             @csrf
             @method('PUT')
+
+            <!-- Company Image Upload Section -->
+            <div class="owners-form-section" style="border-bottom: 1px solid #e5e7eb; padding-bottom: 2rem; margin-bottom: 2rem;">
+                <h3 style="margin-bottom: 1.5rem; font-size: 1.25rem; font-weight: 600; color: #374151;">
+                    <i class="fas fa-image text-primary"></i> {{ __('Company Logo') }}
+                </h3>
+                <div class="row align-items-center">
+                    <div class="col-md-3 text-center">
+                        <img id="companyImagePreview"
+                             src="{{ $owner->company_image_url ? asset($owner->company_image_url) : asset('images/fallback-company.svg') }}"
+                             alt="Company Logo"
+                             class="rounded-circle shadow-sm"
+                             style="width: 120px; height: 120px; object-fit: cover; border: 3px solid #e5e7eb; background: #f9fafb;"
+                             onerror="this.onerror=null;this.src='{{ asset('images/fallback-company.svg') }}';">
+                    </div>
+                    <div class="col-md-9">
+                        <label for="company_image" class="btn btn-primary">
+                            <i class="fas fa-upload"></i> {{ __('Upload New Logo') }}
+                        </label>
+                        <input type="file" name="company_image" id="company_image" class="d-none" accept="image/*">
+
+                        @if ($owner->company_image_url)
+                            <input type="checkbox" name="remove_company_image" id="remove_company_image" class="form-check-input ms-3">
+                            <label for="remove_company_image" class="form-check-label">{{ __('Remove Logo') }}</label>
+                        @endif
+
+                        <p class="text-muted small mt-2">
+                            {{ __('Supported formats: JPG, PNG, WEBP. Max size: 2MB.') }}
+                        </p>
+                        @error('company_image')
+                            <div class="alert alert-danger p-2 mt-2">{{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
+            </div>
             
             <div class="owners-form-row">
                 <div class="owners-form-group">
@@ -905,6 +940,38 @@ document.addEventListener('DOMContentLoaded', function() {
     formGroups.forEach((group, index) => {
         group.style.animationDelay = `${index * 0.1}s`;
     });
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const imageInput = document.getElementById('company_image');
+    const imagePreview = document.getElementById('companyImagePreview');
+    const removeCheckbox = document.getElementById('remove_company_image');
+
+    if (imageInput && imagePreview) {
+        imageInput.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    imagePreview.src = e.target.result;
+                    if(removeCheckbox) {
+                        removeCheckbox.checked = false;
+                    }
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+    }
+    
+    if (removeCheckbox) {
+        removeCheckbox.addEventListener('change', function() {
+            if (this.checked) {
+                imageInput.value = ''; // Clear file input if user wants to remove
+                imagePreview.src = '{{ asset('images/fallback-company.svg') }}'; // Reset preview to fallback
+            }
+        });
+    }
 });
 </script>
 @endsection

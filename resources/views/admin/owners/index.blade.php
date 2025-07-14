@@ -695,14 +695,17 @@
                 <div class="owners-card">
                     <!-- Owner Avatar -->
                     <div class="owners-avatar-section">
-                        @php $userImg = $owner->image_url; @endphp
-                        @if($userImg)
-                            <img src="{{ asset($userImg) }}" alt="{{ $owner->name }}" class="rounded-circle" style="width: 38px; height: 38px; object-fit: cover;">
-                        @else
-                            <div class="avatar-circle bg-primary text-white">
-                                {{ substr($owner->name, 0, 1) }}
-                            </div>
-                        @endif
+                        <div class="owners-avatar">
+                            @if($owner->company_image_url)
+                                <img src="{{ asset($owner->company_image_url) }}" 
+                                     alt="{{ $owner->company ?? $owner->name }}" 
+                                     style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;"
+                                     onerror="this.onerror=null;this.src='{{ asset('images/fallback-company.svg') }}';">
+                            @else
+                                <i class="fas fa-building"></i>
+                            @endif
+                        </div>
+                        <div class="owners-online-indicator" style="display: none;"></div>
                     </div>
 
                     <!-- Owner Content -->

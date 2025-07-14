@@ -124,7 +124,7 @@ class ProductController extends Controller
             $productData['image_url'] = '/images/products/' . $filename;
         }
 
-        $product = Product::create($productData);
+        Product::create($productData);
 
         return redirect()->route('admin.products.index')
             ->with('success', 'Product created successfully.');
