@@ -633,7 +633,10 @@
                 <div class="user-card">
                     <div class="d-flex align-items-start">
                         <div class="user-avatar">
-                            {{ strtoupper(substr($user->name, 0, 1)) }}
+                            <img src="{{ $user->image_url ? asset($user->image_url) : asset('images/fallback.webp') }}" 
+                                 alt="{{ $user->name }}" 
+                                 style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;"
+                                 onerror="this.onerror=null;this.src='{{ asset('images/fallback.webp') }}';">
                         </div>
                         <div class="flex-grow-1">
                             <h5 class="mb-1 fw-bold">{{ $user->name }}</h5>

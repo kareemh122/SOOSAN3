@@ -1,16 +1,71 @@
 <?php
-
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Owner;
 use App\Models\PendingChange;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class OwnerController extends Controller
 {
+    public function productDetails(Request $request)
+    {
+        $ownerId = $request->query('owner_id');
+        $product = $request->query('product');
+        $owner = Owner::with(['soldProducts.product'])
+            ->where('id', $ownerId)
+            ->firstOrFail();
+
+        $soldProducts = $owner->soldProducts->filter(function($sp) use ($product) {
+            return $sp->product && $sp->product->model_name === $product;
+        });
+
+        $totalSpent = $owner->soldProducts->sum('purchase_price');
+
+        return view('admin.owners.product-details', [
+            'owner' => $owner,
+            'product' => $product,
+            'soldProducts' => $soldProducts,
+            'totalSpent' => $totalSpent,
+        ]);
+    }
+
     public function index(Request $request)
     {
+        // For clickable pie chart: map of owner_id, model_name, owner_name, total_spent, and product purchase info
+        $ownerProductMap = \App\Models\SoldProduct::with(['owner', 'product'])
+            ->get()
+            ->map(function($sp) {
+                return [
+                    'owner_id' => $sp->owner_id,
+                    'owner_name' => $sp->owner ? $sp->owner->name : 'Unknown',
+                    'model_name' => $sp->product ? $sp->product->model_name : 'Unknown',
+                    'purchase_price' => $sp->purchase_price,
+                    'sale_date' => $sp->sale_date ? $sp->sale_date->toDateString() : null,
+                ];
+            });
+        // Chart data for analytics (devices bought, total spent per owner)
+        $ownerChartData = Owner::with('soldProducts')->get()->map(function($owner) {
+            return [
+                'name' => $owner->name,
+                'devicesBought' => $owner->soldProducts->count(),
+                'totalSpent' => $owner->soldProducts->sum('purchase_price'),
+            ];
+        });
+
+        // Chart data for products per owner (for horizontal bar and pie chart)
+        $ownerProductsChartData = Owner::with(['soldProducts.product'])->get()->map(function($owner) {
+            return [
+                'owner' => $owner->name,
+                'products' => $owner->soldProducts->map(function($sp) {
+                    return [
+                        'productName' => $sp->product ? $sp->product->model_name : 'Unknown',
+                        'price' => $sp->purchase_price,
+                    ];
+                })->toArray(),
+            ];
+        });
         $query = Owner::query();
         
         // Search functionality
@@ -57,6 +112,32 @@ class OwnerController extends Controller
         $countries = Owner::whereNotNull('country')->distinct()->pluck('country')->sort();
         $cities = Owner::whereNotNull('city')->distinct()->pluck('city')->sort();
         
+        // Top Owners by Spending (limit 10)
+        $topOwners = Owner::withCount('soldProducts')
+            ->with(['soldProducts' => function($q) { $q->select('owner_id', 'purchase_price'); }])
+            ->get()
+            ->map(function($owner) {
+                return [
+                    'name' => $owner->name,
+                    'total_spent' => $owner->soldProducts->sum('purchase_price'),
+                    'total_devices' => $owner->sold_products_count,
+                ];
+            })
+            ->sortByDesc('total_spent')
+            ->take(10)
+            ->values();
+
+        // Owner Product Performance (doughnut): product model_name and count of owners who bought it
+        $ownerProductPerformance = \App\Models\SoldProduct::with('product')
+            ->get()
+            ->groupBy(function($sp) { return $sp->product ? $sp->product->model_name : 'Unknown'; })
+            ->map(function($group, $model_name) {
+                return [
+                    'model_name' => $model_name,
+                    'owners_count' => $group->unique('owner_id')->count(),
+                ];
+            })->values();
+
         return view('admin.owners.index', compact(
             'owners', 
             'totalOwners', 
@@ -64,7 +145,12 @@ class OwnerController extends Controller
             'ownersWithCompany', 
             'totalCountries',
             'countries',
-            'cities'
+            'cities',
+            'topOwners',
+            'ownerProductPerformance',
+            'ownerProductMap',
+            'ownerChartData',
+            'ownerProductsChartData'
         ));
     }
 
@@ -75,7 +161,7 @@ class OwnerController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'nullable|email|max:255|unique:owners,email',
             'phone_number' => 'nullable|string|max:255',
@@ -84,15 +170,35 @@ class OwnerController extends Controller
             'city' => 'nullable|string|max:255',
             'country' => 'nullable|string|max:255',
             'preferred_language' => 'nullable|string|max:10',
+            'company_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048', // 2MB Max
         ]);
 
-        Owner::create($request->only([
-            'name', 'email', 'phone_number', 'company', 
-            'address', 'city', 'country', 'preferred_language'
-        ]));
+        try {
+            $ownerData = $request->except(['company_image', '_token']);
 
-        return redirect()->route('admin.owners.index')
-            ->with('success', __('owners.owner_created'));
+            // Create the owner first to get an ID
+            $owner = Owner::create($ownerData);
+
+            // Handle image upload
+            if ($request->hasFile('company_image')) {
+                $image = $request->file('company_image');
+                $imageName = 'company_' . $owner->id . '_' . time() . '.' . $image->getClientOriginalExtension();
+                
+                // Ensure the directory exists
+                if (!file_exists(public_path('company_logos'))) {
+                    mkdir(public_path('company_logos'), 0755, true);
+                }
+
+                $image->move(public_path('company_logos'), $imageName);
+                $owner->company_image_url = 'company_logos/' . $imageName;
+                $owner->save();
+            }
+
+            return redirect()->route('admin.owners.index')->with('success', __('owners.owner_created'));
+
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'An error occurred while creating the owner: ' . $e->getMessage())->withInput();
+        }
     }
 
     public function show(Owner $owner)
@@ -108,6 +214,11 @@ class OwnerController extends Controller
 
     public function update(Request $request, Owner $owner)
     {
+        // Only admins can perform this action for now
+        if (!auth()->user()->isAdmin()) {
+            return redirect()->route('admin.owners.index')->with('error', 'You do not have permission to perform this action.');
+        }
+
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'nullable|email|max:255|unique:owners,email,' . $owner->id,
@@ -117,33 +228,47 @@ class OwnerController extends Controller
             'city' => 'nullable|string|max:255',
             'country' => 'nullable|string|max:255',
             'preferred_language' => 'nullable|string|max:10',
+            'company_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048', // 2MB Max
+            'remove_company_image' => 'nullable|boolean',
         ]);
 
-        $updateData = $request->only([
-            'name', 'email', 'phone_number', 'company', 
-            'address', 'city', 'country', 'preferred_language'
-        ]);
+        try {
+            $updateData = $request->except(['company_image', 'remove_company_image', '_token', '_method']);
 
-        // If user is an employee, create a pending change instead of directly updating
-        if (auth()->user()->isEmployee()) {
-            PendingChange::create([
-                'model_type' => Owner::class,
-                'model_id' => $owner->id,
-                'action' => 'update',
-                'original_data' => $owner->toArray(),
-                'new_data' => $updateData,
-                'requested_by' => auth()->id(),
-            ]);
+            // 1. Handle Image Removal
+            if ($request->boolean('remove_company_image')) {
+                if ($owner->company_image_url && file_exists(public_path($owner->company_image_url))) {
+                    @unlink(public_path($owner->company_image_url));
+                }
+                $updateData['company_image_url'] = null;
+            }
+            // 2. Handle Image Upload
+            elseif ($request->hasFile('company_image')) {
+                // Delete old image if it exists
+                if ($owner->company_image_url && file_exists(public_path($owner->company_image_url))) {
+                    @unlink(public_path($owner->company_image_url));
+                }
+                $image = $request->file('company_image');
+                $imageName = 'company_' . $owner->id . '_' . time() . '.' . $image->getClientOriginalExtension();
+                
+                // Ensure the directory exists
+                if (!file_exists(public_path('company_logos'))) {
+                    mkdir(public_path('company_logos'), 0755, true);
+                }
 
-            return redirect()->route('admin.owners.index')
-                ->with('info', __('admin.changes_submitted_for_approval'));
+                $image->move(public_path('company_logos'), $imageName);
+                $updateData['company_image_url'] = 'company_logos/' . $imageName;
+            }
+
+            $owner->update($updateData);
+
+            return redirect()->route('admin.owners.show', $owner)->with('success', __('owners.owner_updated'));
+
+        } catch (\Exception $e) {
+            // Optional: Log the error
+            // Log::error('Owner update failed: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'An error occurred while updating the owner: ' . $e->getMessage());
         }
-
-        // If user is admin, apply changes directly
-        $owner->update($updateData);
-
-        return redirect()->route('admin.owners.show', $owner)
-            ->with('success', __('owners.owner_updated'));
     }
 
     public function destroy(Owner $owner)

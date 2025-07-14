@@ -59,6 +59,7 @@ class DashboardController extends Controller
             'recent_activity' => $this->getRecentActivityData(),
             'growth_metrics' => $this->getGrowthMetrics(),
             'top_performers' => $this->getTopPerformers(),
+            'top_owners' => $this->getTopOwnersData(),
         ];
 
         // Real-time metrics
@@ -71,6 +72,18 @@ class DashboardController extends Controller
         ];
 
         return view('admin.dashboard', compact('stats', 'analytics', 'realtime'));
+    }
+
+    private function getTopOwnersData()
+    {
+        return Owner::select('owners.name',
+                DB::raw('COUNT(sold_products.id) as total_devices'),
+                DB::raw('SUM(sold_products.purchase_price) as total_spent'))
+            ->join('sold_products', 'owners.id', '=', 'sold_products.owner_id')
+            ->groupBy('owners.id', 'owners.name')
+            ->orderBy('total_spent', 'desc')
+            ->limit(10)
+            ->get();
     }
 
     private function getEmployeeDashboard($user)

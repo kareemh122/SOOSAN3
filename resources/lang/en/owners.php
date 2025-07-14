@@ -241,4 +241,17 @@ return [
     'sections' => [
         'sold_products' => 'Sold Products',
     ],
+
+    // Analytics
+    'analytics_chart' => 'Owners Analytics Chart',
+    'analytics_chart_title' => 'Devices Bought & Total Spent per Owner',
+    'devices_bought' => 'Devices Bought',
+    'total_spent' => 'Total Spent',
+    'products_chart' => 'Owners Products Chart',
+    'products_chart_title' => 'Product Name & Price for Each Owner',
+
+    // Company Logo
+    'company_logo' => 'Company Logo',
+    'upload_logo' => 'Upload Logo',
+    'image_supported_formats_with_max_size' => 'Supported formats: PNG, JPG, WEBP (Max 2MB).',
 ];

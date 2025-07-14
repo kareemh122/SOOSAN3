@@ -1032,12 +1032,17 @@
 
         <!-- Avatar Card -->
         <div class="owners-avatar-card">
-            <div class="owners-avatar-section">
+            <div class="owners-avatar-shine"></div>
+            <div class="owners-avatar-content">
                 <div class="owners-avatar">
-                    {{ strtoupper(substr($owner->name, 0, 1)) }}
+                    @if ($owner->company_image_url)
+                        <img src="{{ asset($owner->company_image_url) }}" alt="{{ $owner->company }} Logo" class="owners-avatar-img" onerror="this.onerror=null; this.src='{{ asset('images/default-building.svg') }}';">
+                    @else
+                        <i class="fas fa-building"></i>
+                    @endif
                 </div>
                 <div class="owners-avatar-name">{{ $owner->name }}</div>
-                <div class="owners-avatar-company">{{ $owner->company ?? __('owners.show.fallbacks.individual_owner') }}</div>
+                <div class="owners-avatar-company">{{ $owner->company ?? __('owners.show.fallbacks.no_company') }}</div>
             </div>
             
             <div class="owners-meta-info">
