@@ -83,6 +83,10 @@ return [
     'update_owner_info_system' => 'تحديث معلومات المالك  ',
     'view_owner_details' => 'عرض تفاصيل المالك',
     'essential_owner_details' => 'تفاصيل المالك الأساسية والمعلومات',
+    'company_logo' => 'شعار الشركة',
+    'upload_new_logo' => 'تحميل الشعار',
+    'image_supported_formats' => 'التنسيقات المدعومة: PNG, JPG, WEBP (الحد الأقصى 2MB).',
+    'remove_logo' => 'إزالة الشعار',
 
     // Show Owner Page
     'owner_details' => 'تفاصيل المالك',

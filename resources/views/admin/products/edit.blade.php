@@ -3,38 +3,34 @@
 @section('title', __('products.edit_product'))
 @section('page-title', __('products.edit_product'))
 
-@push('styles')
+@section('content')
 <style>
-    /* Reset and Base Styles */
-    .modern-container * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-    }
-    .modern-container {
-        font-family: 'Poppins', sans-serif;
-        background: #F9F9F9;
-        min-height: 100vh;
-        padding: 1.5rem;
-        color: #333333;
-        line-height: 1.6;
-    }
-    .dark-mode .modern-container {
-        background: #212121;
-        color: #F0F0F0;
+    :root {
+        --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        --success-gradient: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+        --warning-gradient: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%);
+        --danger-gradient: linear-gradient(135deg, #dc3545 0%, #e83e8c 100%);
+        --info-gradient: linear-gradient(135deg, #17a2b8 0%, #6f42c1 100%);
+        --secondary-gradient: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+        --border-radius: 1rem;
+        --border-radius-sm: 0.5rem;
+        --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        --transition-fast: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        --card-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        --card-shadow-hover: 0 15px 40px rgba(0,0,0,0.15);
     }
 
-    /* Page Header */
     .modern-page-header {
-        background: #0077C8;
-        color: #F0F0F0;
-        padding: 2.5rem 0;
-        margin: -1.5rem -1.5rem 2rem;
-        border-radius: 0 0 12px 12px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: #ffffff;
+        padding: 2rem 1.5rem;
+        margin: -1rem -1rem 2rem;
+        border-radius: 0 0 24px 24px;
         position: relative;
         overflow: hidden;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
     }
+
     .modern-page-header::before {
         content: '';
         position: absolute;
@@ -44,524 +40,250 @@
         bottom: 0;
         background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="rgba(255,255,255,0.1)" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,133.3C672,139,768,181,864,197.3C960,213,1056,203,1152,170.7C1248,139,1344,85,1392,58.7L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') no-repeat bottom;
         background-size: cover;
-        z-index: 0;
-    }
-    .modern-page-header .container-fluid {
-        position: relative;
-        z-index: 1;
-    }
-    .modern-page-header h1 {
-        font-family: 'Poppins', sans-serif;
-        font-weight: 700;
-        font-size: 1.75rem;
-        color: #F0F0F0;
-        margin-bottom: 0.5rem;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-    }
-    .modern-page-header p {
-        font-size: 1rem;
-        color: #F0F0F0;
-        opacity: 0.9;
-        margin-bottom: 0;
-    }
-    .dark-mode .modern-page-header {
-        background: #005B99;
-    }
-    .modern-header-actions {
-        display: flex;
-        gap: 1rem;
     }
 
-    /* Form Container */
-    .modern-form-container {
-        max-width: 800px;
-        margin: 0 auto;
-        animation: fadeInUp 0.6s ease forwards;
-    }
-    .modern-form {
-        background: #FFFFFF;
-        border-radius: 12px;
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-        border: 1px solid #E9ECEF;
+    .modern-card {
+        background: #fff;
+        border-radius: var(--border-radius);
+        box-shadow: var(--card-shadow);
+        border: none;
+        margin-bottom: 2rem;
         overflow: hidden;
-    }
-    .dark-mode .modern-form {
-        background: #2D2D2D;
-        border-color: #4A4A4A;
+        transition: var(--transition);
     }
 
-    /* Form Sections */
-    .modern-section {
+    .modern-card:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--card-shadow-hover);
+    }
+
+    .modern-card-header {
+        background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
         padding: 1.5rem;
-        border-bottom: 1px solid #E9ECEF;
-        animation: fadeInUp 0.6s ease forwards;
+        border-bottom: 1px solid #e9ecef;
+        position: relative;
     }
-    .modern-section:last-child {
-        border-bottom: none;
+
+    .modern-card-header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #667eea, #764ba2);
     }
-    .dark-mode .modern-section {
-        border-bottom-color: #4A4A4A;
-    }
-    .modern-section-header {
+
+    .modern-card-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #495057;
+        margin: 0;
         display: flex;
         align-items: center;
         gap: 0.75rem;
-        margin-bottom: 1.5rem;
-        padding-bottom: 1rem;
-        border-bottom: 1px solid #E9ECEF;
-    }
-    .dark-mode .modern-section-header {
-        border-bottom-color: #4A4A4A;
-    }
-    .modern-section-icon {
-        width: 40px;
-        height: 40px;
-        border-radius: 8px;
-        background: #0077C8;
-        color: #F0F0F0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.25rem;
-    }
-    .dark-mode .modern-section-icon {
-        background: #C1D82F;
-        color: #333333;
-    }
-    .modern-section-title h3 {
-        font-size: 1.125rem;
-        font-weight: 600;
-        color: #333333;
-        margin-bottom: 0.25rem;
-    }
-    .dark-mode .modern-section-title h3 {
-        color: #F0F0F0;
-    }
-    .modern-section-title p {
-        color: #6C757D;
-        font-size: 0.85rem;
-        margin: 0;
-    }
-    .dark-mode .modern-section-title p {
-        color: #A0AEC0;
     }
 
-    /* Form Fields */
-    .modern-form-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 1.5rem;
+    .modern-card-body {
+        padding: 1.5rem;
     }
+
     .modern-form-group {
-        display: flex;
-        flex-direction: column;
+        margin-bottom: 1.5rem;
+        position: relative;
     }
-    .modern-form-group.full-width {
-        grid-column: 1 / -1;
-    }
+
     .modern-label {
         font-weight: 600;
-        color: #333333;
+        color: #495057;
         margin-bottom: 0.5rem;
-        font-size: 0.9rem;
         display: flex;
         align-items: center;
         gap: 0.5rem;
+        font-size: 0.875rem;
+        transition: var(--transition-fast);
     }
-    .dark-mode .modern-label {
-        color: #F0F0F0;
-    }
-    .modern-label .required {
-        color: #E53935;
-        font-size: 0.75rem;
-    }
-    .modern-input,
-    .modern-textarea,
-    .modern-select {
+
+    .modern-input, .modern-select, .modern-textarea {
         width: 100%;
-        padding: 0.75rem 1rem;
-        border: 2px solid #E9ECEF;
-        border-radius: 8px;
-        font-family: 'Poppins', sans-serif;
-        font-size: 0.9rem;
-        background: #FFFFFF;
-        color: #333333;
-        transition: all 0.3s ease;
+        padding: 0.875rem 1.125rem;
+        border: 2px solid #e9ecef;
+        border-radius: var(--border-radius-sm);
+        background: #fff;
+        transition: var(--transition);
+        font-size: 1rem;
+        position: relative;
     }
-    .modern-input:focus,
-    .modern-textarea:focus,
-    .modern-select:focus {
-        border-color: #C1D82F;
-        box-shadow: 0 0 0 0.2rem rgba(193, 216, 47, 0.25);
+
+    .modern-input:focus, .modern-select:focus, .modern-textarea:focus {
         outline: none;
+        border-color: #667eea;
+        box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
         transform: translateY(-1px);
     }
-    .dark-mode .modern-input,
-    .dark-mode .modern-textarea,
-    .dark-mode .modern-select {
-        background: #2D2D2D;
-        border-color: #4A4A4A;
-        color: #F0F0F0;
+
+    .modern-input:hover, .modern-select:hover, .modern-textarea:hover {
+        border-color: #ced4da;
+        transform: translateY(-1px);
     }
-    .dark-mode .modern-input::placeholder,
-    .dark-mode .modern-textarea::placeholder,
-    .dark-mode .modern-select::placeholder {
-        color: #A0AEC0;
+
+    .modern-input.is-invalid, .modern-select.is-invalid, .modern-textarea.is-invalid {
+        border-color: #dc3545;
+        box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+        animation: shake 0.5s ease-in-out;
     }
+
+    @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(-5px); }
+        75% { transform: translateX(5px); }
+    }
+
     .modern-textarea {
         min-height: 120px;
         resize: vertical;
     }
-    .modern-select {
-        appearance: none;
-        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23333333' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
-        background-position: right 0.75rem center;
-        background-repeat: no-repeat;
-        background-size: 1.25em;
-        padding-right: 2.5rem;
-    }
-    .dark-mode .modern-select {
-        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23F0F0F0' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
-    }
-    .modern-input.error,
-    .modern-select.error {
-        border-color: #E53935;
-        box-shadow: 0 0 0 0.2rem rgba(229, 57, 53, 0.25);
-    }
-    .modern-error {
-        color: #E53935;
-        font-size: 0.75rem;
-        margin-top: 0.5rem;
-        display: flex;
-        align-items: center;
-        gap: 0.25rem;
-    }
 
-    /* File Upload */
-    .modern-file-upload {
-        position: relative;
-        border: 2px dashed #E9ECEF;
-        border-radius: 8px;
-        padding: 1.5rem;
-        text-align: center;
-        background: #F9F9F9;
-        transition: all 0.3s ease;
-    }
-    .dark-mode .modern-file-upload {
-        border-color: #4A4A4A;
-        background: #2D2D2D;
-    }
-    .modern-file-upload:hover {
-        border-color: #C1D82F;
-        background: rgba(193, 216, 47, 0.05);
-        transform: scale(1.02);
-        animation: pulse 1s infinite;
-    }
-    .modern-file-upload.dragover {
-        border-color: #C1D82F;
-        background: rgba(193, 216, 47, 0.1);
-        transform: scale(1.02);
-    }
-    .modern-file-input {
-        position: absolute;
-        inset: 0;
-        opacity: 0;
-        cursor: pointer;
-    }
-    .modern-file-content {
-        pointer-events: none;
-    }
-    .modern-file-icon {
-        width: 48px;
-        height: 48px;
-        border-radius: 50%;
-        background: #0077C8;
-        color: #F0F0F0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.25rem;
-        margin: 0 auto 1rem;
-    }
-    .dark-mode .modern-file-icon {
-        background: #C1D82F;
-        color: #333333;
-    }
-    .modern-file-text h4 {
-        font-size: 1rem;
-        font-weight: 600;
-        color: #333333;
-        margin-bottom: 0.5rem;
-    }
-    .dark-mode .modern-file-text h4 {
-        color: #F0F0F0;
-    }
-    .modern-file-text p {
-        color: #6C757D;
-        font-size: 0.85rem;
-        margin: 0;
-    }
-    .dark-mode .modern-file-text p {
-        color: #A0AEC0;
-    }
-
-    /* Current and Preview Images */
-    .modern-current-images,
-    .modern-preview-container {
-        margin-top: 1rem;
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-        gap: 1rem;
-    }
-    .modern-current-images h4,
-    .modern-preview-container h4 {
-        font-size: 1rem;
-        font-weight: 600;
-        color: #333333;
-        margin-bottom: 1rem;
-    }
-    .dark-mode .modern-current-images h4,
-    .dark-mode .modern-preview-container h4 {
-        color: #F0F0F0;
-    }
-    .modern-current-item,
-    .modern-preview-item {
-        position: relative;
-        border-radius: 8px;
-        overflow: hidden;
-        background: #F9F9F9;
-        aspect-ratio: 1;
-        border: 2px solid #E9ECEF;
-    }
-    .dark-mode .modern-current-item,
-    .dark-mode .modern-preview-item {
-        background: #2D2D2D;
-        border-color: #4A4A4A;
-    }
-    .modern-current-item img,
-    .modern-preview-item img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-    .modern-current-remove,
-    .modern-preview-remove {
-        position: absolute;
-        top: 0.5rem;
-        right: 0.5rem;
-        width: 24px;
-        height: 24px;
-        border-radius: 50%;
-        background: rgba(229, 57, 53, 0.9);
-        color: #F0F0F0;
-        border: none;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 0.75rem;
-        transition: all 0.3s ease;
-    }
-    .modern-current-remove:hover,
-    .modern-preview-remove:hover {
-        background: #E53935;
-        transform: scale(1.1);
-    }
-
-    /* Checkbox */
-    .modern-checkbox-group {
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-        margin-top: 1rem;
-    }
-    .modern-checkbox {
-        width: 20px;
-        height: 20px;
-        border: 2px solid #E9ECEF;
-        border-radius: 4px;
-        position: relative;
-        cursor: pointer;
-    }
-    .dark-mode .modern-checkbox {
-        border-color: #4A4A4A;
-    }
-    .modern-checkbox input {
-        opacity: 0;
-        position: absolute;
-        inset: 0;
-        cursor: pointer;
-    }
-    .modern-checkbox input:checked + .modern-checkmark {
-        background: #0077C8;
-        border-color: #0077C8;
-    }
-    .dark-mode .modern-checkbox input:checked + .modern-checkmark {
-        background: #C1D82F;
-        border-color: #C1D82F;
-    }
-    .modern-checkmark {
-        position: absolute;
-        inset: 0;
-        border-radius: 4px;
-        transition: all 0.3s ease;
-    }
-    .modern-checkmark::after {
-        content: '✓';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        color: #F0F0F0;
-        font-size: 0.75rem;
-        font-weight: bold;
-        opacity: 0;
-        transition: all 0.3s ease;
-    }
-    .dark-mode .modern-checkmark::after {
-        color: #333333;
-    }
-    .modern-checkbox input:checked + .modern-checkmark::after {
-        opacity: 1;
-    }
-    .modern-checkbox-label {
-        font-weight: 500;
-        color: #333333;
-        cursor: pointer;
-    }
-    .dark-mode .modern-checkbox-label {
-        color: #F0F0F0;
-    }
-    .modern-checkbox-note {
-        color: #6C757D;
-        font-size: 0.75rem;
-        margin-top: 0.5rem;
-    }
-    .dark-mode .modern-checkbox-note {
-        color: #A0AEC0;
-    }
-
-    /* Form Actions */
-    .modern-actions {
-        padding: 1.5rem;
-        background: #F9F9F9;
-        display: flex;
-        gap: 1rem;
-        justify-content: flex-end;
-    }
-    .dark-mode .modern-actions {
-        background: #2D2D2D;
-    }
     .modern-btn {
-        padding: 0.75rem 1.5rem;
-        border-radius: 25px;
-        font-family: 'Poppins', sans-serif;
-        font-weight: 600;
-        font-size: 0.9rem;
-        transition: all 0.3s ease;
+        background: var(--primary-gradient);
         border: none;
-        cursor: pointer;
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border-radius: 50px;
+        font-weight: 600;
+        transition: var(--transition);
+        text-decoration: none;
         display: inline-flex;
         align-items: center;
+        justify-content: center;
         gap: 0.5rem;
+        min-width: fit-content;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .modern-btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+        transition: left 0.5s;
+    }
+
+    .modern-btn:hover::before {
+        left: 100%;
+    }
+
+    .modern-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        color: white;
         text-decoration: none;
     }
-    .modern-btn-primary {
-        background: #0077C8;
-        color: #F0F0F0;
-        box-shadow: 0 4px 12px rgba(0, 119, 200, 0.3);
-    }
-    .modern-btn-primary:hover {
-        background: #C1D82F;
-        color: #333333;
-        transform: translateY(-2px);
-        box-shadow: 0 6px 16px rgba(193, 216, 47, 0.3);
-    }
-    .modern-btn-secondary {
-        background: #FFFFFF;
-        color: #6C757D;
-        border: 2px solid #E9ECEF;
-    }
-    .dark-mode .modern-btn-secondary {
-        background: #2D2D2D;
-        border-color: #4A4A4A;
-        color: #A0AEC0;
-    }
-    .modern-btn-secondary:hover {
-        background: #C1D82F;
-        color: #333333;
-        border-color: #C1D82F;
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(193, 216, 47, 0.3);
+
+    .modern-btn:active {
+        transform: translateY(-1px);
     }
 
-    /* Alerts */
-    .modern-alert {
-        padding: 1rem 1.5rem;
-        border-radius: 8px;
-        margin-bottom: 1.5rem;
+    .modern-btn-secondary {
+        background: var(--secondary-gradient);
+    }
+
+    .modern-btn-secondary:hover {
+        box-shadow: 0 10px 25px rgba(108, 117, 125, 0.3);
+    }
+
+    .modern-btn-warning {
+        background: var(--warning-gradient);
+    }
+
+    .modern-btn-warning:hover {
+        box-shadow: 0 10px 25px rgba(255, 193, 7, 0.3);
+    }
+
+    .modern-btn-success {
+        background: var(--success-gradient);
+    }
+
+    .modern-btn-success:hover {
+        box-shadow: 0 10px 25px rgba(40, 167, 69, 0.3);
+    }
+
+    .product-icon-large {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        background: var(--info-gradient);
         display: flex;
         align-items: center;
-        gap: 0.75rem;
-        font-weight: 500;
-        animation: fadeInUp 0.6s ease forwards;
-    }
-    .modern-alert.success {
-        background: rgba(16, 185, 129, 0.1);
-        color: #065F46;
-        border: 1px solid rgba(16, 185, 129, 0.3);
-    }
-    .dark-mode .modern-alert.success {
-        background: rgba(16, 185, 129, 0.2);
-        color: #10B981;
-    }
-    .modern-alert.error {
-        background: rgba(229, 57, 53, 0.1);
-        color: #991B1B;
-        border: 1px solid rgba(229, 57, 53, 0.3);
-    }
-    .dark-mode .modern-alert.error {
-        background: rgba(229, 57, 53, 0.2);
-        color: #E53935;
+        justify-content: center;
+        color: white;
+        font-size: 3rem;
+        margin: 0 auto 1.5rem;
+        box-shadow: 0 15px 40px rgba(23, 162, 184, 0.3);
+        transition: var(--transition);
+        position: relative;
+        overflow: hidden;
     }
 
-    /* Loading State */
-    .modern-btn.loading {
-        pointer-events: none;
-        opacity: 0.7;
-    }
-    .modern-btn.loading::after {
+    .product-icon-large::before {
         content: '';
-        width: 16px;
-        height: 16px;
-        border: 2px solid transparent;
-        border-top: 2px solid currentColor;
-        border-radius: 50%;
-        animation: spin 1s linear infinite;
-        margin-left: 0.5rem;
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+        transform: rotate(45deg);
+        transition: var(--transition);
     }
-    @keyframes spin {
-        to {
-            transform: rotate(360deg);
-        }
+
+    .product-icon-large:hover {
+        transform: scale(1.05) rotate(5deg);
+        box-shadow: 0 20px 50px rgba(23, 162, 184, 0.4);
     }
-    @keyframes pulse {
-        0% {
-            box-shadow: 0 0 0 0 rgba(193, 216, 47, 0.4);
-        }
-        70% {
-            box-shadow: 0 0 0 10px rgba(193, 216, 47, 0);
-        }
-        100% {
-            box-shadow: 0 0 0 0 rgba(193, 216, 47, 0);
-        }
+
+    .product-icon-large:hover::before {
+        animation: shimmer 1.5s ease-in-out infinite;
     }
+
+    @keyframes shimmer {
+        0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+        100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+    }
+
+    .form-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .form-grid-3 {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1rem;
+    }
+
+    .form-group-full {
+        grid-column: 1 / -1;
+    }
+
+    .invalid-feedback {
+        display: block;
+        color: #dc3545;
+        font-size: 0.875rem;
+        margin-top: 0.25rem;
+        animation: fadeInUp 0.3s ease-out;
+    }
+
     @keyframes fadeInUp {
         from {
             opacity: 0;
-            transform: translateY(20px);
+            transform: translateY(10px);
         }
         to {
             opacity: 1;
@@ -569,684 +291,1287 @@
         }
     }
 
-    /* Responsive */
+    .required {
+        color: #dc3545;
+        font-weight: 700;
+    }
+
+    /* File Upload Styles */
+    .file-upload-container {
+        position: relative;
+        border: 2px dashed #e9ecef;
+        border-radius: var(--border-radius);
+        padding: 2rem;
+        text-align: center;
+        background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+        transition: var(--transition);
+        cursor: pointer;
+    }
+
+    .file-upload-container:hover {
+        border-color: #667eea;
+        background: rgba(102, 126, 234, 0.05);
+        transform: scale(1.02);
+    }
+
+    .file-upload-container.dragover {
+        border-color: #667eea;
+        background: rgba(102, 126, 234, 0.1);
+        transform: scale(1.02);
+    }
+
+    .file-input {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+    .file-upload-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: var(--info-gradient);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        margin: 0 auto 1rem;
+        box-shadow: 0 8px 20px rgba(23, 162, 184, 0.3);
+    }
+
+    .file-upload-text h4 {
+        font-weight: 700;
+        color: #495057;
+        margin-bottom: 0.5rem;
+    }
+
+    .file-upload-text p {
+        color: #6c757d;
+        margin: 0;
+        font-size: 0.875rem;
+    }
+
+    /* Image Preview Styles */
+    .image-preview-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 1rem;
+        margin-top: 1.5rem;
+    }
+
+    .image-preview-item {
+        position: relative;
+        border-radius: var(--border-radius-sm);
+        overflow: hidden;
+        background: #f8f9fa;
+        aspect-ratio: 1;
+        border: 2px solid #e9ecef;
+        transition: var(--transition);
+    }
+
+    .image-preview-item:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--card-shadow);
+        border-color: #667eea;
+    }
+
+    .image-preview-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .image-remove-btn {
+        position: absolute;
+        top: 0.5rem;
+        right: 0.5rem;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: rgba(220, 53, 69, 0.9);
+        color: white;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.875rem;
+        transition: var(--transition);
+    }
+
+    .image-remove-btn:hover {
+        background: #dc3545;
+        transform: scale(1.1);
+    }
+
+    /* Checkbox Styles */
+    .checkbox-group {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-top: 1rem;
+    }
+
+    .checkbox-container {
+        position: relative;
+        width: 24px;
+        height: 24px;
+    }
+
+    .checkbox-input {
+        position: absolute;
+        opacity: 0;
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+    }
+
+    .checkbox-custom {
+        width: 24px;
+        height: 24px;
+        border: 2px solid #e9ecef;
+        border-radius: 6px;
+        background: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: var(--transition);
+    }
+
+    .checkbox-input:checked + .checkbox-custom {
+        background: var(--success-gradient);
+        border-color: #28a745;
+    }
+
+    .checkbox-custom::after {
+        content: '✓';
+        color: white;
+        font-weight: 700;
+        font-size: 0.875rem;
+        opacity: 0;
+        transition: var(--transition);
+    }
+
+    .checkbox-input:checked + .checkbox-custom::after {
+        opacity: 1;
+    }
+
+    .checkbox-label {
+        font-weight: 600;
+        color: #495057;
+        cursor: pointer;
+        user-select: none;
+    }
+
+    /* Loading States */
+    .loading {
+        opacity: 0.7;
+        pointer-events: none;
+        position: relative;
+    }
+
+    .loading::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 20px;
+        height: 20px;
+        margin: -10px 0 0 -10px;
+        border: 2px solid transparent;
+        border-top: 2px solid currentColor;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+        to { transform: rotate(360deg); }
+    }
+
+    /* Progress Indicator */
+    .form-progress {
+        height: 4px;
+        background: #e9ecef;
+        border-radius: 2px;
+        overflow: hidden;
+        margin-bottom: 2rem;
+    }
+
+    .form-progress-bar {
+        height: 100%;
+        background: var(--primary-gradient);
+        border-radius: 2px;
+        transition: width 0.3s ease;
+        width: 0%;
+    }
+
+    /* Mobile Optimizations */
     @media (max-width: 768px) {
-        .modern-container {
-            padding: 1rem;
-        }
         .modern-page-header {
+            padding: 2rem 0;
             margin: -1rem -1rem 1.5rem;
-            padding: 1.5rem 0;
         }
+
+        .modern-page-header .row > div {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .modern-page-header .col-md-4 {
+            text-align: center !important;
+        }
+
         .modern-page-header h1 {
             font-size: 1.5rem;
         }
-        .modern-header-actions {
-            flex-direction: column;
-            width: 100%;
+
+        .modern-page-header p {
+            font-size: 0.9rem;
         }
+
+        .product-icon-large {
+            width: 100px;
+            height: 100px;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .modern-card .card-body,
+        .modern-card .card-header {
+            padding: 1rem;
+        }
+
+        .modern-input, .modern-select, .modern-textarea {
+            padding: 0.75rem 1rem;
+            font-size: 0.9rem;
+        }
+
         .modern-btn {
             width: 100%;
-            justify-content: center;
+            padding: 0.75rem 1rem;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
         }
-        .modern-form-grid {
-            grid-template-columns: 1fr;
-        }
-        .modern-actions {
+
+        .btn-group {
+            display: flex;
             flex-direction: column;
+            gap: 0.5rem;
+            width: 100%;
+        }
+
+        .btn-group .modern-btn {
+            margin-bottom: 0;
+        }
+
+        .form-grid {
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        .form-grid-3 {
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        .modern-form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .modern-label {
+            font-size: 0.8rem;
+        }
+
+        .file-upload-container {
+            padding: 1.5rem 1rem;
+        }
+
+        .file-upload-icon {
+            width: 50px;
+            height: 50px;
+            font-size: 1.25rem;
+        }
+
+        .image-preview-grid {
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 0.75rem;
+        }
+
+        .d-flex.justify-content-between {
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .d-flex.justify-content-between .modern-btn {
+            margin-bottom: 0;
+        }
+
+        /* Mobile icons in labels */
+        .mobile-icon {
+            display: inline-block;
+            width: 16px;
+            text-align: center;
+        }
+
+        /* Hide text on mobile, show icons */
+        .mobile-text-hide {
+            display: none;
+        }
+
+        .mobile-icon-show {
+            display: inline-block;
         }
     }
+
+    @media (max-width: 576px) {
+        .modern-page-header {
+            margin: -0.5rem -0.5rem 1rem;
+            padding: 1.5rem 0;
+        }
+
+        .product-icon-large {
+            width: 80px;
+            height: 80px;
+            font-size: 2rem;
+        }
+
+        .modern-card {
+            margin-bottom: 1rem;
+        }
+
+        .modern-card .card-body,
+        .modern-card .card-header {
+            padding: 0.75rem;
+        }
+
+        .modern-input, .modern-select, .modern-textarea {
+            padding: 0.625rem 0.875rem;
+            font-size: 0.85rem;
+        }
+
+        .modern-btn {
+            padding: 0.625rem 1rem;
+            font-size: 0.85rem;
+        }
+
+        .modern-label {
+            font-size: 0.75rem;
+        }
+
+        .modern-form-group {
+            margin-bottom: 1rem;
+        }
+
+        .file-upload-container {
+            padding: 1rem 0.75rem;
+        }
+
+        /* Very small screens - compact layout */
+        .col-md-4 {
+            margin-bottom: 0.75rem;
+        }
+    }
+
+    @media (max-width: 375px) {
+        .modern-page-header {
+            padding: 1rem 0;
+        }
+
+        .product-icon-large {
+            width: 70px;
+            height: 70px;
+            font-size: 1.75rem;
+        }
+
+        .modern-input, .modern-select, .modern-textarea {
+            padding: 0.5rem 0.75rem;
+            font-size: 0.8rem;
+        }
+
+        .modern-btn {
+            padding: 0.5rem 0.875rem;
+            font-size: 0.8rem;
+        }
+
+        .modern-label {
+            font-size: 0.7rem;
+        }
+    }
+
+    /* Tablet Optimizations */
+    @media (min-width: 768px) and (max-width: 1024px) {
+        .modern-page-header {
+            padding: 2.5rem 0;
+        }
+
+        .product-icon-large {
+            width: 110px;
+            height: 110px;
+            font-size: 2.75rem;
+        }
+
+        .modern-input, .modern-select, .modern-textarea {
+            padding: 0.8rem 1rem;
+            font-size: 0.95rem;
+        }
+
+        .modern-btn {
+            padding: 0.75rem 1.25rem;
+            font-size: 0.9rem;
+        }
+    }
+
+    /* Animation Classes */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .animate-fade-in-up {
+        animation: fadeInUp 0.6s ease-out;
+    }
+
+    .animate-stagger {
+        animation: fadeInUp 0.6s ease-out;
+    }
+
+    .animate-stagger:nth-child(1) { animation-delay: 0.1s; }
+    .animate-stagger:nth-child(2) { animation-delay: 0.2s; }
+    .animate-stagger:nth-child(3) { animation-delay: 0.3s; }
+    .animate-stagger:nth-child(4) { animation-delay: 0.4s; }
+    .animate-stagger:nth-child(5) { animation-delay: 0.5s; }
+
+    /* Touch device optimizations */
+    @media (hover: none) and (pointer: coarse) {
+        .modern-btn:hover,
+        .modern-card:hover,
+        .modern-input:hover,
+        .modern-select:hover,
+        .modern-textarea:hover,
+        .product-icon-large:hover,
+        .file-upload-container:hover,
+        .image-preview-item:hover {
+            transform: none;
+        }
+
+        .modern-btn:active {
+            transform: scale(0.95);
+        }
+
+        .modern-input:focus,
+        .modern-select:focus,
+        .modern-textarea:focus {
+            transform: none;
+        }
+
+        .product-icon-large:active {
+            transform: scale(0.95);
+        }
+    }
+
+    /* Reduced motion support */
+    @media (prefers-reduced-motion: reduce) {
+        * {
+            transition: none !important;
+            animation: none !important;
+        }
+    }
+
+    /* High contrast mode */
+    @media (prefers-contrast: high) {
+        .modern-card {
+            border: 2px solid #000;
+        }
+
+        .modern-input,
+        .modern-select,
+        .modern-textarea {
+            border: 2px solid #000;
+        }
+    }
+
+    /* Focus indicators for accessibility */
+    .modern-btn:focus-visible,
+    .modern-input:focus-visible,
+    .modern-select:focus-visible,
+    .modern-textarea:focus-visible {
+        outline: 2px solid #667eea;
+        outline-offset: 2px;
+    }
+
+    /* Success state animations */
+    .success-pulse {
+        animation: successPulse 0.6s ease-out;
+    }
+
+    @keyframes successPulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+
+    /* Error state animations */
+    .error-shake {
+        animation: errorShake 0.5s ease-in-out;
+    }
+
+    @keyframes errorShake {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(-10px); }
+        75% { transform: translateX(10px); }
+    }
 </style>
-@endpush
 
-@section('content')
-<div class="modern-container">
-    <!-- Page Header -->
-    <div class="modern-page-header">
-        <div class="container-fluid">
-            <div class="row align-items-center">
-                <div class="col-md-8">
-                    <h1><i class="fas fa-edit"></i> {{ __('products.edit_product') }}</h1>
-                    <p>{{ __('products.update_product_info') }}</p>
-                </div>
-                <div class="col-md-4 text-md-end">
-                    <div class="modern-header-actions">
-                        <a href="{{ route('admin.products.show', $product) }}" class="modern-btn modern-btn-primary">
-                            <i class="fas fa-eye"></i>
-                            {{ __('products.view_product') }}
-                        </a>
-                        <a href="{{ route('admin.products.index') }}" class="modern-btn modern-btn-secondary">
-                            <i class="fas fa-arrow-left"></i>
-                            {{ __('products.back_to_products') }}
-                        </a>
-                    </div>
+<!-- Page Header -->
+<div class="modern-page-header animate-fade-in-up">
+    <div class="container-fluid position-relative">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <h1 class="h2 mb-2">{{ __('products.edit_product') }}</h1>
+                <p class="mb-0 opacity-75">{{ __('products.update_product_information') }}</p>
+            </div>
+            <div class="col-md-4 text-md-end">
+                <div class="btn-group">
+                    <a href="{{ route('admin.products.show', $product) }}" class="modern-btn modern-btn-warning">
+                        <i class="fas fa-eye me-2 mobile-icon-show"></i>
+                        <span class="mobile-text-hide">{{ __('products.view_product') }}</span>
+                        <span class="d-md-none">{{ __('products.mobile_view') }}</span>
+                    </a>
+                    <a href="{{ route('admin.products.index') }}" class="modern-btn modern-btn-secondary">
+                        <i class="fas fa-arrow-left me-2 mobile-icon-show"></i>
+                        <span class="mobile-text-hide">{{ __('products.back_to_products') }}</span>
+                        <span class="d-md-none">{{ __('products.mobile_back') }}</span>
+                    </a>
                 </div>
             </div>
         </div>
-    </div>
-
-    <!-- Success/Error Messages -->
-    @if(session('success'))
-        <div class="modern-alert success">
-            <i class="fas fa-check-circle"></i>
-            {{ session('success') }}
-        </div>
-    @endif
-    @if(session('error'))
-        <div class="modern-alert error">
-            <i class="fas fa-exclamation-circle"></i>
-            {{ session('error') }}
-        </div>
-    @endif
-
-    <!-- Main Form -->
-    <div class="modern-form-container">
-        <form action="{{ route('admin.products.update', $product) }}" method="POST" enctype="multipart/form-data" class="modern-form" id="productEditForm">
-            @csrf
-            @method('PUT')
-
-            <!-- Basic Information Section -->
-            <div class="modern-section">
-                <div class="modern-section-header">
-                    <div class="modern-section-icon">
-                        <i class="fas fa-info-circle"></i>
-                    </div>
-                    <div class="modern-section-title">
-                        <h3>{{ __('products.basic_information') }}</h3>
-                        <p>{{ __('products.essential_product_details') }}</p>
-                    </div>
-                </div>
-                <div class="modern-form-grid">
-                    <div class="modern-form-group">
-                        <label for="model_name" class="modern-label">
-                            {{ __('products.model_name') }} <span class="required">{{ __('products.required') }}</span>
-                        </label>
-                        <input type="text" 
-                               id="model_name" 
-                               name="model_name" 
-                               class="modern-input @error('model_name') error @enderror" 
-                               value="{{ old('model_name', $product->model_name) }}" 
-                               placeholder="{{ __('products.enter_model_name') }}"
-                               required>
-                        @error('model_name')
-                            <span class="modern-error">
-                                <i class="fas fa-exclamation-triangle"></i>
-                                {{ $message }}
-                            </span>
-                        @enderror
-                    </div>
-                    <div class="modern-form-group">
-                        <label for="price" class="modern-label">
-                            {{ __('products.price') }} <span class="required">{{ __('products.required') }}</span>
-                        </label>
-                        <input type="number" 
-                               id="price" 
-                               name="price" 
-                               class="modern-input @error('price') error @enderror" 
-                               value="{{ old('price', $product->price) }}" 
-                               step="0.01"
-                               min="0"
-                               placeholder="0.00"
-                               required>
-                        @error('price')
-                            <span class="modern-error">
-                                <i class="fas fa-exclamation-triangle"></i>
-                                {{ $message }}
-                            </span>
-                        @enderror
-                    </div>
-                    <div class="modern-form-group">
-                        <label for="category_id" class="modern-label">
-                            {{ __('products.category') }} <span class="required">{{ __('products.required') }}</span>
-                        </label>
-                        <select id="category_id" 
-                                name="category_id" 
-                                class="modern-select @error('category_id') error @enderror"
-                                required>
-                            <option value="">{{ __('products.select_category') }}</option>
-                            @foreach($categories as $category)
-                                <option value="{{ $category->id }}" {{ old('category_id', $product->category_id) == $category->id ? 'selected' : '' }}>
-                                    {{ $category->name }}
-                                </option>
-                            @endforeach
-                        </select>
-                        @error('category_id')
-                            <span class="modern-error">
-                                <i class="fas fa-exclamation-triangle"></i>
-                                {{ $message }}
-                            </span>
-                        @enderror
-                    </div>
-                    <div class="modern-form-group">
-                        <label for="line" class="modern-label">
-                            {{ __('products.line') }}
-                        </label>
-                        <input type="text" 
-                               id="line" 
-                               name="line" 
-                               class="modern-input @error('line') error @enderror" 
-                               value="{{ old('line', $product->line) }}" 
-                               placeholder="{{ __('products.enter_product_line') }}">
-                        @error('line')
-                            <span class="modern-error">
-                                <i class="fas fa-exclamation-triangle"></i>
-                                {{ $message }}
-                            </span>
-                        @enderror
-                    </div>
-                    <div class="modern-form-group">
-                        <label for="type" class="modern-label">
-                            {{ __('products.type') }}
-                        </label>
-                        <input type="text" 
-                               id="type" 
-                               name="type" 
-                               class="modern-input @error('type') error @enderror" 
-                               value="{{ old('type', $product->type) }}" 
-                               placeholder="{{ __('products.enter_product_type') }}">
-                        @error('type')
-                            <span class="modern-error">
-                                <i class="fas fa-exclamation-triangle"></i>
-                                {{ $message }}
-                            </span>
-                        @enderror
-                    </div>
-                </div>
-            </div>
-
-            <!-- Specifications Section -->
-            <div class="modern-section">
-                <div class="modern-section-header">
-                    <div class="modern-section-icon">
-                        <i class="fas fa-cogs"></i>
-                    </div>
-                    <div class="modern-section-title">
-                        <h3>{{ __('products.technical_specifications') }}</h3>
-                        <p>{{ __('products.technical_specifications_desc') }}</p>
-                    </div>
-                </div>
-                <div class="modern-form-grid">
-                    <div class="modern-form-group">
-                        <label for="body_weight" class="modern-label">
-                            {{ __('products.body_weight') }}
-                        </label>
-                        <input type="text" 
-                               id="body_weight" 
-                               name="body_weight" 
-                               class="modern-input @error('body_weight') error @enderror" 
-                               value="{{ old('body_weight', $product->body_weight) }}" 
-                               placeholder="e.g., 500 kg">
-                        @error('body_weight')
-                            <span class="modern-error">
-                                <i class="fas fa-exclamation-triangle"></i>
-                                {{ $message }}
-                            </span>
-                        @enderror
-                    </div>
-                    <div class="modern-form-group">
-                        <label for="operating_weight" class="modern-label">
-                            {{ __('products.operating_weight') }}
-                        </label>
-                        <input type="text" 
-                               id="operating_weight" 
-                               name="operating_weight" 
-                               class="modern-input @error('operating_weight') error @enderror" 
-                               value="{{ old('operating_weight', $product->operating_weight) }}" 
-                               placeholder="e.g., 600 kg">
-                        @error('operating_weight')
-                            <span class="modern-error">
-                                <i class="fas fa-exclamation-triangle"></i>
-                                {{ $message }}
-                            </span>
-                        @enderror
-                    </div>
-                    <div class="modern-form-group">
-                        <label for="overall_length" class="modern-label">
-                            {{ __('products.overall_length') }}
-                        </label>
-                        <input type="text" 
-                               id="overall_length" 
-                               name="overall_length" 
-                               class="modern-input @error('overall_length') error @enderror" 
-                               value="{{ old('overall_length', $product->overall_length) }}" 
-                               placeholder="e.g., 2500 mm">
-                        @error('overall_length')
-                            <span class="modern-error">
-                                <i class="fas fa-exclamation-triangle"></i>
-                                {{ $message }}
-                            </span>
-                        @enderror
-                    </div>
-                    <div class="modern-form-group">
-                        <label for="overall_width" class="modern-label">
-                            {{ __('products.overall_width') }}
-                        </label>
-                        <input type="text" 
-                               id="overall_width" 
-                               name="overall_width" 
-                               class="modern-input @error('overall_width') error @enderror" 
-                               value="{{ old('overall_width', $product->overall_width) }}" 
-                               placeholder="e.g., 800 mm">
-                        @error('overall_width')
-                            <span class="modern-error">
-                                <i class="fas fa-exclamation-triangle"></i>
-                                {{ $message }}
-                            </span>
-                        @enderror
-                    </div>
-                    <div class="modern-form-group">
-                        <label for="overall_height" class="modern-label">
-                            {{ __('products.overall_height') }}
-                        </label>
-                        <input type="text" 
-                               id="overall_height" 
-                               name="overall_height" 
-                               class="modern-input @error('overall_height') error @enderror" 
-                               value="{{ old('overall_height', $product->overall_height) }}" 
-                               placeholder="e.g., 1200 mm">
-                        @error('overall_height')
-                            <span class="modern-error">
-                                <i class="fas fa-exclamation-triangle"></i>
-                                {{ $message }}
-                            </span>
-                        @enderror
-                    </div>
-                    <div class="modern-form-group">
-                        <label for="required_oil_flow" class="modern-label">
-                            {{ __('products.required_oil_flow') }}
-                        </label>
-                        <input type="text" 
-                               id="required_oil_flow" 
-                               name="required_oil_flow" 
-                               class="modern-input @error('required_oil_flow') error @enderror" 
-                               value="{{ old('required_oil_flow', $product->required_oil_flow) }}" 
-                               placeholder="e.g., 45-80 L/min">
-                        @error('required_oil_flow')
-                            <span class="modern-error">
-                                <i class="fas fa-exclamation-triangle"></i>
-                                {{ $message }}
-                            </span>
-                        @enderror
-                    </div>
-                    <div class="modern-form-group">
-                        <label for="operating_pressure" class="modern-label">
-                            {{ __('products.operating_pressure') }}
-                        </label>
-                        <input type="text" 
-                               id="operating_pressure" 
-                               name="operating_pressure" 
-                               class="modern-input @error('operating_pressure') error @enderror" 
-                               value="{{ old('operating_pressure', $product->operating_pressure) }}" 
-                               placeholder="e.g., 130-160 bar">
-                        @error('operating_pressure')
-                            <span class="modern-error">
-                                <i class="fas fa-exclamation-triangle"></i>
-                                {{ $message }}
-                            </span>
-                        @enderror
-                    </div>
-                    <div class="modern-form-group">
-                        <label for="impact_rate" class="modern-label">
-                            {{ __('products.impact_rate') }}
-                        </label>
-                        <input type="text" 
-                               id="impact_rate" 
-                               name="impact_rate" 
-                               class="modern-input @error('impact_rate') error @enderror" 
-                               value="{{ old('impact_rate', $product->impact_rate) }}" 
-                               placeholder="e.g., 450-1000 BPM">
-                        @error('impact_rate')
-                            <span class="modern-error">
-                                <i class="fas fa-exclamation-triangle"></i>
-                                {{ $message }}
-                            </span>
-                        @enderror
-                    </div>
-                    <div class="modern-form-group">
-                        <label for="impact_rate_soft_rock" class="modern-label">
-                            {{ __('products.impact_rate_soft_rock') }}
-                        </label>
-                        <input type="text" 
-                               id="impact_rate_soft_rock" 
-                               name="impact_rate_soft_rock" 
-                               class="modern-input @error('impact_rate_soft_rock') error @enderror" 
-                               value="{{ old('impact_rate_soft_rock', $product->impact_rate_soft_rock) }}" 
-                               placeholder="e.g., 800-1200 BPM">
-                        @error('impact_rate_soft_rock')
-                            <span class="modern-error">
-                                <i class="fas fa-exclamation-triangle"></i>
-                                {{ $message }}
-                            </span>
-                        @enderror
-                    </div>
-                    <div class="modern-form-group">
-                        <label for="hose_diameter" class="modern-label">
-                            {{ __('products.hose_diameter') }}
-                        </label>
-                        <input type="text" 
-                               id="hose_diameter" 
-                               name="hose_diameter" 
-                               class="modern-input @error('hose_diameter') error @enderror" 
-                               value="{{ old('hose_diameter', $product->hose_diameter) }}" 
-                               placeholder="e.g., 19 mm">
-                        @error('hose_diameter')
-                            <span class="modern-error">
-                                <i class="fas fa-exclamation-triangle"></i>
-                                {{ $message }}
-                            </span>
-                        @enderror
-                    </div>
-                    <div class="modern-form-group">
-                        <label for="rod_diameter" class="modern-label">
-                            {{ __('products.rod_diameter') }}
-                        </label>
-                        <input type="text" 
-                               id="rod_diameter" 
-                               name="rod_diameter" 
-                               class="modern-input @error('rod_diameter') error @enderror" 
-                               value="{{ old('rod_diameter', $product->rod_diameter) }}" 
-                               placeholder="e.g., 120 mm">
-                        @error('rod_diameter')
-                            <span class="modern-error">
-                                <i class="fas fa-exclamation-triangle"></i>
-                                {{ $message }}
-                            </span>
-                        @enderror
-                    </div>
-                    <div class="modern-form-group">
-                        <label for="applicable_carrier" class="modern-label">
-                            {{ __('products.applicable_carrier') }}
-                        </label>
-                        <input type="text" 
-                               id="applicable_carrier" 
-                               name="applicable_carrier" 
-                               class="modern-input @error('applicable_carrier') error @enderror" 
-                               value="{{ old('applicable_carrier', $product->applicable_carrier) }}" 
-                               placeholder="e.g., 8-15 ton excavator">
-                        @error('applicable_carrier')
-                            <span class="modern-error">
-                                <i class="fas fa-exclamation-triangle"></i>
-                                {{ $message }}
-                            </span>
-                        @enderror
-                    </div>
-                </div>
-            </div>
-
-            <!-- Product Images Section -->
-            <div class="modern-section">
-                <div class="modern-section-header">
-                    <div class="modern-section-icon">
-                        <i class="fas fa-images"></i>
-                    </div>
-                    <div class="modern-section-title">
-                        <h3>{{ __('products.product_images') }}</h3>
-                        
-                    </div>
-                </div>
-                @if($product->images && count($product->images) > 0)
-                    <div class="modern-current-images">
-                        <h4>{{ __('products.current_images') }}</h4>
-                        <div class="modern-current-grid" id="currentImages">
-                            @foreach($product->images as $index => $image)
-                                <div class="modern-current-item" data-image-index="{{ $index }}">
-                                    <img src="{{ $image }}" alt="{{ __('products.product_image') }} {{ $index + 1 }}">
-                                    <button type="button" class="modern-current-remove" onclick="removeCurrentImage({{ $index }})">
-                                        <i class="fas fa-times"></i>
-                                    </button>
-                                </div>
-                            @endforeach
-                        </div>
-                        <input type="hidden" id="removedImages" name="removed_images" value="">
-                    </div>
-                @endif
-                <div class="modern-form-group full-width">
-                    <label for="images" class="modern-label">
-                       
-                    </label>
-                    <div class="modern-file-upload" id="fileUpload">
-                        <input type="file" 
-                               id="images" 
-                               name="images[]" 
-                               class="modern-file-input @error('images') error @enderror" 
-                               multiple 
-                               accept="image/*">
-                        <div class="modern-file-content">
-                            <div class="modern-file-icon">
-                                <i class="fas fa-cloud-upload-alt"></i>
-                            </div>
-                            <div class="modern-file-text">
-                                <h4>click to upload</h4>
-                                
-                            </div>
-                        </div>
-                        <div class="modern-preview-container" id="imagePreview"></div>
-                    </div>
-                    @error('images')
-                        <span class="modern-error">
-                            <i class="fas fa-exclamation-triangle"></i>
-                            {{ $message }}
-                        </span>
-                    @enderror
-                </div>
-            </div>
-
-            <!-- Product Settings Section -->
-            <div class="modern-section">
-                <div class="modern-section-header">
-                    <div class="modern-section-icon">
-                        <i class="fas fa-cogs"></i>
-                    </div>
-                    
-                </div>
-                <div class="modern-form-grid">
-                    <div class="modern-form-group">
-                        <label for="status" class="modern-label">
-                            {{ __('products.status') }} <span class="required">{{ __('products.required') }}</span>
-                        </label>
-                        <select id="status" 
-                                name="status" 
-                                class="modern-select @error('status') error @enderror"
-                                required>
-                            <option value="active" {{ old('status', $product->status) == 'active' ? 'selected' : '' }}>{{ __('products.active') }}</option>
-                            <option value="inactive" {{ old('status', $product->status) == 'inactive' ? 'selected' : '' }}>{{ __('products.inactive') }}</option>
-                        </select>
-                        @error('status')
-                            <span class="modern-error">
-                                <i class="fas fa-exclamation-triangle"></i>
-                                {{ $message }}
-                            </span>
-                        @enderror
-                    </div>
-                    <div class="modern-form-group">
-                        <div class="modern-checkbox-group">
-                            <label class="modern-checkbox">
-                                <input type="checkbox" 
-                                       id="is_featured" 
-                                       name="is_featured" 
-                                       value="1" 
-                                       {{ old('is_featured', $product->is_featured) ? 'checked' : '' }}>
-                                <span class="modern-checkmark"></span>
-                            </label>
-                            <label for="is_featured" class="modern-checkbox-label">
-                                {{ __('products.featured_product') }}
-                            </label>
-                        </div>
-                       
-                    </div>
-                </div>
-            </div>
-
-            <!-- Form Actions -->
-            <div class="modern-actions">
-                <a href="{{ route('admin.products.index') }}" class="modern-btn modern-btn-secondary">
-                    <i class="fas fa-times"></i>
-                    {{ __('products.cancel') }}
-                </a>
-                <button type="submit" class="modern-btn modern-btn-primary" id="submitBtn">
-                    <i class="fas fa-save"></i>
-                    {{ __('products.update_product') }}
-                </button>
-            </div>
-        </form>
     </div>
 </div>
 
-@push('scripts')
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <div class="modern-card animate-stagger">
+            <div class="modern-card-header">
+                <div class="text-center">
+                    <div class="product-icon-large">
+                        @if($product->image_url)
+                            <img src="{{ $product->image_url }}" alt="{{ $product->model_name }}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                        @else
+                            <i class="fas fa-cube"></i>
+                        @endif
+                    </div>
+                    <h4 class="mb-1">{{ __('products.editing_product') }}: {{ $product->model_name }}</h4>
+                    <p class="text-muted">{{ $product->category->name ?? __('products.no_category') }}</p>
+                </div>
+            </div>
+            <div class="modern-card-body">
+                <!-- Progress Bar -->
+                <div class="form-progress">
+                    <div class="form-progress-bar" id="formProgress"></div>
+                </div>
+
+                <form action="{{ route('admin.products.update', $product) }}" method="POST" enctype="multipart/form-data" id="editProductForm">
+                    @csrf
+                    @method('PUT')
+
+                    <!-- Basic Information Section -->
+                    <div class="modern-card animate-stagger">
+                        <div class="modern-card-header">
+                            <h3 class="modern-card-title">
+                                <i class="fas fa-info-circle"></i>
+                                {{ __('products.basic_information') }}
+                            </h3>
+                        </div>
+                        <div class="modern-card-body">
+                            <div class="form-grid">
+                                <div class="modern-form-group">
+                                    <label for="model_name" class="modern-label">
+                                        <i class="fas fa-tag mobile-icon"></i>
+                                        {{ __('products.model_name') }} <span class="required">*</span>
+                                    </label>
+                                    <input type="text" 
+                                           class="modern-input @error('model_name') is-invalid @enderror" 
+                                           id="model_name" 
+                                           name="model_name" 
+                                           value="{{ old('model_name', $product->model_name) }}" 
+                                           placeholder="{{ __('products.enter_model_name') }}"
+                                           required>
+                                    @error('model_name')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="modern-form-group">
+                                    <label for="category_id" class="modern-label">
+                                        <i class="fas fa-folder mobile-icon"></i>
+                                        {{ __('products.category') }} <span class="required">*</span>
+                                    </label>
+                                    <select class="modern-select @error('category_id') is-invalid @enderror" 
+                                            id="category_id" 
+                                            name="category_id" 
+                                            required>
+                                        <option value="">{{ __('products.select_category') }}</option>
+                                        @foreach($categories as $category)
+                                            <option value="{{ $category->id }}" {{ old('category_id', $product->category_id) == $category->id ? 'selected' : '' }}>
+                                                {{ $category->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('category_id')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="modern-form-group">
+                                    <label for="line" class="modern-label">
+                                        <i class="fas fa-stream mobile-icon"></i>
+                                        {{ __('products.line') }}
+                                    </label>
+                                    <input type="text" 
+                                           class="modern-input @error('line') is-invalid @enderror" 
+                                           id="line" 
+                                           name="line" 
+                                           value="{{ old('line', $product->line) }}" 
+                                           placeholder="{{ __('products.enter_product_line') }}">
+                                    @error('line')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="modern-form-group">
+                                    <label for="type" class="modern-label">
+                                        <i class="fas fa-shapes mobile-icon"></i>
+                                        {{ __('products.type') }}
+                                    </label>
+                                    <input type="text" 
+                                           class="modern-input @error('type') is-invalid @enderror" 
+                                           id="type" 
+                                           name="type" 
+                                           value="{{ old('type', $product->type) }}" 
+                                           placeholder="{{ __('products.enter_product_type') }}">
+                                    @error('type')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Technical Specifications Section -->
+                    <div class="modern-card animate-stagger">
+                        <div class="modern-card-header">
+                            <h3 class="modern-card-title">
+                                <i class="fas fa-cogs"></i>
+                                {{ __('products.technical_specifications') }}
+                            </h3>
+                        </div>
+                        <div class="modern-card-body">
+                            <div class="form-grid-3">
+                                <div class="modern-form-group">
+                                    <label for="body_weight" class="modern-label">
+                                        <i class="fas fa-weight mobile-icon"></i>
+                                        {{ __('products.body_weight') }}
+                                    </label>
+                                    <input type="text" 
+                                           class="modern-input @error('body_weight') is-invalid @enderror" 
+                                           id="body_weight" 
+                                           name="body_weight" 
+                                           value="{{ old('body_weight', $product->body_weight) }}" 
+                                           placeholder="e.g., 500 kg">
+                                    @error('body_weight')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="modern-form-group">
+                                    <label for="operating_weight" class="modern-label">
+                                        <i class="fas fa-weight-hanging mobile-icon"></i>
+                                        {{ __('products.operating_weight') }}
+                                    </label>
+                                    <input type="text" 
+                                           class="modern-input @error('operating_weight') is-invalid @enderror" 
+                                           id="operating_weight" 
+                                           name="operating_weight" 
+                                           value="{{ old('operating_weight', $product->operating_weight) }}" 
+                                           placeholder="e.g., 600 kg">
+                                    @error('operating_weight')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="modern-form-group">
+                                    <label for="overall_length" class="modern-label">
+                                        <i class="fas fa-ruler-horizontal mobile-icon"></i>
+                                        {{ __('products.overall_length') }}
+                                    </label>
+                                    <input type="text" 
+                                           class="modern-input @error('overall_length') is-invalid @enderror" 
+                                           id="overall_length" 
+                                           name="overall_length" 
+                                           value="{{ old('overall_length', $product->overall_length) }}" 
+                                           placeholder="e.g., 2500 mm">
+                                    @error('overall_length')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="modern-form-group">
+                                    <label for="overall_width" class="modern-label">
+                                        <i class="fas fa-arrows-alt-h mobile-icon"></i>
+                                        {{ __('products.overall_width') }}
+                                    </label>
+                                    <input type="text" 
+                                           class="modern-input @error('overall_width') is-invalid @enderror" 
+                                           id="overall_width" 
+                                           name="overall_width" 
+                                           value="{{ old('overall_width', $product->overall_width) }}" 
+                                           placeholder="e.g., 800 mm">
+                                    @error('overall_width')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="modern-form-group">
+                                    <label for="overall_height" class="modern-label">
+                                        <i class="fas fa-arrows-alt-v mobile-icon"></i>
+                                        {{ __('products.overall_height') }}
+                                    </label>
+                                    <input type="text" 
+                                           class="modern-input @error('overall_height') is-invalid @enderror" 
+                                           id="overall_height" 
+                                           name="overall_height" 
+                                           value="{{ old('overall_height', $product->overall_height) }}" 
+                                           placeholder="e.g., 1200 mm">
+                                    @error('overall_height')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="modern-form-group">
+                                    <label for="required_oil_flow" class="modern-label">
+                                        <i class="fas fa-tint mobile-icon"></i>
+                                        {{ __('products.required_oil_flow') }}
+                                    </label>
+                                    <input type="text" 
+                                           class="modern-input @error('required_oil_flow') is-invalid @enderror" 
+                                           id="required_oil_flow" 
+                                           name="required_oil_flow" 
+                                           value="{{ old('required_oil_flow', $product->required_oil_flow) }}" 
+                                           placeholder="e.g., 45-80 L/min">
+                                    @error('required_oil_flow')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="modern-form-group">
+                                    <label for="operating_pressure" class="modern-label">
+                                        <i class="fas fa-gauge-high mobile-icon"></i>
+                                        {{ __('products.operating_pressure') }}
+                                    </label>
+                                    <input type="text" 
+                                           class="modern-input @error('operating_pressure') is-invalid @enderror" 
+                                           id="operating_pressure" 
+                                           name="operating_pressure" 
+                                           value="{{ old('operating_pressure', $product->operating_pressure) }}" 
+                                           placeholder="e.g., 130-160 bar">
+                                    @error('operating_pressure')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="modern-form-group">
+                                    <label for="impact_rate" class="modern-label">
+                                        <i class="fas fa-bolt mobile-icon"></i>
+                                        {{ __('products.impact_rate') }}
+                                    </label>
+                                    <input type="text" 
+                                           class="modern-input @error('impact_rate') is-invalid @enderror" 
+                                           id="impact_rate" 
+                                           name="impact_rate" 
+                                           value="{{ old('impact_rate', $product->impact_rate) }}" 
+                                           placeholder="e.g., 450-1000 BPM">
+                                    @error('impact_rate')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="modern-form-group">
+                                    <label for="impact_rate_soft_rock" class="modern-label">
+                                        <i class="fas fa-mountain mobile-icon"></i>
+                                        {{ __('products.impact_rate_soft_rock') }}
+                                    </label>
+                                    <input type="text" 
+                                           class="modern-input @error('impact_rate_soft_rock') is-invalid @enderror" 
+                                           id="impact_rate_soft_rock" 
+                                           name="impact_rate_soft_rock" 
+                                           value="{{ old('impact_rate_soft_rock', $product->impact_rate_soft_rock) }}" 
+                                           placeholder="e.g., 800-1200 BPM">
+                                    @error('impact_rate_soft_rock')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="modern-form-group">
+                                    <label for="hose_diameter" class="modern-label">
+                                        <i class="fas fa-circle mobile-icon"></i>
+                                        {{ __('products.hose_diameter') }}
+                                    </label>
+                                    <input type="text" 
+                                           class="modern-input @error('hose_diameter') is-invalid @enderror" 
+                                           id="hose_diameter" 
+                                           name="hose_diameter" 
+                                           value="{{ old('hose_diameter', $product->hose_diameter) }}" 
+                                           placeholder="e.g., 19 mm">
+                                    @error('hose_diameter')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="modern-form-group">
+                                    <label for="rod_diameter" class="modern-label">
+                                        <i class="fas fa-minus mobile-icon"></i>
+                                        {{ __('products.rod_diameter') }}
+                                    </label>
+                                    <input type="text" 
+                                           class="modern-input @error('rod_diameter') is-invalid @enderror" 
+                                           id="rod_diameter" 
+                                           name="rod_diameter" 
+                                           value="{{ old('rod_diameter', $product->rod_diameter) }}" 
+                                           placeholder="e.g., 120 mm">
+                                    @error('rod_diameter')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="modern-form-group">
+                                    <label for="applicable_carrier" class="modern-label">
+                                        <i class="fas fa-truck mobile-icon"></i>
+                                        {{ __('products.applicable_carrier') }}
+                                    </label>
+                                    <input type="text" 
+                                           class="modern-input @error('applicable_carrier') is-invalid @enderror" 
+                                           id="applicable_carrier" 
+                                           name="applicable_carrier" 
+                                           value="{{ old('applicable_carrier', $product->applicable_carrier) }}" 
+                                           placeholder="e.g., 8-15 ton excavator">
+                                    @error('applicable_carrier')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Image Section -->
+                    <div class="modern-card animate-stagger">
+                        <div class="modern-card-header">
+                            <h3 class="modern-card-title">
+                                <i class="fas fa-images"></i>
+                                {{ __('products.product_image') }}
+                            </h3>
+                        </div>
+                        <div class="modern-card-body">
+                            @if($product->image_url)
+                                <div class="mb-3">
+                                    <h5>{{ __('products.current_image') }}</h5>
+                                    <div class="image-preview-grid">
+                                        <div class="image-preview-item">
+                                            <img src="{{ $product->image_url }}" alt="{{ $product->model_name }}">
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+
+                            <div class="modern-form-group form-group-full">
+                                <label for="product_image" class="modern-label">
+                                    <i class="fas fa-upload mobile-icon"></i>
+                                    {{ __('products.upload_new_image') }}
+                                </label>
+                                <div class="file-upload-container" id="fileUpload">
+                                    <input type="file" 
+                                           id="product_image" 
+                                           name="product_image" 
+                                           class="file-input @error('product_image') is-invalid @enderror"
+                                           accept="image/*">
+                                    <div class="file-upload-icon">
+                                        <i class="fas fa-cloud-upload-alt"></i>
+                                    </div>
+                                    <div class="file-upload-text">
+                                        <h4>{{ __('products.click_to_upload') }}</h4>
+                                        <p>{{ __('products.drag_drop_or_click') }}</p>
+                                    </div>
+                                    <div class="image-preview-grid" id="imagePreview"></div>
+                                </div>
+                                @error('product_image')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Options Section -->
+                    <div class="modern-card animate-stagger">
+                        <div class="modern-card-header">
+                            <h3 class="modern-card-title">
+                                <i class="fas fa-toggle-on"></i>
+                                {{ __('products.product_options') }}
+                            </h3>
+                        </div>
+                        <div class="modern-card-body">
+                            <div class="form-grid">
+                                <div class="modern-form-group">
+                                    <div class="checkbox-group">
+                                        <input type="hidden" name="is_active" value="0">
+                                        <div class="checkbox-container">
+                                            <input type="checkbox" 
+                                                   id="is_active" 
+                                                   name="is_active" 
+                                                   value="1" 
+                                                   class="checkbox-input"
+                                                   {{ old('is_active', $product->is_active) ? 'checked' : '' }}>
+                                            <div class="checkbox-custom"></div>
+                                        </div>
+                                        <label for="is_active" class="checkbox-label">
+                                            {{ __('products.active_product') }}
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="modern-form-group">
+                                    <div class="checkbox-group">
+                                        <input type="hidden" name="is_featured" value="0">
+                                        <div class="checkbox-container">
+                                            <input type="checkbox" 
+                                                   id="is_featured" 
+                                                   name="is_featured" 
+                                                   value="1" 
+                                                   class="checkbox-input"
+                                                   {{ old('is_featured', $product->is_featured) ? 'checked' : '' }}>
+                                            <div class="checkbox-custom"></div>
+                                        </div>
+                                        <label for="is_featured" class="checkbox-label">
+                                            {{ __('products.featured_product') }}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between mt-4">
+                        <a href="{{ route('admin.products.index') }}" class="modern-btn modern-btn-secondary">
+                            <i class="fas fa-times me-2"></i>
+                            <span class="mobile-text-hide">{{ __('products.cancel') }}</span>
+                            <span class="d-md-none">{{ __('products.mobile_cancel') }}</span>
+                        </a>
+                        <button type="submit" class="modern-btn" id="submitBtn">
+                            <i class="fas fa-save me-2"></i>
+                            <span class="mobile-text-hide">{{ __('products.update_product') }}</span>
+                            <span class="d-md-none">{{ __('products.mobile_update') }}</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Keep track of removed images
-    let removedImages = [];
-    let selectedFiles = [];
-
-    // File upload handling
+    // Form elements
+    const editProductForm = document.getElementById('editProductForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const formProgress = document.getElementById('formProgress');
+    
+    // File upload elements
+    const fileInput = document.getElementById('product_image');
     const fileUpload = document.getElementById('fileUpload');
-    const fileInput = document.getElementById('images');
     const imagePreview = document.getElementById('imagePreview');
+    
+    // Required fields for progress tracking
+    const requiredFields = ['model_name', 'category_id'];
+    
+    // Progress tracking
+    function updateProgress() {
+        const filledFields = requiredFields.filter(field => {
+            const element = document.getElementById(field);
+            return element && element.value.trim() !== '';
+        });
+        
+        const progress = (filledFields.length / requiredFields.length) * 100;
+        formProgress.style.width = progress + '%';
+        
+        if (progress === 100) {
+            formProgress.style.background = 'var(--success-gradient)';
+        } else {
+            formProgress.style.background = 'var(--primary-gradient)';
+        }
+    }
 
-    // Click to trigger file input
-    fileUpload.addEventListener('click', function(e) {
-        if (e.target === fileInput) return;
-        fileInput.click();
+    function validateField(field) {
+        const element = document.getElementById(field);
+        if (!element.value.trim()) {
+            element.classList.add('is-invalid');
+            element.classList.add('error-shake');
+            setTimeout(() => element.classList.remove('error-shake'), 500);
+            return false;
+        } else {
+            element.classList.remove('is-invalid');
+            element.classList.add('success-pulse');
+            setTimeout(() => element.classList.remove('success-pulse'), 600);
+            return true;
+        }
+    }
+
+    function validateForm() {
+        let isValid = true;
+        requiredFields.forEach(field => {
+            if (!validateField(field)) {
+                isValid = false;
+            }
+        });
+        return isValid;
+    }
+
+    // Real-time validation and progress updates
+    requiredFields.forEach(field => {
+        const element = document.getElementById(field);
+        if (element) {
+            element.addEventListener('input', function() {
+                updateProgress();
+                if (this.classList.contains('is-invalid')) {
+                    validateField(field);
+                }
+            });
+            
+            element.addEventListener('blur', function() {
+                validateField(field);
+            });
+        }
     });
 
-    // Drag and drop functionality
-    fileUpload.addEventListener('dragover', function(e) {
-        e.preventDefault();
-        fileUpload.classList.add('dragover');
-    });
+    // File upload functionality
+    if (fileInput && fileUpload && imagePreview) {
+        fileUpload.addEventListener('click', function(e) {
+            if (e.target === fileInput) return;
+            fileInput.click();
+        });
 
-    fileUpload.addEventListener('dragleave', function(e) {
-        e.preventDefault();
-        fileUpload.classList.remove('dragover');
-    });
+        fileInput.addEventListener('change', function() {
+            handleFileSelect(this.files[0]);
+        });
 
-    fileUpload.addEventListener('drop', function(e) {
-        e.preventDefault();
-        fileUpload.classList.remove('dragover');
-        const files = Array.from(e.dataTransfer.files);
-        handleFiles(files);
-    });
+        fileUpload.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            fileUpload.classList.add('dragover');
+        });
 
-    fileInput.addEventListener('change', function() {
-        const files = Array.from(this.files);
-        handleFiles(files);
-    });
+        fileUpload.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            fileUpload.classList.remove('dragover');
+        });
 
-    function handleFiles(files) {
-        files.forEach(file => {
+        fileUpload.addEventListener('drop', function(e) {
+            e.preventDefault();
+            fileUpload.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                handleFileSelect(files[0]);
+            }
+        });
+
+        function handleFileSelect(file) {
+            if (!file) return;
+
             if (!file.type.startsWith('image/')) {
                 alert('{{ __('products.invalid_file_type') }}');
                 return;
             }
-            if (file.size > 5 * 1024 * 1024) {
+
+            if (file.size > 10 * 1024 * 1024) {
                 alert('{{ __('products.file_too_large') }}');
                 return;
             }
-            selectedFiles.push(file);
-            displayImagePreview(file);
-        });
-        updateFileInput();
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                imagePreview.innerHTML = `
+                    <div class="image-preview-item">
+                        <img src="${e.target.result}" alt="Preview">
+                        <button type="button" class="image-remove-btn" onclick="removeImage()">×</button>
+                    </div>
+                `;
+            };
+            reader.readAsDataURL(file);
+        }
     }
 
-    function displayImagePreview(file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            const previewItem = document.createElement('div');
-            previewItem.className = 'modern-preview-item';
-            previewItem.innerHTML = `
-                <img src="${e.target.result}" alt="Preview">
-                <button type="button" class="modern-preview-remove" onclick="removeNewImage(this, '${file.name}')">
-                    <i class="fas fa-times"></i>
-                </button>
-            `;
-            imagePreview.appendChild(previewItem);
-        };
-        reader.readAsDataURL(file);
-    }
-
-    window.removeNewImage = function(button, fileName) {
-        selectedFiles = selectedFiles.filter(file => file.name !== fileName);
-        button.closest('.modern-preview-item').remove();
-        updateFileInput();
-    };
-
-    window.removeCurrentImage = function(index) {
-        removedImages.push(index);
-        document.getElementById('removedImages').value = JSON.stringify(removedImages);
-        document.querySelector(`[data-image-index="${index}"]`).remove();
-    };
-
-    function updateFileInput() {
-        const dt = new DataTransfer();
-        selectedFiles.forEach(file => dt.items.add(file));
-        fileInput.files = dt.files;
-    }
-
-    // Form validation
-    const form = document.getElementById('productEditForm');
-    const submitBtn = document.getElementById('submitBtn');
-
-    if (form) {
-        form.addEventListener('submit', function(e) {
-            const modelName = document.getElementById('model_name');
-            const categoryId = document.getElementById('category_id');
-            const price = document.getElementById('price');
-            const status = document.getElementById('status');
-
-            if (!modelName.value.trim()) {
-                e.preventDefault();
-                modelName.focus();
-                alert('{{ __('products.enter_model_name') }}');
-                return;
+    // Form submission handling
+    editProductForm.addEventListener('submit', function(e) {
+        if (!validateForm()) {
+            e.preventDefault();
+            
+            // Scroll to first invalid field
+            const firstInvalid = document.querySelector('.is-invalid');
+            if (firstInvalid) {
+                firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                firstInvalid.focus();
             }
+            
+            // Show error notification
+            showNotification('{{ __('products.please_correct_errors') }}', 'error');
+            return;
+        }
 
-            if (!categoryId.value) {
-                e.preventDefault();
-                categoryId.focus();
-                alert('{{ __('products.select_category') }}');
-                return;
-            }
+        // Show loading state
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i><span class="mobile-text-hide">{{ __('products.updating') }}</span><span class="d-md-none">{{ __('products.updating') }}</span>';
+        editProductForm.classList.add('loading');
+    });
 
-            if (!price.value || price.value < 0) {
-                e.preventDefault();
-                price.focus();
-                alert('{{ __('products.enter_valid_price') }}');
-                return;
-            }
-
-            if (!status.value) {
-                e.preventDefault();
-                status.focus();
-                alert('{{ __('products.select_status') }}');
-                return;
-            }
-
-            submitBtn.classList.add('loading');
-            submitBtn.disabled = true;
-        });
-    }
-
-    // Clear error styling on input
-    const inputs = document.querySelectorAll('.modern-input, .modern-select');
-    inputs.forEach(input => {
-        input.addEventListener('input', function() {
-            if (this.classList.contains('error') && this.value.trim()) {
-                this.classList.remove('error');
-                const errorMsg = this.nextElementSibling;
-                if (errorMsg && errorMsg.classList.contains('modern-error')) {
-                    errorMsg.style.display = 'none';
-                }
-            }
-        });
+    // Enhanced input interactions
+    document.querySelectorAll('.modern-input, .modern-select, .modern-textarea').forEach(input => {
         input.addEventListener('focus', function() {
-            this.parentElement.classList.add('focused');
+            this.closest('.modern-form-group').style.transform = 'translateY(-1px)';
+            this.style.borderColor = '#667eea';
         });
+
         input.addEventListener('blur', function() {
-            this.parentElement.classList.remove('focused');
+            this.closest('.modern-form-group').style.transform = 'translateY(0)';
+            if (!this.classList.contains('is-invalid')) {
+                this.style.borderColor = '#e9ecef';
+            }
         });
     });
+
+    // Initialize progress
+    updateProgress();
+
+    // Animate form elements on load
+    const formGroups = document.querySelectorAll('.modern-form-group');
+    formGroups.forEach((group, index) => {
+        group.style.opacity = '0';
+        group.style.transform = 'translateY(20px)';
+        
+        setTimeout(() => {
+            group.style.transition = 'all 0.6s ease';
+            group.style.opacity = '1';
+            group.style.transform = 'translateY(0)';
+        }, index * 50);
+    });
+
+    // Touch device optimizations
+    if ('ontouchstart' in window) {
+        document.querySelectorAll('.modern-btn').forEach(btn => {
+            btn.addEventListener('touchstart', function() {
+                this.style.transform = 'scale(0.95)';
+            });
+            
+            btn.addEventListener('touchend', function() {
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 100);
+            });
+        });
+    }
+
+    // Auto-save to localStorage (for form recovery)
+    const formInputs = document.querySelectorAll('input, select, textarea');
+    
+    formInputs.forEach(input => {
+        // Load saved data
+        const savedValue = localStorage.getItem(`editProductForm_${input.name}`);
+        if (savedValue && !input.value && input.name !== '_token') {
+            input.value = savedValue;
+        }
+        
+        // Save data on change
+        input.addEventListener('change', function() {
+            if (this.name !== '_token') {
+                localStorage.setItem(`editProductForm_${this.name}`, this.value);
+            }
+        });
+    });
+
+    // Clear saved data on successful submission
+    editProductForm.addEventListener('submit', function() {
+        setTimeout(() => {
+            formInputs.forEach(input => {
+                if (input.name !== '_token') {
+                    localStorage.removeItem(`editProductForm_${input.name}`);
+                }
+            });
+        }, 1000);
+    });
+
+    // Notification system
+    function showNotification(message, type = 'info') {
+        const notification = document.createElement('div');
+        notification.className = `alert alert-${type === 'error' ? 'danger' : type} alert-dismissible fade show`;
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            min-width: 300px;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        `;
+        notification.innerHTML = `
+            <i class="fas fa-${type === 'error' ? 'exclamation-triangle' : 'info-circle'} me-2"></i>
+            ${message}
+            <button type="button" class="btn-close" onclick="this.parentElement.remove()"></button>
+        `;
+        
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            notification.remove();
+        }, 5000);
+    }
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', function(e) {
+        if (e.ctrlKey || e.metaKey) {
+            if (e.key === 's') {
+                e.preventDefault();
+                editProductForm.dispatchEvent(new Event('submit'));
+            }
+        }
+    });
+
+    // Intersection Observer for scroll animations
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, observerOptions);
+
+    // Observe form sections for scroll animations
+    document.querySelectorAll('.animate-stagger').forEach(element => {
+        observer.observe(element);
+    });
 });
+
+// Function to remove image preview
+function removeImage() {
+    document.getElementById('product_image').value = '';
+    document.getElementById('imagePreview').innerHTML = '';
+}
 </script>
-@endpush
 @endsection

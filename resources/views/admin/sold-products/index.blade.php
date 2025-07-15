@@ -12,11 +12,11 @@
             --danger-gradient: linear-gradient(135deg, #dc3545 0%, #e83e8c 100%);
             --info-gradient: linear-gradient(135deg, #17a2b8 0%, #6f42c1 100%);
             --secondary-gradient: linear-gradient(135deg, #6c757d 0%, #343a40 100%);
-            --card-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-            --card-shadow-hover: 0 15px 35px rgba(0, 0, 0, 0.12);
-            --card-shadow-intense: 0 20px 40px rgba(0, 0, 0, 0.15);
-            --border-radius: 1.25rem;
-            --border-radius-sm: 0.75rem;
+            --card-shadow: 0 12px 35px rgba(0, 0, 0, 0.1);
+            --card-shadow-hover: 0 20px 45px rgba(0, 0, 0, 0.15);
+            --card-shadow-intense: 0 25px 50px rgba(0, 0, 0, 0.18);
+            --border-radius: 1.5rem;
+            --border-radius-sm: 0.875rem;
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             --transition-fast: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -25,12 +25,12 @@
         .modern-page-header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: #ffffff;
-            padding: 2rem 1.5rem;
-            margin: -1rem -1rem 2rem;
-            border-radius: 0 0 24px 24px;
+            padding: 2.5rem 1.5rem;
+            margin: -1rem -1rem 2.5rem;
+            border-radius: 0 0 32px 32px;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.12), 0 10px 15px -5px rgba(0, 0, 0, 0.06);
         }
 
         .modern-page-header::before {
@@ -40,7 +40,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="rgba(255,255,255,0.1)" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,133.3C672,139,768,181,864,197.3C960,213,1056,203,1152,170.7C1248,139,1344,85,1392,58.7L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') no-repeat bottom;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="rgba(255,255,255,0.12)" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,133.3C672,139,768,181,864,197.3C960,213,1056,203,1152,170.7C1248,139,1344,85,1392,58.7L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') no-repeat bottom;
             background-size: cover;
         }
 
@@ -51,8 +51,8 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(45deg, rgba(255,255,255,0.1) 0%, transparent 50%, rgba(255,255,255,0.05) 100%);
-            animation: shimmer 3s ease-in-out infinite;
+            background: linear-gradient(45deg, rgba(255,255,255,0.08) 0%, transparent 50%, rgba(255,255,255,0.04) 100%);
+            animation: shimmer 4s ease-in-out infinite;
         }
 
         @keyframes shimmer {
@@ -65,8 +65,8 @@
             background: #fff;
             border-radius: var(--border-radius);
             box-shadow: var(--card-shadow);
-            border: 1px solid rgba(0,0,0,0.05);
-            margin-bottom: 2rem;
+            border: 1px solid rgba(0,0,0,0.04);
+            margin-bottom: 2.5rem;
             overflow: hidden;
             transition: var(--transition);
             position: relative;
@@ -78,14 +78,14 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 3px;
+            height: 4px;
             background: var(--primary-gradient);
             opacity: 0;
             transition: var(--transition);
         }
 
         .modern-card:hover {
-            transform: translateY(-3px);
+            transform: translateY(-4px);
             box-shadow: var(--card-shadow-hover);
         }
 
@@ -94,24 +94,31 @@
         }
 
         .modern-card .card-body {
+            padding: 2.5rem;
+        }
+
+        .modern-card .card-header {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-bottom: 2px solid #e9ecef;
             padding: 2rem;
+            position: relative;
         }
 
         /* Enhanced Statistics Grid */
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
         }
 
         .stat-card {
             background: var(--primary-gradient);
             color: white;
-            padding: 2rem 1.5rem;
+            padding: 2.5rem 2rem;
             border-radius: var(--border-radius);
             text-align: center;
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.25);
+            box-shadow: 0 12px 30px rgba(102, 126, 234, 0.25);
             transition: var(--transition);
             position: relative;
             overflow: hidden;
@@ -132,8 +139,8 @@
         }
 
         .stat-card:hover {
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.35);
+            transform: translateY(-6px) scale(1.03);
+            box-shadow: 0 20px 45px rgba(102, 126, 234, 0.35);
         }
 
         .stat-card:hover::before {
@@ -147,18 +154,18 @@
         }
 
         .stat-value {
-            font-size: 2.5rem;
+            font-size: 3rem;
             font-weight: 800;
-            margin-bottom: 0.75rem;
+            margin-bottom: 1rem;
             line-height: 1;
             text-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
         .stat-label {
-            font-size: 0.95rem;
+            font-size: 1rem;
             opacity: 0.95;
             margin: 0;
-            font-weight: 500;
+            font-weight: 600;
             letter-spacing: 0.5px;
         }
 
@@ -168,24 +175,26 @@
             border: none;
             color: white;
             border-radius: var(--border-radius-sm) 0 0 var(--border-radius-sm);
-            font-weight: 600;
-            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
+            font-weight: 700;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+            padding: 0.875rem 1.25rem;
         }
 
         .form-control,
         .form-select {
             border: 2px solid #e9ecef;
             border-radius: var(--border-radius-sm);
-            padding: 0.875rem 1.125rem;
+            padding: 0.875rem 1.25rem;
             transition: var(--transition);
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             background: #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
         }
 
         .form-control:focus,
         .form-select:focus {
             border-color: #667eea;
-            box-shadow: 0 0 0 0.25rem rgba(102, 126, 234, 0.15);
+            box-shadow: 0 0 0 0.25rem rgba(102, 126, 234, 0.15), 0 4px 12px rgba(102, 126, 234, 0.1);
             outline: none;
             transform: translateY(-1px);
         }
@@ -194,16 +203,18 @@
         .form-select:hover {
             border-color: #ced4da;
             transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
         }
 
         .form-label {
             color: #495057;
             font-weight: 700;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             margin-bottom: 0.75rem;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.75rem;
+            letter-spacing: 0.3px;
         }
 
         /* Enhanced Buttons */
@@ -211,18 +222,18 @@
             background: var(--primary-gradient);
             border: none;
             color: white;
-            padding: 0.875rem 1.75rem;
-            border-radius: 2rem;
+            padding: 1rem 2rem;
+            border-radius: 50px;
             font-weight: 700;
-            font-size: 0.875rem;
+            font-size: 0.9rem;
             transition: var(--transition);
             text-decoration: none;
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.75rem;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
         }
 
         .modern-btn::before {
@@ -241,8 +252,8 @@
         }
 
         .modern-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
             color: white;
             text-decoration: none;
         }
@@ -250,23 +261,23 @@
         .btn-primary {
             background: var(--primary-gradient);
             border: none;
-            padding: 0.875rem 1.75rem;
+            padding: 0.875rem 2rem;
             border-radius: var(--border-radius-sm);
             font-weight: 700;
             transition: var(--transition);
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.25);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.25);
         }
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
             background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
         }
 
         .btn-outline-secondary {
             border: 2px solid #6c757d;
             color: #6c757d;
-            padding: 0.875rem 1.75rem;
+            padding: 0.875rem 2rem;
             border-radius: var(--border-radius-sm);
             font-weight: 700;
             transition: var(--transition);
@@ -277,16 +288,16 @@
             background: #6c757d;
             color: white;
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(108, 117, 125, 0.3);
+            box-shadow: 0 10px 30px rgba(108, 117, 125, 0.3);
         }
 
         /* Enhanced Sale Cards */
         .sale-card {
             background: #fff;
             border-radius: var(--border-radius);
-            padding: 2rem;
+            padding: 2.5rem;
             box-shadow: var(--card-shadow);
-            border: 1px solid rgba(0,0,0,0.05);
+            border: 1px solid rgba(0,0,0,0.04);
             transition: var(--transition);
             height: 100%;
             position: relative;
@@ -306,7 +317,7 @@
         }
 
         .sale-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-6px);
             box-shadow: var(--card-shadow-intense);
             border-color: rgba(102, 126, 234, 0.2);
         }
@@ -316,17 +327,17 @@
         }
 
         .sale-icon {
-            width: 70px;
-            height: 70px;
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
             background: var(--success-gradient);
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 1.75rem;
+            font-size: 2rem;
             margin: 0 auto 1.5rem;
-            box-shadow: 0 8px 20px rgba(40, 167, 69, 0.3);
+            box-shadow: 0 10px 25px rgba(40, 167, 69, 0.3);
             transition: var(--transition);
             position: relative;
             overflow: hidden;
@@ -346,8 +357,8 @@
         }
 
         .sale-card:hover .sale-icon {
-            transform: scale(1.1) rotate(5deg);
-            box-shadow: 0 12px 30px rgba(40, 167, 69, 0.4);
+            transform: scale(1.15) rotate(8deg);
+            box-shadow: 0 15px 35px rgba(40, 167, 69, 0.4);
         }
 
         .sale-card:hover .sale-icon::before {
@@ -363,10 +374,10 @@
         .sale-details {
             background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
             border-radius: var(--border-radius-sm);
-            padding: 1.25rem;
+            padding: 1.5rem;
             margin: 1.5rem 0;
             border-left: 4px solid #28a745;
-            font-size: 0.875rem;
+            font-size: 0.9rem;
             transition: var(--transition);
             position: relative;
         }
@@ -378,7 +389,7 @@
         }
 
         .price-display {
-            font-size: 1.5rem;
+            font-size: 1.75rem;
             font-weight: 800;
             color: #28a745;
             margin-bottom: 1.5rem;
@@ -394,29 +405,29 @@
         .warranty-active {
             background: var(--success-gradient);
             color: white;
-            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+            box-shadow: 0 6px 20px rgba(40, 167, 69, 0.3);
         }
 
         .warranty-expired {
             background: var(--danger-gradient);
             color: white;
-            box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
+            box-shadow: 0 6px 20px rgba(220, 53, 69, 0.3);
         }
 
         .warranty-expiring {
             background: var(--warning-gradient);
             color: white;
-            box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
+            box-shadow: 0 6px 20px rgba(255, 193, 7, 0.3);
         }
 
         .badge-modern {
-            padding: 0.5rem 1rem;
-            border-radius: 1.5rem;
+            padding: 0.625rem 1.25rem;
+            border-radius: 2rem;
             font-weight: 700;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             display: inline-flex;
             align-items: center;
-            gap: 0.375rem;
+            gap: 0.5rem;
             transition: var(--transition);
             position: relative;
             overflow: hidden;
@@ -443,8 +454,8 @@
 
         /* Enhanced Action Buttons */
         .action-btn {
-            width: 42px;
-            height: 42px;
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -452,8 +463,8 @@
             border: 2px solid;
             background: transparent;
             transition: var(--transition);
-            margin: 0 0.375rem;
-            font-size: 0.9rem;
+            margin: 0 0.5rem;
+            font-size: 1rem;
             cursor: pointer;
             position: relative;
             overflow: hidden;
@@ -478,7 +489,7 @@
         }
 
         .action-btn:hover {
-            transform: scale(1.15);
+            transform: scale(1.2);
             color: white !important;
             z-index: 1;
         }
@@ -491,7 +502,7 @@
         /* Enhanced Empty State */
         .empty-state {
             text-align: center;
-            padding: 4rem 2rem;
+            padding: 5rem 2rem;
             color: #6c757d;
             background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
             border-radius: var(--border-radius);
@@ -505,8 +516,8 @@
         }
 
         .empty-state i {
-            font-size: 4rem;
-            margin-bottom: 1.5rem;
+            font-size: 5rem;
+            margin-bottom: 2rem;
             opacity: 0.6;
             transition: var(--transition);
         }
@@ -545,61 +556,61 @@
         }
 
         .animate-fade-in-up {
-            animation: fadeInUp 0.6s ease-out;
+            animation: fadeInUp 0.8s ease-out;
         }
 
         /* Enhanced Employee Notice */
         .employee-notice {
             background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
             border-left: 5px solid #f59e0b;
-            padding: 1.5rem 2rem;
-            margin-bottom: 2rem;
+            padding: 2rem 2.5rem;
+            margin-bottom: 2.5rem;
             border-radius: var(--border-radius-sm);
-            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.2);
+            box-shadow: 0 6px 20px rgba(245, 158, 11, 0.2);
             transition: var(--transition);
         }
 
         .employee-notice:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.3);
+            box-shadow: 0 10px 30px rgba(245, 158, 11, 0.3);
         }
 
         /* Responsive Design */
         @media (max-width: 1200px) {
             .stats-grid {
                 grid-template-columns: repeat(3, 1fr);
-                gap: 1.25rem;
+                gap: 1.5rem;
             }
         }
 
         @media (max-width: 992px) {
             .stats-grid {
                 grid-template-columns: repeat(2, 1fr);
-                gap: 1rem;
+                gap: 1.25rem;
             }
             
             .modern-page-header {
-                padding: 2rem 0;
+                padding: 2rem 1.25rem;
                 margin: -1rem -1rem 2rem;
             }
             
             .sale-card {
-                padding: 1.5rem;
+                padding: 2rem;
             }
 
             .modern-card .card-body {
-                padding: 1.5rem;
+                padding: 2rem;
             }
         }
 
         @media (max-width: 768px) {
             .stats-grid {
                 grid-template-columns: repeat(2, 1fr);
-                gap: 0.875rem;
+                gap: 1rem;
             }
 
             .modern-page-header {
-                padding: 1.75rem 0;
+                padding: 2rem 1rem;
                 margin: -1rem -1rem 1.75rem;
             }
 
@@ -613,43 +624,43 @@
             }
 
             .stat-card {
-                padding: 1.5rem 1rem;
+                padding: 2rem 1.5rem;
             }
 
             .stat-value {
-                font-size: 2rem;
+                font-size: 2.5rem;
             }
 
             .stat-label {
-                font-size: 0.85rem;
+                font-size: 0.9rem;
             }
 
             .sale-card {
-                padding: 1.25rem;
-                margin-bottom: 1.25rem;
+                padding: 1.75rem;
+                margin-bottom: 1.75rem;
             }
 
             .sale-icon {
-                width: 60px;
-                height: 60px;
-                font-size: 1.5rem;
+                width: 70px;
+                height: 70px;
+                font-size: 1.75rem;
             }
 
             .form-control,
             .form-select {
                 padding: 0.75rem 1rem;
-                font-size: 0.85rem;
+                font-size: 0.9rem;
             }
 
             .btn-primary,
             .btn-outline-secondary {
-                padding: 0.75rem 1.25rem;
-                font-size: 0.85rem;
+                padding: 0.75rem 1.5rem;
+                font-size: 0.9rem;
             }
 
             .modern-btn {
-                padding: 0.75rem 1.5rem;
-                font-size: 0.85rem;
+                padding: 0.875rem 1.5rem;
+                font-size: 0.9rem;
             }
 
             /* Mobile filter adjustments */
@@ -659,7 +670,7 @@
 
             .filter-actions-mobile {
                 flex-direction: column;
-                gap: 0.75rem;
+                gap: 1rem;
             }
 
             .filter-actions-mobile .btn {
@@ -676,9 +687,9 @@
             }
 
             .action-btn {
-                width: 38px;
-                height: 38px;
-                font-size: 0.85rem;
+                width: 44px;
+                height: 44px;
+                font-size: 0.9rem;
                 margin: 0 0.25rem;
             }
         }
@@ -686,34 +697,34 @@
         @media (max-width: 576px) {
             .stats-grid {
                 grid-template-columns: 1fr;
-                gap: 0.75rem;
+                gap: 1rem;
             }
 
             .modern-page-header {
-                margin: -0.5rem -0.5rem 1.5rem;
-                padding: 1.5rem 0;
+                margin: -0.75rem -0.75rem 1.5rem;
+                padding: 1.75rem 1rem;
             }
 
             .modern-page-header h1 {
-                font-size: 1.5rem;
+                font-size: 1.75rem;
             }
 
             .modern-page-header p {
-                font-size: 0.9rem;
+                font-size: 0.95rem;
             }
 
             .modern-card .card-body {
-                padding: 1.25rem;
+                padding: 1.5rem;
             }
 
             .sale-card {
-                padding: 1rem;
+                padding: 1.5rem;
             }
 
             .sale-icon {
-                width: 55px;
-                height: 55px;
-                font-size: 1.25rem;
+                width: 65px;
+                height: 65px;
+                font-size: 1.5rem;
             }
 
             .d-flex.justify-content-between {
@@ -722,45 +733,45 @@
             }
 
             .action-btn {
-                width: 36px;
-                height: 36px;
+                width: 42px;
+                height: 42px;
                 margin: 0 0.2rem;
             }
 
             .employee-notice {
-                padding: 1.25rem 1.5rem;
+                padding: 1.5rem 2rem;
             }
         }
 
         @media (max-width: 375px) {
             .modern-page-header {
-                padding: 1.25rem 0;
+                padding: 1.5rem 0.75rem;
             }
 
             .stats-grid {
-                gap: 0.5rem;
+                gap: 0.75rem;
             }
 
             .stat-card {
-                padding: 1.25rem 0.75rem;
+                padding: 1.5rem 1rem;
             }
 
             .stat-value {
-                font-size: 1.75rem;
+                font-size: 2rem;
             }
 
             .modern-btn {
-                padding: 0.625rem 1.25rem;
-                font-size: 0.8rem;
+                padding: 0.75rem 1.25rem;
+                font-size: 0.85rem;
             }
 
             .sale-card {
-                padding: 0.875rem;
+                padding: 1.25rem;
             }
 
             .sale-details {
-                padding: 1rem;
-                font-size: 0.8rem;
+                padding: 1.25rem;
+                font-size: 0.85rem;
             }
         }
 
@@ -879,7 +890,7 @@
                             <h5 class="card-title mb-0">
                                 <i class="fas fa-filter me-2 text-primary"></i>
                                 <span class="d-none d-sm-inline">{{ __('sold-products.advanced_filters') }}</span>
-                                <span class="d-sm-none">Filters</span>
+                                <span class="d-sm-none">{{ __('sold-products.advanced_filters') }}</span>
                             </h5>
                         </div>
                         <button type="button" class="btn btn-outline-primary btn-sm" id="toggleFilters">
@@ -1019,12 +1030,12 @@
                             <button type="submit" class="btn btn-primary">
                                 <i class="fas fa-search me-1"></i>
                                 <span class="d-none d-sm-inline">{{ __('sold-products.apply_filters') }}</span>
-                                <span class="d-sm-none">Apply</span>
+                                <span class="d-sm-none">{{ __('sold-products.apply_filters') }}</span>
                             </button>
                             <a href="{{ route('admin.sold-products.index') }}" class="btn btn-outline-secondary">
                                 <i class="fas fa-times me-1"></i>
                                 <span class="d-none d-sm-inline">{{ __('sold-products.clear_filters') }}</span>
-                                <span class="d-sm-none">Clear</span>
+                                <span class="d-sm-none">{{ __('sold-products.clear_filters') }}</span>
                             </a>
                         </div>
                         <div class="text-muted small d-none d-md-block">
@@ -1059,9 +1070,9 @@
                 <div class="sale-card animate-fade-in-up">
                     <div class="sale-icon">
                         @if($soldProduct->product && $soldProduct->product->image_url)
-                            <img src="{{ $soldProduct->product->image_url }}" alt="{{ $soldProduct->product->model_name }}" style="width: 70px; height: 70px; object-fit: cover; border-radius: 50%; box-shadow: 0 8px 20px rgba(40, 167, 69, 0.3); background: #f8fafc; display: block; margin: 0 auto;">
+                            <img src="{{ $soldProduct->product->image_url }}" alt="{{ $soldProduct->product->model_name }}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 50%; box-shadow: 0 10px 25px rgba(40, 167, 69, 0.3); background: #f8fafc; display: block; margin: 0 auto;">
                         @else
-                            <div style="width: 70px; height: 70px; border-radius: 50%; background: #e9ecef; display: flex; align-items: center; justify-content: center; color: #adb5bd; font-size: 1.75rem; margin: 0 auto;">
+                            <div style="width: 80px; height: 80px; border-radius: 50%; background: #e9ecef; display: flex; align-items: center; justify-content: center; color: #adb5bd; font-size: 2rem; margin: 0 auto;">
                                 <i class="fas fa-image"></i>
                             </div>
                         @endif
@@ -1344,7 +1355,7 @@
             const saleCards = document.querySelectorAll('.sale-card');
             saleCards.forEach(card => {
                 card.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateY(-5px)';
+                    this.style.transform = 'translateY(-6px)';
                 });
 
                 card.addEventListener('mouseleave', function() {

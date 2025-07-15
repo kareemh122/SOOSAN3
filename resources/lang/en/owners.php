@@ -82,6 +82,10 @@ return [
     'update_owner_info' => 'Update owner information and settings',
     'view_owner_details' => 'View Owner Details',
     'essential_owner_details' => 'Essential owner details and information',
+    'company_logo' => 'Company Logo',
+    'upload_new_logo' => 'Upload Logo',
+    'image_supported_formats' => 'Supported formats: PNG, JPG, WEBP (Max 2MB).',
+    'remove_logo' => 'Remove Logo',
 
     // Show Owner Page
     'owner_details' => 'Owner Details',

@@ -38,187 +38,232 @@
             --admin-info: #06b6d4;
             --admin-dark: var(--soosan-dark);
             --admin-light: var(--soosan-light);
-            --sidebar-width: 230px;
+            --sidebar-width: 280px;
+            
+            /* Enhanced Design Variables */
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --success-gradient: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            --warning-gradient: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%);
+            --danger-gradient: linear-gradient(135deg, #dc3545 0%, #e83e8c 100%);
+            --info-gradient: linear-gradient(135deg, #17a2b8 0%, #6f42c1 100%);
+            --secondary-gradient: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+            --border-radius: 1rem;
+            --border-radius-sm: 0.5rem;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-fast: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            --card-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            --card-shadow-hover: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        * {
+            box-sizing: border-box;
         }
 
         body {
-            background-color: var(--admin-light);
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
             font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
         }
 
+        /* Enhanced Sidebar */
         .admin-sidebar {
             width: var(--sidebar-width);
             min-height: 100vh;
-            background: linear-gradient(180deg, var(--admin-dark) 0%, #374151 100%);
+            background: linear-gradient(180deg, var(--admin-dark) 0%, #2d3748 100%);
             color: white;
             position: fixed;
             top: 0;
             left: 0;
             z-index: 1000;
-            transition: all 0.3s ease;
+            transition: var(--transition);
+            box-shadow: 4px 0 20px rgba(0,0,0,0.1);
+            overflow-y: auto;
+        }
+
+        .admin-sidebar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.05), transparent);
+            pointer-events: none;
         }
 
         .admin-content {
             margin-left: var(--sidebar-width);
             min-height: 100vh;
-            padding-top: 70px;
-            /* Offset for fixed navbar */
+            padding-top: 80px;
+            transition: var(--transition);
         }
 
+        /* Enhanced Navbar */
         .admin-navbar {
             display: flex;
             flex-wrap: wrap;
             align-items: center;
             justify-content: space-between;
-            background: linear-gradient(90deg, var(--admin-dark) 60%, #22304a 100%);
-            color: #fff;
-            border-bottom: none;
+            background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(248,250,252,0.95) 100%);
+            backdrop-filter: blur(20px);
+            color: var(--admin-dark);
+            border: none;
             border-radius: 0;
-            padding: 1.2rem 2.5rem 1.2rem 2.5rem;
-            box-shadow: 0 4px 24px rgba(30, 41, 59, 0.10);
+            padding: 1rem 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
             margin-bottom: 0;
-            min-height: 70px;
+            min-height: 80px;
             position: fixed;
             top: 0;
             left: var(--sidebar-width);
             right: 0;
             z-index: 1055;
             overflow: visible;
-            box-sizing: border-box;
+            transition: var(--transition);
         }
 
-        @media (max-width: 1200px) {
-            .admin-navbar {
-                padding: 1rem 1rem 1rem 1rem;
-                font-size: 1rem;
-            }
-
-            .admin-navbar h5 {
-                font-size: 1.3rem !important;
-            }
+        .admin-navbar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--primary-gradient);
         }
 
-        @media (max-width: 768px) {
-            .admin-navbar {
-                flex-direction: column;
-                align-items: flex-start;
-                padding: 0.75rem 0.5rem 0.75rem 0.5rem;
-                min-height: 60px;
-                font-size: 0.95rem;
-            }
-
-            .admin-navbar h5 {
-                font-size: 1.1rem !important;
-                margin-bottom: 0.5rem;
-            }
-
-            .admin-navbar .d-flex {
-                flex-direction: column !important;
-                gap: 0.5rem !important;
-            }
-
-            .admin-navbar .dropdown,
-            .admin-navbar .btn,
-            .admin-navbar .nav-link {
-                font-size: 0.95rem !important;
-                min-width: 44px;
-            }
+        .admin-navbar h5 {
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+            font-size: 1.5rem;
+            margin: 0;
+            text-shadow: none;
         }
 
-        @media (max-width: 480px) {
-            .admin-navbar {
-                font-size: 0.85rem;
-                min-height: 48px;
-                padding: 0.5rem 0.25rem 0.5rem 0.25rem;
-            }
-
-            .admin-navbar h5 {
-                font-size: 1rem !important;
-            }
-        }
-
-        /* Custom Language Switcher Styles */
-        .dropdown-menu.language-switcher {
-            background: #fff !important;
-            border: 1px solid #e5e7eb;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-        }
-
-        .dropdown-menu.language-switcher .dropdown-item {
-            color: #222 !important;
-            background: #fff !important;
-            font-weight: 600;
-            transition: background 0.2s, color 0.2s;
-        }
-
-        .dropdown-menu.language-switcher .dropdown-item.active,
-        .dropdown-menu.language-switcher .dropdown-item.bg-light {
-            background: #1445a0 !important;
-            color: #fff !important;
-        }
-
-
-
+        /* Enhanced Sidebar Brand */
         .sidebar-brand {
-            padding: 1.5rem;
-            border-bottom: 1px solid #374151;
+            padding: 2rem 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
             text-align: center;
+            position: relative;
+            overflow: hidden;
         }
 
+        .sidebar-brand::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: rotate(45deg);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .sidebar-brand h4 {
+            position: relative;
+            z-index: 1;
+            margin: 0;
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+
+        /* Enhanced Sidebar Navigation */
         .sidebar-nav {
             padding: 1rem 0;
         }
 
         .sidebar-nav .nav-link {
-            color: #d1d5db;
-            padding: 0.75rem 1.5rem;
+            color: rgba(255,255,255,0.8);
+            padding: 1rem 1.5rem;
             display: flex;
             align-items: center;
             text-decoration: none;
-            transition: all 0.3s ease;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            border-radius: 0;
+            margin: 0.25rem 1rem;
+            border-radius: var(--border-radius-sm);
+        }
+
+        .sidebar-nav .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .sidebar-nav .nav-link:hover::before {
+            left: 100%;
         }
 
         .sidebar-nav .nav-link:hover,
         .sidebar-nav .nav-link.active {
-            background-color: rgba(59, 130, 246, 0.1);
-            color: var(--admin-primary);
-            border-right: 3px solid var(--admin-primary);
+            background: rgba(102, 126, 234, 0.2);
+            color: #ffffff;
+            transform: translateX(5px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
         }
 
         .sidebar-nav .nav-link i {
-            width: 20px;
+            width: 24px;
             margin-right: 0.75rem;
+            font-size: 1.1rem;
         }
 
         .submenu {
             padding-left: 1rem;
-            background-color: rgba(0, 0, 0, 0.1);
-            border-radius: 4px;
-            margin: 0.25rem 0.5rem;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: var(--border-radius-sm);
+            margin: 0.25rem 1rem;
+            overflow: hidden;
         }
 
         .submenu-link {
-            padding: 0.5rem 1rem !important;
+            padding: 0.75rem 1rem !important;
             font-size: 0.9rem;
-            border-left: 2px solid transparent;
+            border-left: 3px solid transparent;
+            margin: 0 !important;
+            border-radius: 0 !important;
         }
 
         .submenu-link.active {
             border-left-color: var(--admin-primary);
-            background-color: rgba(230, 57, 70, 0.1);
+            background: rgba(230, 57, 70, 0.2);
         }
 
         .submenu-link:hover {
-            background-color: rgba(230, 57, 70, 0.05);
+            background: rgba(230, 57, 70, 0.1);
         }
 
+        /* Enhanced Cards */
         .admin-card {
-            background: #23395d;
-            /* Light navy, cool tone */
-            border-radius: 8px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-            border: 1px solid #22304a;
-            color: #f3f6fb;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: var(--admin-dark);
+            transition: var(--transition);
+        }
+
+        .admin-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--card-shadow-hover);
         }
 
         .stats-card {
@@ -226,66 +271,109 @@
             border-left: 4px solid var(--admin-primary);
         }
 
+        /* Enhanced Buttons */
         .btn-admin-primary {
-            background-color: var(--admin-primary);
-            border-color: var(--admin-primary);
+            background: var(--primary-gradient);
+            border: none;
             color: white;
+            border-radius: var(--border-radius-sm);
+            font-weight: 600;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-admin-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-admin-primary:hover::before {
+            left: 100%;
         }
 
         .btn-admin-primary:hover {
-            background-color: #d1303c;
-            border-color: #d1303c;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+            color: white;
         }
 
+        /* Enhanced Alerts */
         .alert-custom {
             border: none;
-            border-radius: 8px;
+            border-radius: var(--border-radius);
             padding: 1rem 1.5rem;
-        }
-
-        .table-admin {
-            background: #23395d;
-            /* Light navy, cool tone */
-            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            position: relative;
             overflow: hidden;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-            color: #f3f6fb;
         }
 
-        .table-admin th {
-            background-color: #f8fafc;
-            border-bottom: 2px solid #e5e7eb;
-            font-weight: 600;
+        .alert-custom::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 4px;
+            background: currentColor;
+        }
+
+        /* Enhanced Tables */
+        .table-admin {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
             color: var(--admin-dark);
         }
 
-        /* Header Elements Styling */
+        .table-admin th {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            border-bottom: 2px solid #e5e7eb;
+            font-weight: 600;
+            color: var(--admin-dark);
+            padding: 1rem;
+        }
+
+        .table-admin td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        /* Enhanced User Elements */
         .avatar-circle {
-            width: 38px;
-            height: 38px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 600;
             font-size: 16px;
+            background: var(--primary-gradient);
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
         }
 
-        .fs-xs {
-            font-size: 0.75rem;
-        }
-
-        /* Notification Badge Styling */
+        /* Enhanced Notifications */
         .notification-badge {
-            min-width: 20px;
-            height: 20px;
+            min-width: 22px;
+            height: 22px;
             font-size: 0.7rem;
             font-weight: 700;
             line-height: 1;
             padding: 0.25rem 0.4rem;
             border: 2px solid white;
             animation: none;
-            transition: all 0.3s ease;
+            transition: var(--transition);
+            background: var(--danger-gradient) !important;
         }
 
         .notification-badge.badge-visible {
@@ -298,103 +386,265 @@
 
         .notification-badge.badge-new {
             animation: bounce 0.6s ease-in-out;
-            background-color: var(--admin-danger) !important;
         }
 
-        /* Notification Bell Button Styling */
         .notification-bell-btn {
-            width: 35px;
-            height: 35px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
-            background-color: #eee;
-            transition: transform 0.2s;
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0,0,0,0.1);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .notification-bell-btn:hover {
             transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
-        .notification-bell-btn:active {
-            transform: scale(0.95);
-        }
-
-        /* Notification Icon Styling */
-        .notification-icon {
-            width: 36px;
-            height: 36px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-        }
-
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-            }
-
-            50% {
-                transform: scale(1.2);
-            }
-
-            100% {
-                transform: scale(1);
-            }
-        }
-
-        @keyframes bounce {
-
-            0%,
-            20%,
-            50%,
-            80%,
-            100% {
-                transform: translateY(0);
-            }
-
-            40% {
-                transform: translateY(-10px);
-            }
-
-            60% {
-                transform: translateY(-5px);
-            }
-        }
-
-        /* Notification Dropdown Styling */
         .notification-dropdown-content {
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-            border: 1px solid #e5e7eb;
-            border-radius: 8px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(0,0,0,0.1);
+            border-radius: var(--border-radius);
+            backdrop-filter: blur(20px);
+            background: rgba(255,255,255,0.95);
         }
 
         .notification-item {
-            transition: all 0.2s ease;
+            transition: var(--transition);
             border-left: 3px solid transparent;
+            padding: 0.75rem 1rem;
         }
 
         .notification-item:hover {
-            background-color: #f8fafc;
+            background: rgba(102, 126, 234, 0.05);
             border-left-color: var(--admin-primary);
         }
 
         .notification-item.unread {
-            background-color: #eff6ff;
+            background: rgba(102, 126, 234, 0.1);
             border-left-color: var(--admin-primary);
         }
 
-        .notification-item.notification-new {
-            animation: slideIn 0.3s ease-out;
+        /* Language Switcher */
+        .language-switcher {
+            background: rgba(255,255,255,0.95) !important;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0,0,0,0.1) !important;
+            border-radius: var(--border-radius) !important;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15) !important;
         }
 
-        .notification-dot {
-            width: 8px;
-            height: 8px;
-            background-color: var(--admin-primary);
-            border-radius: 50%;
-            position: absolute;
-            top: 10px;
-            right: 10px;
+        .language-switcher .dropdown-item {
+            color: var(--admin-dark) !important;
+            background: transparent !important;
+            font-weight: 600;
+            transition: var(--transition);
+            padding: 0.75rem 1rem;
+        }
+
+        .language-switcher .dropdown-item.active,
+        .language-switcher .dropdown-item.bg-light {
+            background: var(--primary-gradient) !important;
+            color: #fff !important;
+            border-radius: var(--border-radius-sm);
+        }
+
+        .language-switcher .dropdown-item:hover {
+            background: rgba(102, 126, 234, 0.1) !important;
+            color: var(--admin-dark) !important;
+        }
+
+        /* Enhanced Dropdown Buttons */
+        .dropdown-toggle {
+            background: rgba(255,255,255,0.9) !important;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0,0,0,0.1) !important;
+            border-radius: var(--border-radius-sm) !important;
+            color: var(--admin-dark) !important;
+            font-weight: 600;
+            transition: var(--transition);
+            padding: 0.5rem 1rem;
+        }
+
+        .dropdown-toggle:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            background: rgba(255,255,255,1) !important;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 1200px) {
+            :root {
+                --sidebar-width: 260px;
+            }
+            
+            .admin-navbar {
+                padding: 0.75rem 1.5rem;
+                font-size: 0.95rem;
+            }
+
+            .admin-navbar h5 {
+                font-size: 1.25rem !important;
+            }
+        }
+
+        @media (max-width: 992px) {
+            :root {
+                --sidebar-width: 240px;
+            }
+            
+            .admin-navbar {
+                padding: 0.75rem 1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .admin-sidebar {
+                transform: translateX(-100%);
+                width: 280px;
+            }
+
+            .admin-content {
+                margin-left: 0;
+                padding-top: 70px;
+            }
+
+            .admin-navbar {
+                left: 0;
+                padding: 0.75rem 1rem;
+                min-height: 70px;
+                flex-direction: row;
+                align-items: center;
+            }
+
+            .admin-navbar h5 {
+                font-size: 1.1rem !important;
+            }
+
+            .admin-sidebar.show {
+                transform: translateX(0);
+                box-shadow: 0 0 50px rgba(0,0,0,0.3);
+            }
+
+            .sidebar-brand {
+                padding: 1.5rem 1rem;
+            }
+
+            .sidebar-brand h4 {
+                font-size: 1.1rem;
+            }
+
+            .sidebar-nav .nav-link {
+                padding: 0.75rem 1rem;
+                margin: 0.125rem 0.5rem;
+            }
+
+            .sidebar-nav .nav-link i {
+                width: 20px;
+                margin-right: 0.5rem;
+            }
+
+            /* Mobile navbar adjustments */
+            .admin-navbar .d-flex {
+                gap: 0.5rem !important;
+            }
+
+            .dropdown-toggle {
+                padding: 0.375rem 0.75rem !important;
+                font-size: 0.875rem !important;
+            }
+
+            .notification-bell-btn {
+                width: 36px;
+                height: 36px;
+            }
+
+            .avatar-circle {
+                width: 36px;
+                height: 36px;
+                font-size: 14px;
+            }
+
+            /* Hide text on mobile, show icons */
+            .mobile-hide {
+                display: none !important;
+            }
+
+            .mobile-show {
+                display: inline-block !important;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .admin-navbar {
+                padding: 0.5rem 0.75rem;
+                min-height: 60px;
+            }
+
+            .admin-navbar h5 {
+                font-size: 1rem !important;
+            }
+
+            .admin-content {
+                padding-top: 60px;
+            }
+
+            .dropdown-toggle {
+                padding: 0.25rem 0.5rem !important;
+                font-size: 0.8rem !important;
+            }
+
+            .notification-bell-btn {
+                width: 32px;
+                height: 32px;
+            }
+
+            .avatar-circle {
+                width: 32px;
+                height: 32px;
+                font-size: 12px;
+            }
+
+            .sidebar-brand {
+                padding: 1rem 0.75rem;
+            }
+
+            .sidebar-nav .nav-link {
+                padding: 0.5rem 0.75rem;
+                font-size: 0.875rem;
+            }
+        }
+
+        @media (max-width: 375px) {
+            .admin-navbar {
+                padding: 0.375rem 0.5rem;
+            }
+
+            .admin-navbar h5 {
+                font-size: 0.9rem !important;
+            }
+
+            .dropdown-toggle span {
+                display: none;
+            }
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
         }
 
         @keyframes slideIn {
@@ -402,56 +652,119 @@
                 opacity: 0;
                 transform: translateX(20px);
             }
-
             to {
                 opacity: 1;
                 transform: translateX(0);
             }
         }
 
-        /* Toast Notification Styling */
+        /* Toast Notifications */
         .toast-notification {
             position: fixed;
-            top: 20px;
+            top: 90px;
             right: 20px;
-            background: white;
-            border: 1px solid #e5e7eb;
-            border-radius: 8px;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0,0,0,0.1);
+            border-radius: var(--border-radius);
             padding: 1rem;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
             z-index: 9999;
-            max-width: 300px;
+            max-width: 350px;
             transform: translateX(100%);
-            transition: all 0.3s ease;
+            transition: var(--transition);
         }
 
         .toast-notification.show {
             transform: translateX(0);
         }
 
-        @media (max-width: 768px) {
-            .admin-sidebar {
-                transform: translateX(-100%);
-            }
-
-            .admin-content {
-                margin-left: 0;
-            }
-
-            .admin-sidebar.show {
-                transform: translateX(0);
-            }
-        }
-        /* Ensure dropdowns and menus render above navbar */
+        /* Ensure dropdowns render above everything */
         .dropdown-menu, .dropdown-menu.show {
             z-index: 2000 !important;
         }
+        .dropdown-menu .dropdown-item {
+            @if(app()->getLocale() === 'ar')
+                text-align: right;
+
+            @else
+                text-align: left;
+            @endif
+        }
+        .dropdown-menu .dropdown-item i {
+            @if(app()->getLocale() === 'ar')
+                margin-left: 10px;
+            @else
+                margin-right: 10px;
+            @endif
+        }
+        .dropdown-menu .dropdown-item span {
+            @if(app()->getLocale() === 'ar')
+                margin-left: 10px;
+            @else
+                margin-right: 10px;
+            @endif
+        }
+
         .notification-dropdown-content {
             z-index: 2001 !important;
         }
-        /* Prevent horizontal scroll on navbar */
-        html, body {
-            overflow-x: hidden;
+
+        /* Sidebar overlay for mobile */
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .sidebar-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Logout button styling */
+        .logout-btn {
+            transition: var(--transition);
+        }
+
+        .logout-btn:hover {
+            background: rgba(239, 68, 68, 0.1) !important;
+            color: #ef4444 !important;
+            transform: translateX(5px);
+        }
+
+        /* Enhanced focus states */
+        .dropdown-toggle:focus,
+        .notification-bell-btn:focus,
+        .nav-link:focus {
+            outline: 2px solid rgba(102, 126, 234, 0.5);
+            outline-offset: 2px;
+        }
+
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                transition: none !important;
+                animation: none !important;
+            }
+        }
+
+        /* High contrast mode */
+        @media (prefers-contrast: high) {
+            .admin-sidebar {
+                border-right: 2px solid #000;
+            }
+            
+            .admin-navbar {
+                border-bottom: 2px solid #000;
+            }
         }
     </style>
 
@@ -463,6 +776,9 @@
 
 <body>
     @if (!request()->routeIs('admin.login'))
+        <!-- Sidebar Overlay for Mobile -->
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
         <!-- Sidebar -->
         <div class="admin-sidebar" id="sidebar">
             <div class="sidebar-brand">
@@ -533,7 +849,7 @@
                             $pendingCount = \App\Models\PendingChange::where('status', 'pending')->count();
                         @endphp
                         @if ($pendingCount > 0)
-                            <span class="badge badge-warning ml-2">{{ $pendingCount }}</span>
+                            <span class="badge badge-warning ms-auto">{{ $pendingCount }}</span>
                         @endif
                     </a>
 
@@ -543,7 +859,7 @@
                             class="nav-link dropdown-toggle {{ request()->routeIs('admin.audit-logs.*') ? 'active' : '' }}"
                             data-bs-toggle="collapse" data-bs-target="#auditLogsSubmenu"
                             aria-expanded="{{ request()->routeIs('admin.audit-logs.*') ? 'true' : 'false' }}">
-                            <i class="fas fa-eye text-primary"></i>
+                            <i class="fas fa-eye"></i>
                             {{ __('admin.system_monitor') }}
                         </a>
                         <div class="collapse {{ request()->routeIs('admin.audit-logs.*') ? 'show' : '' }}"
@@ -567,13 +883,13 @@
                     @if (auth()->user()->canAccessReports())
                         <a href="{{ route('admin.reports.index') }}"
                             class="nav-link {{ request()->routeIs('admin.reports.*') ? 'active' : '' }}">
-                            <i class="fas fa-chart-line text-success"></i>
+                            <i class="fas fa-chart-line"></i>
                             {{ __('reports.reports') }}
                         </a>
                     @endif
                 @endif
 
-                <hr class="border-secondary mx-3">
+                <hr class="border-secondary mx-3 my-3">
 
                 <a href="{{ route('homepage') }}" class="nav-link" target="_blank">
                     <i class="fas fa-external-link-alt"></i>
@@ -583,7 +899,7 @@
                 <form method="POST" action="{{ route('admin.logout') }}">
                     @csrf
                     <button type="submit" class="nav-link logout-btn"
-                        style="width: 100%; text-align: left; border: none; background: none; color: #d1d5db;">
+                        style="width: 100%; text-align: left; border: none; background: none; color: rgba(255,255,255,0.8);">
                         <i class="fas fa-sign-out-alt"></i>
                         {{ __('admin.logout') }}
                     </button>
@@ -597,35 +913,34 @@
             <nav class="admin-navbar">
                 <div class="d-flex justify-content-between align-items-center w-100">
                     <div class="d-flex align-items-center">
-                        <button class="btn btn-link d-md-none me-3 text-secondary" id="sidebarToggle">
-                            <i class="fas fa-bars"></i>
+                        <button class="btn btn-link d-lg-none me-3 p-0" id="sidebarToggle" style="color: var(--admin-dark);">
+                            <i class="fas fa-bars fs-5"></i>
                         </button>
-                        <h5 class="mb-0 fw-bold"
-                            style="color:#fff; letter-spacing:-1px; font-size:2rem; text-shadow:0 2px 8px rgba(0,0,0,0.10);">
-                            @yield('page-title', 'Dashboard')</h5>
+                        <h5 class="mb-0 fw-bold">
+                        {{ __('admin.dashboard') }}
+                        </h5>
                     </div>
 
-                    <div class="d-flex align-items-center gap-4">
+                    <div class="d-flex align-items-center gap-3">
                         <!-- Language Switcher -->
                         <div class="dropdown">
-                            <button
-                                class="btn btn-sm btn-outline-secondary rounded-pill px-3 d-flex align-items-center gap-2"
+                            <button class="btn btn-sm dropdown-toggle d-flex align-items-center gap-2"
                                 type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fas fa-globe"></i>
-                                <span>{{ app()->isLocale('ar') ? 'العربية' : 'English' }}</span>
+                                <span class="mobile-hide">{{ app()->isLocale('ar') ? 'العربية' : 'English' }}</span>
                                 <i class="fas fa-chevron-down fs-xs ms-1"></i>
                             </button>
-                            <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 language-switcher">
+                            <ul class="dropdown-menu dropdown-menu-end language-switcher">
                                 <li>
                                     <a class="dropdown-item d-flex align-items-center {{ app()->isLocale('en') ? 'active bg-light' : '' }}"
                                         href="{{ url('/lang/en') }}">
-                                        <span class="me-2" style="font-size:1.3em;">EN</span> English
+                                        <span class="me-2" style="font-size:1.2em;">🇺🇸</span> English
                                     </a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item d-flex align-items-center {{ app()->isLocale('ar') ? 'active bg-light' : '' }}"
                                         href="{{ url('/lang/ar') }}">
-                                        <span class="me-2" style="font-size:1.3em;">AR</span> العربية
+                                        <span class="me-2" style="font-size:1.2em;">🇪🇬</span> العربية
                                     </a>
                                 </li>
                             </ul>
@@ -633,18 +948,16 @@
 
                         <!-- Notifications -->
                         <div class="dropdown">
-                            <button
-                                class="btn btn-sm position-relative bg border-0 shadow-none notification-bell-btn"
+                            <button class="btn position-relative notific    ation-bell-btn"
                                 type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fas fa-bell fs-5 text-secondary"></i>
-                                <span
-                                    class="notification-badge position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                                <span class="notification-badge position-absolute top-0 start-100 translate-middle badge rounded-pill"
                                     style="display: {{ auth()->user()->unreadNotifications->count() > 0 ? 'inline-block' : 'none' }};"
                                     data-initial-count="{{ auth()->user()->unreadNotifications->count() }}">
                                     {{ auth()->user()->unreadNotifications->count() > 0 ? auth()->user()->unreadNotifications->count() : '0' }}
                                 </span>
                             </button>
-                            <ul class="dropdown-menu dropdown-menu-end shadow-sm border notification-dropdown-content"
+                            <ul class="dropdown-menu dropdown-menu-end notification-dropdown-content"
                                 style="width: 350px; max-height: 400px; overflow-y: auto;">
                                 <li class="py-2 px-3 bg-light border-bottom">
                                     <div class="d-flex justify-content-between align-items-center">
@@ -655,15 +968,14 @@
                                 </li>
                                 @forelse(auth()->user()->unreadNotifications->take(5) as $notification)
                                     <li>
-                                        <a class="dropdown-item py-2 notification-item {{ !$notification->read_at ? 'unread' : '' }}"
+                                        <a class="dropdown-item notification-item {{ !$notification->read_at ? 'unread' : '' }}"
                                             href="{{ route('notifications.index') }}"
                                             data-notification-id="{{ $notification->id }}">
                                             <div class="d-flex">
                                                 <div class="flex-shrink-0">
-                                                    <div
-                                                        class="notification-icon bg-light text-{{ $notification->data['color'] ?? 'warning' }} rounded-circle p-2 text-center">
-                                                        <i
-                                                            class="{{ $notification->data['icon'] ?? 'fas fa-exclamation-triangle' }}"></i>
+                                                    <div class="notification-icon bg-light text-{{ $notification->data['color'] ?? 'warning' }} rounded-circle p-2 text-center"
+                                                        style="width: 36px; height: 36px;">
+                                                        <i class="{{ $notification->data['icon'] ?? 'fas fa-exclamation-triangle' }}"></i>
                                                     </div>
                                                 </div>
                                                 <div class="flex-grow-1 ms-3">
@@ -675,35 +987,41 @@
                                                     </div>
                                                     @if (isset($notification->data['reason']) && $notification->data['reason'])
                                                         <div class="text-danger small text-truncate">
-                                                            {{ Str::limit($notification->data['reason'], 80) }}</div>
+                                                            {{ Str::limit($notification->data['reason'], 80) }}
+                                                        </div>
                                                     @endif
                                                     <div class="text-muted small">
-                                                        {{ $notification->created_at->diffForHumans() }}</div>
+                                                        {{ $notification->created_at->diffForHumans() }}
+                                                    </div>
                                                 </div>
                                             </div>
                                         </a>
                                     </li>
                                 @empty
-                                    <li><span
-                                            class="dropdown-item-text py-3 text-center text-muted">{{ __('admin.no_notifications') }}</span>
+                                    <li>
+                                        <span class="dropdown-item-text py-3 text-center text-muted">
+                                            {{ __('admin.no_notifications') }}
+                                        </span>
                                     </li>
                                 @endforelse
-                                <li class="border-top"><a class="dropdown-item text-center py-2"
-                                        href="{{ route('notifications.index') }}">{{ __('admin.view_all_notifications') }}</a>
+                                <li class="border-top">
+                                    <a class="dropdown-item text-center py-2" href="{{ route('notifications.index') }}">
+                                        {{ __('admin.view_all_notifications') }}
+                                    </a>
                                 </li>
                             </ul>
                         </div>
 
                         <!-- User Menu -->
                         <div class="dropdown">
-                            <button class="btn d-flex align-items-center gap-2 bg-white border-0" type="button"
+                            <button class="btn dropdown-toggle d-flex align-items-center gap-2" type="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 @php $userImg = auth()->user()->image_url; @endphp
                                 @if ($userImg)
                                     <img src="{{ asset($userImg) }}" alt="{{ auth()->user()->name }}"
-                                        class="rounded-circle" style="width: 38px; height: 38px; object-fit: cover;">
+                                        class="rounded-circle" style="width: 40px; height: 40px; object-fit: cover;">
                                 @else
-                                    <div class="avatar-circle bg-primary text-white">
+                                    <div class="avatar-circle">
                                         {{ substr(auth()->user()->name, 0, 1) }}
                                     </div>
                                 @endif
@@ -713,26 +1031,26 @@
                                         {{ auth()->user()->roles && auth()->user()->roles->first() ? auth()->user()->roles->first()->name : 'User' }}
                                     </div>
                                 </div>
-                                <i class="fas fa-chevron-down ms-1 text-muted fs-xs"></i>
+                                <i class="fas fa-chevron-down ms-1 text-muted fs-xs mobile-hide"></i>
                             </button>
-                            <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0">
+                            <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0"
+                                style="background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); border-radius: var(--border-radius);">
                                 <li class="dropdown-header">
                                     <div class="text-muted small">{{ __('admin.signed_in_as') }}</div>
                                     <div class="fw-semibold">{{ auth()->user()->email }}</div>
                                 </li>
+                                <li><hr class="dropdown-divider"></li>
                                 <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" href="{{ route('profile.edit') }}">
+                                    <a class="dropdown-item" href="{{ route('profile.edit') }}">
                                         <i class="fas fa-user me-2 text-muted"></i>{{ __('admin.profile') }}
-                                    </a></li>
-                                <li><a class="dropdown-item" href="{{ route('notifications.index') }}">
-                                        <i
-                                            class="fas fa-bell me-2 text-muted"></i>{{ __('admin.notifications.index') }}
-                                    </a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
+                                    </a>
                                 </li>
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('notifications.index') }}">
+                                        <i class="fas fa-bell me-2 text-muted"></i>{{ __('admin.notifications') }}
+                                    </a>
+                                </li>
+                                <li><hr class="dropdown-divider"></li>
                                 <li>
                                     <form method="POST" action="{{ route('admin.logout') }}">
                                         @csrf
@@ -744,6 +1062,7 @@
                             </ul>
                         </div>
                     </div>
+                </div>
             </nav>
 
             <!-- Page Content -->
@@ -790,10 +1109,31 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Toggle sidebar on mobile
-            document.getElementById('sidebarToggle')?.addEventListener('click', function() {
-                document.getElementById('sidebar').classList.toggle('show');
-            });
+            // Enhanced sidebar toggle for mobile
+            const sidebarToggle = document.getElementById('sidebarToggle');
+            const sidebar = document.getElementById('sidebar');
+            const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+            if (sidebarToggle && sidebar && sidebarOverlay) {
+                sidebarToggle.addEventListener('click', function() {
+                    sidebar.classList.toggle('show');
+                    sidebarOverlay.classList.toggle('show');
+                });
+
+                // Close sidebar when clicking overlay
+                sidebarOverlay.addEventListener('click', function() {
+                    sidebar.classList.remove('show');
+                    sidebarOverlay.classList.remove('show');
+                });
+
+                // Close sidebar on escape key
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && sidebar.classList.contains('show')) {
+                        sidebar.classList.remove('show');
+                        sidebarOverlay.classList.remove('show');
+                    }
+                });
+            }
 
             // Auto-hide alerts after 5 seconds
             setTimeout(function() {
@@ -831,8 +1171,7 @@
                         fetch(`/notifications/${notificationId}/mark-as-read`, {
                                 method: 'POST',
                                 headers: {
-                                    'X-CSRF-TOKEN': document.querySelector(
-                                        'meta[name="csrf-token"]').content,
+                                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
                                     'Content-Type': 'application/json',
                                     'Accept': 'application/json',
                                 }
@@ -841,12 +1180,10 @@
                             .then(data => {
                                 if (data.success) {
                                     this.classList.remove('unread');
-                                    // Update badge count
                                     updateNotificationBadge();
                                 }
                             })
-                            .catch(error => console.error('Error marking notification as read:',
-                                error));
+                            .catch(error => console.error('Error marking notification as read:', error));
                     }
                 });
             });
@@ -865,6 +1202,31 @@
                     badge.style.display = 'none';
                 }
             }
+
+            // Enhanced dropdown interactions
+            document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
+                toggle.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-1px)';
+                });
+                
+                toggle.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+
+            // Smooth scroll for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
         });
     </script>
 
@@ -890,15 +1252,12 @@
                             let html = '';
                             if (data.notifications.length > 0) {
                                 data.notifications.forEach(notification => {
-                                    html +=
-                                        `<li><a class="dropdown-item py-2 notification-item unread" href=\"${'{{ route('notifications.index') }}'}\" data-notification-id=\"${notification.id}\"><div class=\"d-flex\"><div class=\"flex-shrink-0\"><div class=\"notification-icon bg-light text-warning rounded-circle p-2 text-center\"><i class=\"fas fa-bell\"></i></div></div><div class=\"flex-grow-1 ms-3\"><div class=\"fw-bold text-truncate\">${notification.data.title ?? 'Notification'}</div><div class=\"text-muted small text-truncate\">${notification.data.message ?? ''}</div><div class=\"text-muted small\">${new Date(notification.created_at).toLocaleString()}</div></div></div></a></li>`;
+                                    html += `<li><a class="dropdown-item notification-item unread" href="${'{{ route('notifications.index') }}'}" data-notification-id="${notification.id}"><div class="d-flex"><div class="flex-shrink-0"><div class="notification-icon bg-light text-warning rounded-circle p-2 text-center" style="width: 36px; height: 36px;"><i class="fas fa-bell"></i></div></div><div class="flex-grow-1 ms-3"><div class="fw-bold text-truncate">${notification.data.title ?? 'Notification'}</div><div class="text-muted small text-truncate">${notification.data.message ?? ''}</div><div class="text-muted small">${new Date(notification.created_at).toLocaleString()}</div></div></div></a></li>`;
                                 });
                             } else {
-                                html =
-                                    `<li><span class=\"dropdown-item-text py-3 text-center text-muted\">{{ __('admin.no_notifications') }}</span></li>`;
+                                html = `<li><span class="dropdown-item-text py-3 text-center text-muted">{{ __('admin.no_notifications') }}</span></li>`;
                             }
-                            html +=
-                                `<li class=\"border-top\"><a class=\"dropdown-item text-center py-2\" href=\"${'{{ route('notifications.index') }}'}\">{{ __('admin.view_all_notifications') }}</a></li>`;
+                            html += `<li class="border-top"><a class="dropdown-item text-center py-2" href="${'{{ route('notifications.index') }}'}">{{ __('admin.view_all_notifications') }}</a></li>`;
                             dropdown.innerHTML = html;
                         }
                     });

@@ -20,6 +20,7 @@ return new class extends Migration {
             $table->string('city')->nullable();
             $table->string('country')->nullable();
             $table->enum('preferred_language', ['en', 'ar'])->default('en');
+            $table->string('company_image_url')->nullable();
             $table->timestamps();
 
             $table->index(['email', 'phone']);

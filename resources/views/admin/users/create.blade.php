@@ -7,14 +7,14 @@
 <style>
     /* Page Header */
     .modern-page-header {
-        background: #0077C8;
-        color: #F0F0F0;
-        padding: 2.5rem 0;
-        margin: -1.5rem -1.5rem 2rem;
-        border-radius: 0 0 12px 12px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: #ffffff;
+        padding: 2rem 1.5rem;
+        margin: -1rem -1rem 2rem;
+        border-radius: 0 0 24px 24px;
         position: relative;
         overflow: hidden;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
     }
     .modern-page-header::before {
         content: '';
@@ -69,18 +69,14 @@
         color: #F0F0F0;
     }
     .modern-card-header {
+        color: #6e6868;
         background: #FFFFFF;
         border-bottom: 1px solid #E9ECEF;
         padding: 1rem 1.25rem;
     }
-    .dark-mode .modern-card-header {
-        background: #2D2D2D;
-        border-bottom: 1px solid #4A4A4A;
-    }
     .modern-card-header h5 {
         font-family: 'Poppins', sans-serif;
         font-weight: 600;
-        color: #0077C8;
         margin-bottom: 0;
         display: flex;
         align-items: center;
@@ -192,40 +188,54 @@
 
     /* Buttons */
     .modern-btn {
-        background: #0077C8;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         border: none;
-        color: #F0F0F0;
+        color: #ffffff;
         padding: 0.75rem 1.5rem;
-        border-radius: 25px;
-        font-family: 'Poppins', sans-serif;
+        border-radius: 50px;
         font-weight: 600;
-        font-size: 0.9rem;
-        transition: all 0.3s ease;
+        font-size: 0.875rem;
+        transition: var(--transition);
         text-decoration: none;
         display: inline-flex;
         align-items: center;
         gap: 0.5rem;
         cursor: pointer;
+        position: relative;
+        overflow: hidden;
     }
+    .modern-btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+        transition: left 0.5s;
+    }
+
+    .modern-btn:hover::before {
+        left: 100%;
+    }
+
     .modern-btn:hover {
-        background: #C1D82F;
-        color: #333333;
         transform: translateY(-2px);
-        box-shadow: 0 6px 16px rgba(193, 216, 47, 0.3);
+        box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        color: #ffffff;
+        text-decoration: none;
     }
+
+    .modern-btn:active {
+        transform: translateY(-1px);
+    }
+
     .modern-btn-secondary {
-        background: #6C757D;
-        color: #F0F0F0;
-        border: 1px solid #E9ECEF;
+        background: var(--secondary-gradient);
     }
+
     .modern-btn-secondary:hover {
-        background: #C1D82F;
-        color: #333333;
-        box-shadow: 0 4px 12px rgba(193, 216, 47, 0.3);
-    }
-    .dark-mode .modern-btn-secondary {
-        background: #4A4A4A;
-        border-color: #4A4A4A;
+        box-shadow: 0 10px 25px rgba(113, 128, 150, 0.4);
     }
 
     /* Invalid Feedback */

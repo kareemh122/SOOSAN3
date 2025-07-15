@@ -385,6 +385,7 @@
             height: fit-content;
             transition: all 0.3s ease;
             animation: slideInRight 0.8s ease-out;
+            position: relative;
         }
 
         @keyframes slideInRight {
@@ -428,6 +429,11 @@
             to { transform: rotate(360deg); }
         }
 
+        .owners-avatar-content {
+            position: relative;
+            z-index: 2;
+        }
+
         .owners-avatar {
             width: 120px;
             height: 120px;
@@ -457,6 +463,13 @@
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
         }
 
+        .owners-avatar-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
         .owners-avatar-name {
             font-size: 1.5rem;
             font-weight: 700;
@@ -475,28 +488,32 @@
 
         .owners-meta-info {
             padding: 2rem;
+            background: linear-gradient(135deg, #f8fafc, #ffffff);
         }
 
         .owners-meta-item {
             display: flex;
             align-items: center;
             gap: 0.75rem;
-            padding: 0.875rem 0;
+            padding: 1rem 0;
             border-bottom: 1px solid #e5e7eb;
             transition: all 0.3s ease;
             position: relative;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
         }
 
         .owners-meta-item::before {
             content: '';
             position: absolute;
-            left: -2rem;
+            left: -1rem;
             top: 0;
             bottom: 0;
             width: 4px;
-            background: #667eea;
+            background: linear-gradient(135deg, #667eea, #764ba2);
             transform: scaleY(0);
             transition: transform 0.3s ease;
+            border-radius: 2px;
         }
 
         .owners-meta-item:hover::before {
@@ -504,9 +521,10 @@
         }
 
         .owners-meta-item:hover {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), transparent);
-            padding-left: 1rem;
-            border-radius: 8px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05));
+            padding-left: 1.5rem;
+            border-radius: 12px;
+            transform: translateX(8px);
         }
 
         .owners-meta-item:last-child {
@@ -518,11 +536,12 @@
             width: 24px;
             flex-shrink: 0;
             transition: all 0.3s ease;
+            text-align: center;
         }
 
         .owners-meta-item:hover i {
-            color: #4f46e5;
-            transform: scale(1.2);
+            color: #764ba2;
+            transform: scale(1.2) rotate(10deg);
         }
 
         .owners-meta-content {
@@ -542,6 +561,7 @@
             font-size: 0.875rem;
             font-weight: 600;
             color: #1f2937;
+            word-break: break-word;
         }
 
         /* Enhanced Table Styles */
@@ -604,7 +624,7 @@
             font-size: 1.5rem;
         }
 
-        /* Responsive Design */
+        /* Enhanced responsiveness for avatar card */
         @media (max-width: 1200px) {
             .owners-content-grid {
                 grid-template-columns: 1fr;
@@ -613,6 +633,17 @@
             
             .owners-avatar-card {
                 order: -1;
+                max-width: 100%;
+            }
+            
+            .owners-avatar-section {
+                padding: 2.5rem 2rem;
+            }
+            
+            .owners-avatar {
+                width: 110px;
+                height: 110px;
+                font-size: 2.5rem;
             }
         }
 
@@ -664,8 +695,25 @@
                 font-size: 2.5rem;
             }
             
+            .owners-avatar-name {
+                font-size: 1.25rem;
+            }
+            
+            .owners-avatar-company {
+                font-size: 0.875rem;
+            }
+            
             .owners-detail-item {
                 padding: 0.875rem;
+            }
+            
+            .owners-meta-item {
+                padding: 0.875rem 0;
+                gap: 0.625rem;
+            }
+            
+            .owners-meta-item i {
+                width: 20px;
             }
             
             .table-responsive {
@@ -702,13 +750,27 @@
                 padding: 1.5rem 1rem;
             }
             
+            .owners-avatar {
+                width: 80px;
+                height: 80px;
+                font-size: 2rem;
+            }
+            
+            .owners-avatar-name {
+                font-size: 1.125rem;
+            }
+            
+            .owners-avatar-company {
+                font-size: 0.8rem;
+            }
+            
             .owners-detail-item {
                 padding: 0.75rem;
                 gap: 0.5rem;
             }
             
             .owners-detail-item i {
-                width: 20px;
+                width: 18px;
             }
             
             .owners-meta-item {
@@ -717,7 +779,15 @@
             }
             
             .owners-meta-item i {
-                width: 20px;
+                width: 18px;
+            }
+            
+            .owners-meta-label {
+                font-size: 0.7rem;
+            }
+            
+            .owners-meta-value {
+                font-size: 0.8rem;
             }
         }
 
@@ -755,10 +825,11 @@
             gap: 1.5rem;
             margin-top: 1.2rem;
         }
+
         .sold-product-card {
             background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
             border-radius: 1.25rem;
-            box-shadow: 0 2px 12px rgba(102,126,234,0.07);
+            box-shadow: 0 4px 20px rgba(102,126,234,0.08);
             border: 1.5px solid #e5e7eb;
             padding: 1.5rem 1.75rem;
             min-width: 250px;
@@ -767,13 +838,33 @@
             display: flex;
             flex-direction: column;
             gap: 0.7rem;
-            transition: box-shadow 0.2s, border-color 0.2s;
+            transition: all 0.3s ease;
             position: relative;
+            overflow: hidden;
         }
+
+        .sold-product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.02), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .sold-product-card:hover::before {
+            opacity: 1;
+        }
+
         .sold-product-card:hover {
-            box-shadow: 0 8px 32px rgba(102,126,234,0.13);
-            border-color: #b0d701;
+            box-shadow: 0 12px 40px rgba(102,126,234,0.15);
+            border-color: #667eea;
+            transform: translateY(-4px);
         }
+
         .sold-product-row {
             display: flex;
             justify-content: space-between;
@@ -782,18 +873,23 @@
             font-size: 1.04rem;
             padding-bottom: 0.5rem;
             border-bottom: 1px solid #e5e7eb;
+            position: relative;
+            z-index: 2;
         }
+
         .sold-product-row:last-child {
             border-bottom: none;
             padding-bottom: 0;
         }
+
         .sold-product-label {
             font-weight: 600;
-            color: #94a3b8;
+            color: #64748b;
             min-width: 120px;
             font-size: 0.98rem;
             letter-spacing: 0.01em;
         }
+
         .sold-product-value {
             font-weight: 600;
             color: #1e293b;
@@ -802,6 +898,7 @@
             word-break: break-all;
             font-size: 1.05rem;
         }
+
         .sold-product-value .badge {
             margin-left: 0.25rem;
             margin-right: 0.1rem;
@@ -811,36 +908,44 @@
             font-weight: 600;
             letter-spacing: 0.01em;
         }
+
         @media (max-width: 900px) {
             .sold-products-cards {
                 gap: 1rem;
             }
+            
             .sold-product-card {
                 min-width: 0;
-                padding: 1.1rem 0.7rem;
+                padding: 1.25rem;
                 font-size: 0.97rem;
             }
+            
             .sold-product-label {
                 min-width: 90px;
                 font-size: 0.95rem;
             }
+            
             .sold-product-value {
                 font-size: 0.97rem;
             }
         }
+
         @media (max-width: 600px) {
             .sold-products-cards {
                 flex-direction: column;
-                gap: 0.7rem;
+                gap: 0.75rem;
             }
+            
             .sold-product-card {
-                padding: 0.85rem 0.5rem;
+                padding: 1rem;
                 font-size: 0.93rem;
             }
+            
             .sold-product-label {
                 min-width: 70px;
                 font-size: 0.91rem;
             }
+            
             .sold-product-value {
                 font-size: 0.93rem;
             }
@@ -1030,19 +1135,20 @@
             </div>
         </div>
 
-        <!-- Avatar Card -->
+        <!-- Enhanced Avatar Card -->
         <div class="owners-avatar-card">
-            <div class="owners-avatar-shine"></div>
-            <div class="owners-avatar-content">
-                <div class="owners-avatar">
-                    @if ($owner->company_image_url)
-                        <img src="{{ asset($owner->company_image_url) }}" alt="{{ $owner->company }} Logo" class="owners-avatar-img" onerror="this.onerror=null; this.src='{{ asset('images/default-building.svg') }}';">
-                    @else
-                        <i class="fas fa-building"></i>
-                    @endif
+            <div class="owners-avatar-section">
+                <div class="owners-avatar-content">
+                    <div class="owners-avatar">
+                        @if ($owner->company_image_url)
+                            <img src="{{ asset($owner->company_image_url) }}" alt="{{ $owner->company }} Logo" class="owners-avatar-img" onerror="this.onerror=null; this.src='{{ asset('images/default-building.svg') }}';">
+                        @else
+                            <i class="fas fa-building"></i>
+                        @endif
+                    </div>
+                    <div class="owners-avatar-name">{{ $owner->name }}</div>
+                    <div class="owners-avatar-company">{{ $owner->company ?? __('owners.show.fallbacks.no_company') }}</div>
                 </div>
-                <div class="owners-avatar-name">{{ $owner->name }}</div>
-                <div class="owners-avatar-company">{{ $owner->company ?? __('owners.show.fallbacks.no_company') }}</div>
             </div>
             
             <div class="owners-meta-info">
@@ -1141,6 +1247,29 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+
+    // Enhanced card interactions
+    const soldProductCards = document.querySelectorAll('.sold-product-card');
+    soldProductCards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-8px) scale(1.02)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0) scale(1)';
+        });
+    });
+
+    // Avatar image error handling
+    const avatarImg = document.querySelector('.owners-avatar-img');
+    if (avatarImg) {
+        avatarImg.addEventListener('error', function() {
+            this.style.display = 'none';
+            const fallbackIcon = document.createElement('i');
+            fallbackIcon.className = 'fas fa-building';
+            this.parentNode.appendChild(fallbackIcon);
+        });
+    }
 });
 </script>
 @endsection

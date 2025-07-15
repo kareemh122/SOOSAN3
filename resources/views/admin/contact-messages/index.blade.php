@@ -98,9 +98,15 @@
         color: white;
         font-weight: 700;
         font-size: 1.5rem;
-        margin-right: 1rem;
         box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        @if(app()->getLocale() === 'ar')
+            margin-left: 1.1rem;
+        @else
+            margin-right: 1.1rem;
+        @endif
     }
+
+
     .modern-btn {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         border: none;
@@ -178,6 +184,9 @@
         transition: all 0.3s ease;
         text-decoration: none;
     }
+    .filter-tab i {
+
+    }
     .filter-tab.active {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         color: white;
@@ -252,8 +261,8 @@
             <div class="message-card {{ !$message->is_read ? 'unread' : 'read' }}">
                 <div class="d-flex align-items-start">
                     <div class="message-avatar">
-                        {{ strtoupper(substr($message->first_name, 0, 1)) }}{{ strtoupper(substr($message->last_name, 0, 1)) }}
-                    </div>
+    {{ strtoupper(substr($message->first_name, 0, 1)) }}{{ strtoupper(substr($message->last_name, 0, 1)) }}
+</div>
                     
                     <div class="flex-grow-1">
                         <div class="d-flex justify-content-between align-items-start mb-2">

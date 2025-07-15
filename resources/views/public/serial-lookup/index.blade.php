@@ -1,4 +1,6 @@
 @extends('layouts.public')
+@vite(['resources/css/app.css', 'resources/js/app.js'])
+
 
 @section('title', __('common.serial_lookup_title') . ' - Soosan Cebotics')
 @section('description', __('common.serial_lookup_subtitle'))

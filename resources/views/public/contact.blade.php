@@ -511,7 +511,7 @@
         width: 100%;
         text-align: left;
         padding: 1.25rem 1.5rem;
-        font-size: 1.1rem;
+        font-size: 1.3rem;
         font-weight: 600;
         color: var(--text-color);
         cursor: pointer;
@@ -535,8 +535,9 @@
         padding: 0 1.5rem 1.25rem;
         color: var(--text-muted);
         line-height: 1.7;
-        font-size: 1rem;
+        font-size: 1.1rem;
         display: none;
+        margin-top: 1rem;
     }
 
     .faq-answer.active {

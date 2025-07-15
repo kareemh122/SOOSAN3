@@ -6,12 +6,13 @@
 <style>
     .modern-page-header {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        padding: 3rem 0;
-        margin: -2rem -2rem 2rem;
-        border-radius: 0 0 1rem 1rem;
+        color: #ffffff;
+        padding: 2rem 1.5rem;
+        margin: -1rem -1rem 2rem;
+        border-radius: 0 0 24px 24px;
         position: relative;
         overflow: hidden;
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
     }
     .modern-page-header::before {
         content: '';
@@ -207,8 +208,19 @@
     <div class="col-lg-4">
         <div class="modern-card">
             <div class="card-body text-center p-4">
-                <div class="user-avatar-large">
-                    {{ strtoupper(substr($user->name, 0, 1)) }}
+                <div class="user-avatar-large overflow-hidden bg-light">
+                    @if($user->image_url)
+                        <img src="{{ asset($user->image_url) }}"
+                            alt="{{ $user->name }}"
+                            class="w-100 h-100 object-fit-cover"
+                            style="border-radius:50%;"
+                            onerror="this.onerror=null;this.src='{{ asset('images/fallback-user.png') }}';">
+                    @else
+                        <img src="{{ asset('images/fallback-user.png') }}"
+                            alt="Default User"
+                            class="w-100 h-100 object-fit-cover"
+                            style="border-radius:50%;">
+                    @endif
                 </div>
                 <h4 class="mb-1">{{ $user->name }}</h4>
                 <p class="text-muted mb-3">{{ $user->email }}</p>

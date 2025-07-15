@@ -385,7 +385,7 @@
                 <a href="{{ route('admin.sold-products.index') }}" class="modern-btn modern-btn-secondary">
                     <i class="fas fa-arrow-left me-2"></i>
                     <span class="d-none d-sm-inline">{{ __('sold-products.back_to_sales') }}</span>
-                    <span class="d-sm-none">Back</span>
+                    <span class="d-sm-none">{{ __('sold-products.back_to_sales') }}</span>
                 </a>
             </div>
         </div>
@@ -396,7 +396,7 @@
     <div class="card-header bg-white border-bottom p-4">
         <h5 class="mb-0">
             <i class="fas fa-shopping-cart me-2"></i>
-            Sale Information
+            {{ __('sold-products.sale_information') }}
         </h5>
     </div>
     <div class="card-body p-4">
@@ -452,7 +452,7 @@
                 <div class="col-12 mb-3">
                     <div class="alert alert-info">
                         <i class="fas fa-info-circle me-2"></i>
-                        <strong>Sale recorded by:</strong> {{ auth()->user()->name }} ({{ ucfirst(auth()->user()->role) }})
+                        <strong>{{ __('sold-products.sale_recored_by') }}</strong> {{ auth()->user()->name }} ({{ ucfirst(auth()->user()->role) }})
                     </div>
                 </div>
 
@@ -558,7 +558,7 @@
                 <button type="submit" class="modern-btn" id="submitBtn">
                     <i class="fas fa-save me-2"></i>
                     <span class="d-none d-sm-inline">{{ __('sold-products.create_sale') }}</span>
-                    <span class="d-sm-none">Create</span>
+                    <span class="d-sm-none">{{ __('sold-products.create_sale') }}</span>
                 </button>
             </div>
         </form>

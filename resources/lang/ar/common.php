@@ -10,6 +10,11 @@ return [
     'contact' => 'تواصل معنا',
     'privacy' => 'سياسة الخصوصية',
     'terms' => 'شروط الاستخدام',
+    'hydraulic_breakers' => 'القواطع الهيدروليكية',
+    'SQ_line' => 'خط SQ',
+    'SB_line' => 'خط SB',
+    'SB-E_line' => 'خط SB-E',
+    'ET-II_line' => 'خط ET-II',
 
     // Homepage
     'hero_title' => 'حلول معدات الحفر الرائدة',
@@ -32,6 +37,11 @@ return [
     // Footer
     'footer_description' => 'مزود رائد لمعدات وحلول الحفر للبناء والتعدين والتطبيقات الصناعية.',
     'quick_links' => 'روابط سريعة',
+    'no_categories' => 'لا توجد فئات متاحة',
+    'SQ_line' => 'خط SQ',
+    'SB_line' => 'خط SB',
+    'SB-E_line' => 'خط SB-E',
+    'ET-II_line' => 'خط ET-II',
     'resources' => 'المصادر',
     'legal' => 'قانوني',
     'copyright' => 'جميع الحقوق محفوظة.',

@@ -21,6 +21,8 @@ return [
     'system_monitor' => 'مراقبة النظام',
     'activity_log' => 'سجل النشاطات',
     'view_website' => 'عرض الموقع',
+    'notifications' => 'الإشعارات',
+    'view_all' => 'عرض الكل',
     
     // Statistics Cards
     'total_users' => 'إجمالي الموظفين',

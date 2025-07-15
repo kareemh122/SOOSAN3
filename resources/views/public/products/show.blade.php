@@ -1069,23 +1069,37 @@ document.addEventListener('DOMContentLoaded', function () {
         const maxSlide = Math.max(0, Math.ceil(totalCards / visibleCards) - 1);
 
         function updateCarousel() {
-            const translateX = -(currentSlide * cardWidth * visibleCards);
+            // For RTL, invert the translate direction
+            let translateX;
+            if (!isRTL) {
+                translateX = -(currentSlide * cardWidth * visibleCards);
+            } else {
+                // In RTL, carousel visually moves right as currentSlide increases
+                translateX = currentSlide * cardWidth * visibleCards;
+            }
             carousel.style.transform = `translateX(${translateX}px)`;
 
-            // Arrow logic: in RTL, swap meaning
+            // Arrow logic: LTR: left arrow = back, right = forward; RTL: left arrow = forward, right = back
             if (!isRTL) {
                 prevBtn.style.display = currentSlide > 0 ? 'flex' : 'none';
                 nextBtn.style.display = currentSlide < maxSlide ? 'flex' : 'none';
             } else {
-                nextBtn.style.display = currentSlide > 0 ? 'flex' : 'none';
-                prevBtn.style.display = currentSlide < maxSlide ? 'flex' : 'none';
+                prevBtn.style.display = currentSlide < maxSlide ? 'flex' : 'none'; // left arrow = forward
+                nextBtn.style.display = currentSlide > 0 ? 'flex' : 'none'; // right arrow = back
             }
 
+            // Dots: LTR dots left-to-right; RTL dots right-to-left (active dot matches currentSlide)
             indicators.forEach((ind, i) => {
-                ind.classList.toggle('active', i === currentSlide);
+                if (!isRTL) {
+                    ind.classList.toggle('active', i === currentSlide);
+                } else {
+                    // In RTL, the first dot is the rightmost, so reverse index
+                    ind.classList.toggle('active', i === currentSlide);
+                }
             });
         }
 
+        // In both modes, increasing currentSlide shows more products to the left (LTR) or right (RTL)
         function goForward() {
             if (currentSlide < maxSlide) {
                 currentSlide++;
@@ -1099,18 +1113,19 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
 
-        // Attach event listeners based on direction
+        // Attach event listeners: arrows always point to visual direction
         if (!isRTL) {
-            prevBtn.addEventListener('click', goBackward);
-            nextBtn.addEventListener('click', goForward);
+            prevBtn.addEventListener('click', goBackward); // left arrow = back
+            nextBtn.addEventListener('click', goForward);  // right arrow = forward
         } else {
-            prevBtn.addEventListener('click', goForward);
-            nextBtn.addEventListener('click', goBackward);
+            prevBtn.addEventListener('click', goForward);  // left arrow = forward
+            nextBtn.addEventListener('click', goBackward); // right arrow = back
         }
 
+        // Dots: in RTL, clicking the rightmost dot is slide 0, leftmost is maxSlide
         indicators.forEach((ind, i) => {
             ind.addEventListener('click', () => {
-                currentSlide = parseInt(ind.getAttribute('data-slide'), 10);
+                currentSlide = i;
                 updateCarousel();
             });
         });

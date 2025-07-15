@@ -942,7 +942,7 @@
                 <div class="col-lg-8">
                     <h1>
                         <i class="fas fa-cubes"></i> 
-                        {{ __('products.products_management') }}
+                        {{ __('products.hydraulic_breakers') }}
                     </h1>
                     <p>{{ __('products.manage_products') }}</p>
                 </div>

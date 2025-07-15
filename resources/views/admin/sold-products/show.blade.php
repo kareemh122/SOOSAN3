@@ -408,12 +408,12 @@
                     <a href="{{ route('admin.sold-products.edit', $soldProduct) }}" class="modern-btn modern-btn-warning">
                         <i class="fas fa-edit me-2"></i>
                         <span class="mobile-text-full">{{ __('sold-products.edit_sale') }}</span>
-                        <span class="mobile-text-short">Edit</span>
+                        <span class="mobile-text-short">{{ __('sold-products.edit_sale') }}</span>
                     </a>
                     <a href="{{ route('admin.sold-products.index') }}" class="modern-btn modern-btn-secondary">
                         <i class="fas fa-arrow-left me-2"></i>
                         <span class="mobile-text-full">{{ __('sold-products.back_to_sales') }}</span>
-                        <span class="mobile-text-short">Back</span>
+                        <span class="mobile-text-short">{{ __('sold-products.back_to_sales') }}</span>
                     </a>
                 </div>
             </div>
@@ -679,15 +679,15 @@
                 <div class="card-header bg-white border-bottom p-3">
                     <h5 class="mb-0">
                         <i class="fas fa-cog me-2"></i>
-                        Warranty Management
+                        {{ __('sold-products.warranty_management') }}
                     </h5>
                 </div>
                 <div class="card-body p-3">
                     @if(!$soldProduct->warranty_voided)
                         <button type="button" class="modern-btn modern-btn-danger w-100" data-bs-toggle="modal" data-bs-target="#voidWarrantyModal">
                             <i class="fas fa-ban me-2"></i>
-                            <span class="mobile-text-full">Void Warranty</span>
-                            <span class="mobile-text-short">Void</span>
+                            <span class="mobile-text-full">{{ __('sold-products.void_sale') }}</span>
+                            <span class="mobile-text-short">{{ __('sold-products.void_sale') }}</span>
                         </button>
                     @else
                         <div class="alert alert-warning" style="border-radius: 1rem; margin: 0;">

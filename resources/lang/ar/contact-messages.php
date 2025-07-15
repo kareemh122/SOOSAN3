@@ -14,7 +14,7 @@ return [
     'read' => 'مقروءة',
     'all' => 'الكل',
     
-    // Statistics
+    // Statistics   
     'total_messages' => 'إجمالي الرسائل',
     'unread_messages' => 'الرسائل غير المقروءة',
     'read_messages' => 'الرسائل المقروءة',
@@ -25,7 +25,7 @@ return [
     'unread_status' => 'غير مقروءة',
     
     // Message information
-    'contact_message_number' => 'رسالة تواصل رقم :id',
+    'contact_message_number' => 'رسالة تواصل رقم :id#',
     'sender_information' => 'معلومات المرسل',
     'message_information' => 'معلومات الرسالة',
     'name' => 'الاسم',

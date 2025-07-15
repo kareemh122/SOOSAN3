@@ -25,7 +25,7 @@ return [
     'unread_status' => 'Unread',
     
     // Message information
-    'contact_message_number' => 'Contact Message #:id',
+    'contact_message_number' => 'Message #:id',
     'sender_information' => 'Sender Information',
     'message_information' => 'Message Information',
     'name' => 'Name',

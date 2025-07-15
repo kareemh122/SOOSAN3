@@ -10,6 +10,11 @@ return [
     'contact' => 'Contact Us',
     'privacy' => 'Privacy Policy',
     'terms' => 'Terms of Service',
+    'SQ_line' => 'SQ Line',
+    'SB_line' => 'SB Line',
+    'SB-E_line' => 'SB-E Line',
+    'ET-II_line' => 'ET-II Line',
+    'hydraulic_breakers' => 'Hydraulic Breakers',
 
     // Homepage
     'hero_title' => 'Leading Drilling Equipment Solutions',
@@ -32,6 +37,11 @@ return [
     // Footer
     'footer_description' => 'Leading provider of drilling equipment and solutions for construction, mining, and industrial applications.',
     'quick_links' => 'Quick Links',
+    'no_categories' => 'No Categories Available',
+    'SQ_line' => 'SQ Line',
+    'SB_line' => 'SB Line', 
+    'SB-E_line' => 'SB-E Line',
+    'ET-II_line' => 'ET-II Line',
     'resources' => 'Resources',
     'legal' => 'Legal',
     'copyright' => 'All rights reserved.',

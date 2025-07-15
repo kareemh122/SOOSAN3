@@ -31,7 +31,7 @@ return [
     'industry_industrial_app_1' => 'Material handling',
     'industry_industrial_app_2' => 'Plant maintenance',
     'industry_industrial_app_3' => 'Equipment installation',
-    'hero_slider_main_title' => 'Advanced Hydraulic Breakers<br>Innovation that Breaks Boundaries',
+    'hero_slider_main_title' => 'Advanced<br>Hydraulic Breakers<br>Innovation that Breaks Boundaries',
     'hero_slider_main_desc' => 'Experience unmatched performance with our cutting-edge hydraulic breakers technology designed for the toughest demolition and construction applications.',
     // Hero Section
     'hero_slide_1_title' => 'The Future of Heavy Industry',

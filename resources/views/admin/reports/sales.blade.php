@@ -517,10 +517,534 @@
         </div>
     </div>
 
-    <div class="footer">
-        <p><strong>SALES PERFORMANCE REPORT</strong> | Generated for Internal Use Only</p>
-        <p>Report Generated: {{ \Carbon\Carbon::now()->format('F j, Y \a\t g:i A') }} | Period: {{ $dateRange['label'] }}</p>
-        <p>© {{ now()->year }} Company Name. All rights reserved.</p>
+            <div class="footer">
+            <p><strong>SALES PERFORMANCE REPORT</strong> | Generated for Internal Use Only</p>
+            <p>Report Generated: {{ \Carbon\Carbon::now()->format('F j, Y \a\t g:i A') }} | Period: {{ $dateRange['label'] }}</p>
+            <p>© {{ now()->year }} Soosan Cebotics. All rights reserved.</p>
+        </div>
+
+        <!-- PDF Download Button -->
+        <div style="position: fixed; bottom: 30px; right: 30px; z-index: 1000;">
+            <button type="button" id="pdfDownloadBtn" style="
+                background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+                color: white;
+                border: none;
+                border-radius: 50px;
+                padding: 15px 25px;
+                font-size: 16px;
+                font-weight: 600;
+                cursor: pointer;
+                box-shadow: 0 8px 25px rgba(231, 76, 60, 0.3);
+                transition: all 0.3s ease;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            ">
+                <i class="fas fa-download"></i>
+                Download PDF Report
+            </button>
+        </div>
+
+        <!-- Toast Notification -->
+        <div id="pdfToast" style="
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            background: #27ae60;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            font-weight: 600;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1001;
+        ">
+            PDF Download Started!
+        </div>
     </div>
-</body>
+
+    <!-- Include jsPDF and AutoTable libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const downloadBtn = document.getElementById('pdfDownloadBtn');
+        const toast = document.getElementById('pdfToast');
+
+        // Sales report data
+        const reportData = {
+            title: 'Sales Performance Report',
+            subtitle: 'Comprehensive Sales Analysis & Metrics',
+            period: '{{ $dateRange["label"] }}',
+            dateRange: '{{ $dateRange["start"]->format("M d, Y") }} - {{ $dateRange["end"]->format("M d, Y") }}',
+            generatedDate: '{{ \Carbon\Carbon::now()->format("F j, Y \\a\\t g:i A") }}',
+            
+            // Summary Statistics
+            summary: {
+                totalSales: {{ $data['summary']['total_sales'] }},
+                totalRevenue: {{ $data['summary']['total_revenue'] }},
+                averageSale: {{ $data['summary']['average_sale'] }},
+                activeWarranties: {{ $data['warranty_analysis']->total_sales ?? 0 }},
+                uniqueProducts: {{ $data['serial_analysis']->unique_serials ?? 0 }}
+            },
+
+            // Product Performance Data
+            productPerformance: [
+                @foreach($data['sales_by_product']->take(10) as $index => $product)
+                {
+                    rank: {{ $index + 1 }},
+                    model: '{{ addslashes($product->model_name) }}',
+                    line: '{{ addslashes($product->line ?? 'N/A') }}',
+                    type: '{{ addslashes($product->type ?? 'N/A') }}',
+                    category: '{{ addslashes($product->category_name) }}',
+                    unitsSold: {{ $product->quantity_sold }},
+                    revenue: {{ $product->revenue }},
+                    avgPrice: {{ $product->avg_price }},
+                    performance: '{{ $product->quantity_sold >= 50 ? 'Excellent' : ($product->quantity_sold >= 25 ? 'Good' : 'Average') }}'
+                }@if(!$loop->last),@endif
+                @endforeach
+            ],
+
+            // Daily Sales Data
+            dailySales: [
+                @foreach($data['daily_sales']->take(15) as $day)
+                {
+                    date: '{{ \Carbon\Carbon::parse($day->date)->format("M d, Y") }}',
+                    salesCount: {{ $day->sales_count }},
+                    revenue: {{ $day->revenue }},
+                    avgSaleValue: {{ $day->sales_count > 0 ? $day->revenue / $day->sales_count : 0 }},
+                    performance: '{{ $day->sales_count >= 10 ? 'Excellent' : ($day->sales_count >= 5 ? 'Good' : 'Average') }}'
+                }@if(!$loop->last),@endif
+                @endforeach
+            ],
+
+            // Staff Performance Data
+            staffPerformance: [
+                @foreach($data['sales_by_staff']->take(10) as $index => $staff)
+                @php
+                    $avgSale = $staff->sales_count > 0 ? $staff->revenue / $staff->sales_count : 0;
+                    $maxRevenue = $data['sales_by_staff']->max('revenue');
+                    $efficiency = $maxRevenue > 0 ? ($staff->revenue / $maxRevenue) * 100 : 0;
+                @endphp
+                {
+                    rank: {{ $index + 1 }},
+                    name: '{{ addslashes($staff->name) }}',
+                    role: '{{ addslashes(ucfirst($staff->role)) }}',
+                    salesCount: {{ $staff->sales_count }},
+                    revenue: {{ $staff->revenue }},
+                    avgSale: {{ $avgSale }},
+                    efficiency: {{ $efficiency }},
+                    performance: '{{ $staff->sales_count >= 25 ? 'Excellent' : ($staff->sales_count >= 15 ? 'Good' : 'Average') }}'
+                }@if(!$loop->last),@endif
+                @endforeach
+            ],
+
+            // Warranty Analysis
+            warrantyAnalysis: {
+                totalProducts: {{ $data['warranty_analysis']->total_sales ?? 0 }},
+                activeWarranties: {{ $data['warranty_analysis']->active_warranties ?? 0 }},
+                expiredWarranties: {{ $data['warranty_analysis']->expired_warranties ?? 0 }},
+                avgWarrantyDays: {{ $data['warranty_analysis']->avg_warranty_days ?? 0 }}
+            }
+        };
+
+        function showToast(message) {
+            toast.textContent = message;
+            toast.style.transform = 'translateY(0)';
+            toast.style.opacity = '1';
+            setTimeout(() => {
+                toast.style.transform = 'translateY(100px)';
+                toast.style.opacity = '0';
+            }, 3000);
+        }
+
+        function formatCurrency(amount) {
+            return '$' + new Intl.NumberFormat('en-US', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            }).format(amount);
+        }
+
+        function formatNumber(num) {
+            return new Intl.NumberFormat('en-US').format(num);
+        }
+
+        downloadBtn.addEventListener('click', function() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF({ unit: 'pt', format: 'a4' });
+            const pageWidth = doc.internal.pageSize.getWidth();
+            const pageHeight = doc.internal.pageSize.getHeight();
+            let currentY = 40;
+
+            // Company logo
+            const logoUrl = '{{ asset('images/logo2.png') }}';
+            const logoImg = new Image();
+            logoImg.crossOrigin = 'anonymous';
+            
+            logoImg.onload = function() {
+                generatePDF();
+            };
+            
+            logoImg.onerror = function() {
+                console.warn('Logo failed to load, generating PDF without logo');
+                generatePDF();
+            };
+
+            function generatePDF() {
+                // === HEADER SECTION ===
+                doc.setFillColor(231, 76, 60); // Sales red color
+                doc.rect(0, 0, pageWidth, 140, 'F');
+
+                // Add logo if loaded
+                if (logoImg.complete && logoImg.naturalHeight !== 0) {
+                    doc.addImage(logoImg, 'PNG', pageWidth - 180, 15, 150, 90);
+                }
+
+                // Header text
+                doc.setTextColor(255, 255, 255);
+                doc.setFontSize(28);
+                doc.setFont('helvetica', 'bold');
+                doc.text(reportData.title, 40, 60);
+                
+                doc.setFontSize(16);
+                doc.setFont('helvetica', 'normal');
+                doc.text(reportData.subtitle, 40, 85);
+                
+                doc.setFontSize(14);
+                doc.text('Period: ' + reportData.period, 40, 110);
+                doc.text(reportData.dateRange, 40, 130);
+
+                currentY = 160;
+
+                // === EXECUTIVE SUMMARY ===
+                doc.setTextColor(0, 0, 0);
+                doc.setFontSize(18);
+                doc.setFont('helvetica', 'bold');
+                doc.text('📊 Executive Summary', 40, currentY);
+                currentY += 30;
+
+                // Summary statistics in a grid
+                const summaryData = [
+                    ['Metric', 'Value', 'Performance'],
+                    ['Total Sales', formatNumber(reportData.summary.totalSales), 'Units'],
+                    ['Total Revenue', formatCurrency(reportData.summary.totalRevenue), 'USD'],
+                    ['Average Sale Value', formatCurrency(reportData.summary.averageSale), 'USD per sale'],
+                    ['Active Warranties', formatNumber(reportData.summary.activeWarranties), 'Products'],
+                    ['Unique Products', formatNumber(reportData.summary.uniqueProducts), 'Models']
+                ];
+
+                doc.autoTable({
+                    startY: currentY,
+                    head: [summaryData[0]],
+                    body: summaryData.slice(1),
+                    theme: 'grid',
+                    headStyles: {
+                        fillColor: [231, 76, 60],
+                        textColor: [255, 255, 255],
+                        fontStyle: 'bold',
+                        fontSize: 12
+                    },
+                    styles: {
+                        fontSize: 10,
+                        cellPadding: 8,
+                        font: 'helvetica'
+                    },
+                    alternateRowStyles: {
+                        fillColor: [248, 249, 250]
+                    },
+                    margin: { left: 40, right: 40 },
+                    columnStyles: {
+                        0: { cellWidth: 120, fontStyle: 'bold' },
+                        1: { cellWidth: 100, halign: 'right' },
+                        2: { cellWidth: 120, halign: 'center' }
+                    }
+                });
+
+                currentY = doc.lastAutoTable.finalY + 40;
+
+                // === PRODUCT PERFORMANCE ===
+                if (currentY > pageHeight - 200) {
+                    doc.addPage();
+                    currentY = 40;
+                }
+
+                doc.setFontSize(18);
+                doc.setFont('helvetica', 'bold');
+                doc.text('🏆 Top Product Performance', 40, currentY);
+                currentY += 30;
+
+                if (reportData.productPerformance.length > 0) {
+                    const productTableData = [
+                        ['Rank', 'Product Model', 'Line', 'Units', 'Revenue', 'Avg Price', 'Performance']
+                    ];
+
+                    reportData.productPerformance.slice(0, 8).forEach(product => {
+                        productTableData.push([
+                            product.rank.toString(),
+                            product.model,
+                            product.line,
+                            formatNumber(product.unitsSold),
+                            formatCurrency(product.revenue),
+                            formatCurrency(product.avgPrice),
+                            product.performance
+                        ]);
+                    });
+
+                    doc.autoTable({
+                        startY: currentY,
+                        head: [productTableData[0]],
+                        body: productTableData.slice(1),
+                        theme: 'grid',
+                        headStyles: {
+                            fillColor: [231, 76, 60],
+                            textColor: [255, 255, 255],
+                            fontStyle: 'bold',
+                            fontSize: 10
+                        },
+                        styles: {
+                            fontSize: 9,
+                            cellPadding: 6,
+                            font: 'helvetica'
+                        },
+                        alternateRowStyles: {
+                            fillColor: [248, 249, 250]
+                        },
+                        margin: { left: 40, right: 40 },
+                        columnStyles: {
+                            0: { cellWidth: 35, halign: 'center' },
+                            1: { cellWidth: 120, fontStyle: 'bold' },
+                            2: { cellWidth: 60 },
+                            3: { cellWidth: 50, halign: 'right' },
+                            4: { cellWidth: 80, halign: 'right' },
+                            5: { cellWidth: 70, halign: 'right' },
+                            6: { cellWidth: 70, halign: 'center' }
+                        }
+                    });
+
+                    currentY = doc.lastAutoTable.finalY + 40;
+                }
+
+                // === STAFF PERFORMANCE ===
+                if (currentY > pageHeight - 200) {
+                    doc.addPage();
+                    currentY = 40;
+                }
+
+                doc.setFontSize(18);
+                doc.setFont('helvetica', 'bold');
+                doc.text('👥 Sales Team Performance', 40, currentY);
+                currentY += 30;
+
+                if (reportData.staffPerformance.length > 0) {
+                    const staffTableData = [
+                        ['Rank', 'Staff Name', 'Role', 'Sales', 'Revenue', 'Avg Sale', 'Efficiency']
+                    ];
+
+                    reportData.staffPerformance.slice(0, 8).forEach(staff => {
+                        staffTableData.push([
+                            staff.rank.toString(),
+                            staff.name,
+                            staff.role,
+                            formatNumber(staff.salesCount),
+                            formatCurrency(staff.revenue),
+                            formatCurrency(staff.avgSale),
+                            staff.efficiency.toFixed(1) + '%'
+                        ]);
+                    });
+
+                    doc.autoTable({
+                        startY: currentY,
+                        head: [staffTableData[0]],
+                        body: staffTableData.slice(1),
+                        theme: 'grid',
+                        headStyles: {
+                            fillColor: [231, 76, 60],
+                            textColor: [255, 255, 255],
+                            fontStyle: 'bold',
+                            fontSize: 10
+                        },
+                        styles: {
+                            fontSize: 9,
+                            cellPadding: 6,
+                            font: 'helvetica'
+                        },
+                        alternateRowStyles: {
+                            fillColor: [248, 249, 250]
+                        },
+                        margin: { left: 40, right: 40 },
+                        columnStyles: {
+                            0: { cellWidth: 35, halign: 'center' },
+                            1: { cellWidth: 120, fontStyle: 'bold' },
+                            2: { cellWidth: 80 },
+                            3: { cellWidth: 60, halign: 'right' },
+                            4: { cellWidth: 80, halign: 'right' },
+                            5: { cellWidth: 70, halign: 'right' },
+                            6: { cellWidth: 60, halign: 'center' }
+                        }
+                    });
+
+                    currentY = doc.lastAutoTable.finalY + 40;
+                }
+
+                // === DAILY TRENDS ===
+                if (currentY > pageHeight - 200) {
+                    doc.addPage();
+                    currentY = 40;
+                }
+
+                doc.setFontSize(18);
+                doc.setFont('helvetica', 'bold');
+                doc.text('📈 Daily Sales Trends', 40, currentY);
+                currentY += 30;
+
+                if (reportData.dailySales.length > 0) {
+                    const dailyTableData = [
+                        ['Date', 'Sales Count', 'Revenue', 'Avg Sale Value', 'Performance']
+                    ];
+
+                    reportData.dailySales.slice(0, 10).forEach(day => {
+                        dailyTableData.push([
+                            day.date,
+                            formatNumber(day.salesCount),
+                            formatCurrency(day.revenue),
+                            formatCurrency(day.avgSaleValue),
+                            day.performance
+                        ]);
+                    });
+
+                    doc.autoTable({
+                        startY: currentY,
+                        head: [dailyTableData[0]],
+                        body: dailyTableData.slice(1),
+                        theme: 'grid',
+                        headStyles: {
+                            fillColor: [231, 76, 60],
+                            textColor: [255, 255, 255],
+                            fontStyle: 'bold',
+                            fontSize: 10
+                        },
+                        styles: {
+                            fontSize: 9,
+                            cellPadding: 6,
+                            font: 'helvetica'
+                        },
+                        alternateRowStyles: {
+                            fillColor: [248, 249, 250]
+                        },
+                        margin: { left: 40, right: 40 },
+                        columnStyles: {
+                            0: { cellWidth: 100 },
+                            1: { cellWidth: 80, halign: 'right' },
+                            2: { cellWidth: 100, halign: 'right' },
+                            3: { cellWidth: 100, halign: 'right' },
+                            4: { cellWidth: 80, halign: 'center' }
+                        }
+                    });
+
+                    currentY = doc.lastAutoTable.finalY + 40;
+                }
+
+                // === WARRANTY ANALYSIS ===
+                if (currentY > pageHeight - 150) {
+                    doc.addPage();
+                    currentY = 40;
+                }
+
+                doc.setFontSize(18);
+                doc.setFont('helvetica', 'bold');
+                doc.text('🛡️ Warranty Analysis', 40, currentY);
+                currentY += 30;
+
+                const warrantyData = [
+                    ['Warranty Metric', 'Count', 'Percentage'],
+                    ['Total Products Sold', formatNumber(reportData.warrantyAnalysis.totalProducts), '100%'],
+                    ['Active Warranties', formatNumber(reportData.warrantyAnalysis.activeWarranties), 
+                     (reportData.warrantyAnalysis.totalProducts > 0 ? 
+                      ((reportData.warrantyAnalysis.activeWarranties / reportData.warrantyAnalysis.totalProducts) * 100).toFixed(1) + '%' : '0%')],
+                    ['Expired Warranties', formatNumber(reportData.warrantyAnalysis.expiredWarranties),
+                     (reportData.warrantyAnalysis.totalProducts > 0 ? 
+                      ((reportData.warrantyAnalysis.expiredWarranties / reportData.warrantyAnalysis.totalProducts) * 100).toFixed(1) + '%' : '0%')],
+                    ['Avg Warranty Period', formatNumber(reportData.warrantyAnalysis.avgWarrantyDays) + ' days', 'N/A']
+                ];
+
+                doc.autoTable({
+                    startY: currentY,
+                    head: [warrantyData[0]],
+                    body: warrantyData.slice(1),
+                    theme: 'grid',
+                    headStyles: {
+                        fillColor: [231, 76, 60],
+                        textColor: [255, 255, 255],
+                        fontStyle: 'bold',
+                        fontSize: 12
+                    },
+                    styles: {
+                        fontSize: 10,
+                        cellPadding: 8,
+                        font: 'helvetica'
+                    },
+                    alternateRowStyles: {
+                        fillColor: [248, 249, 250]
+                    },
+                    margin: { left: 40, right: 40 },
+                    columnStyles: {
+                        0: { cellWidth: 180, fontStyle: 'bold' },
+                        1: { cellWidth: 120, halign: 'right' },
+                        2: { cellWidth: 100, halign: 'center' }
+                    }
+                });
+
+                // === FOOTER ===
+                const totalPages = doc.internal.getNumberOfPages();
+                for (let i = 1; i <= totalPages; i++) {
+                    doc.setPage(i);
+                    
+                    // Footer background
+                    doc.setFillColor(248, 249, 250);
+                    doc.rect(0, pageHeight - 60, pageWidth, 60, 'F');
+                    
+                    // Footer content
+                    doc.setTextColor(0, 0, 0);
+                    doc.setFontSize(10);
+                    doc.setFont('helvetica', 'bold');
+                    doc.text('SALES PERFORMANCE REPORT', pageWidth / 2, pageHeight - 40, { align: 'center' });
+                    
+                    doc.setFont('helvetica', 'normal');
+                    doc.setFontSize(8);
+                    doc.text('Generated: ' + reportData.generatedDate + ' | Period: ' + reportData.period, 
+                             pageWidth / 2, pageHeight - 25, { align: 'center' });
+                    doc.text('Page ' + i + ' of ' + totalPages, pageWidth / 2, pageHeight - 10, { align: 'center' });
+                    
+                    doc.text('© ' + new Date().getFullYear() + ' Soosan Cebotics. All rights reserved.', 
+                             40, pageHeight - 10);
+                }
+
+                // Save the PDF
+                const fileName = 'Sales_Performance_Report_' + reportData.period.replace(/\s+/g, '_') + '_' + 
+                                new Date().toISOString().slice(0, 10) + '.pdf';
+                doc.save(fileName);
+                
+                showToast('PDF Downloaded Successfully!');
+            }
+
+            logoImg.src = logoUrl;
+        });
+
+        // Hover effects for download button
+        downloadBtn.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-3px) scale(1.05)';
+            this.style.boxShadow = '0 12px 35px rgba(231, 76, 60, 0.4)';
+        });
+
+        downloadBtn.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0) scale(1)';
+            this.style.boxShadow = '0 8px 25px rgba(231, 76, 60, 0.3)';
+        });
+    });
+    </script>
+    </body>
 </html>

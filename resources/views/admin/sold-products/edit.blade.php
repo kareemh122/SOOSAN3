@@ -585,12 +585,12 @@
                     <a href="{{ route('admin.sold-products.show', $soldProduct) }}" class="modern-btn modern-btn-warning">
                         <i class="fas fa-eye me-2 mobile-icon-show"></i>
                         <span class="mobile-text-hide">{{ __('sold-products.view_sale') }}</span>
-                        <span class="d-md-none">View</span>
+                        <span class="d-md-none">{{ __('sold-products.view_sale') }}</span>
                     </a>
                     <a href="{{ route('admin.sold-products.index') }}" class="modern-btn modern-btn-secondary">
                         <i class="fas fa-arrow-left me-2 mobile-icon-show"></i>
                         <span class="mobile-text-hide">{{ __('sold-products.back_to_sales') }}</span>
-                        <span class="d-md-none">Back</span>
+                        <span class="d-md-none">{{ __('sold-products.back_to_sales') }}</span>
                     </a>
                 </div>
             </div>
@@ -785,12 +785,12 @@
                         <a href="{{ route('admin.sold-products.index') }}" class="modern-btn modern-btn-secondary">
                             <i class="fas fa-times me-2"></i>
                             <span class="mobile-text-hide">{{ __('sold-products.cancel') }}</span>
-                            <span class="d-md-none">Cancel</span>
+                            <span class="d-md-none">{{ __('sold-products.cancel') }}</span>
                         </a>
                         <button type="submit" class="modern-btn" id="submitBtn">
                             <i class="fas fa-save me-2"></i>
                             <span class="mobile-text-hide">{{ __('sold-products.update_sale') }}</span>
-                            <span class="d-md-none">Update</span>
+                            <span class="d-md-none">{{ __('sold-products.update_sale') }}</span>
                         </button>
                     </div>
                 </form>

@@ -45,6 +45,8 @@ return [
     'save_user' => 'حفظ المستخدم',
     'update_user' => 'تحديث المستخدم',
     'cancel' => 'إلغاء',
+    'filter' => 'بحث',
+    'created' => 'تم الإنشاء',
     
     // User Information
     'user_details' => 'تفاصيل المستخدم',

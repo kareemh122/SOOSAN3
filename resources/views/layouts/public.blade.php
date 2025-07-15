@@ -84,6 +84,248 @@
             font-size: 18px;
             color: #ccc;
         }
+
+        /* Enhanced Navbar Logo Styling */
+        .navbar-logo {
+            transition: all 0.3s ease;
+            filter: brightness(1.1) contrast(1.1);
+        }
+
+        .navbar-logo:hover {
+            transform: scale(1.05);
+            filter: brightness(1.2) contrast(1.2);
+        }
+
+        .navbar-brand {
+            padding: 0.5rem 0;
+        }
+
+        /* Responsive logo sizing */
+        @media (max-width: 768px) {
+            .navbar-logo {
+                height: 55px !important;
+                max-width: 160px !important;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .navbar-logo {
+                height: 50px !important;
+                max-width: 140px !important;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .navbar-logo {
+                height: 70px !important;
+                max-width: 220px !important;
+            }
+        }
+
+        /* Multi-level Dropdown Styles */
+        .navbar-nav-dropdown {
+            position: relative;
+        }
+
+        .navbar-nav-dropdown .nav-icon-item {
+            position: relative;
+        }
+
+        .dropdown-menu-level1 {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            min-width: 280px;
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            z-index: 1050;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            margin-top: 8px;
+        }
+
+        .navbar-nav-dropdown:hover .dropdown-menu-level1 {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-menu-level2 {
+            position: absolute;
+            top: 0;
+            left: 100%;
+            min-width: 260px;
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            z-index: 1051;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(-10px);
+            transition: all 0.3s ease;
+            margin-left: 5px;
+        }
+
+        .dropdown-category-item:hover .dropdown-menu-level2 {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(0);
+        }
+
+        .dropdown-category-item {
+            position: relative;
+            padding: 12px 20px;
+            color: #374151;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #f3f4f6;
+            transition: all 0.2s ease;
+        }
+
+        .dropdown-category-item:hover {
+            background: #f8fafc;
+            color: #1f2937;
+            text-decoration: none;
+        }
+
+        .dropdown-category-item:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-category-item .category-icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 12px;
+            color: #6b7280;
+        }
+
+        .dropdown-category-item .arrow-icon {
+            font-size: 12px;
+            color: #9ca3af;
+        }
+
+        .dropdown-line-item {
+            padding: 10px 20px;
+            color: #374151;
+            text-decoration: none;
+            display: block;
+            border-bottom: 1px solid #f3f4f6;
+            transition: all 0.2s ease;
+            font-size: 14px;
+        }
+
+        .dropdown-line-item:hover {
+            background: #f0f9ff;
+            color: #0284c7;
+            text-decoration: none;
+            padding-left: 24px;
+        }
+
+        .dropdown-line-item:last-child {
+            border-bottom: none;
+        }
+
+        /* RTL Support */
+        html[dir='rtl'] .dropdown-menu-level1 {
+            left: auto;
+            right: 0;
+        }
+
+        html[dir='rtl'] .dropdown-menu-level2 {
+            left: auto;
+            right: 100%;
+            margin-left: 0;
+            margin-right: 5px;
+        }
+
+        html[dir='rtl'] .dropdown-category-item .category-icon {
+            margin-right: 0;
+            margin-left: 12px;
+        }
+
+        html[dir='rtl'] .dropdown-category-item .arrow-icon {
+            transform: rotate(180deg);
+        }
+
+        html[dir='rtl'] .dropdown-line-item:hover {
+            padding-left: 20px;
+            padding-right: 24px;
+        }
+
+        html[dir='rtl'] .dropdown-category-item:hover .dropdown-menu-level2 {
+            transform: translateX(0);
+        }
+
+        html[dir='rtl'] .dropdown-menu-level2 {
+            transform: translateX(10px);
+        }
+
+        /* Enhanced hover effects */
+        .navbar-nav-dropdown .nav-icon-item:hover {
+            background: rgba(37, 99, 235, 0.1);
+            border-radius: 8px;
+        }
+
+        .dropdown-category-item .category-icon {
+            transition: color 0.2s ease;
+        }
+
+        .dropdown-category-item:hover .category-icon {
+            color: #2563eb;
+        }
+
+        .dropdown-category-item:hover .arrow-icon {
+            color: #2563eb;
+            transform: translateX(3px);
+        }
+
+        html[dir='rtl'] .dropdown-category-item:hover .arrow-icon {
+            transform: rotate(180deg) translateX(3px);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 991px) {
+            .navbar-nav-dropdown {
+                position: static;
+            }
+            
+            .dropdown-menu-level1,
+            .dropdown-menu-level2 {
+                position: static;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                box-shadow: none;
+                border: none;
+                margin: 0;
+                background: transparent;
+                min-width: auto;
+                width: 100%;
+            }
+
+            .dropdown-category-item {
+                padding: 8px 12px;
+                font-size: 14px;
+            }
+
+            .dropdown-line-item {
+                padding: 6px 16px;
+                font-size: 13px;
+                margin-left: 20px;
+            }
+
+            html[dir='rtl'] .dropdown-line-item {
+                margin-left: 0;
+                margin-right: 20px;
+            }
+        }
     </style>
 </head>
 
@@ -93,8 +335,9 @@
         <div class="container-fluid">
             <!-- Logo -->
             <a class="navbar-brand d-flex align-items-center" href="{{ route('homepage') }}">
-                <img src="{{ asset('images/logo.webp') }}" height="45" alt="SoosanEgypt"
-                    class="{{ app()->isLocale('ar') ? 'ms-2' : 'me-2' }}">
+                <img src="{{ asset('images/logo.webp') }}" height="65" alt="SoosanEgypt"
+                    class="navbar-logo {{ app()->isLocale('ar') ? 'ms-2' : 'me-2' }}"
+                    style="max-width: 200px; width: auto; object-fit: contain;">
                 {{-- <span class="fs-4 fw-bold text-dark">Soosan</span> --}}
             </a>
 
@@ -114,11 +357,52 @@
                         <span class="nav-icon-label">{{ __('common.home') }}</span>
                     </a>
 
-                    <a href="{{ route('products.index') }}"
-                       class="nav-icon-item {{ request()->routeIs('products.*') ? 'active' : '' }}">
-                        <i class="fas fa-cogs nav-icon"></i>
-                        <span class="nav-icon-label">{{ __('common.products') }}</span>
-                    </a>
+                    <!-- Multi-level Products Dropdown -->
+                    <div class="navbar-nav-dropdown">
+                        <a href="{{ route('products.index') }}"
+                           class="nav-icon-item {{ request()->routeIs('products.*') ? 'active' : '' }}">
+                            <i class="fas fa-cogs nav-icon"></i>
+                            <span class="nav-icon-label">{{ __('common.products') }}</span>
+                        </a>
+                        
+                        <!-- Level 1 Dropdown: Categories -->
+                        <div class="dropdown-menu-level1">
+                            @if($productCategories && $productCategories->count() > 0)
+                                @foreach($productCategories as $category)
+                                    <div class="dropdown-category-item">
+                                        <div class="d-flex align-items-center">
+                                            <i class="fas fa-layer-group category-icon"></i>
+                                            <span>{{ $category->name }}</span>
+                                        </div>
+                                        <i class="fas fa-chevron-right arrow-icon"></i>
+                                        
+                                        <!-- Level 2 Dropdown: Product Lines -->
+                                        <div class="dropdown-menu-level2">
+                                            <a href="{{ route('products.index', ['line' => ['SQ Line']]) }}" class="dropdown-line-item">
+                                            {{ __('common.SQ_line') }}
+                                            </a>
+                                            <a href="{{ route('products.index', ['line' => ['SB Line']]) }}" class="dropdown-line-item">
+                                            {{ __('common.SB_line') }}
+                                            </a>
+                                            <a href="{{ route('products.index', ['line' => ['SB-E Line']]) }}" class="dropdown-line-item">
+                                            {{ __('common.SB-E_line') }}
+                                            </a>
+                                            <a href="{{ route('products.index', ['line' => ['ET-II Line']]) }}" class="dropdown-line-item">
+                                            {{ __('common.ET-II_line') }}
+                                            </a>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            @else
+                                <div class="dropdown-category-item">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fas fa-layer-group category-icon"></i>
+                                        <span>{{ __('common.no_categories') }}</span>
+                                    </div>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
 
                     <a href="{{ route('serial-lookup.index') }}"
                        class="nav-icon-item {{ request()->routeIs('serial-lookup.*') ? 'active' : '' }}">
@@ -175,7 +459,7 @@
                         </a>
                     @endauth
                 </div>
-
+                
                 <!-- Language Toggle with Earth Icon -->
                 <x-language-toggle class="ms-4" />
             </div>
@@ -508,6 +792,63 @@
                 });
             });
 
+            // Enhanced multi-level dropdown functionality
+            const dropdownItems = document.querySelectorAll('.dropdown-category-item');
+            let activeDropdown = null;
+            let dropdownTimeout = null;
+
+            dropdownItems.forEach(item => {
+                const level2Menu = item.querySelector('.dropdown-menu-level2');
+                
+                item.addEventListener('mouseenter', function() {
+                    clearTimeout(dropdownTimeout);
+                    
+                    // Hide other level 2 menus
+                    dropdownItems.forEach(otherItem => {
+                        if (otherItem !== item) {
+                            const otherLevel2 = otherItem.querySelector('.dropdown-menu-level2');
+                            if (otherLevel2) {
+                                otherLevel2.style.opacity = '0';
+                                otherLevel2.style.visibility = 'hidden';
+                                otherLevel2.style.transform = 'translateX(-10px)';
+                            }
+                        }
+                    });
+                    
+                    // Show current level 2 menu
+                    if (level2Menu) {
+                        setTimeout(() => {
+                            level2Menu.style.opacity = '1';
+                            level2Menu.style.visibility = 'visible';
+                            level2Menu.style.transform = 'translateX(0)';
+                        }, 100);
+                    }
+                });
+
+                item.addEventListener('mouseleave', function() {
+                    dropdownTimeout = setTimeout(() => {
+                        if (level2Menu) {
+                            level2Menu.style.opacity = '0';
+                            level2Menu.style.visibility = 'hidden';
+                            level2Menu.style.transform = 'translateX(-10px)';
+                        }
+                    }, 150);
+                });
+
+                // Keep level 2 menu open when hovering over it
+                if (level2Menu) {
+                    level2Menu.addEventListener('mouseenter', function() {
+                        clearTimeout(dropdownTimeout);
+                    });
+
+                    level2Menu.addEventListener('mouseleave', function() {
+                        this.style.opacity = '0';
+                        this.style.visibility = 'hidden';
+                        this.style.transform = 'translateX(-10px)';
+                    });
+                }
+            });
+
             // Enhanced navbar scroll behavior
             let lastScrollTop = 0;
             const navbar = document.querySelector('.navbar');
@@ -522,6 +863,21 @@
                 }
 
                 lastScrollTop = scrollTop;
+            });
+
+            // Close dropdowns when clicking outside
+            document.addEventListener('click', function(e) {
+                const dropdown = e.target.closest('.navbar-nav-dropdown');
+                if (!dropdown) {
+                    dropdownItems.forEach(item => {
+                        const level2Menu = item.querySelector('.dropdown-menu-level2');
+                        if (level2Menu) {
+                            level2Menu.style.opacity = '0';
+                            level2Menu.style.visibility = 'hidden';
+                            level2Menu.style.transform = 'translateX(-10px)';
+                        }
+                    });
+                }
             });
         });
     </script>
@@ -541,7 +897,7 @@
             visibility: hidden;
             box-shadow: 0 8px 32px rgba(0, 84, 142, 0.18);
             font-size: 1.5rem;
-            padding-right: 14px;
+            
         }
         .scroll-to-top-btn.show {
             opacity: 1;
@@ -553,6 +909,7 @@
         html[dir='rtl'] .scroll-to-top-btn {
             right: auto;
             left: 32px;
+            padding-right: 14px;
         }
     </style>
     <script>

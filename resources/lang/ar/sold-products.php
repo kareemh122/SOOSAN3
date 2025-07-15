@@ -6,6 +6,7 @@ return [
     'sold_products' => 'المنتجات المباعة',
     'sold_products_management' => 'إدارة المنتجات المباعة',
     'sales_management' => 'إدارة المبيعات',
+    'warranty_management' => 'إدارة الضمان',
     'manage_sales' => 'تتبع وإدارة جميع مبيعات المنتجات والمعاملات',
     'product_sales' => 'مبيعات المنتجات',
     'sales_transactions' => 'معاملات المبيعات',
@@ -361,7 +362,8 @@ return [
     'complete_information' => 'معلومات كاملة حول بيع هذا المنتج',
     'update_information' => 'تحديث معلومات المنتج المباع وتفاصيل الضمان',
     'sale_number' => 'البيع رقم :id',
-    
+    'sale_recored_by' => 'تم تسجيل البيع بواسطة',
+
     // Form fields and labels
     'product' => 'المنتج',
     'owner' => 'المالك',

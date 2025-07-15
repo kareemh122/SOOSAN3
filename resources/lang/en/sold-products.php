@@ -6,6 +6,7 @@ return [
     'sold_products' => 'Sold Products',
     'sold_products_management' => 'Sold Products Management',
     'sales_management' => 'Sales Management',
+    'warranty_management' => 'Warranty Management',
     'manage_sales' => 'Track and manage all product sales and transactions',
     'product_sales' => 'Product Sales',
     'sales_transactions' => 'Sales Transactions',
@@ -85,7 +86,7 @@ return [
     'warranty_years' => 'Warranty (Years)',
     'warranty_status' => 'Warranty Status',
     'active_warranty' => 'Active Warranty',
-    'expired_warranty' => 'Expired Warranty',
+    'warranty_expires' => 'Expired Warranty',
     'notes' => 'Notes',
     'sale_notes' => 'Sale Notes',
     'comments' => 'Comments',
@@ -97,6 +98,7 @@ return [
     'payment_status' => 'Payment Status',
     'invoice_number' => 'Invoice Number',
     'receipt_number' => 'Receipt Number',
+    'sale_recored_by' => 'Sale Recorded By:',
     
     // Payment Methods
     'cash' => 'Cash',
