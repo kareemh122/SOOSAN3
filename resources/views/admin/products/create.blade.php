@@ -564,17 +564,17 @@
             font-size: 0.9rem;
         }
 
-        .modern-btn {
+    .modern-btn {
             width: 100%;
             padding: 0.75rem 1rem;
-            font-size: 0.9rem;
+        font-size: 0.9rem;
             margin-bottom: 0.5rem;
         }
 
         .btn-group {
             display: flex;
             flex-direction: column;
-            gap: 0.5rem;
+        gap: 0.5rem;
             width: 100%;
         }
 
@@ -612,7 +612,7 @@
 
         .image-preview-grid {
             grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-            gap: 0.75rem;
+        gap: 0.75rem;
         }
 
         .d-flex.justify-content-between {
@@ -846,15 +846,15 @@
     }
 </style>
 
-<!-- Page Header -->
+    <!-- Page Header -->
 <div class="modern-page-header animate-fade-in-up">
     <div class="container-fluid position-relative">
-        <div class="row align-items-center">
-            <div class="col-md-8">
+            <div class="row align-items-center">
+                <div class="col-md-8">
                 <h1 class="h2 mb-2">{{ __('products.create_new_product') }}</h1>
                 <p class="mb-0 opacity-75">{{ __('products.add_new_product_to_catalog') }}</p>
-            </div>
-            <div class="col-md-4 text-md-end">
+                </div>
+                <div class="col-md-4 text-md-end">
                 <div class="btn-group">
                     <a href="{{ route('admin.products.index') }}" class="modern-btn modern-btn-secondary">
                         <i class="fas fa-arrow-left me-2 mobile-icon-show"></i>
@@ -862,24 +862,24 @@
                         <span class="d-md-none">{{ __('products.mobile_back') }}</span>
                     </a>
                 </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- Success/Error Messages -->
-@if(session('success'))
-    <div class="modern-alert success">
-        <i class="fas fa-check-circle"></i>
-        {{ session('success') }}
-    </div>
-@endif
-@if(session('error'))
-    <div class="modern-alert error">
-        <i class="fas fa-exclamation-circle"></i>
-        {{ session('error') }}
-    </div>
-@endif
+    <!-- Success/Error Messages -->
+    @if(session('success'))
+        <div class="modern-alert success">
+            <i class="fas fa-check-circle"></i>
+            {{ session('success') }}
+        </div>
+    @endif
+    @if(session('error'))
+        <div class="modern-alert error">
+            <i class="fas fa-exclamation-circle"></i>
+            {{ session('error') }}
+        </div>
+    @endif
 
 <div class="row justify-content-center">
     <div class="col-lg-10">
@@ -900,382 +900,382 @@
                 </div>
 
                 <form action="{{ route('admin.products.store') }}" method="POST" enctype="multipart/form-data" id="createProductForm">
-                    @csrf
+            @csrf
 
-                    <!-- Basic Information Section -->
+            <!-- Basic Information Section -->
                     <div class="modern-card animate-stagger">
                         <div class="modern-card-header">
                             <h3 class="modern-card-title">
-                                <i class="fas fa-info-circle"></i>
+                        <i class="fas fa-info-circle"></i>
                                 {{ __('products.basic_information') }}
                             </h3>
-                        </div>
+                    </div>
                         <div class="modern-card-body">
                             <div class="form-grid">
-                                <div class="modern-form-group">
-                                    <label for="model_name" class="modern-label">
+                    <div class="modern-form-group">
+                        <label for="model_name" class="modern-label">
                                         <i class="fas fa-tag mobile-icon"></i>
                                         {{ __('products.model_name') }} <span class="required">*</span>
-                                    </label>
-                                    <input type="text" 
+                        </label>
+                        <input type="text" 
                                            class="modern-input @error('model_name') is-invalid @enderror" 
-                                           id="model_name" 
-                                           name="model_name" 
-                                           value="{{ old('model_name') }}" 
+                               id="model_name" 
+                               name="model_name" 
+                               value="{{ old('model_name') }}" 
                                            placeholder="{{ __('products.enter_model_name') }}"
-                                           required>
-                                    @error('model_name')
+                               required>
+                        @error('model_name')
                                         <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
+                        @enderror
+                    </div>
 
-                                <div class="modern-form-group">
-                                    <label for="category_id" class="modern-label">
+                    <div class="modern-form-group">
+                        <label for="category_id" class="modern-label">
                                         <i class="fas fa-folder mobile-icon"></i>
                                         {{ __('products.category') }} <span class="required">*</span>
-                                    </label>
+                        </label>
                                     <select class="modern-select @error('category_id') is-invalid @enderror" 
                                             id="category_id" 
-                                            name="category_id" 
-                                            required>
-                                        <option value="">{{ __('products.select_category') }}</option>
-                                        @foreach($categories as $category)
-                                            <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
-                                                {{ $category->name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                    @error('category_id')
+                                name="category_id" 
+                                required>
+                            <option value="">{{ __('products.select_category') }}</option>
+                            @foreach($categories as $category)
+                                <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                                    {{ $category->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('category_id')
                                         <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-
-                                <div class="modern-form-group">
-                                    <label for="line" class="modern-label">
-                                        <i class="fas fa-stream mobile-icon"></i>
-                                        {{ __('products.line') }}
-                                    </label>
-                                    <input type="text" 
-                                           class="modern-input @error('line') is-invalid @enderror" 
-                                           id="line" 
-                                           name="line" 
-                                           value="{{ old('line') }}" 
-                                           placeholder="{{ __('products.line_placeholder') }}">
-                                    @error('line')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-
-                                <div class="modern-form-group">
-                                    <label for="type" class="modern-label">
-                                        <i class="fas fa-shapes mobile-icon"></i>
-                                        {{ __('products.type') }}
-                                    </label>
-                                    <input type="text" 
-                                           class="modern-input @error('type') is-invalid @enderror" 
-                                           id="type" 
-                                           name="type" 
-                                           value="{{ old('type') }}" 
-                                           placeholder="{{ __('products.type_placeholder') }}">
-                                    @error('type')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
+                        @enderror
                     </div>
+
+                    <div class="modern-form-group">
+                        <label for="line" class="modern-label">
+                                        <i class="fas fa-stream mobile-icon"></i>
+                            {{ __('products.line') }}
+                        </label>
+                        <input type="text" 
+                                           class="modern-input @error('line') is-invalid @enderror" 
+                               id="line" 
+                               name="line" 
+                               value="{{ old('line') }}" 
+                               placeholder="{{ __('products.line_placeholder') }}">
+                        @error('line')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="modern-form-group">
+                        <label for="type" class="modern-label">
+                                        <i class="fas fa-shapes mobile-icon"></i>
+                            {{ __('products.type') }}
+                        </label>
+                        <input type="text" 
+                                           class="modern-input @error('type') is-invalid @enderror" 
+                               id="type" 
+                               name="type" 
+                               value="{{ old('type') }}" 
+                               placeholder="{{ __('products.type_placeholder') }}">
+                        @error('type')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                                </div>
+                    </div>
+                </div>
+            </div>
 
                     <!-- Technical Specifications Section -->
                     <div class="modern-card animate-stagger">
                         <div class="modern-card-header">
                             <h3 class="modern-card-title">
-                                <i class="fas fa-cogs"></i>
+                        <i class="fas fa-cogs"></i>
                                 {{ __('products.technical_specifications') }}
                             </h3>
-                        </div>
+                    </div>
                         <div class="modern-card-body">
                             <div class="form-grid-3">
-                                <div class="modern-form-group">
-                                    <label for="body_weight" class="modern-label">
+                    <div class="modern-form-group">
+                        <label for="body_weight" class="modern-label">
                                         <i class="fas fa-weight mobile-icon"></i>
-                                        {{ __('products.body_weight') }}
-                                    </label>
-                                    <input type="text" 
+                            {{ __('products.body_weight') }}
+                        </label>
+                        <input type="text" 
                                            class="modern-input @error('body_weight') is-invalid @enderror" 
-                                           id="body_weight" 
-                                           name="body_weight" 
-                                           value="{{ old('body_weight') }}" 
-                                           placeholder="e.g., 500 kg">
-                                    @error('body_weight')
+                               id="body_weight" 
+                               name="body_weight" 
+                               value="{{ old('body_weight') }}" 
+                               placeholder="e.g., 500 kg">
+                        @error('body_weight')
                                         <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-
-                                <div class="modern-form-group">
-                                    <label for="operating_weight" class="modern-label">
-                                        <i class="fas fa-weight-hanging mobile-icon"></i>
-                                        {{ __('products.operating_weight') }}
-                                    </label>
-                                    <input type="text" 
-                                           class="modern-input @error('operating_weight') is-invalid @enderror" 
-                                           id="operating_weight" 
-                                           name="operating_weight" 
-                                           value="{{ old('operating_weight') }}" 
-                                           placeholder="e.g., 600 kg">
-                                    @error('operating_weight')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-
-                                <div class="modern-form-group">
-                                    <label for="overall_length" class="modern-label">
-                                        <i class="fas fa-ruler-horizontal mobile-icon"></i>
-                                        {{ __('products.overall_length') }}
-                                    </label>
-                                    <input type="text" 
-                                           class="modern-input @error('overall_length') is-invalid @enderror" 
-                                           id="overall_length" 
-                                           name="overall_length" 
-                                           value="{{ old('overall_length') }}" 
-                                           placeholder="e.g., 2500 mm">
-                                    @error('overall_length')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-
-                                <div class="modern-form-group">
-                                    <label for="overall_width" class="modern-label">
-                                        <i class="fas fa-arrows-alt-h mobile-icon"></i>
-                                        {{ __('products.overall_width') }}
-                                    </label>
-                                    <input type="text" 
-                                           class="modern-input @error('overall_width') is-invalid @enderror" 
-                                           id="overall_width" 
-                                           name="overall_width" 
-                                           value="{{ old('overall_width') }}" 
-                                           placeholder="{{ __('products.overall_width_placeholder') }}">
-                                    @error('overall_width')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-
-                                <div class="modern-form-group">
-                                    <label for="overall_height" class="modern-label">
-                                        <i class="fas fa-arrows-alt-v mobile-icon"></i>
-                                        {{ __('products.overall_height') }}
-                                    </label>
-                                    <input type="text" 
-                                           class="modern-input @error('overall_height') is-invalid @enderror" 
-                                           id="overall_height" 
-                                           name="overall_height" 
-                                           value="{{ old('overall_height') }}" 
-                                           placeholder="{{ __('products.overall_height_placeholder') }}">
-                                    @error('overall_height')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-
-                                <div class="modern-form-group">
-                                    <label for="required_oil_flow" class="modern-label">
-                                        <i class="fas fa-tint mobile-icon"></i>
-                                        {{ __('products.required_oil_flow') }}
-                                    </label>
-                                    <input type="text" 
-                                           class="modern-input @error('required_oil_flow') is-invalid @enderror" 
-                                           id="required_oil_flow" 
-                                           name="required_oil_flow" 
-                                           value="{{ old('required_oil_flow') }}" 
-                                           placeholder="{{ __('products.required_oil_flow_placeholder') }}">
-                                    @error('required_oil_flow')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-
-                                <div class="modern-form-group">
-                                    <label for="operating_pressure" class="modern-label">
-                                        <i class="fas fa-gauge-high mobile-icon"></i>
-                                        {{ __('products.operating_pressure') }}
-                                    </label>
-                                    <input type="text" 
-                                           class="modern-input @error('operating_pressure') is-invalid @enderror" 
-                                           id="operating_pressure" 
-                                           name="operating_pressure" 
-                                           value="{{ old('operating_pressure') }}" 
-                                           placeholder="{{ __('products.operating_pressure_placeholder') }}">
-                                    @error('operating_pressure')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-
-                                <div class="modern-form-group">
-                                    <label for="impact_rate" class="modern-label">
-                                        <i class="fas fa-bolt mobile-icon"></i>
-                                        {{ __('products.impact_rate') }}
-                                    </label>
-                                    <input type="text" 
-                                           class="modern-input @error('impact_rate') is-invalid @enderror" 
-                                           id="impact_rate" 
-                                           name="impact_rate" 
-                                           value="{{ old('impact_rate') }}" 
-                                           placeholder="{{ __('products.impact_rate_placeholder') }}">
-                                    @error('impact_rate')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-
-                                <div class="modern-form-group">
-                                    <label for="impact_rate_soft_rock" class="modern-label">
-                                        <i class="fas fa-mountain mobile-icon"></i>
-                                        {{ __('products.impact_rate_soft_rock') }}
-                                    </label>
-                                    <input type="text" 
-                                           class="modern-input @error('impact_rate_soft_rock') is-invalid @enderror" 
-                                           id="impact_rate_soft_rock" 
-                                           name="impact_rate_soft_rock" 
-                                           value="{{ old('impact_rate_soft_rock') }}" 
-                                           placeholder="e.g., 800-1200 BPM">
-                                    @error('impact_rate_soft_rock')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-
-                                <div class="modern-form-group">
-                                    <label for="hose_diameter" class="modern-label">
-                                        <i class="fas fa-circle mobile-icon"></i>
-                                        {{ __('products.hose_diameter') }}
-                                    </label>
-                                    <input type="text" 
-                                           class="modern-input @error('hose_diameter') is-invalid @enderror" 
-                                           id="hose_diameter" 
-                                           name="hose_diameter" 
-                                           value="{{ old('hose_diameter') }}" 
-                                           placeholder="e.g., 19 mm">
-                                    @error('hose_diameter')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-
-                                <div class="modern-form-group">
-                                    <label for="rod_diameter" class="modern-label">
-                                        <i class="fas fa-minus mobile-icon"></i>
-                                        {{ __('products.rod_diameter') }}
-                                    </label>
-                                    <input type="text" 
-                                           class="modern-input @error('rod_diameter') is-invalid @enderror" 
-                                           id="rod_diameter" 
-                                           name="rod_diameter" 
-                                           value="{{ old('rod_diameter') }}" 
-                                           placeholder="e.g., 120 mm">
-                                    @error('rod_diameter')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-
-                                <div class="modern-form-group">
-                                    <label for="applicable_carrier" class="modern-label">
-                                        <i class="fas fa-truck mobile-icon"></i>
-                                        {{ __('products.applicable_carrier') }}
-                                    </label>
-                                    <input type="text" 
-                                           class="modern-input @error('applicable_carrier') is-invalid @enderror" 
-                                           id="applicable_carrier" 
-                                           name="applicable_carrier" 
-                                           value="{{ old('applicable_carrier') }}" 
-                                           placeholder="e.g., 8-15 ton excavator">
-                                    @error('applicable_carrier')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
+                        @enderror
                     </div>
+
+                    <div class="modern-form-group">
+                        <label for="operating_weight" class="modern-label">
+                                        <i class="fas fa-weight-hanging mobile-icon"></i>
+                            {{ __('products.operating_weight') }}
+                        </label>
+                        <input type="text" 
+                                           class="modern-input @error('operating_weight') is-invalid @enderror" 
+                               id="operating_weight" 
+                               name="operating_weight" 
+                               value="{{ old('operating_weight') }}" 
+                               placeholder="e.g., 600 kg">
+                        @error('operating_weight')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="modern-form-group">
+                        <label for="overall_length" class="modern-label">
+                                        <i class="fas fa-ruler-horizontal mobile-icon"></i>
+                            {{ __('products.overall_length') }}
+                        </label>
+                        <input type="text" 
+                                           class="modern-input @error('overall_length') is-invalid @enderror" 
+                               id="overall_length" 
+                               name="overall_length" 
+                               value="{{ old('overall_length') }}" 
+                               placeholder="e.g., 2500 mm">
+                        @error('overall_length')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="modern-form-group">
+                        <label for="overall_width" class="modern-label">
+                                        <i class="fas fa-arrows-alt-h mobile-icon"></i>
+                            {{ __('products.overall_width') }}
+                        </label>
+                        <input type="text" 
+                                           class="modern-input @error('overall_width') is-invalid @enderror" 
+                               id="overall_width" 
+                               name="overall_width" 
+                               value="{{ old('overall_width') }}" 
+                               placeholder="{{ __('products.overall_width_placeholder') }}">
+                        @error('overall_width')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="modern-form-group">
+                        <label for="overall_height" class="modern-label">
+                                        <i class="fas fa-arrows-alt-v mobile-icon"></i>
+                            {{ __('products.overall_height') }}
+                        </label>
+                        <input type="text" 
+                                           class="modern-input @error('overall_height') is-invalid @enderror" 
+                               id="overall_height" 
+                               name="overall_height" 
+                               value="{{ old('overall_height') }}" 
+                               placeholder="{{ __('products.overall_height_placeholder') }}">
+                        @error('overall_height')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="modern-form-group">
+                        <label for="required_oil_flow" class="modern-label">
+                                        <i class="fas fa-tint mobile-icon"></i>
+                            {{ __('products.required_oil_flow') }}
+                        </label>
+                        <input type="text" 
+                                           class="modern-input @error('required_oil_flow') is-invalid @enderror" 
+                               id="required_oil_flow" 
+                               name="required_oil_flow" 
+                               value="{{ old('required_oil_flow') }}" 
+                               placeholder="{{ __('products.required_oil_flow_placeholder') }}">
+                        @error('required_oil_flow')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="modern-form-group">
+                        <label for="operating_pressure" class="modern-label">
+                                        <i class="fas fa-gauge-high mobile-icon"></i>
+                            {{ __('products.operating_pressure') }}
+                        </label>
+                        <input type="text" 
+                                           class="modern-input @error('operating_pressure') is-invalid @enderror" 
+                               id="operating_pressure" 
+                               name="operating_pressure" 
+                               value="{{ old('operating_pressure') }}" 
+                               placeholder="{{ __('products.operating_pressure_placeholder') }}">
+                        @error('operating_pressure')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="modern-form-group">
+                        <label for="impact_rate" class="modern-label">
+                                        <i class="fas fa-bolt mobile-icon"></i>
+                            {{ __('products.impact_rate') }}
+                        </label>
+                        <input type="text" 
+                                           class="modern-input @error('impact_rate') is-invalid @enderror" 
+                               id="impact_rate" 
+                               name="impact_rate" 
+                               value="{{ old('impact_rate') }}" 
+                               placeholder="{{ __('products.impact_rate_placeholder') }}">
+                        @error('impact_rate')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="modern-form-group">
+                        <label for="impact_rate_soft_rock" class="modern-label">
+                                        <i class="fas fa-mountain mobile-icon"></i>
+                            {{ __('products.impact_rate_soft_rock') }}
+                        </label>
+                        <input type="text" 
+                                           class="modern-input @error('impact_rate_soft_rock') is-invalid @enderror" 
+                               id="impact_rate_soft_rock" 
+                               name="impact_rate_soft_rock" 
+                               value="{{ old('impact_rate_soft_rock') }}" 
+                               placeholder="e.g., 800-1200 BPM">
+                        @error('impact_rate_soft_rock')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="modern-form-group">
+                        <label for="hose_diameter" class="modern-label">
+                                        <i class="fas fa-circle mobile-icon"></i>
+                            {{ __('products.hose_diameter') }}
+                        </label>
+                        <input type="text" 
+                                           class="modern-input @error('hose_diameter') is-invalid @enderror" 
+                               id="hose_diameter" 
+                               name="hose_diameter" 
+                               value="{{ old('hose_diameter') }}" 
+                               placeholder="e.g., 19 mm">
+                        @error('hose_diameter')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="modern-form-group">
+                        <label for="rod_diameter" class="modern-label">
+                                        <i class="fas fa-minus mobile-icon"></i>
+                            {{ __('products.rod_diameter') }}
+                        </label>
+                        <input type="text" 
+                                           class="modern-input @error('rod_diameter') is-invalid @enderror" 
+                               id="rod_diameter" 
+                               name="rod_diameter" 
+                               value="{{ old('rod_diameter') }}" 
+                               placeholder="e.g., 120 mm">
+                        @error('rod_diameter')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="modern-form-group">
+                        <label for="applicable_carrier" class="modern-label">
+                                        <i class="fas fa-truck mobile-icon"></i>
+                            {{ __('products.applicable_carrier') }}
+                        </label>
+                        <input type="text" 
+                                           class="modern-input @error('applicable_carrier') is-invalid @enderror" 
+                               id="applicable_carrier" 
+                               name="applicable_carrier" 
+                               value="{{ old('applicable_carrier') }}" 
+                               placeholder="e.g., 8-15 ton excavator">
+                        @error('applicable_carrier')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                                </div>
+                    </div>
+                </div>
+            </div>
 
                     <!-- Product Image Section -->
                     <div class="modern-card animate-stagger">
                         <div class="modern-card-header">
                             <h3 class="modern-card-title">
-                                <i class="fas fa-images"></i>
+                        <i class="fas fa-images"></i>
                                 {{ __('products.product_image') }}
                             </h3>
-                        </div>
+                    </div>
                         <div class="modern-card-body">
                             <div class="modern-form-group form-group-full">
-                                <label for="product_image" class="modern-label">
+                        <label for="product_image" class="modern-label">
                                     <i class="fas fa-upload mobile-icon"></i>
-                                    {{ __('products.product_image') }}
-                                </label>
+                            {{ __('products.product_image') }}
+                        </label>
                                 <div class="file-upload-container" id="fileUpload">
-                                    <input type="file" 
-                                           id="product_image" 
-                                           name="product_image" 
+                            <input type="file" 
+                                   id="product_image" 
+                                   name="product_image" 
                                            class="file-input @error('product_image') is-invalid @enderror"
-                                           accept="image/*">
+                                   accept="image/*">
                                     <div class="file-upload-icon">
-                                        <i class="fas fa-cloud-upload-alt"></i>
-                                    </div>
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                </div>
                                     <div class="file-upload-text">
                                         <h4>{{ __('products.click_to_upload') }}</h4>
                                         <p>{{ __('products.drag_drop_or_click') }}</p>
-                                    </div>
-                                    <div class="image-preview-grid" id="imagePreview"></div>
                                 </div>
-                                @error('product_image')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
+                                    <div class="image-preview-grid" id="imagePreview"></div>
                         </div>
+                        @error('product_image')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
+                </div>
+            </div>
 
                     <!-- Product Options Section -->
                     <div class="modern-card animate-stagger">
                         <div class="modern-card-header">
                             <h3 class="modern-card-title">
-                                <i class="fas fa-toggle-on"></i>
+                        <i class="fas fa-toggle-on"></i>
                                 {{ __('products.product_options') }}
                             </h3>
-                        </div>
+                    </div>
                         <div class="modern-card-body">
                             <div class="form-grid">
-                                <div class="modern-form-group">
+                    <div class="modern-form-group">
                                     <div class="checkbox-group">
-                                        <input type="hidden" name="is_active" value="0">
+                            <input type="hidden" name="is_active" value="0">
                                         <div class="checkbox-container">
-                                            <input type="checkbox" 
-                                                   id="is_active" 
-                                                   name="is_active" 
-                                                   value="1" 
+                                <input type="checkbox" 
+                                       id="is_active" 
+                                       name="is_active" 
+                                       value="1" 
                                                    class="checkbox-input"
-                                                   {{ old('is_active', 1) ? 'checked' : '' }}>
+                                       {{ old('is_active', 1) ? 'checked' : '' }}>
                                             <div class="checkbox-custom"></div>
                                         </div>
                                         <label for="is_active" class="checkbox-label">
-                                            {{ __('products.active_product') }}
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="modern-form-group">
+                                {{ __('products.active_product') }}
+                            </label>
+                        </div>
+                    </div>
+                    <div class="modern-form-group">
                                     <div class="checkbox-group">
-                                        <input type="hidden" name="is_featured" value="0">
+                            <input type="hidden" name="is_featured" value="0">
                                         <div class="checkbox-container">
-                                            <input type="checkbox" 
-                                                   id="is_featured" 
-                                                   name="is_featured" 
-                                                   value="1" 
+                                <input type="checkbox" 
+                                       id="is_featured" 
+                                       name="is_featured" 
+                                       value="1" 
                                                    class="checkbox-input"
-                                                   {{ old('is_featured') ? 'checked' : '' }}>
+                                       {{ old('is_featured') ? 'checked' : '' }}>
                                             <div class="checkbox-custom"></div>
                                         </div>
                                         <label for="is_featured" class="checkbox-label">
-                                            {{ __('products.featured_product') }}
-                                        </label>
+                                {{ __('products.featured_product') }}
+                            </label>
                                     </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
+                </div>
+            </div>
 
                     <div class="d-flex justify-content-between mt-4">
-                        <a href="{{ route('admin.products.index') }}" class="modern-btn modern-btn-secondary">
+                <a href="{{ route('admin.products.index') }}" class="modern-btn modern-btn-secondary">
                             <i class="fas fa-times me-2"></i>
                             <span class="mobile-text-hide">{{ __('products.cancel') }}</span>
                             <span class="d-md-none">{{ __('products.mobile_cancel') }}</span>
@@ -1284,9 +1284,9 @@
                             <i class="fas fa-save me-2"></i>
                             <span class="mobile-text-hide">{{ __('products.create_product') }}</span>
                             <span class="d-md-none">{{ __('products.mobile_save') }}</span>
-                        </button>
-                    </div>
-                </form>
+                </button>
+            </div>
+        </form>
             </div>
         </div>
     </div>
@@ -1303,7 +1303,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const fileInput = document.getElementById('product_image');
     const fileUpload = document.getElementById('fileUpload');
     const imagePreview = document.getElementById('imagePreview');
-    
+
     // Required fields for progress tracking
     const requiredFields = ['model_name', 'category_id'];
     
@@ -1425,7 +1425,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Form submission handling
     createProductForm.addEventListener('submit', function(e) {
         if (!validateForm()) {
-            e.preventDefault();
+                e.preventDefault();
             
             // Scroll to first invalid field
             const firstInvalid = document.querySelector('.is-invalid');
@@ -1436,13 +1436,19 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Show error notification
             showNotification('{{ __('products.please_correct_errors') }}', 'error');
-            return;
-        }
+                return;
+            }
 
+        // Perform SI to Imperial conversion before submission
+        convertSIToImperial();
+        
         // Show loading state
-        submitBtn.disabled = true;
+                submitBtn.disabled = true;
         submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i><span class="mobile-text-hide">{{ __('products.saving') }}</span><span class="d-md-none">{{ __('products.saving') }}</span>';
         createProductForm.classList.add('loading');
+        
+        // Show conversion notification
+        showNotification('Converting SI units to Imperial and saving...', 'info');
     });
 
     // Enhanced input interactions
@@ -1519,6 +1525,163 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }, 1000);
     });
+
+    // SI to Imperial Unit Conversion Functions (Exact factors from show.blade.php)
+    function convertSIToImperial() {
+        // Conversion factors matching exactly those used in show.blade.php
+        const conversions = {
+            // Weight: kg to lb (factor: 1/0.45359237)
+            body_weight: { factor: 2.204622621849, siUnit: 'kg', impUnit: 'lb' },
+            operating_weight: { factor: 2.204622621849, siUnit: 'kg', impUnit: 'lb' },
+            
+            // Length: mm to inches (factor: 1/25.4)
+            overall_length: { factor: 0.03937007874, siUnit: 'mm', impUnit: 'in' },
+            overall_width: { factor: 0.03937007874, siUnit: 'mm', impUnit: 'in' },
+            overall_height: { factor: 0.03937007874, siUnit: 'mm', impUnit: 'in' },
+            rod_diameter: { factor: 0.03937007874, siUnit: 'mm', impUnit: 'in' },
+            
+            // Oil flow: l/min to gal/min (factor: 1/3.785411784)
+            required_oil_flow: { factor: 0.264172052358, siUnit: 'l/min', impUnit: 'gal/min' },
+            
+            // Pressure: kgf/cm² to psi (factor: 1/0.0703069578296)
+            operating_pressure: { factor: 14.223343307087, siUnit: 'kgf/cm²', impUnit: 'psi' },
+            
+            // Applicable carrier: ton to lb (factor: 1/0.00045359237)
+            applicable_carrier: { factor: 2204.622621849, siUnit: 'ton', impUnit: 'lb' }
+            
+            // Note: impact_rate and hose_diameter remain unchanged (BPM and inches respectively)
+        };
+
+        Object.keys(conversions).forEach(fieldName => {
+            const field = document.getElementById(fieldName);
+            if (field && field.value.trim()) {
+                const conversion = conversions[fieldName];
+                const siValue = field.value.trim();
+                
+                // Handle range values (e.g., "20~40", "20-40", or "20 - 40")
+                if (siValue.includes('~') || siValue.includes('-')) {
+                    const separator = siValue.includes('~') ? '~' : '-';
+                    const parts = siValue.split(separator).map(part => part.trim());
+                    
+                    if (parts.length === 2) {
+                        const min = parseFloat(parts[0]);
+                        const max = parseFloat(parts[1]);
+                        
+                        if (!isNaN(min) && !isNaN(max)) {
+                            let minImperial, maxImperial;
+                            
+                            // Special formatting for different units
+                            if (fieldName === 'operating_pressure') {
+                                // Pressure: format as whole numbers with commas for thousands
+                                minImperial = Math.round(min * conversion.factor).toLocaleString();
+                                maxImperial = Math.round(max * conversion.factor).toLocaleString();
+                            } else if (fieldName === 'applicable_carrier') {
+                                // Carrier: format as whole numbers with commas
+                                minImperial = Math.round(min * conversion.factor).toLocaleString();
+                                maxImperial = Math.round(max * conversion.factor).toLocaleString();
+                            } else {
+                                // Other units: 1 decimal place
+                                minImperial = (min * conversion.factor).toFixed(1);
+                                maxImperial = (max * conversion.factor).toFixed(1);
+                            }
+                            
+                            field.value = `${minImperial} ${separator} ${maxImperial}`;
+                        }
+                    }
+                } 
+                // Handle single numeric values
+                else if (!isNaN(parseFloat(siValue))) {
+                    const numericValue = parseFloat(siValue);
+                    let imperialValue;
+                    
+                    // Special formatting for different units
+                    if (fieldName === 'operating_pressure') {
+                        // Pressure: format as whole numbers with commas
+                        imperialValue = Math.round(numericValue * conversion.factor).toLocaleString();
+                    } else if (fieldName === 'applicable_carrier') {
+                        // Carrier: format as whole numbers with commas
+                        imperialValue = Math.round(numericValue * conversion.factor).toLocaleString();
+                    } else {
+                        // Other units: 1 decimal place
+                        imperialValue = (numericValue * conversion.factor).toFixed(1);
+                    }
+                    
+                    field.value = imperialValue;
+                }
+                // Non-numeric values remain unchanged
+            }
+        });
+    }
+
+    // Add unit labels and conversion info to help users
+    function addUnitLabels() {
+        const unitLabels = {
+            body_weight: 'Enter in kg (will be converted to lb)',
+            operating_weight: 'Enter in kg (will be converted to lb)', 
+            overall_length: 'Enter in mm (will be converted to inches)',
+            overall_width: 'Enter in mm (will be converted to inches)',
+            overall_height: 'Enter in mm (will be converted to inches)',
+            rod_diameter: 'Enter in mm (will be converted to inches)',
+            required_oil_flow: 'Enter in l/min (will be converted to gal/min)',
+            operating_pressure: 'Enter in kgf/cm² (will be converted to psi)',
+            applicable_carrier: 'Enter in ton (will be converted to lb)',
+            impact_rate: 'Enter in BPM (no conversion needed)',
+            impact_rate_soft_rock: 'Enter in BPM (no conversion needed)',
+            hose_diameter: 'Enter in inches (no conversion needed)'
+        };
+
+        Object.keys(unitLabels).forEach(fieldName => {
+            const field = document.getElementById(fieldName);
+            if (field) {
+                // Update placeholder to show SI unit input expected
+                const currentPlaceholder = field.getAttribute('placeholder');
+                field.setAttribute('data-original-placeholder', currentPlaceholder);
+                
+                // Add unit info to placeholder based on exact format from screenshots
+                if (fieldName === 'body_weight') {
+                    field.setAttribute('placeholder', 'e.g., 54 kg');
+                } else if (fieldName === 'operating_weight') {
+                    field.setAttribute('placeholder', 'e.g., 104 kg');
+                } else if (fieldName === 'overall_length') {
+                    field.setAttribute('placeholder', 'e.g., 1135 mm');
+                } else if (fieldName === 'overall_width') {
+                    field.setAttribute('placeholder', 'e.g., 264 mm');
+                } else if (fieldName === 'overall_height') {
+                    field.setAttribute('placeholder', 'e.g., 296 mm');
+                } else if (fieldName === 'rod_diameter') {
+                    field.setAttribute('placeholder', 'e.g., 40 mm');
+                } else if (fieldName === 'required_oil_flow') {
+                    field.setAttribute('placeholder', 'e.g., 15 - 35 l/min');
+                } else if (fieldName === 'operating_pressure') {
+                    field.setAttribute('placeholder', 'e.g., 90 ~ 120 kgf/cm²');
+                } else if (fieldName === 'applicable_carrier') {
+                    field.setAttribute('placeholder', 'e.g., 0.8 ~ 2.5 ton');
+                } else if (fieldName === 'impact_rate') {
+                    field.setAttribute('placeholder', 'e.g., 800 ~ 1530 BPM');
+                } else if (fieldName === 'impact_rate_soft_rock') {
+                    field.setAttribute('placeholder', 'e.g., 800 ~ 1200 BPM');
+                } else if (fieldName === 'hose_diameter') {
+                    field.setAttribute('placeholder', 'e.g., 3/8, 1/2 in');
+                }
+                
+                // Add title attribute for additional guidance
+                field.setAttribute('title', unitLabels[fieldName]);
+                
+                // Add a small helper text below the field
+                const helpText = document.createElement('small');
+                helpText.className = 'form-text text-muted mt-1';
+                helpText.textContent = unitLabels[fieldName];
+                helpText.style.fontSize = '0.75rem';
+                helpText.style.fontStyle = 'italic';
+                
+                // Insert after the field
+                field.parentNode.insertBefore(helpText, field.nextSibling);
+            }
+        });
+    }
+
+    // Initialize unit labels
+    addUnitLabels();
 
     // Notification system
     function showNotification(message, type = 'info') {

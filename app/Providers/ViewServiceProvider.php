@@ -21,9 +21,15 @@ class ViewServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // Share product categories globally for navbar dropdown
-        View::composer('*', function ($view) {
-            $view->with('productCategories', ProductCategory::all());
+        // Share product categories only with specific views that need them
+        View::composer(['layouts.public', 'layouts.navigation', 'public.*'], function ($view) {
+            static $productCategories = null;
+            
+            if ($productCategories === null) {
+                $productCategories = ProductCategory::all();
+            }
+            
+            $view->with('productCategories', $productCategories);
         });
     }
 }

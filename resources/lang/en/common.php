@@ -4,8 +4,8 @@ return [
     // Navigation
     'home' => 'Home',
     'products' => 'Products',
-    'serial_lookup' => 'Serial Lookup',
-    'about' => 'About Us',
+    'check_warranty' => 'Check Warranty',
+    'about_us' => 'About Us',
     'support' => 'Support',
     'contact' => 'Contact Us',
     'privacy' => 'Privacy Policy',

@@ -4,8 +4,8 @@ return [
     // Navigation
     'home' => 'الرئيسية',
     'products' => 'المنتجات',
-    'serial_lookup' => 'البحث بالرقم التسلسلي',
-    'about' => 'من نحن',
+    'check_warranty' => 'فحص الضمان',
+    'about_us' => 'من نحن',
     'support' => 'الدعم',
     'contact' => 'تواصل معنا',
     'privacy' => 'سياسة الخصوصية',

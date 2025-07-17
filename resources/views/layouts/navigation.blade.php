@@ -12,7 +12,7 @@
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}">
-                        {{ __('Dashboard') }}
+                        Dashboard
                     </a>
                 </li>
             </ul>
@@ -36,7 +36,7 @@
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end notification-dropdown-content" style="width: 350px; max-height: 400px; overflow-y: auto;">
                             <li><h6 class="dropdown-header">
-                                <i class="fas fa-bell me-2"></i>{{ __('admin.notifications') }}
+                                <i class="fas fa-bell me-2"></i>Notifications
                                 @if(auth()->user()->unreadNotifications->count() > 0)
                                     <span class="badge bg-danger ms-2">{{ auth()->user()->unreadNotifications->count() }}</span>
                                 @endif
@@ -52,7 +52,7 @@
                                                 <i class="{{ $notification->data['icon'] ?? 'fas fa-bell' }} text-{{ $notification->data['color'] ?? 'primary' }}"></i>
                                             </div>
                                             <div class="flex-grow-1">
-                                                <div class="fw-bold text-truncate">{{ $notification->data['title'] ?? __('admin.notifications') }}</div>
+                                                <div class="fw-bold text-truncate">{{ $notification->data['title'] ?? 'Notification' }}</div>
                                                 <div class="text-muted small text-truncate">{{ Str::limit($notification->data['message'] ?? '', 60) }}</div>
                                                 @if(isset($notification->data['reason']) && $notification->data['reason'])
                                                     <div class="text-danger small text-truncate">{{ Str::limit($notification->data['reason'], 80) }}</div>
@@ -69,18 +69,18 @@
                                 <li>
                                     <div class="dropdown-item-text text-muted text-center py-3">
                                         <i class="fas fa-bell-slash fa-2x mb-2 d-block"></i>
-                                        {{ __('admin.no_notifications_yet') }}
+                                        No notifications yet
                                     </div>
                                 </li>
                             @endforelse
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item text-center fw-bold" href="{{ route('notifications.index') }}">
-                                <i class="fas fa-list me-2"></i>{{ __('admin.view_all_notifications') }}
+                                <i class="fas fa-list me-2"></i>View All Notifications
                             </a></li>
                             @if(auth()->user()->unreadNotifications->count() > 0)
                                 <li>
                                     <button class="dropdown-item text-center text-primary mark-all-read-btn" onclick="markAllNotificationsAsRead()">
-                                        <i class="fas fa-check-double me-2"></i>{{ __('admin.mark_all_as_read') }}
+                                        <i class="fas fa-check-double me-2"></i>Mark All as Read
                                     </button>
                                 </li>
                             @endif
@@ -101,12 +101,12 @@
                             <span>{{ auth()->user()->name }}</span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="{{ route('profile.edit') }}">{{ __('Profile') }}</a></li>
+                            <li><a class="dropdown-item" href="{{ route('profile.edit') }}">Profile</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li>
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
-                                    <button type="submit" class="dropdown-item">{{ __('Logout') }}</button>
+                                    <button type="submit" class="dropdown-item">Logout</button>
                                 </form>
                             </li>
                         </ul>
@@ -120,7 +120,7 @@
 @push('scripts')
 <script>
     function updateNavbarNotifications() {
-        fetch('{{ route('notifications.fetch') }}')
+        fetch('{{ route('api.notifications.index') }}')
             .then(response => response.json())
             .then(data => {
                 // Update badge
@@ -139,9 +139,9 @@
                             html += `<li><a class=\"dropdown-item py-2 notification-item unread\" href=\"${notification.data.url ?? '{{ route('notifications.index') }}'}\" data-notification-id=\"${notification.id}\"><div class=\"d-flex\"><div class=\"flex-shrink-0 me-2\"><i class=\"${notification.data.icon ?? 'fas fa-bell'} text-${notification.data.color ?? 'primary'}\"></i></div><div class=\"flex-grow-1\"><div class=\"fw-bold text-truncate\">${notification.data.title ?? 'Notification'}</div><div class=\"text-muted small text-truncate\">${notification.data.message ?? ''}</div><div class=\"text-muted small\">${new Date(notification.created_at).toLocaleString()}</div></div><div class=\"notification-dot\"></div></div></a></li>`;
                         });
                     } else {
-                        html = `<li><div class=\"dropdown-item-text text-muted text-center py-3\"><i class=\"fas fa-bell-slash fa-2x mb-2 d-block\"></i>{{ __('admin.no_notifications_yet') }}</div></li>`;
+                        html = `<li><div class=\"dropdown-item-text text-muted text-center py-3\"><i class=\"fas fa-bell-slash fa-2x mb-2 d-block\"></i>No notifications yet</div></li>`;
                     }
-                    html += `<li><hr class=\"dropdown-divider\"></li><li><a class=\"dropdown-item text-center fw-bold\" href=\"{{ route('notifications.index') }}\"><i class=\"fas fa-list me-2\"></i>{{ __('admin.view_all_notifications') }}</a></li>`;
+                    html += `<li><hr class=\"dropdown-divider\"></li><li><a class=\"dropdown-item text-center fw-bold\" href=\"{{ route('notifications.index') }}\"><i class=\"fas fa-list me-2\"></i>View All Notifications</a></li>`;
                     dropdown.innerHTML = html;
                 }
             });

@@ -865,29 +865,36 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(255, 255, 255, 0.9);
-            border: none;
-            color: var(--primary-color);
-            padding: 1rem;
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px solid rgba(255, 255, 255, 0.6);
+            color: white;
+            padding: 0;
             border-radius: 50%;
             cursor: pointer;
-            font-size: 1.2rem;
-            transition: all 0.4s ease;
-            z-index: 3;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            width: 50px;
-            height: 50px;
+            font-size: 1.3rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1002;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
+            width: 60px;
+            height: 60px;
             display: flex;
             align-items: center;
             justify-content: center;
+            opacity: 0.8;
         }
 
         .slider-nav:hover {
-            background: var(--primary-color);
+            background: rgba(0, 84, 142, 0.9);
+            border-color: #b0d701;
             color: white;
-            transform: translateY(-50%) scale(1.1);
-            box-shadow: 0 8px 32px rgba(37, 99, 235, 0.3);
+            transform: translateY(-50%) scale(1.15);
+            box-shadow: 0 10px 35px rgba(0, 84, 142, 0.4);
+            opacity: 1;
+        }
+
+        .slider-nav:active {
+            transform: translateY(-50%) scale(1.05);
         }
 
         .slider-nav.prev {
@@ -900,40 +907,50 @@
 
         .slider-dots {
             position: absolute;
-            bottom: 9.5rem;
-            left: 25%;
+            bottom: 8rem;
+            left: 50%;
             transform: translateX(-50%);
             display: flex;
-            gap: 0.75rem;
+            gap: 1rem;
             z-index: 1001;
-            /* No background, overlay on video */
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            padding: 1rem 1.5rem;
+            border-radius: 50px;
             pointer-events: auto;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
         }
 
         .dot {
-            width: 16px;
-            height: 16px;
+            width: 14px;
+            height: 14px;
             border-radius: 50%;
-            background: transparent;
-            border: 2px solid #fff;
+            background: rgba(255, 255, 255, 0.5);
+            border: 2px solid rgba(255, 255, 255, 0.8);
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
-            opacity: 0.95;
-
+            opacity: 0.8;
         }
 
         .dot.active {
-            background: #00548e;
-            border-color: #00548e;
+            background: #b0d701;
+            border-color: #b0d701;
             opacity: 1;
+            transform: scale(1.3);
+            box-shadow: 0 0 15px rgba(176, 215, 1, 0.6);
         }
 
         .dot:hover {
-            background: #b0d701;
+            background: rgba(176, 215, 1, 0.8);
             border-color: #b0d701;
             transform: scale(1.2);
             opacity: 1;
+            box-shadow: 0 0 10px rgba(176, 215, 1, 0.4);
+        }
+
+        .dot:active {
+            transform: scale(1.1);
         }
 
         /* Modern Stats Section */
@@ -1592,17 +1609,6 @@
         }
 
         /* Animations */
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
 
         /* ========================================
            ENHANCED RESPONSIVE DESIGN - MOBILE FIRST
@@ -1800,8 +1806,148 @@
                 grid-template-columns: 1fr;
             }
 
-            /* Mobile Responsive */
+            /* Comprehensive Mobile Responsive Design */
+            
+            /* Large tablets and small desktops */
+            @media (max-width: 1199.98px) {
+                .hero-slider {
+                    height: 100vh;
+                    min-height: 700px;
+                }
+
+                .hero-content-overlay {
+                    padding: 2rem 1.5rem;
+                    max-width: 500px;
+                }
+
+                .hero-main-title {
+                    font-size: 3rem;
+                }
+
+                .hero-desc {
+                    font-size: 1.2rem;
+                }
+            }
+
+            /* Standard tablets */
+            @media (max-width: 991.98px) {
+                .hero-slider {
+                    height: 100vh;
+                    min-height: 600px;
+                }
+
+                .hero-content-overlay {
+                    left: 50%;
+                    right: auto;
+                    transform: translateX(-50%);
+                    text-align: center;
+                    padding: 2rem 1.5rem;
+                    bottom: 20%;
+                    top: auto;
+                    width: 90%;
+                    max-width: 450px;
+                }
+
+                .hero-main-title {
+                    font-size: 2.5rem;
+                    margin-bottom: 1.5rem;
+                    line-height: 1.2;
+                }
+
+                .hero-desc {
+                    font-size: 1.1rem;
+                    margin-bottom: 2rem;
+                    line-height: 1.5;
+                }
+
+                .hero-btn-group {
+                    flex-direction: column;
+                    gap: 1rem;
+                    width: 100%;
+                }
+
+                .hero-btn {
+                    width: 100%;
+                    justify-content: center;
+                    padding: 1rem 2rem;
+                    font-size: 1rem;
+                }
+
+                .slider-nav {
+                    width: 50px;
+                    height: 50px;
+                    font-size: 1.1rem;
+                }
+
+                .slider-nav.prev {
+                    left: 1.5rem;
+                }
+
+                .slider-nav.next {
+                    right: 1.5rem;
+                }
+
+                .slider-dots {
+                    bottom: 6rem;
+                    padding: 0.75rem 1.25rem;
+                }
+            }
+
+            /* Mobile landscape and small tablets */
             @media (max-width: 768px) {
+                .hero-slider {
+                    height: 100vh;
+                    min-height: 500px;
+                }
+
+                .hero-content-overlay {
+                    bottom: 15%;
+                    width: 95%;
+                    max-width: 380px;
+                    padding: 1.5rem 1rem;
+                }
+
+                .hero-main-title {
+                    font-size: 2rem;
+                    margin-bottom: 1rem;
+                }
+
+                .hero-desc {
+                    font-size: 1rem;
+                    margin-bottom: 1.5rem;
+                }
+
+                .hero-btn {
+                    padding: 0.875rem 1.5rem;
+                    font-size: 0.9rem;
+                }
+
+                .slider-nav {
+                    width: 45px;
+                    height: 45px;
+                    font-size: 1rem;
+                }
+
+                .slider-nav.prev {
+                    left: 1rem;
+                }
+
+                .slider-nav.next {
+                    right: 1rem;
+                }
+
+                .slider-dots {
+                    bottom: 5rem;
+                    gap: 0.75rem;
+                    padding: 0.5rem 1rem;
+                }
+
+                .dot {
+                    width: 12px;
+                    height: 12px;
+                }
+
+                /* Hero Content Section */
                 .hero-content-section {
                     padding: 4rem 0;
                     margin-top: -50px;
@@ -1870,19 +2016,101 @@
                 .category-btn {
                     width: 100%;
                 }
+            }
+
+            /* Mobile portrait */
+            @media (max-width: 575.98px) {
+                .hero-slider {
+                    height: 100vh;
+                    min-height: 450px;
+                }
+
+                .hero-content-overlay {
+                    bottom: 12%;
+                    width: 95%;
+                    padding: 1rem 0.75rem;
+                }
+
+                .hero-main-title {
+                    font-size: 1.75rem;
+                    margin-bottom: 0.75rem;
+                }
+
+                .hero-desc {
+                    font-size: 0.9rem;
+                    margin-bottom: 1.25rem;
+                }
+
+                .hero-btn-group {
+                    gap: 0.75rem;
+                }
+
+                .hero-btn {
+                    padding: 0.75rem 1.25rem;
+                    font-size: 0.85rem;
+                }
 
                 .slider-nav {
                     width: 40px;
                     height: 40px;
-                    font-size: 1rem;
+                    font-size: 0.9rem;
                 }
 
                 .slider-nav.prev {
-                    left: 1rem;
+                    left: 0.75rem;
                 }
 
                 .slider-nav.next {
-                    right: 1rem;
+                    right: 0.75rem;
+                }
+
+                .slider-dots {
+                    bottom: 4rem;
+                    gap: 0.5rem;
+                    padding: 0.5rem 0.75rem;
+                }
+
+                .dot {
+                    width: 10px;
+                    height: 10px;
+                }
+
+                .hero-title {
+                    font-size: 2rem;
+                }
+
+                .hero-subtitle {
+                    font-size: 1rem;
+                }
+            }
+
+            /* Small mobile devices */
+            @media (max-width: 374.98px) {
+                .hero-content-overlay {
+                    padding: 0.75rem 0.5rem;
+                }
+
+                .hero-main-title {
+                    font-size: 1.5rem;
+                }
+
+                .hero-desc {
+                    font-size: 0.85rem;
+                }
+
+                .hero-btn {
+                    padding: 0.625rem 1rem;
+                    font-size: 0.8rem;
+                }
+
+                .slider-nav {
+                    width: 35px;
+                    height: 35px;
+                    font-size: 0.8rem;
+                }
+
+                .hero-title {
+                    font-size: 1.75rem;
                 }
             }
 
@@ -2286,12 +2514,362 @@
         .highlight-item:hover .highlight-media {
             transform: scale(1.05);
         }
-    }
+        }
 
-        /* Media queries for highlights */
+        /* Comprehensive Responsive Design for All Sections */
+        
+        /* Large tablets and small desktops */
+        @media (max-width: 1199.98px) {
+            .container {
+                max-width: 960px;
+                padding: 0 1.5rem;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+            }
+
+            .section-description {
+                font-size: 1.1rem;
+            }
+
+            /* Product Grid */
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2rem;
+            }
+
+            /* Stats Section */
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+
+            /* Features Section */
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2rem;
+            }
+
+            /* Breaker Tabs */
+            .breaker-tabs {
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+
+            .breaker-tab {
+                min-width: calc(50% - 0.5rem);
+            }
+        }
+
+        /* Standard tablets */
+        @media (max-width: 991.98px) {
+            .container {
+                max-width: 720px;
+                padding: 0 1rem;
+            }
+
+            .section-title {
+                font-size: 2.25rem;
+                margin-bottom: 1rem;
+            }
+
+            .section-description {
+                font-size: 1rem;
+                margin-bottom: 2rem;
+            }
+
+            /* Product Grid */
+            .product-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            /* Product Cards */
+            .product-card {
+                margin: 0 auto;
+                max-width: 400px;
+            }
+
+            /* Stats Section */
+            .stats-section {
+                padding: 3rem 0;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+
+            .stat-number {
+                font-size: 2.5rem;
+            }
+
+            .stat-label {
+                font-size: 0.9rem;
+            }
+
+            /* Features Section */
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            /* Breaker Lines */
+            .breaker-tabs {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+
+            .breaker-tab {
+                width: 100%;
+                text-align: center;
+                padding: 1rem;
+            }
+
+            /* YouTube Section */
+            .youtube-video-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .youtube-video-item iframe {
+                min-width: 100%;
+                height: 250px;
+            }
+        }
+
+        /* Mobile landscape and small tablets */
         @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            /* Section Spacing */
+            section {
+                padding: 3rem 0;
+            }
+
+            .section-header {
+                margin-bottom: 2rem;
+                text-align: center;
+            }
+
+            .section-title {
+                font-size: 2rem;
+                margin-bottom: 0.75rem;
+            }
+
+            .section-description {
+                font-size: 0.95rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .section-badge {
+                font-size: 0.8rem;
+                padding: 0.5rem 1rem;
+                margin-bottom: 1rem;
+            }
+
+            /* Hero Content Section */
+            .hero-content-section {
+                padding: 3rem 0;
+                margin-top: -30px;
+            }
+
+            .hero-badge {
+                font-size: 0.85rem;
+                padding: 0.625rem 1.5rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+                margin-bottom: 1rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+                margin-bottom: 2rem;
+            }
+
+            .hero-cta {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .btn-primary-hero,
+            .btn-secondary-hero {
+                width: 100%;
+                padding: 1rem 2rem;
+                font-size: 0.9rem;
+                justify-content: center;
+            }
+
+            /* Stats Section */
+            .stats-section {
+                padding: 3rem 0;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+
+            .stat-card {
+                padding: 1.5rem 1rem;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+
+            .stat-label {
+                font-size: 0.85rem;
+            }
+
+            /* Product Search Section */
+            .product-search-section {
+                padding: 3rem 0;
+            }
+
+            .search-title {
+                font-size: 1.75rem;
+                margin-bottom: 1rem;
+            }
+
+            .search-subtitle {
+                font-size: 0.95rem;
+                margin-bottom: 2rem;
+            }
+
+            .search-input-container {
+                flex-direction: column;
+                padding: 1rem;
+                gap: 1rem;
+                border-radius: 16px;
+            }
+
+            .search-input {
+                padding: 1rem;
+                text-align: center;
+                font-size: 0.9rem;
+                border-radius: 12px;
+            }
+
+            .search-input-btn {
+                width: 100%;
+                padding: 1rem;
+                font-size: 0.9rem;
+            }
+
+            /* Product Categories */
+            .product-categories {
+                flex-direction: column;
+                gap: 0.75rem;
+                margin-top: 2rem;
+            }
+
+            .category-btn {
+                width: 100%;
+                padding: 0.875rem 1.5rem;
+                font-size: 0.9rem;
+                justify-content: center;
+            }
+
+            /* Search Tags */
+            .search-tags {
+                flex-wrap: wrap;
+                gap: 0.5rem;
+                justify-content: center;
+            }
+
+            .search-tag {
+                padding: 0.5rem 1rem;
+                font-size: 0.85rem;
+            }
+
+            /* Product Grid */
+            .product-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                margin-top: 2rem;
+            }
+
+            .product-card {
+                max-width: 100%;
+                margin: 0;
+            }
+
+            /* Breaker Lines Section */
+            .breaker-lines-section {
+                padding: 3rem 0;
+            }
+
+            .breaker-tabs {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+
+            .breaker-tab {
+                width: 100%;
+                padding: 1rem;
+                text-align: center;
+                font-size: 0.9rem;
+            }
+
+            .tab-icon {
+                font-size: 1.1rem;
+            }
+
+            .tab-text {
+                font-size: 0.85rem;
+            }
+
+            /* Features Section */
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .feature-item {
+                padding: 1.5rem;
+                text-align: center;
+            }
+
+            .feature-icon {
+                font-size: 2rem;
+                margin-bottom: 1rem;
+            }
+
+            .feature-title {
+                font-size: 1.1rem;
+                margin-bottom: 0.75rem;
+            }
+
+            .feature-description {
+                font-size: 0.9rem;
+            }
+
+            /* YouTube Section */
+            .youtube-video-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .youtube-video-item {
+                margin: 0;
+            }
+
+            .youtube-video-item iframe {
+                min-width: 100%;
+                height: 220px;
+                border-radius: 12px;
+            }
+
+            /* Highlights Section */
             .highlights-section {
-                padding: 4rem 0;
+                padding: 3rem 0;
             }
             
             .highlights-grid {
@@ -2301,12 +2879,244 @@
             
             .highlight-media {
                 height: 250px;
+                border-radius: 12px;
+            }
+
+            /* Scroll Sections */
+            .scroll-section {
+                padding: 3rem 0;
+            }
+
+            .scroll-section .row {
+                flex-direction: column;
+            }
+
+            .scroll-section .col-lg-6 {
+                margin-bottom: 2rem;
+            }
+
+            .scroll-section .order-lg-1,
+            .scroll-section .order-lg-2 {
+                order: initial;
+            }
+
+            .scroll-section img {
+                height: 250px !important;
+                border-radius: 12px;
+            }
+
+            .display-4 {
+                font-size: 2rem;
             }
         }
 
-        @media (max-width: 480px) {
+        /* Mobile portrait */
+        @media (max-width: 575.98px) {
+            .container {
+                padding: 0 0.75rem;
+            }
+
+            /* Section Spacing */
+            section {
+                padding: 2.5rem 0;
+            }
+
+            .section-header {
+                margin-bottom: 1.5rem;
+            }
+
+            .section-title {
+                font-size: 1.75rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .section-description {
+                font-size: 0.9rem;
+                margin-bottom: 1rem;
+            }
+
+            .section-badge {
+                font-size: 0.75rem;
+                padding: 0.4rem 0.875rem;
+            }
+
+            /* Hero Content Section */
+            .hero-content-section {
+                padding: 2.5rem 0;
+                margin-top: -20px;
+            }
+
+            .hero-badge {
+                font-size: 0.8rem;
+                padding: 0.5rem 1.25rem;
+                margin-bottom: 1rem;
+            }
+
+            .hero-title {
+                font-size: 1.75rem;
+                margin-bottom: 0.75rem;
+            }
+
+            .hero-subtitle {
+                font-size: 0.9rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .btn-primary-hero,
+            .btn-secondary-hero {
+                padding: 0.875rem 1.5rem;
+                font-size: 0.85rem;
+            }
+
+            /* Stats Section */
+            .stats-section {
+                padding: 2.5rem 0;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .stat-card {
+                padding: 1.25rem 0.75rem;
+            }
+
+            .stat-number {
+                font-size: 1.75rem;
+            }
+
+            .stat-label {
+                font-size: 0.8rem;
+            }
+
+            /* Product Search Section */
+            .search-title {
+                font-size: 1.5rem;
+            }
+
+            .search-subtitle {
+                font-size: 0.85rem;
+            }
+
+            .search-input-container {
+                padding: 0.75rem;
+                gap: 0.75rem;
+            }
+
+            .search-input {
+                padding: 0.875rem;
+                font-size: 0.85rem;
+            }
+
+            .search-input-btn {
+                padding: 0.875rem;
+                font-size: 0.85rem;
+            }
+
+            .category-btn {
+                padding: 0.75rem 1.25rem;
+                font-size: 0.85rem;
+            }
+
+            .search-tag {
+                padding: 0.4rem 0.75rem;
+                font-size: 0.8rem;
+            }
+
+            /* Breaker Tabs */
+            .breaker-tab {
+                padding: 0.875rem;
+                font-size: 0.85rem;
+            }
+
+            .tab-icon {
+                font-size: 1rem;
+            }
+
+            .tab-text {
+                font-size: 0.8rem;
+            }
+
+            /* Feature Items */
+            .feature-item {
+                padding: 1.25rem;
+            }
+
+            .feature-icon {
+                font-size: 1.75rem;
+            }
+
+            .feature-title {
+                font-size: 1rem;
+            }
+
+            .feature-description {
+                font-size: 0.85rem;
+            }
+
+            /* YouTube Videos */
+            .youtube-video-item iframe {
+                height: 200px;
+            }
+
+            /* Highlights */
             .highlight-media {
                 height: 200px;
+            }
+
+            /* Scroll sections */
+            .scroll-section img {
+                height: 200px !important;
+            }
+
+            .display-4 {
+                font-size: 1.75rem;
+            }
+        }
+
+        /* Small mobile devices */
+        @media (max-width: 374.98px) {
+            .container {
+                padding: 0 0.5rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .section-description {
+                font-size: 0.85rem;
+            }
+
+            .hero-title {
+                font-size: 1.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 0.85rem;
+            }
+
+            .btn-primary-hero,
+            .btn-secondary-hero {
+                padding: 0.75rem 1.25rem;
+                font-size: 0.8rem;
+            }
+
+            .search-title {
+                font-size: 1.35rem;
+            }
+
+            .stat-number {
+                font-size: 1.5rem;
+            }
+
+            .youtube-video-item iframe {
+                height: 180px;
+            }
+
+            .highlight-media {
+                height: 180px;
             }
         }
     </style>
@@ -2383,18 +3193,18 @@
             </div>
 
             <!-- Modern Slider Navigation -->
-            <button class="slider-nav prev" onclick="changeSlide(-1)">
+            <button class="slider-nav prev" onclick="handlePrevClick()">
                 <i class="fas fa-chevron-left"></i>
             </button>
-            <button class="slider-nav next" onclick="changeSlide(1)">
+            <button class="slider-nav next" onclick="handleNextClick()">
                 <i class="fas fa-chevron-right"></i>
             </button>
 
             <!-- Slider Dots -->
             <div class="slider-dots">
-                <button class="dot active" onclick="currentSlideIndexSet(1)"></button>
-                <button class="dot" onclick="currentSlideIndexSet(2)"></button>
-                <button class="dot" onclick="currentSlideIndexSet(3)"></button>
+                <button class="dot active" onclick="handleDotClick(0)"></button>
+                <button class="dot" onclick="handleDotClick(1)"></button>
+                <button class="dot" onclick="handleDotClick(2)"></button>
             </div>
     </section>
 
@@ -3382,19 +4192,6 @@
                     });
                 }
             });
-        });
-    </script>
-
-    <!-- AOS Library for scroll animations -->
-    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-    <script>
-        // Initialize AOS
-        AOS.init({
-            duration: 800,
-            easing: 'ease-in-out',
-            once: true,
-            offset: 100
         });
     </script>
 
@@ -4637,26 +5434,71 @@
             document.head.appendChild(style);
         }
 
-        // Slider Navigation
+        // RTL/LTR Detection and Handler Functions
+        function isRTL() {
+            return document.documentElement.getAttribute('dir') === 'rtl';
+        }
+
+        function handlePrevClick() {
+            if (isRTL()) {
+                // In Arabic: left arrow goes to next video
+                changeSlide(-1);
+            } else {
+                // In English: left arrow goes to previous video  
+                changeSlide(1);
+            }
+        }
+
+        function handleNextClick() {
+            if (isRTL()) {
+                // In Arabic: right arrow goes to previous video
+                changeSlide(1);
+            } else {
+                // In English: right arrow goes to next video
+                changeSlide(-1);
+            }
+        }
+
+        function handleDotClick(dotIndex) {
+            if (isRTL()) {
+                // In Arabic: reverse the bullet order (3->2->1)
+                const reversedIndex = 2 - dotIndex;
+                currentSlideIndexSet(reversedIndex + 1);
+            } else {
+                // In English: normal order (1->2->3)
+                currentSlideIndexSet(dotIndex + 1);
+            }
+        }
+
+        // Enhanced Slider Navigation
         function changeSlide(direction) {
             const slides = document.querySelectorAll('.hero-slide');
             const dots = document.querySelectorAll('.dot');
             const videos = document.querySelectorAll('.slide-video');
 
-            // Pause current video
-            if (videos[currentSlideIndex]) videos[currentSlideIndex].pause();
+            if (slides.length === 0) return;
 
+            // Pause current video
+            if (videos[currentSlideIndex]) {
+                videos[currentSlideIndex].pause();
+                videos[currentSlideIndex].currentTime = 0;
+            }
+
+            // Remove active classes
             slides[currentSlideIndex].classList.remove('active');
             dots[currentSlideIndex].classList.remove('active');
 
             // Calculate new slide index (looping)
             currentSlideIndex = (currentSlideIndex + direction + slides.length) % slides.length;
 
+            // Add active classes
             slides[currentSlideIndex].classList.add('active');
             dots[currentSlideIndex].classList.add('active');
 
-            // Play new video
-            playCurrentVideo();
+            // Play new video with delay for smooth transition
+            setTimeout(() => {
+                playCurrentVideo();
+            }, 100);
         }
 
         function currentSlideIndexSet(index) {
@@ -4664,32 +5506,58 @@
             const dots = document.querySelectorAll('.dot');
             const videos = document.querySelectorAll('.slide-video');
 
-            // Pause current video
-            if (videos[currentSlideIndex]) videos[currentSlideIndex].pause();
+            if (slides.length === 0 || index < 1 || index > slides.length) return;
 
+            // Pause current video
+            if (videos[currentSlideIndex]) {
+                videos[currentSlideIndex].pause();
+                videos[currentSlideIndex].currentTime = 0;
+            }
+
+            // Remove all active classes
             slides.forEach(slide => slide.classList.remove('active'));
             dots.forEach(dot => dot.classList.remove('active'));
 
+            // Set new index (convert from 1-based to 0-based)
             currentSlideIndex = index - 1;
+            
+            // Add active classes
             slides[currentSlideIndex].classList.add('active');
             dots[currentSlideIndex].classList.add('active');
 
-            // Play new video
-            playCurrentVideo();
+            // Play new video with delay for smooth transition
+            setTimeout(() => {
+                playCurrentVideo();
+            }, 100);
         }
 
         function playCurrentVideo() {
             const videos = document.querySelectorAll('.slide-video');
             const currentVideo = videos[currentSlideIndex];
 
-            if (currentVideo) {
-                currentVideo.currentTime = 0; // Reset to beginning
-                currentVideo.play().catch(e => {
-                    console.log('Video autoplay failed:', e);
-                    // If autoplay fails, try without sound first
-                    currentVideo.muted = true;
-                    currentVideo.play();
-                });
+            if (currentVideo && currentVideo.readyState >= 2) {
+                // Reset to beginning and ensure muted for autoplay
+                currentVideo.currentTime = 0;
+                currentVideo.muted = true;
+                
+                // Attempt to play with error handling
+                const playPromise = currentVideo.play();
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        console.log('Video playing successfully');
+                    }).catch(error => {
+                        console.log('Video autoplay failed:', error);
+                        // Fallback: ensure video is ready for manual play
+                        currentVideo.load();
+                    });
+                }
+            } else if (currentVideo) {
+                // Video not ready, wait for it to load
+                currentVideo.addEventListener('loadeddata', function() {
+                    if (currentSlideIndex === Array.from(videos).indexOf(currentVideo)) {
+                        playCurrentVideo();
+                    }
+                }, { once: true });
             }
         }
 
@@ -4703,13 +5571,22 @@
             const videos = document.querySelectorAll('.slide-video');
             const slides = document.querySelectorAll('.hero-slide');
             const dots = document.querySelectorAll('.dot');
+            const prevBtn = document.querySelector('.slider-nav.prev');
+            const nextBtn = document.querySelector('.slider-nav.next');
 
+            if (slides.length === 0) return;
+
+            // Enhanced video event handling
             videos.forEach((video, index) => {
+                // Ensure video is properly configured
+                video.muted = true;
+                video.playsInline = true;
+                video.preload = 'metadata';
+
                 // When video ends, go to next slide (loop to first after last)
                 video.addEventListener('ended', () => {
                     if (index === currentSlideIndex && isAutoPlaying) {
                         setTimeout(() => {
-                            // Advance to next slide (loop)
                             changeSlide(1);
                         }, 500);
                     }
@@ -4718,32 +5595,109 @@
                 // Handle video loading
                 video.addEventListener('loadeddata', () => {
                     if (index === currentSlideIndex) {
-                        playCurrentVideo();
+                        setTimeout(() => playCurrentVideo(), 100);
                     }
                 });
 
-                // Handle video errors
+                // Handle video metadata loading
+                video.addEventListener('loadedmetadata', () => {
+                    console.log(`Video ${index + 1} metadata loaded, duration: ${video.duration}s`);
+                });
+
+                // Handle video errors with better logging
                 video.addEventListener('error', (e) => {
-                    console.log(`Video ${index + 1} error:`, e);
-                    console.log(`Video src: ${video.src}`);
-                    // If video fails, advance to next slide after 3 seconds
+                    console.error(`Video ${index + 1} error:`, {
+                        error: e.target.error,
+                        src: video.src,
+                        networkState: video.networkState,
+                        readyState: video.readyState
+                    });
+                    
+                    // If current video fails, advance to next slide after 3 seconds
                     if (index === currentSlideIndex) {
                         setTimeout(() => {
                             changeSlide(1);
                         }, 3000);
                     }
                 });
+
+                // Handle play/pause events
+                video.addEventListener('play', () => {
+                    console.log(`Video ${index + 1} started playing`);
+                });
+
+                video.addEventListener('pause', () => {
+                    console.log(`Video ${index + 1} paused`);
+                });
             });
 
-            // Dot click listeners (robustness)
+            // Enhanced dot click listeners with better error handling
             dots.forEach((dot, idx) => {
-                dot.onclick = function() {
-                    currentSlideIndexSet(idx + 1);
-                };
+                dot.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    handleDotClick(idx);
+                    isAutoPlaying = false;
+                    
+                    // Resume autoplay after 10 seconds
+                    setTimeout(() => {
+                        isAutoPlaying = true;
+                    }, 10000);
+                });
+
+                // Add keyboard support
+                dot.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        handleDotClick(idx);
+                    }
+                });
+
+                // Make dots focusable
+                dot.setAttribute('tabindex', '0');
+                dot.setAttribute('role', 'button');
+                dot.setAttribute('aria-label', `Go to slide ${idx + 1}`);
             });
 
-            // Start playing the first video
-            playCurrentVideo();
+            // Enhanced navigation button listeners
+            if (prevBtn) {
+                prevBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    handlePrevClick();
+                    isAutoPlaying = false;
+                    setTimeout(() => { isAutoPlaying = true; }, 10000);
+                });
+            }
+
+            if (nextBtn) {
+                nextBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    handleNextClick();
+                    isAutoPlaying = false;
+                    setTimeout(() => { isAutoPlaying = true; }, 10000);
+                });
+            }
+
+            // Initialize first slide based on language direction
+            setTimeout(() => {
+                if (videos.length > 0) {
+                    if (isRTL()) {
+                        // In Arabic: start with the last slide (index 2) but show first bullet as active
+                        currentSlideIndex = 2;
+                        const slides = document.querySelectorAll('.hero-slide');
+                        const dots = document.querySelectorAll('.dot');
+                        
+                        // Reset all slides and dots
+                        slides.forEach(slide => slide.classList.remove('active'));
+                        dots.forEach(dot => dot.classList.remove('active'));
+                        
+                        // Activate the last slide (index 2) and first dot (index 0)
+                        slides[2].classList.add('active');
+                        dots[0].classList.add('active');
+                    }
+                    playCurrentVideo();
+                }
+            }, 500);
         }
 
         // Product Category Filter
@@ -4928,3 +5882,4 @@
         });
     </script>
 @endpush
+
