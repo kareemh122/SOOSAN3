@@ -86,7 +86,8 @@ return [
     'warranty_years' => 'Warranty (Years)',
     'warranty_status' => 'Warranty Status',
     'active_warranty' => 'Active Warranty',
-    'warranty_expires' => 'Expired Warranty',
+    'warranty_expires' => 'Warranty expires at',
+    'voided_reason' => 'Reason',
     'notes' => 'Notes',
     'sale_notes' => 'Sale Notes',
     'comments' => 'Comments',
@@ -99,6 +100,7 @@ return [
     'invoice_number' => 'Invoice Number',
     'receipt_number' => 'Receipt Number',
     'sale_recored_by' => 'Sale Recorded By:',
+    'void_sale' => 'Cancel Sale',
     
     // Payment Methods
     'cash' => 'Cash',

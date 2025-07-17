@@ -394,6 +394,7 @@
             width: 100%;
             justify-content: center;
             padding: 0.875rem 1rem;
+            font-size: 0.875rem;
         }
         .modern-stats-grid {
             grid-template-columns: 1fr;
@@ -441,6 +442,18 @@
             margin-right: 0;
             margin-bottom: 0.5rem;
         }
+
+        /* Fix filter button sizing */
+        .modern-btn.btn-sm {
+            padding: 0.5rem 0.75rem;
+            font-size: 0.75rem;
+        }
+        
+        /* Make chevron icons smaller */
+        .fas.fa-chevron-down,
+        .fas.fa-chevron-up {
+            font-size: 0.75rem !important;
+        }
     }
 
     @media (max-width: 576px) {
@@ -466,6 +479,79 @@
         .mobile-collapse {
             display: none;
         }
+
+        /* Even smaller chevron icons on mobile */
+        .fas.fa-chevron-down,
+        .fas.fa-chevron-up {
+            font-size: 0.625rem !important;
+        }
+
+        /* Compact filter layout */
+        .row.g-3 {
+            gap: 0.5rem !important;
+        }
+        .col-md-2.col-sm-6 {
+            margin-bottom: 0.5rem;
+        }
+    }
+
+    /* Extra small screens */
+    @media (max-width: 480px) {
+        .modern-audit-header {
+            padding: 1rem 0.75rem;
+        }
+        .modern-audit-header h1 {
+            font-size: 1rem;
+        }
+        .modern-btn {
+            padding: 0.625rem;
+            font-size: 0.7rem;
+        }
+        .modern-stat-card {
+            padding: 0.75rem;
+        }
+        .modern-stat-icon {
+            width: 40px;
+            height: 40px;
+            font-size: 1rem;
+        }
+        .modern-stat-content h4 {
+            font-size: 1.125rem;
+        }
+        .modern-pagination-wrapper .page-link {
+            padding: 0.5rem 0.75rem;
+            font-size: 0.75rem;
+            min-width: 36px;
+        }
+        .modern-pagination-wrapper .pagination {
+            gap: 0.25rem;
+        }
+        .pagination-info {
+            font-size: 0.75rem;
+        }
+        
+        /* Ultra compact filter layout */
+        .card-body {
+            padding: 1rem !important;
+        }
+        .form-label {
+            font-size: 0.75rem;
+            margin-bottom: 0.25rem;
+        }
+        .modern-form-control {
+            padding: 0.5rem 0.75rem;
+            font-size: 0.75rem;
+        }
+        
+        /* Smaller badges and buttons */
+        .modern-badge {
+            padding: 0.25rem 0.5rem;
+            font-size: 0.625rem;
+        }
+        .modern-btn.btn-sm {
+            padding: 0.375rem 0.5rem;
+            font-size: 0.625rem;
+        }
     }
 
     /* Large screens optimization */
@@ -473,6 +559,112 @@
         .modern-stats-grid {
             grid-template-columns: repeat(4, 1fr);
         }
+    }
+
+    /* Modern Pagination */
+    .modern-pagination-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        margin: 2rem 0;
+        padding: 1.5rem;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 16px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .dark-mode .modern-pagination-wrapper {
+        background: rgba(45, 55, 72, 0.95);
+        border-color: rgba(74, 85, 104, 0.3);
+    }
+    .modern-pagination-wrapper .pagination {
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        gap: 0.5rem;
+        align-items: center;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .modern-pagination-wrapper .page-item {
+        margin: 0;
+        list-style: none;
+    }
+    .modern-pagination-wrapper .page-item.active .page-link {
+        color: #ffffff;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-color: #667eea;
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        font-weight: 600;
+    }
+    .modern-pagination-wrapper .page-item.disabled .page-link {
+        color: #9ca3af;
+        pointer-events: none;
+        background: rgba(248, 250, 252, 0.8);
+        border-color: rgba(226, 232, 240, 0.8);
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+    .dark-mode .modern-pagination-wrapper .page-item.disabled .page-link {
+        background: rgba(45, 55, 72, 0.8);
+        border-color: rgba(74, 85, 104, 0.8);
+        color: #6b7280;
+    }
+    .modern-pagination-wrapper .page-link {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1rem;
+        font-size: 0.875rem;
+        color: #374151;
+        text-decoration: none;
+        background: rgba(255, 255, 255, 0.9);
+        border: 2px solid rgba(226, 232, 240, 0.8);
+        border-radius: 12px;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        min-width: 44px;
+        font-weight: 500;
+        justify-content: center;
+        backdrop-filter: blur(5px);
+    }
+    .dark-mode .modern-pagination-wrapper .page-link {
+        background: rgba(45, 55, 72, 0.9);
+        border-color: rgba(74, 85, 104, 0.8);
+        color: #f7fafc;
+    }
+    .modern-pagination-wrapper .page-link:hover {
+        color: #667eea;
+        background: rgba(255, 255, 255, 1);
+        border-color: #667eea;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+    }
+    .dark-mode .modern-pagination-wrapper .page-link:hover {
+        color: #667eea;
+        background: rgba(45, 55, 72, 1);
+        border-color: #667eea;
+    }
+    .pagination-info {
+        font-size: 0.875rem;
+        color: #6b7280;
+        font-weight: 500;
+        text-align: center;
+    }
+    .dark-mode .pagination-info {
+        color: #9ca3af;
+    }
+
+    /* Chevron Icon Fixes */
+    .fas.fa-chevron-down,
+    .fas.fa-chevron-up {
+        font-size: 0.875rem !important;
+        transition: transform 0.3s ease;
+    }
+    .btn[data-bs-toggle="collapse"][aria-expanded="true"] .fas.fa-chevron-down {
+        transform: rotate(180deg);
     }
 
     /* Focus and accessibility */
@@ -511,15 +703,15 @@
                     <div class="modern-header-actions">
                         <a href="{{ route('admin.audit-logs.dashboard') }}" class="modern-btn modern-btn-info">
                             <i class="fas fa-chart-bar"></i>
-                            <span class="mobile-hide-text">{{ __('audit-logs.header.dashboard_btn') }}</span>
+                            <span class="mobile-text-full">{{ __('audit-logs.header.dashboard_btn') }}</span>
                         </a>
                         <button type="button" class="modern-btn modern-btn-success" onclick="exportLogs()">
                             <i class="fas fa-download"></i>
-                            <span class="mobile-hide-text">{{ __('audit-logs.header.export_btn') }}</span>
+                            <span class="mobile-text-full">{{ __('audit-logs.header.export_btn') }}</span>
                         </button>
                         <button type="button" class="modern-btn modern-btn-warning" id="realTimeToggle">
                             <i class="fas fa-play"></i>
-                            <span class="mobile-hide-text">{{ __('audit-logs.header.realtime_btn') }}</span>
+                            <span class="mobile-text-full">{{ __('audit-logs.header.realtime_btn') }}</span>
                         </button>
                     </div>
                 </div>
@@ -576,8 +768,8 @@
             <h5 class="mb-0 d-flex align-items-center gap-2">
                 <i class="fas fa-filter text-primary"></i>
                 {{ __('audit-logs.filters.title') }}
-                <button class="modern-btn modern-btn-secondary btn-sm ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#filtersCollapse">
-                    <i class="fas fa-chevron-down"></i>
+                <button class="modern-btn modern-btn-secondary btn-sm ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#filtersCollapse" style="padding: 0.375rem 0.75rem; font-size: 0.75rem;">
+                    <i class="fas fa-chevron-down" style="font-size: 0.75rem;"></i>
                     <span class="mobile-hide-text">{{ __('audit-logs.filters.toggle_btn') }}</span>
                 </button>
             </h5>
@@ -680,9 +872,9 @@
                         @forelse($auditLogs as $log)
                             <tr data-log-id="{{ $log->id }}">
                                 <td>
-                                    <span class="text-muted small">{{ $log->created_at->format('M d, H:i:s') }}</span>
+                                    <span class="text-muted small">{{ $log->created_at->locale(app()->getLocale())->translatedFormat('M d, H:i:s') }}</span>
                                     <br>
-                                    <small class="text-muted">{{ $log->created_at->diffForHumans() }}</small>
+                                    <small class="text-muted">{{ $log->created_at->locale(app()->getLocale())->diffForHumans() }}</small>
                                 </td>
                                 <td>
                                     @if($log->user)
@@ -760,8 +952,86 @@
             </div>
         </div>
         @if($auditLogs->hasPages())
-            <div class="card-footer" style="background: rgba(248, 250, 252, 0.8); border-top: 1px solid rgba(226, 232, 240, 0.5); padding: 1.5rem;">
-                {{ $auditLogs->links() }}
+            <div class="modern-pagination-wrapper">
+                <nav class="pagination" role="navigation" aria-label="Pagination Navigation">
+                    {{-- Previous Page Link --}}
+                    @if ($auditLogs->onFirstPage())
+                        <span class="page-item disabled">
+                            <span class="page-link">
+                                <i class="fas fa-{{ app()->getLocale() === 'ar' ? 'chevron-right' : 'chevron-left' }}"></i>
+                            </span>
+                        </span>
+                    @else
+                        <a href="{{ $auditLogs->previousPageUrl() }}" class="page-item">
+                            <span class="page-link">
+                                <i class="fas fa-{{ app()->getLocale() === 'ar' ? 'chevron-right' : 'chevron-left' }}"></i>
+                            </span>
+                        </a>
+                    @endif
+
+                    {{-- Pagination Elements --}}
+                    @php
+                        $start = max($auditLogs->currentPage() - 2, 1);
+                        $end = min($start + 4, $auditLogs->lastPage());
+                        $start = max($end - 4, 1);
+                    @endphp
+
+                    {{-- First page link --}}
+                    @if($start > 1)
+                        <a href="{{ $auditLogs->url(1) }}" class="page-item">
+                            <span class="page-link">1</span>
+                        </a>
+                        @if($start > 2)
+                            <span class="page-item disabled">
+                                <span class="page-link">...</span>
+                            </span>
+                        @endif
+                    @endif
+
+                    {{-- Page links --}}
+                    @for ($page = $start; $page <= $end; $page++)
+                        @if ($page == $auditLogs->currentPage())
+                            <span class="page-item active">
+                                <span class="page-link">{{ $page }}</span>
+                            </span>
+                        @else
+                            <a href="{{ $auditLogs->url($page) }}" class="page-item">
+                                <span class="page-link">{{ $page }}</span>
+                            </a>
+                        @endif
+                    @endfor
+
+                    {{-- Last page link --}}
+                    @if($end < $auditLogs->lastPage())
+                        @if($end < $auditLogs->lastPage() - 1)
+                            <span class="page-item disabled">
+                                <span class="page-link">...</span>
+                            </span>
+                        @endif
+                        <a href="{{ $auditLogs->url($auditLogs->lastPage()) }}" class="page-item">
+                            <span class="page-link">{{ $auditLogs->lastPage() }}</span>
+                        </a>
+                    @endif
+
+                    {{-- Next Page Link --}}
+                    @if ($auditLogs->hasMorePages())
+                        <a href="{{ $auditLogs->nextPageUrl() }}" class="page-item">
+                            <span class="page-link">
+                                <i class="fas fa-{{ app()->getLocale() === 'ar' ? 'chevron-left' : 'chevron-right' }}"></i>
+                            </span>
+                        </a>
+                    @else
+                        <span class="page-item disabled">
+                            <span class="page-link">
+                                <i class="fas fa-{{ app()->getLocale() === 'ar' ? 'chevron-left' : 'chevron-right' }}"></i>
+                            </span>
+                        </span>
+                    @endif
+                </nav>
+                
+                <div class="pagination-info">
+                    {{ __('audit-logs.pagination.showing_results', ['first' => $auditLogs->firstItem(), 'last' => $auditLogs->lastItem(), 'total' => $auditLogs->total()]) }}
+                </div>
             </div>
         @endif
     </div>

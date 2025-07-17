@@ -558,7 +558,7 @@
         .btn-group {
             display: flex;
             flex-direction: column;
-        gap: 0.5rem;
+            gap: 0.5rem;
             width: 100%;
         }
 
@@ -600,7 +600,6 @@
         }
 
         .d-flex.justify-content-between {
-            flex-direction: column;
             gap: 1rem;
         }
 
@@ -956,7 +955,7 @@
                                id="type" 
                                name="type" 
                                value="{{ old('type', $product->type) }}" 
-                               placeholder="{{ __('products.enter_product_type') }}">
+                               placeholder="{{ __('products.type_placeholder') }}">
                         @error('type')
                                         <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -977,17 +976,17 @@
                             <div class="form-grid-3">
                     <div class="modern-form-group">
                         <label for="body_weight" class="modern-label">
-                                        <i class="fas fa-weight mobile-icon"></i>
+                            <i class="fas fa-weight mobile-icon"></i>
                             {{ __('products.body_weight') }}
                         </label>
                         <input type="text" 
-                                           class="modern-input @error('body_weight') is-invalid @enderror" 
+                                class="modern-input @error('body_weight') is-invalid @enderror" 
                                id="body_weight" 
                                name="body_weight" 
                                value="{{ old('body_weight', $product->body_weight) }}" 
-                               placeholder="e.g., 500 kg">
+                               placeholder="{{ __('products.body_weight_placeholder') }}">
                         @error('body_weight')
-                                        <div class="invalid-feedback">{{ $message }}</div>
+                                <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
 
@@ -997,11 +996,11 @@
                             {{ __('products.operating_weight') }}
                         </label>
                         <input type="text" 
-                                           class="modern-input @error('operating_weight') is-invalid @enderror" 
+                                class="modern-input @error('operating_weight') is-invalid @enderror" 
                                id="operating_weight" 
                                name="operating_weight" 
                                value="{{ old('operating_weight', $product->operating_weight) }}" 
-                               placeholder="e.g., 600 kg">
+                               placeholder="{{ __('products.operating_weight_placeholder') }}">
                         @error('operating_weight')
                                         <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -1013,13 +1012,13 @@
                             {{ __('products.overall_length') }}
                         </label>
                         <input type="text" 
-                                           class="modern-input @error('overall_length') is-invalid @enderror" 
+                                class="modern-input @error('overall_length') is-invalid @enderror" 
                                id="overall_length" 
                                name="overall_length" 
                                value="{{ old('overall_length', $product->overall_length) }}" 
-                               placeholder="e.g., 2500 mm">
+                               placeholder="{{ __('products.overall_length_placeholder') }}">
                         @error('overall_length')
-                                        <div class="invalid-feedback">{{ $message }}</div>
+                        <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
 
@@ -1033,7 +1032,7 @@
                                id="overall_width" 
                                name="overall_width" 
                                value="{{ old('overall_width', $product->overall_width) }}" 
-                               placeholder="e.g., 800 mm">
+                               placeholder="{{ __('products.overall_width_placeholder') }}">
                         @error('overall_width')
                                         <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -1049,7 +1048,7 @@
                                id="overall_height" 
                                name="overall_height" 
                                value="{{ old('overall_height', $product->overall_height) }}" 
-                               placeholder="e.g., 1200 mm">
+                               placeholder="{{ __('products.overall_height_placeholder') }}">
                         @error('overall_height')
                                         <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -1065,7 +1064,7 @@
                                id="required_oil_flow" 
                                name="required_oil_flow" 
                                value="{{ old('required_oil_flow', $product->required_oil_flow) }}" 
-                               placeholder="e.g., 45-80 L/min">
+                               placeholder="{{ __('products.required_oil_flow_placeholder') }}">
                         @error('required_oil_flow')
                                         <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -1081,7 +1080,7 @@
                                id="operating_pressure" 
                                name="operating_pressure" 
                                value="{{ old('operating_pressure', $product->operating_pressure) }}" 
-                               placeholder="e.g., 130-160 bar">
+                               placeholder="{{ __('products.operating_pressure_placeholder') }}">
                         @error('operating_pressure')
                                         <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -1097,7 +1096,7 @@
                                id="impact_rate" 
                                name="impact_rate" 
                                value="{{ old('impact_rate', $product->impact_rate) }}" 
-                               placeholder="e.g., 450-1000 BPM">
+                               placeholder="{{ __('products.impact_rate_placeholder') }}">
                         @error('impact_rate')
                                         <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -1113,7 +1112,7 @@
                                id="impact_rate_soft_rock" 
                                name="impact_rate_soft_rock" 
                                value="{{ old('impact_rate_soft_rock', $product->impact_rate_soft_rock) }}" 
-                               placeholder="e.g., 800-1200 BPM">
+                               placeholder="{{ __('products.impact_rate_soft_rock_placeholder') }}">
                         @error('impact_rate_soft_rock')
                                         <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -1129,7 +1128,7 @@
                                id="hose_diameter" 
                                name="hose_diameter" 
                                value="{{ old('hose_diameter', $product->hose_diameter) }}" 
-                               placeholder="e.g., 19 mm">
+                               placeholder="{{ __('products.hose_diameter_placeholder') }}">
                         @error('hose_diameter')
                                         <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -1145,7 +1144,7 @@
                                id="rod_diameter" 
                                name="rod_diameter" 
                                value="{{ old('rod_diameter', $product->rod_diameter) }}" 
-                               placeholder="e.g., 120 mm">
+                               placeholder="{{ __('products.rod_diameter_placeholder') }}">
                         @error('rod_diameter')
                                         <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -1161,7 +1160,7 @@
                                id="applicable_carrier" 
                                name="applicable_carrier" 
                                value="{{ old('applicable_carrier', $product->applicable_carrier) }}" 
-                               placeholder="e.g., 8-15 ton excavator">
+                               placeholder="{{ __('products.applicable_carrier_placeholder') }}">
                         @error('applicable_carrier')
                                         <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -1193,7 +1192,7 @@
                             <div class="modern-form-group form-group-full">
                                 <label for="product_image" class="modern-label">
                                     <i class="fas fa-upload mobile-icon"></i>
-                                    {{ __('products.upload_new_image') }}
+                                    <!-- {{ __('products.upload_new_image') }} -->
                     </label>
                                 <div class="file-upload-container" id="fileUpload">
                         <input type="file" 
@@ -1600,20 +1599,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Add unit labels and conversion info to help users
     function addUnitLabels() {
-        const unitLabels = {
-            body_weight: 'Enter in kg (will be converted to lb)',
-            operating_weight: 'Enter in kg (will be converted to lb)', 
-            overall_length: 'Enter in mm (will be converted to inches)',
-            overall_width: 'Enter in mm (will be converted to inches)',
-            overall_height: 'Enter in mm (will be converted to inches)',
-            rod_diameter: 'Enter in mm (will be converted to inches)',
-            required_oil_flow: 'Enter in l/min (will be converted to gal/min)',
-            operating_pressure: 'Enter in kgf/cm² (will be converted to psi)',
-            applicable_carrier: 'Enter in ton (will be converted to lb)',
-            impact_rate: 'Enter in BPM (no conversion needed)',
-            impact_rate_soft_rock: 'Enter in BPM (no conversion needed)',
-            hose_diameter: 'Enter in inches (no conversion needed)'
-        };
+        // const unitLabels = {
+        //     body_weight: 'Enter in kg (will be converted to lb)',
+        //     operating_weight: 'Enter in kg (will be converted to lb)', 
+        //     overall_length: 'Enter in mm (will be converted to inches)',
+        //     overall_width: 'Enter in mm (will be converted to inches)',
+        //     overall_height: 'Enter in mm (will be converted to inches)',
+        //     rod_diameter: 'Enter in mm (will be converted to inches)',
+        //     required_oil_flow: 'Enter in l/min (will be converted to gal/min)',
+        //     operating_pressure: 'Enter in kgf/cm² (will be converted to psi)',
+        //     applicable_carrier: 'Enter in ton (will be converted to lb)',
+        //     impact_rate: 'Enter in BPM (no conversion needed)',
+        //     impact_rate_soft_rock: 'Enter in BPM (no conversion needed)',
+        //     hose_diameter: 'Enter in inches (no conversion needed)'
+        // };
 
         Object.keys(unitLabels).forEach(fieldName => {
             const field = document.getElementById(fieldName);

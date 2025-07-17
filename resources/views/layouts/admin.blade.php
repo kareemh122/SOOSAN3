@@ -916,9 +916,6 @@
                         <button class="btn btn-link d-lg-none me-3 p-0" id="sidebarToggle" style="color: var(--admin-dark);">
                             <i class="fas fa-bars fs-5"></i>
                         </button>
-                        <h5 class="mb-0 fw-bold">
-                        {{ __('admin.dashboard') }}
-                        </h5>
                     </div>
 
                     <div class="d-flex align-items-center gap-3">

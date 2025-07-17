@@ -444,7 +444,8 @@
 </a></li>
 <li><a class="dropdown-item d-flex align-items-center sort-option" href="#" data-sort="weight-asc">
     <i class="fas fa-arrow-up-short-wide me-2"></i>{{ __('common.sort_weight_asc') }}
-</a></li>
+</a>
+</li>
                     </ul>
                 </div>
             </div>

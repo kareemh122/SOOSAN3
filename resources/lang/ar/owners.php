@@ -239,6 +239,18 @@ return [
     'italian' => 'الإيطالية',
     'portuguese' => 'البرتغالية',
 
+    // Sold Products Table
+    'sold_products' => 'المنتجات المباعة',
+    'product' => 'المنتج',
+    'serial_number' => 'رقم المنتج',
+    'sale_date' => 'تاريخ البيع',
+    'warranty_status' => 'حالة الضمان',
+    'warranty_end' => 'تاريخ انتهاء الضمان',
+    'warranty_active' => 'نشط',
+    'warranty_expired' => 'منتهي',
+    'warranty_voided' => 'ملغي من الضمان',
+    'sold_products_empty' => 'لا يوجد منتجات مباعة لهذا المالك.',
+
     // Analytics Translations
     'analytics_chart' => 'مخطط تحليلي للمالكين',
     'analytics_chart_title' => 'عدد الأجهزة المشتراة وإجمالي الإنفاق لكل مالك',

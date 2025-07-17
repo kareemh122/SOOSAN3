@@ -352,7 +352,6 @@
         }
 
         .d-flex.justify-content-between {
-            flex-direction: column;
             gap: 1rem;
         }
 
@@ -677,7 +676,7 @@
                                 @php $currentUser = Auth::user(); @endphp
                                 @if ($currentUser->isEmployee())
                                     <select class="modern-select" id="user_id" name="user_id" disabled>
-                                        <option value="{{ $currentUser->id }}" selected>{{ $currentUser->name }} ({{ ucfirst($currentUser->role) }})</option>
+                                        <option value="{{ $currentUser->id }}" selected>{{ $currentUser->name }} ({{ __('admin.' . $currentUser->role) }})</option>
                                     </select>
                                     <input type="hidden" name="user_id" value="{{ $currentUser->id }}">
                                 @else
@@ -685,7 +684,7 @@
                                         <option value="">{{ __('sold-products.select_employee') }}</option>
                                         @foreach ($employees as $employee)
                                             <option value="{{ $employee->id }}" {{ old('user_id', $soldProduct->user_id) == $employee->id ? 'selected' : '' }}>
-                                                {{ $employee->name }} ({{ ucfirst($employee->role) }})
+                                                {{ $employee->name }} ({{ __('admin.' . $employee->role) }})
                                             </option>
                                         @endforeach
                                     </select>

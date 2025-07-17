@@ -68,24 +68,33 @@
     .message-card {
         background: #fff;
         border-radius: 1rem;
-        padding: 1.5rem;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-        border: 1px solid #e9ecef;
+        padding: 1.75rem;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+        border: 1px solid #f0f0f0;
         transition: all 0.3s ease;
-        margin-bottom: 1rem;
+        margin-bottom: 1.5rem;
         position: relative;
+        overflow: hidden;
+    }
+    .message-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 4px;
+        transition: all 0.3s ease;
     }
     .message-card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        transform: translateY(-3px);
+        box-shadow: 0 8px 24px rgba(0,0,0,0.12);
         border-color: #667eea;
     }
-    .message-card.unread {
-        border-left: 4px solid #ffc107;
-        background: #fff9e6;
+    .message-card.unread::before {
+        background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%);
     }
-    .message-card.read {
-        border-left: 4px solid #28a745;
+    .message-card.read::before {
+        background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
     }
     .message-avatar {
         width: 60px;
@@ -136,19 +145,35 @@
         background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
     }
     .action-btn {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        display: flex;
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+        display: inline-flex;
         align-items: center;
         justify-content: center;
-        border: 2px solid;
+        border: 1px solid;
         background: transparent;
         transition: all 0.3s ease;
         margin: 0 0.25rem;
+        font-size: 0.875rem;
+        font-weight: 500;
+        text-decoration: none;
     }
     .action-btn:hover {
-        transform: scale(1.1);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        background: var(--bs-gray-50);
+    }
+    .action-btn.border-info:hover {
+        background: rgba(13, 202, 240, 0.1);
+        border-color: #0dcaf0;
+    }
+    .action-btn.border-success:hover {
+        background: rgba(25, 135, 84, 0.1);
+        border-color: #198754;
+    }
+    .action-btn.border-danger:hover {
+        background: rgba(220, 53, 69, 0.1);
+        border-color: #dc3545;
     }
     .badge-modern {
         padding: 0.5rem 1rem;
@@ -173,6 +198,7 @@
         box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         display: inline-flex;
         margin-bottom: 2rem;
+        margin-top: 1.2rem;
     }
     .filter-tab {
         padding: 0.75rem 1.5rem;
@@ -265,24 +291,31 @@
 </div>
                     
                     <div class="flex-grow-1">
-                        <div class="d-flex justify-content-between align-items-start mb-2">
-                            <div>
-                                <h5 class="mb-1">{{ $message->first_name }} {{ $message->last_name }}</h5>
-                                <small class="text-muted">{{ $message->email }}</small>
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <div class="flex-grow-1">
+                                <h5 class="mb-1 fw-bold text-dark">{{ $message->first_name }} {{ $message->last_name }}</h5>
+                                <p class="mb-0 text-muted small">
+                                    <i class="fas fa-envelope me-1"></i>{{ $message->email }}
+                                </p>
                             </div>
-                            <div class="text-end">
-                                <span class="badge badge-modern bg-{{ !$message->is_read ? 'warning' : 'success' }}">
+                            <div class="text-end flex-shrink-0">
+                                <span class="badge badge-modern bg-{{ !$message->is_read ? 'warning' : 'success' }} mb-1">
+                                    <i class="fas fa-{{ !$message->is_read ? 'envelope' : 'envelope-open' }} me-1"></i>
                                     {{ $message->is_read ? __('contact-messages.read_status') : __('contact-messages.unread_status') }}
                                 </span>
                                 <br>
                                 <small class="text-muted">
-                                    {{ $message->created_at ? $message->created_at->diffForHumans() : __('contact-messages.na') }}
+                                    <i class="fas fa-clock me-1"></i>
+                                    {{ $message->created_at ? $message->created_at->locale(app()->getLocale())->translatedFormat('j F Y \a\t g:i A') : __('contact-messages.na') }}
                                 </small>
                             </div>
                         </div>
                         
-                        <h6 class="mb-2 text-primary">{{ $message->subject ?? __('contact-messages.no_subject') }}</h6>
-                        <p class="text-muted mb-3">{{ Str::limit($message->message, 120) }}</p>
+                        <h6 class="mb-2 text-primary fw-semibold">
+                            <i class="fas fa-comment-alt me-1"></i>
+                            {{ $message->subject ?? __('contact-messages.no_subject') }}
+                        </h6>
+                        <p class="text-muted mb-3 lh-base">{{ Str::limit($message->message, 120) }}</p>
                         
                         <div class="d-flex justify-content-end">
                             <a href="{{ route('admin.contact-messages.show', $message) }}" 

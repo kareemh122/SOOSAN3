@@ -468,7 +468,7 @@
                 </h1>
                 <a href="{{ route('admin.audit-logs.index') }}" class="modern-btn">
                     <i class="fas fa-list"></i>
-                    <span class="mobile-hide-text">{{ __('audit-logs.header.title') }}</span>
+                    <span class="mobile-text-full">{{ __('audit-logs.header.title') }}</span>
                 </a>
             </div>
         </div>
@@ -688,9 +688,9 @@
                                 @foreach($recentLogs as $log)
                                     <tr>
                                         <td>
-                                            <span class="text-muted small">{{ $log->created_at->format('H:i:s') }}</span>
+                                            <span class="text-muted small">{{ $log->created_at->locale(app()->getLocale())->translatedFormat('H:i:s') }}</span>
                                             <br>
-                                            <small class="text-muted">{{ $log->created_at->diffForHumans() }}</small>
+                                            <small class="text-muted">{{ $log->created_at->locale(app()->getLocale())->diffForHumans() }}</small>
                                         </td>
                                         <td>
                                             @if($log->user)

@@ -784,7 +784,7 @@
                     <div class="owners-footer">
                         <div class="owners-created-date">
                             <i class="fas fa-calendar"></i>
-                            <span>{{ $owner->created_at ? $owner->created_at->format('M d, Y') : __('owners.n_a') }}</span>
+                            <span>{{ $owner->created_at ? $owner->created_at->locale(app()->getLocale())->translatedFormat('j F Y') : __('owners.n_a') }}</span>
                         </div>
                     </div>
                 </div>

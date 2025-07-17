@@ -1298,7 +1298,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         })}`, pageWidth / 2, doc.lastAutoTable.finalY + 18, { align: 'center' });
 
                         doc.save(`${productData.model_name}_specifications.pdf`);
-                        showToast('PDF Download Started');
+                        showToast('{{ __("common.pdf_download_started") }}');
                     }
                 };
 
@@ -1372,7 +1372,7 @@ document.addEventListener('DOMContentLoaded', function () {
             a.click();
             document.body.removeChild(a);
             window.URL.revokeObjectURL(url);
-            showToast('CSV Download Started');
+            showToast('{{ __("common.csv_download_started") }}');
         });
     }
 

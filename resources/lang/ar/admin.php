@@ -169,6 +169,11 @@ return [
     'profile' => 'الملف الشخصي',
     'signed_in_as' => 'تم تسجيل الدخول باسم',
     
+    // Pagination
+    'pagination' => [
+        'showing_results' => 'عرض :first إلى :last من :total نتيجة',
+    ],
+    
     // Notifications
     'notifications' => 'الإشعارات',
     'no_notifications' => 'لا توجد إشعارات جديدة',

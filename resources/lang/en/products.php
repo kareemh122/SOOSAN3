@@ -8,6 +8,8 @@ return [
     'manage_products' => 'Manage your drilling equipment and product catalog',
     'employee_access' => 'Employee Access',
     'employee_access_desc' => 'You can create new products and edit existing ones. Any edits to existing products will be submitted for admin approval before taking effect.',
+    'hydraulic_breakers' => 'Hydraulic Breakers',
+
     
     // Statistics
     'total_products' => 'Total Products',
@@ -47,6 +49,8 @@ return [
     'save_product' => 'Save Product',
     'update_product' => 'Update Product',
     'cancel' => 'Cancel',
+    'created_at' => 'Created At',
+    'updated_at' => 'Updated At',
     
     // Create Product Page
     'create_new_product' => 'Create New Product',

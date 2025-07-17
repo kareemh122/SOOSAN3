@@ -15,6 +15,9 @@ return [
     'SB-E_line' => 'SB-E Line',
     'ET-II_line' => 'ET-II Line',
     'hydraulic_breakers' => 'Hydraulic Breakers',
+    'product_lines' => 'Products Lines',
+    'quick_actions' => 'Quick Actions',
+    'language' => 'Choose Language',
 
     // Homepage
     'hero_title' => 'Leading Drilling Equipment Solutions',
@@ -507,6 +510,8 @@ return [
     'product_updated' => 'Product updated successfully',
     'product_deleted' => 'Product deleted successfully',
     'link_copied' => 'Link copied to clipboard!',
+    'pdf_download_started' => 'PDF download started!',
+    'csv_download_started' => 'CSV download started!',
     'copy_link' => 'Copy Link',
     'next' => 'Next',
     'previous' => 'Previous',

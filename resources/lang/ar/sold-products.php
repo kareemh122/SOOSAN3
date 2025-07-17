@@ -21,6 +21,7 @@ return [
     'total_revenue' => 'إجمالي الإيرادات',
     'under_warranty' => 'تحت الضمان',
     'warranty_expired' => 'انتهت صلاحية الضمان',
+    'warranty_expires' => 'ينتهي الضمان في',
     'sales_stats' => 'إحصائيات المبيعات',
     'monthly_sales' => 'المبيعات الشهرية',
     'yearly_sales' => 'المبيعات السنوية',
@@ -402,13 +403,18 @@ return [
     
     // Warranty information
     'warranty_information' => 'معلومات الضمان',
+    'warranty_voided' => 'ملغي من الضمان',
     'under_warranty' => 'تحت الضمان',
     'warranty_expired' => 'انتهى الضمان',
     'active_warranty' => 'ضمان نشط',
     'warranty_not_started' => 'لم يبدأ الضمان بعد',
     'expired_time_ago' => 'انتهى منذ :time',
     'days_remaining' => ':days يوم متبقي',
-    
+    'voided_by' => 'ملغي من قبل',
+    'voided_at' => 'تاريخ الإلغاء',
+    'voided_reason' => 'سبب الإلغاء',
+    'voided_by_employee' => 'ملغي من قبل الموظف',
+    'voided_at_employee' => 'تاريخ الإلغاء من قبل الموظف',
     // Confirmation messages
     'confirm_delete' => 'هل أنت متأكد أنك تريد حذف سجل البيع هذا؟',
     

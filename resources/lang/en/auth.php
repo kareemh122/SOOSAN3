@@ -94,6 +94,7 @@ return [
     // Status Messages
     'login_success' => 'Login successful!',
     'login_successful' => 'Login successful!',
+    'logout' => 'Logout',
     'welcome_back_user' => 'Welcome back, :name!',
     'login_failed' => 'Login failed',
     'invalid_credentials' => 'Invalid credentials',

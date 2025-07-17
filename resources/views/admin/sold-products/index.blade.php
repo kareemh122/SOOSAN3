@@ -728,7 +728,6 @@
             }
 
             .d-flex.justify-content-between {
-                flex-direction: column;
                 gap: 1rem;
             }
 
@@ -1090,7 +1089,7 @@
                             <div class="mb-2">
                                 <i class="fas fa-calendar text-info me-2"></i>
                                 <strong>{{ __('sold-products.sale_date') }}:</strong>
-                                {{ $soldProduct->sale_date ? $soldProduct->sale_date->format('M d, Y') : __('sold-products.na') }}
+                                {{ $soldProduct->sale_date ? $soldProduct->sale_date->locale(app()->getLocale())->translatedFormat('j F Y') : __('sold-products.na') }}
                             </div>
                             <div class="mb-2">
                                 <i class="fas fa-barcode text-warning me-2"></i>
@@ -1147,7 +1146,7 @@
                                 <div class="text-muted small mt-2" style="font-weight: 500;">
                                     <i class="fas fa-calendar-times me-1"></i>
                                     {{ __('sold-products.warranty_expires') }}:
-                                    {{ $soldProduct->warranty_end_date->format('M d, Y') }}
+                                    {{ $soldProduct->warranty_end_date->locale(app()->getLocale())->translatedFormat('j F Y') }}
                                 </div>
                             @endif
                         </div>

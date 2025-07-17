@@ -810,22 +810,22 @@
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
+            width: 92%;
         }
 
         .language-dropdown .dropdown-item:hover {
-            background: linear-gradient(135deg, #007bff, #0056b3);
+            background-color: #00548e;
             color: white;
-            transform: translateX(5px);
         }
 
         .language-dropdown .dropdown-item.active {
             background: rgba(0, 123, 255, 0.1);
-            color: #007bff;
+            color:rgb(1, 45, 77);
             font-weight: 700;
         }
 
         .language-dropdown .dropdown-item.active:hover {
-            background: linear-gradient(135deg, #007bff, #0056b3);
+            background-color: #00548e;
             color: white;
         }
 
@@ -834,7 +834,7 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            background: linear-gradient(135deg, #007bff 0%, #004085 50%, #b0d701 100%);
+            background-color: 00548e;
             color: white;
             text-decoration: none;
             border-radius: 15px;
@@ -851,39 +851,6 @@
             letter-spacing: 0.5px;
         }
 
-        .enhanced-login-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
-            transition: left 0.7s ease;
-        }
-
-        .enhanced-login-btn::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.3), transparent);
-            transition: all 0.6s ease;
-            transform: translate(-50%, -50%);
-            border-radius: 50%;
-        }
-
-        .enhanced-login-btn:hover::before {
-            left: 100%;
-        }
-
-        .enhanced-login-btn:hover::after {
-            width: 300px;
-            height: 300px;
-        }
-
         .enhanced-login-btn:hover {
             transform: translateY(-4px) scale(1.08);
             box-shadow: 0 12px 35px rgba(0, 123, 255, 0.5);
@@ -895,22 +862,6 @@
         .enhanced-login-btn:active {
             transform: translateY(-2px) scale(1.04);
             box-shadow: 0 8px 25px rgba(0, 123, 255, 0.4);
-        }
-
-        .btn-glow {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at center, rgba(255, 255, 255, 0.3), transparent);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            border-radius: 12px;
-        }
-
-        .enhanced-login-btn:hover .btn-glow {
-            opacity: 1;
         }
 
         /* Enhanced User Dropdown */
@@ -1725,9 +1676,7 @@
             display: flex;
             align-items: center;
             cursor: pointer;
-            background: transparent;
             transition: background 0.3s ease;
-            color: white;
             font-weight: 600;
         }
 
@@ -1739,7 +1688,6 @@
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.3s ease;
-            background: rgba(0, 0, 0, 0.2);
         }
 
         .mobile-nav-section-content.expanded {
@@ -1763,7 +1711,6 @@
         .mobile-nav-item {
             display: block;
             padding: 0.75rem 1rem;
-            color: white;
             text-decoration: none;
             border-radius: 8px;
             margin-bottom: 0.5rem;
@@ -1782,7 +1729,6 @@
         .mobile-nav-item-simple {
             display: block;
             padding: 1.2rem 2rem;
-            color: white;
             text-decoration: none;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             transition: all 0.3s ease;
@@ -1853,20 +1799,6 @@
             transform: translateX(3px);
         }
 
-        footer a::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: currentColor;
-            transition: width 0.3s ease;
-        }
-
-        footer a:hover::after {
-            width: 100%;
-        }
     </style>
 </head>
 
@@ -2020,7 +1952,7 @@
 
                 <!-- Enhanced Login Button -->
                 @guest
-                    <a href="{{ route('login') }}" class="enhanced-login-btn">
+                    <a href="{{ route('admin.login') }}" class="enhanced-login-btn">
                         <i class="fas fa-sign-in-alt me-2"></i>
                         <span>{{ __('auth.login') }}</span>
                         <div class="btn-glow"></div>
@@ -2103,7 +2035,7 @@
                         <h6 class="mobile-nav-subheader">{{ __('common.product_categories') }}</h6>
                         @if(isset($productCategories) && $productCategories->count() > 0)
                             @foreach($productCategories as $category)
-                                <a class="mobile-nav-item" href="{{ route('products.category', $category->id) }}">
+                                <a class="mobile-nav-item" href="{{ route('products.index') }}">
                                     <i class="fas fa-tag me-3"></i>
                                     {{ $category->name }}
                                 </a>
@@ -2138,7 +2070,7 @@
                             <i class="fas fa-th-large me-3"></i>{{ __('common.all_products') }}
                         </a>
                         <a class="mobile-nav-item" href="{{ route('serial-lookup.index') }}">
-                            <i class="fas fa-search me-3"></i>{{ __('common.serial_lookup') }}
+                            <i class="fas fa-search me-3"></i>{{ __('common.check_warranty') }}
                         </a>
                     </div>
                 </div>
@@ -2264,9 +2196,9 @@
                         <li class="mb-2"><a href="{{ route('products.index') }}"
                                 class="text-light text-decoration-none small">{{ __('common.products') }}</a></li>
                         <li class="mb-2"><a href="{{ route('serial-lookup.index') }}"
-                                class="text-light text-decoration-none small">{{ __('common.serial_lookup') }}</a></li>
+                                class="text-light text-decoration-none small">{{ __('common.check_warranty') }}</a></li>
                         <li class="mb-2"><a href="{{ route('about') }}"
-                                class="text-light text-decoration-none small">{{ __('common.about') }}</a></li>
+                                class="text-light text-decoration-none small">{{ __('common.about_us') }}</a></li>
                         <li class="mb-2"><a href="{{ route('support') }}"
                                 class="text-light text-decoration-none small">{{ __('common.support') }}</a></li>
                     </ul>
@@ -2300,7 +2232,7 @@
                 <a href="https://soosancebotics.com/en/main" title="SOOSAN CEBOTICS" target="_blank">
                     <img src="{{ asset('images/soosan_logo_en.svg') }}" alt="SOOSAN CEBOTICS">
                 </a>
-                <p class="text-light small mb-0">&copy; {{ date('Y') }} SoosanEgypt.
+                <p class="text-light small mb-0">&copy; {{ date('Y') }} SOOSAN
                     {{ __('common.copyright') }}</p>
                 <a href="https://madinagp.com/tag/al-madina-contracting-company/" title="AL MADINA CONRACTING COMPANY" target="_blank">
                     <img src="{{ asset('images/almadina2.png') }}" alt="AL MADINA CONTRACTING COMPANY">

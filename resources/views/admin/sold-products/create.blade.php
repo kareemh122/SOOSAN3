@@ -209,7 +209,6 @@
         }
 
         .d-flex.justify-content-between {
-            flex-direction: column;
             gap: 1rem;
         }
 

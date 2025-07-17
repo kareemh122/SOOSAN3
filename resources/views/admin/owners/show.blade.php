@@ -1095,35 +1095,35 @@
                 <!-- Sold Products Section -->
                 @if($owner->soldProducts && $owner->soldProducts->count())
                     <div class="owners-detail-section">
-                        <h3><i class="fas fa-box"></i> {{ __('owners.show.sections.sold_products') }}</h3>
+                        <h3><i class="fas fa-box"></i> {{ __('owners.sold_products') }}</h3>
                         <div class="sold-products-cards">
                             @foreach($owner->soldProducts as $soldProduct)
                                 <div class="sold-product-card">
                                     <div class="sold-product-row">
-                                        <span class="sold-product-label">{{ __('owners.show.labels.product') }}:</span>
+                                        <span class="sold-product-label">{{ __('owners.product') }}:</span>
                                         <span class="sold-product-value">{{ $soldProduct->product->model_name ?? '-' }}</span>
                                     </div>
                                     <div class="sold-product-row">
-                                        <span class="sold-product-label">{{ __('owners.show.labels.serial_number') }}:</span>
+                                        <span class="sold-product-label">{{ __('owners.serial_number') }}:</span>
                                         <span class="sold-product-value">{{ $soldProduct->serial_number }}</span>
                                     </div>
                                     <div class="sold-product-row">
-                                        <span class="sold-product-label">{{ __('owners.show.labels.sale_date') }}:</span>
-                                        <span class="sold-product-value">{{ $soldProduct->sale_date ? $soldProduct->sale_date->format('M d, Y') : '-' }}</span>
+                                        <span class="sold-product-label">{{ __('owners.sale_date') }}:</span>
+                                        <span class="sold-product-value">{{ $soldProduct->sale_date ? $soldProduct->sale_date->locale(app()->getLocale())->translatedFormat('j F Y') : '-' }}</span>
                                     </div>
                                     <div class="sold-product-row">
-                                        <span class="sold-product-label">{{ __('owners.show.labels.warranty_end') }}:</span>
-                                        <span class="sold-product-value">{{ $soldProduct->warranty_end_date ? $soldProduct->warranty_end_date->format('M d, Y') : '-' }}</span>
+                                        <span class="sold-product-label">{{ __('owners.warranty_end') }}:</span>
+                                        <span class="sold-product-value">{{ $soldProduct->warranty_end_date ? $soldProduct->warranty_end_date->locale(app()->getLocale())->translatedFormat('j F Y') : '-' }}</span>
                                     </div>
                                     <div class="sold-product-row">
-                                        <span class="sold-product-label">{{ __('owners.show.labels.warranty_status') }}:</span>
+                                        <span class="sold-product-label">{{ __('owners.warranty_status') }}:</span>
                                         <span class="sold-product-value">
                                             @if($soldProduct->warranty_voided)
-                                                <span class="badge bg-danger">{{ __('owners.show.labels.warranty_voided') }}</span>
+                                                <span class="badge bg-danger">{{ __('owners.warranty_voided') }}</span>
                                             @elseif($soldProduct->warranty_end_date && now()->gt($soldProduct->warranty_end_date))
-                                                <span class="badge bg-secondary">{{ __('owners.show.labels.warranty_expired') }}</span>
+                                                <span class="badge bg-secondary">{{ __('owners.warranty_expired') }}</span>
                                             @else
-                                                <span class="badge bg-success">{{ __('owners.show.labels.warranty_active') }}</span>
+                                                <span class="badge bg-success">{{ __('owners.warranty_active') }}</span>
                                             @endif
                                         </span>
                                     </div>
@@ -1157,7 +1157,7 @@
                     <div class="owners-meta-content">
                         <div class="owners-meta-label">{{ __('owners.show.labels.created_at') }}</div>
                         <div class="owners-meta-value">
-                            {{ $owner->created_at ? $owner->created_at->format('M d, Y \a\t g:i A') : __('owners.show.fallbacks.na') }}
+                            {{ $owner->created_at ? $owner->created_at->locale(app()->getLocale())->translatedFormat('j F Y \a\t g:i A') : __('owners.show.fallbacks.na') }}
                         </div>
                     </div>
                 </div>
@@ -1167,7 +1167,7 @@
                     <div class="owners-meta-content">
                         <div class="owners-meta-label">{{ __('owners.show.labels.last_updated') }}</div>
                         <div class="owners-meta-value">
-                            {{ $owner->updated_at ? $owner->updated_at->format('M d, Y \a\t g:i A') : __('owners.show.fallbacks.na') }}
+                            {{ $owner->updated_at ? $owner->updated_at->locale(app()->getLocale())->translatedFormat('j F Y \a\t g:i A') : __('owners.show.fallbacks.na') }}
                         </div>
                     </div>
                 </div>
@@ -1177,7 +1177,7 @@
                     <div class="owners-meta-content">
                         <div class="owners-meta-label">{{ __('owners.show.labels.time_since_created') }}</div>
                         <div class="owners-meta-value">
-                            {{ $owner->created_at ? $owner->created_at->diffForHumans() : __('owners.show.fallbacks.na') }}
+                            {{ $owner->created_at ? $owner->created_at->locale(app()->getLocale())->diffForHumans() : __('owners.show.fallbacks.na') }}
                         </div>
                     </div>
                 </div>

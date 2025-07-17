@@ -455,7 +455,6 @@
         }
 
         .d-flex.justify-content-between {
-            flex-direction: column;
             gap: 1rem;
         }
 
@@ -649,12 +648,12 @@
             </div>
             <div class="col-md-4 text-md-end">
                 <div class="btn-group">
-                                            <a href="{{ route('admin.products.edit', $product) }}" class="modern-btn modern-btn-warning">
+                        <a href="{{ route('admin.products.edit', $product) }}" class="modern-btn modern-btn-warning">
                             <i class="fas fa-edit me-2 mobile-icon-show"></i>
                             <span class="mobile-text-hide">{{ __('products.edit_product') }}</span>
                             <span class="d-md-none">{{ __('products.mobile_edit') }}</span>
                         </a>
-                                            <a href="{{ route('admin.products.index') }}" class="modern-btn modern-btn-secondary">
+                        <a href="{{ route('admin.products.index') }}" class="modern-btn modern-btn-secondary">
                             <i class="fas fa-arrow-left me-2 mobile-icon-show"></i>
                             <span class="mobile-text-hide">{{ __('products.back_to_products') }}</span>
                             <span class="d-md-none">{{ __('products.mobile_back') }}</span>

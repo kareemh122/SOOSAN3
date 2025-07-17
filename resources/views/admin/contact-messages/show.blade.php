@@ -421,14 +421,7 @@
             margin-bottom: 1.5rem;
         }
 
-        /* Mobile button text adjustments */
-        .mobile-text-short {
-            display: none;
-        }
 
-        .mobile-text-full {
-            display: inline;
-        }
     }
 
     @media (max-width: 576px) {
@@ -471,14 +464,7 @@
             padding: 0.375rem 0.75rem;
         }
 
-        /* Show shorter text on very small screens */
-        .mobile-text-short {
-            display: inline;
-        }
 
-        .mobile-text-full {
-            display: none;
-        }
     }
 
     @media (max-width: 375px) {
@@ -621,8 +607,7 @@
             <div class="col-md-4 text-md-end">
                 <a href="{{ route('admin.contact-messages.index') }}" class="modern-btn modern-btn-secondary">
                     <i class="fas fa-arrow-left me-2"></i>
-                    <span class="mobile-text-full">{{ __('contact-messages.back_to_messages') }}</span>
-                    <span class="mobile-text-short">Back</span>
+                    {{ __('contact-messages.back_to_messages') }}
                 </a>
             </div>
         </div>
@@ -764,16 +749,14 @@
                     @method('PATCH')
                     <button type="submit" class="modern-btn modern-btn-success">
                         <i class="fas fa-check me-2"></i>
-                        <span class="mobile-text-full">{{ __('contact-messages.mark_as_read') }}</span>
-                        <span class="mobile-text-short">Mark Read</span>
+                        {{ __('contact-messages.mark_as_read') }}
                     </button>
                 </form>
             @endif
             
             <a href="mailto:{{ $contactMessage->email }}?subject=Re: {{ $contactMessage->subject }}" class="modern-btn modern-btn-info">
                 <i class="fas fa-reply me-2"></i>
-                <span class="mobile-text-full">{{ __('contact-messages.reply_via_email') }}</span>
-                <span class="mobile-text-short">{{ __('contact-messages.reply_via_email') }}</span>
+                {{ __('contact-messages.reply_via_email') }}
             </a>
             
             @if(auth()->user()->isAdmin())
@@ -782,8 +765,7 @@
                     @method('DELETE')
                     <button type="submit" class="modern-btn modern-btn-danger">
                         <i class="fas fa-trash me-2"></i>
-                        <span class="mobile-text-full">{{ __('contact-messages.delete') }}</span>
-                        <span class="mobile-text-short">{{ __('contact-messages.delete') }}</span>
+                        {{ __('contact-messages.delete') }}
                     </button>
                 </form>
             @endif

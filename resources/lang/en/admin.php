@@ -165,6 +165,11 @@ return [
     'warning' => 'Warning',
     'info' => 'Information',
     
+    // Pagination
+    'pagination' => [
+        'showing_results' => 'Showing :first to :last of :total results',
+    ],
+    
     // Notifications
     'notifications' => 'Notifications',
     'no_notifications' => 'No new notifications',

@@ -15,6 +15,9 @@ return [
     'SB_line' => 'خط SB',
     'SB-E_line' => 'خط SB-E',
     'ET-II_line' => 'خط ET-II',
+    'product_lines' => 'خطوط المنتجات',
+    'quick_actions' => 'الإجراءات السريعة',
+    'language' => 'اختر اللغة',
 
     // Homepage
     'hero_title' => 'حلول معدات الحفر الرائدة',
@@ -492,7 +495,9 @@ return [
     'product_created' => 'تم إنشاء المنتج بنجاح',
     'product_updated' => 'تم تحديث المنتج بنجاح',
     'product_deleted' => 'تم حذف المنتج بنجاح',
-    'link_copied' => 'تم نسخ الرابط إلى الحافظة!',
+    'link_copied' => 'تم نسخ الرابط!',
+    'pdf_download_started' => 'تم تحميل الملف PDF!',
+    'csv_download_started' => 'تم تحميل الملف CSV!',
     'copy_link' => 'نسخ الرابط',
     'next' => 'التالي',
     'previous' => 'السابق',

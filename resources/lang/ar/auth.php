@@ -94,6 +94,7 @@ return [
     // Status Messages
     'login_success' => 'تم تسجيل الدخول بنجاح!',
     'login_successful' => 'تم تسجيل الدخول بنجاح!',
+    'logout' => 'تسجيل الخروج',
     'welcome_back_user' => 'مرحباً بعودتك، :name!',
     'login_failed' => 'فشل تسجيل الدخول',
     'invalid_credentials' => 'بيانات اعتماد غير صحيحة',
