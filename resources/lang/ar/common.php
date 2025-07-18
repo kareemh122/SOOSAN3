@@ -62,7 +62,7 @@ return [
 
     // Serial Lookup
     'serial_lookup_title' => 'البحث بالرقم التسلسلي',
-    'serial_lookup_subtitle' => 'تحقق من الأصالة وابحث عن تفاصيل حول منتج سوسان مصر الخاص بك.',
+    'serial_lookup_subtitle' => 'تحقق من الأصالة وابحث عن تفاصيل حول منتج سوسان الخاص بك.',
     'enter_serial' => 'أدخل الرقم التسلسلي',
     'search' => 'بحث',
     'serial_result_title' => 'نتيجة البحث بالرقم التسلسلي',
@@ -214,7 +214,7 @@ return [
     // Support
     'support_title' => 'دعم العملاء',
     'support_subtitle' => 'نحن هنا للمساعدة في أي أسئلة أو مشاكل قد تواجهها.',
-    
+
 
     // Common
     'learn_more' => 'اعرف المزيد',

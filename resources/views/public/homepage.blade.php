@@ -2,8 +2,96 @@
 
 @php use Illuminate\Support\Str; @endphp
 
-@section('title', __('homepage.hero_slide_1_title') . ' - SoosanEg')
-@section('description', __('homepage.hero_slide_1_description'))
+@section('title', 'SOOSAN - Leading Drilling Equipment & Hydraulic Breakers in Egypt')
+@section('description', 'Discover premium drilling equipment, hydraulic breakers, and construction machinery from SoosanEgypt. Leading supplier in Egypt for mining, construction, and industrial applications. Get expert solutions and reliable equipment.')
+@section('keywords', 'drilling equipment, hydraulic breakers, construction machinery, mining equipment, Soosan, Egypt, industrial solutions, construction tools, demolition equipment, rock breakers')
+@section('og_image', asset('images/logo2.png'))
+
+@push('structured_data')
+<script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "SOOSAN",
+        "url": "{{ url('/') }}",
+        "description": "Leading provider of drilling equipment and hydraulic breakers in Egypt",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "{{ url('/products') }}?search={search_term_string}",
+            "query-input": "required name=search_term_string"
+        }
+    }
+</script>
+
+<script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "SOOSAN",
+        "image": "{{ asset('images/logo2.png') }}",
+        "description": "Leading provider of drilling equipment and hydraulic breakers in Egypt",
+        "url": "{{ url('/') }}",
+        "telephone": "+20-123-456-7890",
+        "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "EG",
+            "addressLocality": "Egypt"
+        },
+        "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": "30.0444",
+            "longitude": "31.2357"
+        },
+        "openingHoursSpecification": {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": [
+                "Monday",
+                "Tuesday", 
+                "Wednesday",
+                "Thursday",
+                "Friday"
+            ],
+            "opens": "09:00",
+            "closes": "17:00"
+        },
+        "sameAs": [
+            "https://www.facebook.com/soosanegypt",
+            "https://www.linkedin.com/company/soosanegypt"
+        ]
+    }
+</script>
+
+<script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "name": "Featured Products",
+        "description": "Featured drilling equipment and hydraulic breakers",
+        "url": "{{ url('/products') }}",
+        "numberOfItems": {{ \App\Models\Product::count() }},
+        "itemListElement": [
+            @foreach(\App\Models\Product::take(5)->get() as $index => $product)
+            {
+                "@type": "ListItem",
+                "position": {{ $index + 1 }},
+                "item": {
+                    "@type": "Product",
+                    "name": "{{ $product->model_name }}",
+                    "description": "{{ $product->description ?? 'Professional drilling equipment' }}",
+                    "url": "{{ route('products.show', $product->id) }}",
+                    "image": "{{ $product->image_url ?? asset('images/fallback.webp') }}",
+                    "brand": {
+                        "@type": "Brand",
+                        "name": "Soosan"
+                    },
+                    "category": "{{ $product->category->name ?? 'Drilling Equipment' }}"
+                }
+            }@if(!$loop->last),@endif
+            @endforeach
+        ]
+    }
+</script>
+@endpush
 
 @push('styles')
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
@@ -1521,39 +1609,99 @@
             max-width: 500px;
             margin: 0 auto;
             display: flex;
-            gap: 1rem;
-            flex-wrap: nowrap;
             justify-content: center;
+        }
+
+        .serial-input-wrapper {
+            position: relative;
+            display: flex;
+            width: 100%;
+            max-width: 400px;
         }
 
         .serial-input {
             flex: 1;
-            min-width: 250px;
-            padding: 1rem 1.5rem;
+            padding: 1rem 3rem 1rem 1.5rem;
             border: none;
             border-radius: var(--border-radius);
             font-size: 1rem;
             outline: none;
+            background: white;
+            color: #333;
+            transition: all var(--transition-duration) ease;
+        }
+
+        .serial-input:focus {
+            box-shadow: 0 0 0 3px rgba(176, 215, 1, 0.3);
         }
 
         .serial-btn {
-            background: #b0d701;
+            position: absolute;
+            right: 0.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #00548e;
+            border-radius: 50%;
             color: white;
             border: none;
-            padding: 1rem 2rem;
-            border-radius: var(--border-radius);
+            width: 44px;
+            height: 44px;
             font-size: 1rem;
             font-weight: 700;
             cursor: pointer;
             transition: all var(--transition-duration) ease;
-            display: inline-flex;
+            display: flex;
             align-items: center;
-            gap: 0.5rem;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0, 84, 142, 0.3);
         }
 
         .serial-btn:hover {
-            background: rgb(152, 186, 4);
-            transform: translateY(-2px);
+            background: #b0d701;
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 4px 12px rgba(176, 215, 1, 0.4);
+        }
+
+        .serial-btn i {
+            font-size: 1rem;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* RTL Support for Arabic */
+        html[dir='rtl'] .serial-input {
+            padding: 1rem 1.5rem 1rem 3rem;
+        }
+
+        html[dir='rtl'] .serial-btn {
+            right: auto;
+            left: 0.5rem;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 576px) {
+            .serial-input-wrapper {
+                max-width: 100%;
+            }
+            
+            .serial-input {
+                padding: 0.875rem 2.5rem 0.875rem 1.25rem;
+                font-size: 0.9rem;
+            }
+            
+            html[dir='rtl'] .serial-input {
+                padding: 0.875rem 1.25rem 0.875rem 2.5rem;
+            }
+            
+            .serial-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 0.9rem;
+            }
         }
 
         /* Industries Section */
@@ -4741,11 +4889,12 @@
         }
 
         .search-input-btn {
-            width: fit-content;
-            color: #00548e;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            color: #fff;
             border: none;
-            background: transparent;
-            border-radius: 50px;
+            background: #00548e;
             padding: 1.25rem 2rem;
             font-size: 1.35rem;
             font-weight: 600;
@@ -4760,6 +4909,7 @@
         .search-input-btn:hover {
             transform: scale(1.1);
             box-shadow: 0 8px 24px rgba(37, 99, 235, 0.3);
+            background: #b0d701;
         }
 
         .search-tags {
@@ -4859,12 +5009,13 @@
                 <p class="section-description">{{ __('homepage.warranty_check_description') }}</p>
                 <form action="{{ route('serial-lookup.lookup') }}" method="POST" class="serial-form">
                     @csrf
-                    <input type="text" name="serial_number" class="serial-input"
-                        placeholder="{{ __('homepage.serial_number_placeholder') }}">
-                    <button type="submit" class="serial-btn">
-                        <i class="fas fa-search"></i>
-                        {{ __('homepage.warranty_check_btn') }}
-                    </button>
+                    <div class="serial-input-wrapper">
+                        <input type="text" name="serial_number" class="serial-input"
+                            placeholder="{{ __('homepage.serial_number_placeholder') }}">
+                        <button type="submit" class="serial-btn">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>

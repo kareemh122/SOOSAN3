@@ -6,11 +6,67 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('images/logo2.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/logo2.png') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('images/logo2.png') }}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('images/logo2.png') }}">
+    <link rel="icon" type="image/png" sizes="512x512" href="{{ asset('images/logo2.png') }}">
+    <link rel="manifest" href="{{ asset('manifest.json') }}">
+
+    <!-- Primary Meta Tags -->
     <title>@yield('title', 'SoosanEgypt - Drilling Equipment Solutions')</title>
+    <meta name="title" content="@yield('title', 'SoosanEgypt - Drilling Equipment Solutions')">
     <meta name="description" content="@yield('description', 'Leading provider of drilling equipment and solutions. Quality machinery for construction, mining, and industrial applications.')">
+    <meta name="keywords" content="@yield('keywords', 'drilling equipment, hydraulic breakers, construction machinery, mining equipment, Soosan, Egypt, industrial solutions, SQ, SB-E, SB, ET-II')">
+    <meta name="author" content="SOOSAN EGYPT">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="{{ app()->getLocale() }}">
+    <meta name="revisit-after" content="7 days">
+    <meta name="distribution" content="global">
+    <meta name="rating" content="general">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:title" content="@yield('title', 'SoosanEgypt - Drilling Equipment Solutions')">
+    <meta property="og:description" content="@yield('description', 'Leading provider of drilling equipment and solutions. Quality machinery for construction, mining, and industrial applications.')">
+    <meta property="og:image" content="@yield('og_image', asset('images/logo2.png'))">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="SoosanEgypt">
+    <meta property="og:locale" content="{{ app()->getLocale() }}">
+    <meta property="og:locale:alternate" content="{{ app()->getLocale() === 'en' ? 'ar' : 'en' }}">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="{{ url()->current() }}">
+    <meta property="twitter:title" content="@yield('title', 'SoosanEgypt - Drilling Equipment Solutions')">
+    <meta property="twitter:description" content="@yield('description', 'Leading provider of drilling equipment and solutions. Quality machinery for construction, mining, and industrial applications.')">
+    <meta property="twitter:image" content="@yield('og_image', asset('images/logo2.png'))">
+
+    <!-- Additional SEO Meta Tags -->
+    <meta name="theme-color" content="#00548e">
+    <meta name="msapplication-TileColor" content="#00548e">
+    <meta name="msapplication-config" content="{{ asset('browserconfig.xml') }}">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="{{ url()->current() }}">
+    
+    <!-- Alternate Language Versions -->
+    <link rel="alternate" hreflang="en" href="{{ url()->current() }}?lang=en">
+    <link rel="alternate" hreflang="ar" href="{{ url()->current() }}?lang=ar">
+    <link rel="alternate" hreflang="x-default" href="{{ url()->current() }}">
+
+    <!-- Preconnect for Performance -->
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="dns-prefetch" href="//fonts.bunny.net">
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
 
     <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -28,6 +84,34 @@
     <!-- Additional head content -->
     @stack('head')
     @stack('styles')
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "SoosanEgypt",
+            "url": "{{ url('/') }}",
+            "logo": "{{ asset('images/logo2.png') }}",
+            "description": "Leading provider of drilling equipment and solutions in Egypt",
+            "address": {
+                "@type": "PostalAddress",
+                "addressCountry": "EG",
+                "addressLocality": "Egypt"
+            },
+            "contactPoint": {
+                "@type": "ContactPoint",
+                "contactType": "customer service"
+            },
+            "sameAs": [
+                "https://www.facebook.com/soosanegypt",
+                "https://www.linkedin.com/company/soosanegypt"
+            ]
+        }
+    </script>
+
+    <!-- Page-specific structured data -->
+    @stack('structured_data')
 
     <style>
         /* Original Navbar Variables */
@@ -1819,6 +1903,329 @@
             transform: translateX(3px);
         }
 
+        /* Hydraulic Breakers Category and Product Lines Submenu */
+        .hydraulic-breakers-category {
+            position: relative;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: 10px;
+            color: #4b5563;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid transparent;
+            background: transparent;
+        }
+
+        .hydraulic-breakers-category:hover {
+            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+            color: #0369a1;
+            text-decoration: none;
+            transform: translateX(8px) scale(1.02);
+            border-color: #38bdf8;
+            box-shadow: 0 4px 15px rgba(56, 189, 248, 0.2);
+        }
+
+        .hydraulic-breakers-category a {
+            color: inherit;
+            text-decoration: none;
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+        }
+
+        .hydraulic-breakers-category:hover a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .hydraulic-breakers-category .fa-chevron-right {
+            transition: all 0.3s ease;
+            font-size: 0.875rem;
+            color: #6b7280;
+            flex-shrink: 0;
+        }
+
+        .hydraulic-breakers-category:hover .fa-chevron-right {
+            transform: translateX(4px);
+            color: #2563eb;
+        }
+
+        .product-lines-submenu {
+            position: absolute;
+            left: 100%;
+            top: 0;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+            padding: 1.5rem;
+            min-width: 280px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(-10px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1060;
+            margin-left: 10px;
+        }
+
+        .product-lines-submenu.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(0);
+        }
+
+
+
+        .submenu-header {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #007bff;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .submenu-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            color: #4b5563;
+            text-decoration: none;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid transparent;
+            background: transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submenu-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .submenu-item:hover::before {
+            left: 100%;
+        }
+
+        .submenu-item:hover {
+            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+            color: #0369a1;
+            text-decoration: none;
+            transform: translateX(8px) scale(1.02);
+            border-color: #38bdf8;
+            box-shadow: 0 4px 15px rgba(56, 189, 248, 0.2);
+        }
+
+        .submenu-item i {
+            font-size: 1rem;
+            width: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .submenu-item:hover i {
+            transform: scale(1.1) rotate(5deg);
+            color: #0284c7;
+        }
+
+        /* RTL Support for Submenu */
+        html[dir='rtl'] .product-lines-submenu {
+            left: auto;
+            right: 100%;
+            transform: translateX(10px);
+        }
+
+        html[dir='rtl'] .product-lines-submenu.show {
+            transform: translateX(0);
+        }
+
+        html[dir='rtl'] .hydraulic-breakers-category .fa-chevron-right {
+            transform: rotate(180deg);
+        }
+
+        html[dir='rtl'] .hydraulic-breakers-category:hover .fa-chevron-right {
+            transform: rotate(180deg) translateX(-4px);
+        }
+
+        html[dir='rtl'] .submenu-item:hover {
+            transform: translateX(-8px) scale(1.02);
+        }
+
+        /* Mobile Hydraulic Breakers Category */
+        .hydraulic-breakers-mobile {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .hydraulic-breakers-mobile a {
+            color: inherit;
+            text-decoration: none;
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+        }
+
+        .hydraulic-breakers-mobile:hover a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .hydraulic-breakers-mobile .nav-arrow {
+            transition: all 0.3s ease;
+            font-size: 0.875rem;
+            color: #6b7280;
+            flex-shrink: 0;
+        }
+
+        .hydraulic-breakers-mobile.expanded .nav-arrow {
+            transform: rotate(90deg);
+            color: #b0d701;
+        }
+
+        .mobile-nav-subsection-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding-left: 1rem;
+        }
+
+        .mobile-nav-subsection-content.expanded {
+            max-height: 1000px;
+            padding-top: 1rem;
+        }
+
+        /* Enhanced Icon Navigation */
+        
+        /* Korean Flag Styling */
+        .korean-flag-container {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .korean-flag-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 84, 142, 0.1), rgba(176, 215, 1, 0.1));
+            opacity: 0;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+        }
+
+        .korean-flag-container:hover::before {
+            opacity: 1;
+        }
+
+        .korean-flag-container:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 84, 142, 0.2);
+        }
+
+        .korean-flag {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            object-fit: cover;
+        }
+
+        .korean-flag-container:hover .korean-flag {
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        /* RTL Support for Korean Flag */
+        html[dir='rtl'] .korean-flag-container {
+            order: -1;
+        }
+
+        /* Mobile Korean Flag */
+        .mobile-korean-flag {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .mobile-korean-flag:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+        }
+
+        .mobile-korean-flag img {
+            width: 40px;
+            height: 30px;
+            border-radius: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Responsive Korean Flag */
+        @media (max-width: 1200px) {
+            .korean-flag {
+                width: 28px;
+                height: 21px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .korean-flag-container {
+                padding: 0.25rem;
+            }
+            
+            .korean-flag {
+                width: 24px;
+                height: 18px;
+            }
+        }
+
+        /* Korean Flag Animation */
+        .korean-flag-container:hover .korean-flag {
+            animation: flagWave 2s ease-in-out infinite;
+        }
+
+        @keyframes flagWave {
+            0%, 100% {
+                transform: scale(1.1) rotate(0deg);
+            }
+            25% {
+                transform: scale(1.1) rotate(1deg);
+            }
+            75% {
+                transform: scale(1.1) rotate(-1deg);
+            }
+        }
     </style>
 </head>
 
@@ -1861,39 +2268,33 @@
                              onmouseover="cancelHideTimer()" onmouseout="startHideTimer()">
                             <div class="container">
                                 <div class="row">
-                                    <div class="col-lg-4">
-                                        <h6 class="dropdown-header">{{ __('common.product_categories') }}</h6>
-                                        @if(isset($productCategories) && $productCategories->count() > 0)
-                                            @foreach($productCategories as $category)
-                                                <a class="dropdown-item category-link" 
-                                                   href="{{ route('products.index') }}">
-                                                    <i class="fas fa-tag me-2"></i>
-                                                    {{ $category->name }}
-                                                </a>
-                                            @endforeach
-                                        @else
-                                            <a class="dropdown-item" href="{{ route('products.index') }}">
+                                    <div class="col-lg-6">
+                                        <h6 class="dropdown-header">{{ __('common.product_categories') }}</h6>                                      
+                                        <!-- Hydraulic breakers category with hover submenu -->
+                                        <div class="dropdown-item hydraulic-breakers-category" 
+                                             onmouseover="showProductLines()" onmouseout="hideProductLines()">
+                                            <a href="{{ route('products.index') }}" class="d-flex align-items-center flex-grow-1 text-decoration-none text-inherit">
                                                 <i class="fas fa-cogs me-2"></i>{{ __('common.hydraulic_breakers') }}
-                                                <small class="text-muted ms-2">({{ __('common.all_products') }})</small>
                                             </a>
-                                        @endif
+                                            <i class="fas fa-chevron-right ms-auto"></i>
+                                            <div class="product-lines-submenu" id="productLinesSubmenu">
+                                                <h6 class="submenu-header">{{ __('common.product_lines') }}</h6>
+                                                <a class="submenu-item" href="{{ route('products.index', ['line[]' => 'SQ Line']) }}">
+                                                    <i class="fas fa-cog me-2"></i>{{ __('common.SQ_line') }}
+                                                </a>
+                                                <a class="submenu-item" href="{{ route('products.index', ['line[]' => 'SB Line']) }}">
+                                                    <i class="fas fa-cog me-2"></i>{{ __('common.SB_line') }}
+                                                </a>
+                                                <a class="submenu-item" href="{{ route('products.index', ['line[]' => 'SB-E Line']) }}">
+                                                    <i class="fas fa-cog me-2"></i>{{ __('common.SB-E_line') }}
+                                                </a>
+                                                <a class="submenu-item" href="{{ route('products.index', ['line[]' => 'ET-II Line']) }}">
+                                                    <i class="fas fa-cog me-2"></i>{{ __('common.ET-II_line') }}
+                                                </a>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="col-lg-4">
-                                        <h6 class="dropdown-header">{{ __('common.product_lines') }}</h6>
-                                        <a class="dropdown-item" href="{{ route('products.index', ['line[]' => 'SQ Line']) }}">
-                                            <i class="fas fa-cog me-2"></i>{{ __('common.SQ_line') }}
-                                        </a>
-                                        <a class="dropdown-item" href="{{ route('products.index', ['line[]' => 'SB Line']) }}">
-                                            <i class="fas fa-cog me-2"></i>{{ __('common.SB_line') }}
-                                        </a>
-                                        <a class="dropdown-item" href="{{ route('products.index', ['line[]' => 'SB-E Line']) }}">
-                                            <i class="fas fa-cog me-2"></i>{{ __('common.SB-E_line') }}
-                                        </a>
-                                        <a class="dropdown-item" href="{{ route('products.index', ['line[]' => 'ET-II Line']) }}">
-                                            <i class="fas fa-cog me-2"></i>{{ __('common.ET-II_line') }}
-                                        </a>
-                                    </div>
-                                    <div class="col-lg-4">
+                                    <div class="col-lg-6">
                                         <h6 class="dropdown-header">{{ __('common.quick_actions') }}</h6>
                                         <a class="dropdown-item" href="{{ route('products.index') }}">
                                             <i class="fas fa-th-large me-2"></i>{{ __('common.all_products') }}
@@ -1943,6 +2344,7 @@
 
             <!-- Desktop Right Side -->
             <div class="navbar-nav-right d-none d-xl-flex align-items-center gap-3">
+     
                 <!-- Enhanced Language Selector -->
                 <div class="language-selector-container">
                     <div class="dropdown">
@@ -1975,6 +2377,12 @@
                         <i class="fas fa-sign-in-alt me-2"></i>
                         <span>{{ __('auth.login') }}</span>
                     </a>
+                    <div class="korean-flag-container">
+                        <img src="{{ asset('images/korean-flag-removebg-preview.webp') }}" 
+                            alt="Korean Flag" 
+                            class="korean-flag"
+                            title="Korean Partnership">
+                    </div>
                 @else
                     <div class="dropdown user-dropdown">
                         <button class="enhanced-user-btn dropdown-toggle" type="button" 
@@ -1984,6 +2392,7 @@
                                      alt="{{ Auth::user()->name }}" 
                                      class="user-avatar-img">
                             </div>
+
                             <div class="user-info">
                                 <span class="user-name">{{ Auth::user()->name }}</span>
                                 <small class="user-role">{{ Auth::user()->role ?? 'User' }}</small>
@@ -2014,8 +2423,17 @@
                             </li>
                         </ul>
                     </div>
+                    <!-- Korean Flag -->
+                    <div class="korean-flag-container">
+                        <img src="{{ asset('images/korean-flag-removebg-preview.webp') }}" 
+                             alt="Korean Flag" 
+                             class="korean-flag"
+                             title="Korean Partnership">
+                    </div>
                 @endguest
+
             </div>
+            
         </div>
     </nav>
 
@@ -2058,30 +2476,32 @@
                                     {{ $category->name }}
                                 </a>
                             @endforeach
-                        @else
-                            <a class="mobile-nav-item" href="{{ route('products.index') }}">
-                                <i class="fas fa-cogs me-3"></i>{{ __('common.hydraulic_breakers') }}
-                                <small class="text-muted ms-auto">({{ __('common.all_products') }})</small>
-                            </a>
                         @endif
+                        
+                        <!-- Hydraulic breakers category with clickable link and expandable submenu -->
+                        <div class="mobile-nav-item hydraulic-breakers-mobile" data-target="#mobile-product-lines">
+                            <a href="{{ route('products.index') }}" class="d-flex align-items-center flex-grow-1 text-decoration-none text-inherit">
+                                <i class="fas fa-cogs me-3"></i>{{ __('common.hydraulic_breakers') }}
+                            </a>
+                            <i class="fas fa-chevron-right ms-auto nav-arrow"></i>
+                        </div>
+                        <div id="mobile-product-lines" class="mobile-nav-subsection-content">
+                            <h6 class="mobile-nav-subheader">{{ __('common.product_lines') }}</h6>
+                            <a class="mobile-nav-item" href="{{ route('products.index', ['line[]' => 'SQ Line']) }}">
+                                <i class="fas fa-cog me-3"></i>{{ __('common.SQ_line') }}
+                            </a>
+                            <a class="mobile-nav-item" href="{{ route('products.index', ['line[]' => 'SB Line']) }}">
+                                <i class="fas fa-cog me-3"></i>{{ __('common.SB_line') }}
+                            </a>
+                            <a class="mobile-nav-item" href="{{ route('products.index', ['line[]' => 'SB-E Line']) }}">
+                                <i class="fas fa-cog me-3"></i>{{ __('common.SB-E_line') }}
+                            </a>
+                            <a class="mobile-nav-item" href="{{ route('products.index', ['line[]' => 'ET-II Line']) }}">
+                                <i class="fas fa-cog me-3"></i>{{ __('common.ET-II_line') }}
+                            </a>
+                        </div>
                     </div>
                     
-                    <div class="mobile-nav-subsection">
-                        <h6 class="mobile-nav-subheader">{{ __('common.product_lines') }}</h6>
-                        <a class="mobile-nav-item" href="{{ route('products.index', ['line[]' => 'SQ Line']) }}">
-                            <i class="fas fa-cog me-3"></i>{{ __('common.SQ_line') }}
-                        </a>
-                        <a class="mobile-nav-item" href="{{ route('products.index', ['line[]' => 'SB Line']) }}">
-                            <i class="fas fa-cog me-3"></i>{{ __('common.SB_line') }}
-                        </a>
-                        <a class="mobile-nav-item" href="{{ route('products.index', ['line[]' => 'SB-E Line']) }}">
-                            <i class="fas fa-cog me-3"></i>{{ __('common.SB-E_line') }}
-                        </a>
-                        <a class="mobile-nav-item" href="{{ route('products.index', ['line[]' => 'ET-II Line']) }}">
-                            <i class="fas fa-cog me-3"></i>{{ __('common.ET-II_line') }}
-                        </a>
-                    </div>
-
                     <div class="mobile-nav-subsection">
                         <h6 class="mobile-nav-subheader">{{ __('common.quick_actions') }}</h6>
                         <a class="mobile-nav-item" href="{{ route('products.index') }}">
@@ -2168,6 +2588,14 @@
                         العربية
                     </a>
                 </div>
+            </div>
+
+            <!-- Mobile Korean Flag -->
+            <div class="mobile-korean-flag">
+                <img src="{{ asset('images/korean-flag-removebg-preview.webp') }}" 
+                     alt="Korean Flag" 
+                     title="Korean Partnership">
+                <span class="ms-2 text-white small">Korean Partnership</span>
             </div>
         </div>
     </div>
@@ -2676,6 +3104,29 @@
                 });
             });
 
+            // Mobile Hydraulic Breakers Category Toggle
+            const hydraulicBreakersMobile = document.querySelector('.hydraulic-breakers-mobile');
+            if (hydraulicBreakersMobile) {
+                hydraulicBreakersMobile.addEventListener('click', function() {
+                    const targetId = this.getAttribute('data-target');
+                    const targetContent = document.querySelector(targetId);
+                    const arrow = this.querySelector('.nav-arrow');
+                    
+                    if (targetContent) {
+                        const isExpanded = this.classList.contains('expanded');
+                        
+                        // Toggle expanded state
+                        this.classList.toggle('expanded', !isExpanded);
+                        targetContent.classList.toggle('expanded', !isExpanded);
+                        
+                        // Update arrow rotation
+                        if (arrow) {
+                            arrow.style.transform = isExpanded ? 'rotate(0deg)' : 'rotate(90deg)';
+                        }
+                    }
+                });
+            }
+
             // Initialize mobile sections as collapsed
             function initializeMobileSections() {
                 const sectionContents = document.querySelectorAll('.mobile-nav-section-content');
@@ -2716,6 +3167,48 @@
             window.cancelHideTimer = function() {
                 clearTimeout(dropdownTimer);
             };
+
+            // Product Lines Submenu Functionality
+            window.showProductLines = function() {
+                const submenu = document.getElementById('productLinesSubmenu');
+                if (submenu) {
+                    clearTimeout(window.hideProductLinesTimer);
+                    submenu.classList.add('show');
+                }
+            };
+
+            window.hideProductLines = function() {
+                const submenu = document.getElementById('productLinesSubmenu');
+                if (submenu) {
+                    window.hideProductLinesTimer = setTimeout(() => {
+                        submenu.classList.remove('show');
+                    }, 150);
+                }
+            };
+
+            // Close submenu when clicking outside
+            document.addEventListener('click', function(e) {
+                const hydraulicCategory = document.querySelector('.hydraulic-breakers-category');
+                const submenu = document.getElementById('productLinesSubmenu');
+                
+                if (hydraulicCategory && submenu && !hydraulicCategory.contains(e.target) && !submenu.contains(e.target)) {
+                    submenu.classList.remove('show');
+                }
+            });
+
+            // Keep submenu open when hovering over it
+            const productLinesSubmenu = document.getElementById('productLinesSubmenu');
+            if (productLinesSubmenu) {
+                productLinesSubmenu.addEventListener('mouseenter', function() {
+                    clearTimeout(window.hideProductLinesTimer);
+                });
+                
+                productLinesSubmenu.addEventListener('mouseleave', function() {
+                    window.hideProductLinesTimer = setTimeout(() => {
+                        this.classList.remove('show');
+                    }, 150);
+                });
+            }
 
             // Enhanced navbar scroll effect
             let lastScrollTop = 0;

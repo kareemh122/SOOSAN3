@@ -1,7 +1,88 @@
 @extends('layouts.public')
 
-@section('title', $product->model_name . ' - Soosan Cebotics')
-@section('description', 'View details and specifications for ' . $product->model_name)
+@section('title', $product->model_name . ' - Hydraulic Breaker | SoosanEgypt')
+@section('description', 'Discover the ' . $product->model_name . ' hydraulic breaker. Professional drilling equipment with detailed specifications, operating weight: ' . ($product->operating_weight ?? 'N/A') . ' lb, oil flow: ' . ($product->required_oil_flow ?? 'N/A') . ' gal/min. Get expert solutions from SoosanEgypt.')
+@section('keywords', $product->model_name . ', hydraulic breaker, drilling equipment, construction machinery, Soosan, Egypt, ' . ($product->category->name ?? 'drilling equipment'))
+@section('og_image', $product->image_url ?? asset('images/logo2.png'))
+
+@push('structured_data')
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "{{ $product->model_name }}",
+    "description": "{{ $product->description ?? 'Professional hydraulic breaker and drilling equipment from SoosanEgypt' }}",
+    "image": "{{ $product->image_url ?? asset('images/fallback.webp') }}",
+    "url": "{{ route('products.show', $product->id) }}",
+    "brand": {
+        "@type": "Brand",
+        "name": "Soosan"
+    },
+    "category": "{{ $product->category->name ?? 'Hydraulic Breakers' }}",
+    "manufacturer": {
+        "@type": "Organization",
+        "name": "SoosanEgypt"
+    },
+    "offers": {
+        "@type": "Offer",
+        "availability": "https://schema.org/InStock",
+        "seller": {
+            "@type": "Organization",
+            "name": "SoosanEgypt"
+        }
+    },
+    "additionalProperty": [
+        {
+            "@type": "PropertyValue",
+            "name": "Operating Weight",
+            "value": "{{ $product->operating_weight ?? 'N/A' }} lb"
+        },
+        {
+            "@type": "PropertyValue",
+            "name": "Required Oil Flow",
+            "value": "{{ $product->required_oil_flow ?? 'N/A' }} gal/min"
+        },
+        {
+            "@type": "PropertyValue",
+            "name": "Applicable Carrier",
+            "value": "{{ $product->applicable_carrier ?? 'N/A' }} lb"
+        },
+        {
+            "@type": "PropertyValue",
+            "name": "Operating Pressure",
+            "value": "{{ $product->operating_pressure ?? 'N/A' }} psi"
+        }
+    ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "{{ url('/') }}"
+        },
+        {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Products",
+            "item": "{{ url('/products') }}"
+        },
+        {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "{{ $product->model_name }}",
+            "item": "{{ route('products.show', $product->id) }}"
+        }
+    ]
+}
+</script>
+@endpush
 
 @section('content')
 <style>
@@ -408,6 +489,21 @@
             gap: 1.5rem;
             transition: transform 0.4s ease;
             padding: 1rem 0;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE and Edge */
+            cursor: grab;
+            user-select: none;
+        }
+
+        .carousel-track::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera */
+        }
+
+        .carousel-track:active {
+            cursor: grabbing;
         }
 
         /* Product Cards in Carousel */
@@ -421,6 +517,7 @@
             transition: var(--transition);
             text-decoration: none;
             color: inherit;
+            min-width: 280px;
         }
 
         .carousel-product-card:hover {
@@ -604,6 +701,16 @@
             .carousel-arrow.next {
                 right: -20px;
             }
+
+            .carousel-track {
+                gap: 1rem;
+                padding: 0.5rem 0;
+            }
+
+            .carousel-product-card {
+                flex: 0 0 300px;
+                min-width: 260px;
+            }
         }
 
         @media (max-width: 768px) {
@@ -633,10 +740,19 @@
 
             .carousel-container {
                 padding: 0.5rem;
+                overflow: visible;
+            }
+
+            .carousel-track {
+                gap: 1rem;
+                padding: 0.5rem 0;
+                scroll-snap-type: x mandatory;
             }
 
             .carousel-product-card {
                 flex: 0 0 280px;
+                min-width: 240px;
+                scroll-snap-align: start;
             }
 
             .carousel-arrow {
@@ -661,13 +777,51 @@
                 padding: 1rem;
             }
 
+            .carousel-container {
+                padding: 0.25rem;
+            }
+
+            .carousel-track {
+                gap: 0.75rem;
+                padding: 0.25rem 0;
+            }
+
             .carousel-product-card {
                 flex: 0 0 240px;
+                min-width: 200px;
+            }
+
+            .carousel-card-body {
+                padding: 1rem;
+            }
+
+            .carousel-card-title {
+                font-size: 1.1rem;
             }
 
             .unit-toggle .btn {
                 padding: 0.5rem 1rem;
                 font-size: 0.875rem;
+            }
+        }
+
+        /* Touch-friendly carousel improvements */
+        @media (hover: none) and (pointer: coarse) {
+            .carousel-track {
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .carousel-product-card {
+                scroll-snap-align: start;
+            }
+
+            .carousel-product-card:hover {
+                transform: none;
+            }
+
+            .carousel-product-card:active {
+                transform: scale(0.98);
             }
         }
 
@@ -1130,9 +1284,75 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         });
 
+        // Touch/Scroll support for mobile
+        let isScrolling = false;
+        let startX = 0;
+        let scrollLeft = 0;
+
+        carousel.addEventListener('touchstart', (e) => {
+            isScrolling = true;
+            startX = e.touches[0].pageX - carousel.offsetLeft;
+            scrollLeft = carousel.scrollLeft;
+        });
+
+        carousel.addEventListener('touchmove', (e) => {
+            if (!isScrolling) return;
+            e.preventDefault();
+            const x = e.touches[0].pageX - carousel.offsetLeft;
+            const walk = (x - startX) * 2;
+            carousel.scrollLeft = scrollLeft - walk;
+        });
+
+        carousel.addEventListener('touchend', () => {
+            isScrolling = false;
+        });
+
+        // Mouse drag support for desktop
+        let isMouseDown = false;
+        let mouseStartX = 0;
+        let mouseScrollLeft = 0;
+
+        carousel.addEventListener('mousedown', (e) => {
+            isMouseDown = true;
+            mouseStartX = e.pageX - carousel.offsetLeft;
+            mouseScrollLeft = carousel.scrollLeft;
+            carousel.style.cursor = 'grabbing';
+        });
+
+        carousel.addEventListener('mousemove', (e) => {
+            if (!isMouseDown) return;
+            e.preventDefault();
+            const x = e.pageX - carousel.offsetLeft;
+            const walk = (x - mouseStartX) * 2;
+            carousel.scrollLeft = mouseScrollLeft - walk;
+        });
+
+        carousel.addEventListener('mouseup', () => {
+            isMouseDown = false;
+            carousel.style.cursor = 'grab';
+        });
+
+        carousel.addEventListener('mouseleave', () => {
+            isMouseDown = false;
+            carousel.style.cursor = 'grab';
+        });
+
+        // Scroll snap detection for mobile
+        carousel.addEventListener('scroll', () => {
+            if (window.innerWidth <= 768) {
+                // On mobile, let the native scroll handle the carousel
+                return;
+            }
+        });
+
         updateCarousel();
 
         window.addEventListener('resize', () => {
+            // Recalculate on resize
+            const newVisibleCards = window.innerWidth >= 992 ? 3 : (window.innerWidth >= 768 ? 2 : 1);
+            if (newVisibleCards !== visibleCards) {
+                currentSlide = 0; // Reset to first slide on breakpoint change
+            }
             updateCarousel();
         });
     }

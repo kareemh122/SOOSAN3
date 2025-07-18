@@ -1,7 +1,57 @@
 @extends('layouts.public')
 
-@section('title', __('about.title'))
-@section('description', __('about.description'))
+@section('title', 'About SOOSAN - Leading Drilling Equipment Provider in Egypt')
+@section('description', 'Learn about SoosanEgypt, the leading provider of drilling equipment, hydraulic breakers, and construction machinery in Egypt. Discover our expertise, experience, and commitment to quality industrial solutions.')
+@section('keywords', 'about SoosanEgypt, drilling equipment Egypt, hydraulic breakers provider, construction machinery Egypt, industrial solutions, company history, expertise')
+@section('og_image', asset('images/logo2.png'))
+
+@push('structured_data')
+<script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "AboutPage",
+        "name": "About SoosanEgypt",
+        "description": "Leading provider of drilling equipment and hydraulic breakers in Egypt",
+        "url": "{{ url('/about') }}",
+        "mainEntity": {
+            "@type": "Organization",
+            "name": "SoosanEgypt",
+            "description": "Leading provider of drilling equipment and hydraulic breakers in Egypt",
+            "foundingDate": "2020",
+            "address": {
+                "@type": "PostalAddress",
+                "addressCountry": "EG",
+                "addressLocality": "Egypt"
+            },
+            "contactPoint": {
+                "@type": "ContactPoint",
+                "contactType": "customer service"
+            }
+        }
+    }
+</script>
+
+<script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "{{ url('/') }}"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "About",
+                "item": "{{ url('/about') }}"
+            }
+        ]
+    }
+</script>
+@endpush
 
 @push('styles')
     <style>
@@ -696,7 +746,7 @@
                         <div class="col-md-10">
                             <h2 class="section-title">{{ __('about.about_us_title') }}</h2>
                             <p class="section-subtitle">
-                                {{ __('about.about_us_description') }}
+                                {!! __('about.about_us_description') !!}
                             </p>
                         </div>
                     </div>

@@ -42,7 +42,7 @@ return [
     'quick_links' => 'Quick Links',
     'no_categories' => 'No Categories Available',
     'SQ_line' => 'SQ Line',
-    'SB_line' => 'SB Line', 
+    'SB_line' => 'SB Line',
     'SB-E_line' => 'SB-E Line',
     'ET-II_line' => 'ET-II Line',
     'resources' => 'Resources',
@@ -63,7 +63,7 @@ return [
 
     // Serial Lookup
     'serial_lookup_title' => 'Serial Number Lookup',
-    'serial_lookup_subtitle' => 'Verify the authenticity and find details about your SoosanEgypt product.',
+    'serial_lookup_subtitle' => 'Verify the authenticity and find details about your SOOSAN product.',
     'enter_serial' => 'Enter Serial Number',
     'search' => 'Search',
     'serial_result_title' => 'Serial Lookup Result',

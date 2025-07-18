@@ -1,14 +1,13 @@
 <?php
 return [
     'title' => 'About Us',
-    'description' => 'Learn more about SOOSAN EGYPT, our history, mission, and products.',
+    'description' => 'Learn more about SOOSAN, our history, mission, and products.',
     'hero_title' => 'Powering Egypt’s Mining & Construction Future',
-    'hero_subtitle' => 'SOOSAN EGYPT delivers world-class hydraulic breakers and mining solutions, backed by decades of field experience.',
+    'hero_subtitle' => 'SOOSAN delivers world-class hydraulic breakers and mining solutions, backed by decades of field experience.',
     'years_of_excellence' => 'Years of Excellence',
     'projects_completed' => 'Projects Completed',
     'countries_served' => 'Countries Served',
     'about_us_title' => 'About Us',
-    'about_us_text' => 'SOOSAN EGYPT is the authorized distributor of SOOSAN CEBOTICS hydraulic breakers in Egypt. As a subsidiary of AL MADINA Contracting Company, we bring decades of experience in the mining and excavation sectors, specializing in phosphate rock mining in Egypt\'s Eastern Desert. Our collaboration with SOOSAN CEBOTICS began with a trial order of SOOSAN hydraulic breakers, which we tested under the demanding conditions of phosphate mining. The success of this trial led to a strengthened partnership, allowing us to offer SOOSAN\'s reliable and efficient hydraulic breakers to the Egyptian market.',
     'history_title' => 'Our History',
     'history_text' => 'AL MADINA Contracting Company has been at the forefront of Egypt\'s mining industry. Our journey began with phosphate rock mining, and over the years, we\'ve expanded our operations to include excavation projects like the Cairo subway and the Toshka canal. Our commitment to excellence and investment in heavy equipment, particularly Caterpillar machines, have solidified our reputation in the industry. Today, as we venture into the distribution of SOOSAN hydraulic breakers, we continue our legacy of delivering top-tier solutions to our clients.',
     'mission_title' => 'Our Mission',
@@ -33,7 +32,7 @@ return [
 
         // About Us Section
     'about_us_title' => 'About Us',
-    'about_us_description' => 'SOOSAN EGYPT is the authorized distributor of SOOSAN CEBOTICS hydraulic breakers in Egypt. As a subsidiary of AL MADINA Contracting Company, we bring decades of experience in the mining and excavation sectors, specializing in phosphate rock mining in Egypt\'s Eastern Desert. Our collaboration with SOOSAN CEBOTICS began with a trial order of SOOSAN hydraulic breakers, which we tested under the demanding conditions of phosphate mining. The success of this trial led to a strengthened partnership, allowing us to offer SOOSAN\'s reliable and efficient hydraulic breakers to the Egyptian market.',
+    'about_us_description' => 'SOOSAN EGYPT is the authorized distributor of <a href="https://soosancebotics.com/en/main" target="_blank" rel="noopener noreferrer">SOOSAN CEBOTICS</a> hydraulic breakers in Egypt. As a subsidiary of <a href="https://madinagp.com/" target="_blank" rel="noopener noreferrer"">AL MADINA</a> Contracting Company, we bring decades of experience in the mining and excavation sectors, specializing in phosphate rock mining in Egypt\'s Eastern Desert. Our collaboration with SOOSAN CEBOTICS began with a trial order of SOOSAN hydraulic breakers, which we tested under the demanding conditions of phosphate mining. The success of this trial led to a strengthened partnership, allowing us to offer SOOSAN\'s reliable and efficient hydraulic breakers to the Egyptian market.',
     // Our History Section
     'our_history_title' => 'Our History',
     'our_history_description' => 'AL MADINA Contracting Company has been at the forefront of Egypt\'s mining industry. Our journey began with phosphate rock mining, and over the years, we\'ve expanded our operations to include excavation projects like the Cairo subway and the Toshka canal. Our commitment to excellence and investment in heavy equipment, particularly Caterpillar machines, have solidified our reputation in the industry. Today, as we venture into the distribution of SOOSAN hydraulic breakers, we continue our legacy of delivering top-tier solutions to our clients.',

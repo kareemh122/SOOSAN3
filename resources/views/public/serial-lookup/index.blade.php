@@ -2,8 +2,50 @@
 @vite(['resources/css/app.css', 'resources/js/app.js'])
 
 
-@section('title', __('common.serial_lookup_title') . ' - Soosan Cebotics')
-@section('description', __('common.serial_lookup_subtitle'))
+@section('title', 'Equipment Warranty Check & Serial Lookup - SoosanEgypt')
+@section('description', 'Check your equipment warranty status, ownership information, and service history with our serial lookup tool. Verify Soosan hydraulic breakers and drilling equipment coverage instantly.')
+@section('keywords', 'equipment warranty check, serial lookup, hydraulic breaker warranty, drilling equipment verification, Soosan warranty, equipment coverage, service history')
+@section('og_image', asset('images/logo2.png'))
+
+@push('structured_data')
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "SoosanEgypt Serial Lookup",
+    "description": "Check equipment warranty status and service history",
+    "url": "{{ url('/serial-lookup') }}",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web Browser",
+    "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+    }
+}
+</script>
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "{{ url('/') }}"
+        },
+        {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Serial Lookup",
+            "item": "{{ url('/serial-lookup') }}"
+        }
+    ]
+}
+</script>
+@endpush
 
 @push('meta')
 <meta name="keywords" content="serial lookup, warranty check, equipment coverage, Soosan, hydraulic breakers">

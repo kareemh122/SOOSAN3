@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+         xmlns:xhtml="http://www.w3.org/1999/xhtml">
+    
+    <!-- Homepage -->
+    <url>
+        <loc>https://soosanegypt.com/</loc>
+        <lastmod>2024-01-15</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="https://soosanegypt.com/?lang=en"/>
+        <xhtml:link rel="alternate" hreflang="ar" href="https://soosanegypt.com/?lang=ar"/>
+    </url>
+    
+    <!-- Products Page -->
+    <url>
+        <loc>https://soosanegypt.com/products</loc>
+        <lastmod>2024-01-15</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="https://soosanegypt.com/products?lang=en"/>
+        <xhtml:link rel="alternate" hreflang="ar" href="https://soosanegypt.com/products?lang=ar"/>
+    </url>
+    
+    <!-- About Page -->
+    <url>
+        <loc>https://soosanegypt.com/about</loc>
+        <lastmod>2024-01-15</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="https://soosanegypt.com/about?lang=en"/>
+        <xhtml:link rel="alternate" hreflang="ar" href="https://soosanegypt.com/about?lang=ar"/>
+    </url>
+    
+    <!-- Contact Page -->
+    <url>
+        <loc>https://soosanegypt.com/contact</loc>
+        <lastmod>2024-01-15</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="https://soosanegypt.com/contact?lang=en"/>
+        <xhtml:link rel="alternate" hreflang="ar" href="https://soosanegypt.com/contact?lang=ar"/>
+    </url>
+    
+    <!-- Serial Lookup Page -->
+    <url>
+        <loc>https://soosanegypt.com/serial-lookup</loc>
+        <lastmod>2024-01-15</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="https://soosanegypt.com/serial-lookup?lang=en"/>
+        <xhtml:link rel="alternate" hreflang="ar" href="https://soosanegypt.com/serial-lookup?lang=ar"/>
+    </url>
+    
+    <!-- Individual Product Pages (Example) -->
+    <url>
+        <loc>https://soosanegypt.com/products/1</loc>
+        <lastmod>2024-01-15</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="https://soosanegypt.com/products/1?lang=en"/>
+        <xhtml:link rel="alternate" hreflang="ar" href="https://soosanegypt.com/products/1?lang=ar"/>
+    </url>
+    
+    <url>
+        <loc>https://soosanegypt.com/products/2</loc>
+        <lastmod>2024-01-15</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="https://soosanegypt.com/products/2?lang=en"/>
+        <xhtml:link rel="alternate" hreflang="ar" href="https://soosanegypt.com/products/2?lang=ar"/>
+    </url>
+    
+    <url>
+        <loc>https://soosanegypt.com/products/3</loc>
+        <lastmod>2024-01-15</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="https://soosanegypt.com/products/3?lang=en"/>
+        <xhtml:link rel="alternate" hreflang="ar" href="https://soosanegypt.com/products/3?lang=ar"/>
+    </url>
+    
+</urlset> 

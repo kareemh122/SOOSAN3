@@ -1,7 +1,55 @@
 @extends('layouts.public')
 
-@section('title', __('common.get_in_touch') . ' - Soosan Cebotics')
-@section('description', __('common.get_in_touch') . ' - ' . __('common.ready_to_transform'))
+@section('title', 'Contact SOOSAN - Get Expert Support for Drilling Equipment')
+@section('description', 'Contact SoosanEgypt for expert support, equipment inquiries, and professional drilling solutions. Get in touch with our team for hydraulic breakers, construction machinery, and industrial equipment in Egypt.')
+@section('keywords', 'contact SoosanEgypt, drilling equipment support, hydraulic breaker inquiries, construction machinery Egypt, industrial equipment support, customer service')
+@section('og_image', asset('images/logo2.png'))
+
+@push('structured_data')
+<script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "ContactPage",
+        "name": "Contact SoosanEgypt",
+        "description": "Contact us for expert support and equipment inquiries",
+        "url": "{{ url('/contact') }}",
+        "mainEntity": {
+            "@type": "Organization",
+            "name": "SoosanEgypt",
+            "contactPoint": [
+                {
+                    "@type": "ContactPoint",
+                    "contactType": "customer service",
+                    "telephone": "+20-123-456-7890",
+                    "email": "info@soosanegypt.com",
+                    "availableLanguage": ["English", "Arabic"]
+                }
+            ]
+        }
+    }
+</script>
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "{{ url('/') }}"
+        },
+        {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Contact",
+            "item": "{{ url('/contact') }}"
+        }
+    ]
+}
+</script>
+@endpush
 
 @push('styles')
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">

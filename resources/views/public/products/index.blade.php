@@ -2,8 +2,72 @@
 @vite(['resources/css/app.css', 'resources/js/app.js'])
 
 @php use Illuminate\Support\Str; @endphp
-@section('title', __('common.products_title') . ' - Soosan Cebotics')
-@section('description', __('common.products_description'))
+@section('title', 'Hydraulic Breakers & Drilling Equipment - SoosanEgypt')
+@section('description', 'Browse our comprehensive collection of hydraulic breakers, drilling equipment, and construction machinery. Find the perfect equipment for your construction, mining, and industrial projects in Egypt.')
+@section('keywords', 'hydraulic breakers, drilling equipment, construction machinery, mining equipment, Soosan, Egypt, industrial tools, demolition equipment, rock breakers, construction tools')
+@section('og_image', asset('images/logo2.png'))
+
+@push('structured_data')
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Hydraulic Breakers and Drilling Equipment",
+    "description": "Complete collection of hydraulic breakers and drilling equipment from SoosanEgypt",
+    "url": "{{ url('/products') }}",
+    "numberOfItems": {{ $products->total() }},
+    "itemListElement": [
+        @foreach($products as $index => $product)
+        {
+            "@type": "ListItem",
+            "position": {{ ($products->currentPage() - 1) * $products->perPage() + $index + 1 }},
+            "item": {
+                "@type": "Product",
+                "name": "{{ $product->model_name }}",
+                "description": "{{ $product->description ?? 'Professional hydraulic breaker and drilling equipment' }}",
+                "url": "{{ route('products.show', $product->id) }}",
+                "image": "{{ $product->image_url ?? asset('images/fallback.webp') }}",
+                "brand": {
+                    "@type": "Brand",
+                    "name": "Soosan"
+                },
+                "category": "{{ $product->category->name ?? 'Hydraulic Breakers' }}",
+                "offers": {
+                    "@type": "Offer",
+                    "availability": "https://schema.org/InStock",
+                    "seller": {
+                        "@type": "Organization",
+                        "name": "SoosanEgypt"
+                    }
+                }
+            }
+        }@if(!$loop->last),@endif
+        @endforeach
+    ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "{{ url('/') }}"
+        },
+        {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Products",
+            "item": "{{ url('/products') }}"
+        }
+    ]
+}
+</script>
+@endpush
 
 @section('page-header')
     <div class="container mt-2 mt-md-4 mb-3 mb-md-4">

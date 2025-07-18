@@ -990,8 +990,50 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        const isRtl = document.documentElement.getAttribute('dir') === 'rtl';
-        const loadingText = isRtl ? '...جاري تحميل PDF' : 'Generating PDF...';
+        // Always use LTR direction for PDF regardless of current locale
+        const isRtl = false; // Force LTR for PDF generation
+        
+        // Always use English translations for PDF regardless of current locale
+        const englishTranslations = {
+            'common.specification': 'Specification',
+            'common.si': 'SI',
+            'common.imperial': 'Imperial',
+            'common.model_name': 'Model Name',
+            'common.line': 'Line',
+            'common.type': 'Type',
+            'common.body_weight': 'Body Weight',
+            'common.operating_weight': 'Operating Weight',
+            'common.overall_length': 'Overall Length',
+            'common.overall_width': 'Overall Width',
+            'common.overall_height': 'Overall Height',
+            'common.required_oil_flow': 'Required Oil Flow',
+            'common.operating_pressure': 'Operating Pressure',
+            'common.impact_rate': 'Impact Rate',
+            'common.impact_rate_soft_rock': 'Impact Rate (Soft Rock)',
+            'common.hose_diameter': 'Hose Diameter',
+            'common.rod_diameter': 'Rod Diameter',
+            'common.applicable_carrier': 'Applicable Carrier',
+            'common.name': 'Name',
+            'common.company': 'Company',
+            'common.country': 'Country',
+            'common.purchase_date': 'Purchase Date',
+            'common.warranty_start': 'Warranty Start',
+            'common.warranty_end': 'Warranty End',
+            'common.status': 'Status',
+            'common.days_remaining': 'Days Remaining',
+            'common.voided_at': 'Voided At',
+            'common.owner_information': 'Owner Information',
+            'common.warranty_information': 'Warranty Information',
+            'common.technical_specifications': 'Technical Specifications',
+            'common.attribute': 'Attribute',
+            'common.value': 'Value'
+        };
+        
+        function t(key) { 
+            return englishTranslations[key] || key.replace('common.', '').replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+        }
+
+        const loadingText = 'Generating PDF...';
         pdfBtn.innerHTML = `<i class="fas fa-spinner fa-spin me-2"></i>${loadingText}`;
         pdfBtn.disabled = true;
 
@@ -1004,28 +1046,85 @@ document.addEventListener('DOMContentLoaded', function () {
         const pageWidth = doc.internal.pageSize.getWidth();
         let y = 40;
 
-        const translations = window.serialLookupTranslations || {};
-        function t(key) { return translations[key] || key; }
+        // Set default font to ensure proper character rendering
+        doc.setFont('helvetica');
+        doc.setFontSize(10);
 
         // Specs
         const specsRows = [];
         const specsTable = document.querySelector('.specs-table');
         if (specsTable) {
-            let rowIndex = 0;
-            specsTable.querySelectorAll('tbody tr').forEach(row => {
-                rowIndex++;
-                if (rowIndex <= 3) return;
-                let label = row.querySelector('th')?.dataset.key || row.querySelector('th')?.innerText || '-';
-                label = t(label.trim());
+            // Hardcoded English specification labels in order (excluding Model Name, Line, Type)
+            const englishSpecLabels = [
+                'Body Weight',
+                'Operating Weight',
+                'Overall Length',
+                'Overall Width',
+                'Overall Height',
+                'Required Oil Flow',
+                'Operating Pressure',
+                'Impact Rate',
+                'Impact Rate (Soft Rock)',
+                'Hose Diameter',
+                'Rod Diameter',
+                'Applicable Carrier'
+            ];
+            
+            specsTable.querySelectorAll('tbody tr').forEach((row, index) => {
+                // Skip first 3 rows (Model Name, Line, Type) and start from Body Weight
+                if (index < 3) return;
+                
+                // Use hardcoded English label
+                const labelIndex = index - 3; // -3 because we skip first 3 rows
+                const label = englishSpecLabels[labelIndex] || 'Specification';
                 const span = row.querySelector('td span.unit-value');
                 const siValue = span ? (span.dataset.si || '-') : '-';
                 const lbftValue = span ? (span.dataset.imperial || '-') : '-';
-                specsRows.push(isRtl ? [lbftValue, siValue, label] : [label, siValue, lbftValue]);
+                
+                // Clean up any potential corruption in the values and ensure proper units
+                const cleanSiValue = siValue.replace(/[^\w\s\-~.,()]/g, '').trim();
+                let cleanLbftValue = lbftValue.replace(/[^\w\s\-~.,()]/g, '').trim();
+                
+                // Ensure Imperial values have proper units
+                if (cleanLbftValue && cleanLbftValue !== '-') {
+                    // Add units based on the specification type
+                    if (label === 'Body Weight' || label === 'Operating Weight') {
+                        if (!cleanLbftValue.includes('lb')) {
+                            cleanLbftValue += ' lb';
+                        }
+                    } else if (label === 'Overall Length' || label === 'Overall Width' || label === 'Overall Height') {
+                        if (!cleanLbftValue.includes('in')) {
+                            cleanLbftValue += ' in';
+                        }
+                    } else if (label === 'Required Oil Flow') {
+                        if (!cleanLbftValue.includes('gal/min')) {
+                            cleanLbftValue += ' gal/min';
+                        }
+                    } else if (label === 'Operating Pressure') {
+                        if (!cleanLbftValue.includes('psi')) {
+                            cleanLbftValue += ' psi';
+                        }
+                    } else if (label === 'Impact Rate' || label === 'Impact Rate (Soft Rock)') {
+                        if (!cleanLbftValue.includes('BPM')) {
+                            cleanLbftValue += ' BPM';
+                        }
+                    } else if (label === 'Hose Diameter' || label === 'Rod Diameter') {
+                        if (!cleanLbftValue.includes('in')) {
+                            cleanLbftValue += ' in';
+                        }
+                    } else if (label === 'Applicable Carrier') {
+                        if (!cleanLbftValue.includes('lb')) {
+                            cleanLbftValue += ' lb';
+                        }
+                    }
+                }
+                
+                specsRows.push([label, cleanSiValue, cleanLbftValue]); // Always LTR order
             });
         } else {
             specsRows.push(['-', '-', '-']);
         }
-        const specsHead = [isRtl ? [t('imperial'), t('si'), t('specification')] : [t('specification'), t('si'), t('imperial')]];
+        const specsHead = [['Specification', 'SI', 'Imperial']];
 
         // Warranty
         const warrantyRows = [];
@@ -1039,27 +1138,38 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (voidedAtElem?.nextSibling?.textContent) {
                     voidedAt = voidedAtElem.nextSibling.textContent.trim();
                 }
-                warrantyRows.push(isRtl ? [voidedAt, t('voided_at')] : [t('voided_at'), voidedAt]);
-                warrantyRows.push(isRtl ? [status, t('status')] : [t('status'), status]);
+                warrantyRows.push([t('voided_at'), voidedAt]); // Always LTR order
+                warrantyRows.push([t('status'), status]); // Always LTR order
             } else {
-                const purchaseDate = warrantyCard.querySelector('.fa-shopping-cart')?.parentElement?.innerText?.split(':')[1]?.trim() || '-';
-                const warrantyStart = warrantyCard.querySelector('.fa-play-circle')?.parentElement?.innerText?.split(':')[1]?.trim() || '-';
-                const warrantyEnd = warrantyCard.querySelector('.fa-calendar-check')?.parentElement?.innerText?.split(':')[1]?.trim() || '-';
-                const statusElem = warrantyCard.querySelector('.status-badge');
-                const status = statusElem ? statusElem.textContent.trim() : '-';
-                let daysRemaining = '-';
-                const daysElem = warrantyCard.querySelector('.text-muted');
-                if (daysElem) {
-                    daysRemaining = daysElem.textContent.replace(/[^0-9]/g, '').trim();
-                }
+                // Extract warranty data from the actual sold product data
+                const getWarrantyDataFromProduct = () => {
+                    // Get the sold product data that was passed to the view
+                    const soldProductData = {
+                        purchaseDate: '{{ $soldProduct->sale_date ? $soldProduct->sale_date->format("j F Y") : "-" }}',
+                        warrantyStart: '{{ $soldProduct->warranty_start_date ? $soldProduct->warranty_start_date->format("j F Y") : "-" }}',
+                        warrantyEnd: '{{ $soldProduct->warranty_end_date ? $soldProduct->warranty_end_date->format("j F Y") : "-" }}',
+                        status: '{{ $soldProduct->warranty_voided ? "Voided" : "Valid" }}',
+                        daysRemaining: '{{ $soldProduct->warranty_end_date ? round($soldProduct->warranty_end_date->diffInDays(now(), false)) : "-" }}'
+                    };
+                    
+                    return soldProductData;
+                };
+                
+                const warrantyData = getWarrantyDataFromProduct();
+                const purchaseDateRaw = warrantyData.purchaseDate;
+                const warrantyStartRaw = warrantyData.warrantyStart;
+                const warrantyEndRaw = warrantyData.warrantyEnd;
+                const status = warrantyData.status;
+                const daysRemaining = warrantyData.daysRemaining;
+                
                 const rows = [
-                    [t('purchase_date'), purchaseDate],
-                    [t('warranty_start'), warrantyStart],
-                    [t('warranty_end'), warrantyEnd],
+                    [t('purchase_date'), purchaseDateRaw],
+                    [t('warranty_start'), warrantyStartRaw],
+                    [t('warranty_end'), warrantyEndRaw],
                     [t('status'), status],
                     [t('days_remaining'), daysRemaining]
                 ];
-                rows.forEach(row => warrantyRows.push(isRtl ? [row[1], row[0]] : row));
+                rows.forEach(row => warrantyRows.push([row[0], row[1]])); // Always LTR order
             }
         }
 
@@ -1075,7 +1185,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 [t('company'), company],
                 [t('country'), country]
             ];
-            rows.forEach(row => ownerRows.push(isRtl ? [row[1], row[0]] : row));
+            rows.forEach(row => ownerRows.push([row[0], row[1]])); // Always LTR order
         }
 
         // Header
@@ -1124,7 +1234,7 @@ document.addEventListener('DOMContentLoaded', function () {
             doc.setFontSize(16);
             doc.setFont('helvetica', 'bold');
             doc.setTextColor(0, 84, 142);
-            doc.text(t('Technical Specifications'), 40, tableY, {align: isRtl ? 'right' : 'left'});
+            doc.text(t('Technical Specifications'), 40, tableY, {align: 'left'});
 
             doc.autoTable({
                 startY: tableY + 10,
@@ -1134,16 +1244,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 headStyles: {
                     fillColor: [0, 84, 142],
                     textColor: [255, 255, 255],
-                    fontStyle: 'bold',
-                    halign: isRtl ? 'right' : 'left',
-                    font: 'helvetica'
+                    fontStyle: 'bold'
                 },
                 styles: {
                     font: 'helvetica',
                     fontSize: 10,
-                    cellPadding: 8,
-                    halign: isRtl ? 'right' : 'left',
-                    fontStyle: 'normal'
+                    cellPadding: 8
                 },
                 alternateRowStyles: {
                     fillColor: [248, 250, 252]
@@ -1153,24 +1259,24 @@ document.addEventListener('DOMContentLoaded', function () {
 
             tableY = doc.lastAutoTable.finalY + 40;
 
-            doc.text(t('Owner Information'), 40, tableY, {align: isRtl ? 'right' : 'left'});
+            doc.text(t('Owner Information'), 40, tableY, {align: 'left'});
             doc.autoTable({
                 startY: tableY + 10,
-                head: [isRtl ? [t('value'), t('attribute')] : [t('attribute'), t('value')]],
+                head: [['Attribute', 'Value']],
                 body: ownerRows,
                 theme: 'grid',
                 headStyles: {
                     fillColor: [0, 84, 142],
                     textColor: [255, 255, 255],
                     fontStyle: 'bold',
-                    halign: isRtl ? 'right' : 'left',
+                    halign: 'left',
                     font: 'helvetica'
                 },
                 styles: {
                     font: 'helvetica',
                     fontSize: 10,
                     cellPadding: 8,
-                    halign: isRtl ? 'right' : 'left',
+                    halign: 'left',
                     fontStyle: 'normal'
                 },
                 alternateRowStyles: {
@@ -1181,24 +1287,24 @@ document.addEventListener('DOMContentLoaded', function () {
 
             tableY = doc.lastAutoTable.finalY + 40;
 
-            doc.text(t('Warranty Information'), 40, tableY, {align: isRtl ? 'right' : 'left'});
+            doc.text(t('Warranty Information'), 40, tableY, {align: 'left'});
             doc.autoTable({
                 startY: tableY + 10,
-                head: [isRtl ? [t('value'), t('attribute')] : [t('attribute'), t('value')]],
+                head: [['Attribute', 'Value']],
                 body: warrantyRows,
                 theme: 'grid',
                 headStyles: {
                     fillColor: [0, 84, 142],
                     textColor: [255, 255, 255],
                     fontStyle: 'bold',
-                    halign: isRtl ? 'right' : 'left',
+                    halign: 'left',
                     font: 'helvetica'
                 },
                 styles: {
                     font: 'helvetica',
                     fontSize: 10,
                     cellPadding: 8,
-                    halign: isRtl ? 'right' : 'left',
+                    halign: 'left',
                     fontStyle: 'normal'
                 },
                 alternateRowStyles: {
@@ -1206,6 +1312,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 },
                 margin: { left: 40, right: 40 }
             });
+
+            const now = new Date();
+            doc.setFontSize(12);
+            doc.setTextColor(0, 0, 0);
+            doc.text(`Generated on: ${now.toLocaleString('en-US', {
+                month: 'long', day: '2-digit', year: 'numeric',
+                hour: '2-digit', minute: '2-digit', hour12: true
+            })}`, pageWidth / 2, doc.lastAutoTable.finalY + 18, { align: 'center' });
 
             const pageCount = doc.internal.getNumberOfPages();
             for (let i = 1; i <= pageCount; i++) {

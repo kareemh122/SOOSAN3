@@ -6,7 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('title', 'Admin Panel') - {{ config('app.name', 'Drilling Dashboard') }}</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('images/logo2.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/logo2.png') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('images/logo2.png') }}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('images/logo2.png') }}">
+    <link rel="icon" type="image/png" sizes="512x512" href="{{ asset('images/logo2.png') }}">
+
+    <!-- SEO Meta Tags -->
+    <title>@yield('title', 'Admin Panel') - {{ config('app.name', 'SoosanEgypt Dashboard') }}</title>
+    <meta name="description" content="@yield('description', 'SoosanEgypt Admin Dashboard - Manage drilling equipment, products, and business operations.')">
+    <meta name="keywords" content="@yield('keywords', 'admin dashboard, drilling equipment management, SoosanEgypt, business operations')">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="author" content="SoosanEgypt">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
