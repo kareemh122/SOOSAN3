@@ -2262,10 +2262,6 @@
 
             /* Responsive Design for Scroll Sections */
             @media (max-width: 768px) {
-                .scroll-section .row {
-                    flex-direction: column;
-                }
-
                 .scroll-section .col-lg-6 {
                     margin-bottom: 2rem;
                 }
@@ -2717,6 +2713,7 @@
             }
 
             .stat-card {
+                margin-bottom: 1.2rem;
                 padding: 1.5rem 1rem;
             }
 
@@ -2885,10 +2882,6 @@
             /* Scroll Sections */
             .scroll-section {
                 padding: 3rem 0;
-            }
-
-            .scroll-section .row {
-                flex-direction: column;
             }
 
             .scroll-section .col-lg-6 {

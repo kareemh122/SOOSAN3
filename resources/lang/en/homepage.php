@@ -2,7 +2,7 @@
 
 return [
     // Soosan Youtube Section
-    'soosan_youtube_title' => 'Soosan Youtube',
+    'soosan_youtube_title' => 'SOOSAN YOUTUBE',
     'soosan_youtube_description' => 'Discover our latest videos and insights on the official Soosan YouTube channel.',
     'explore_more_btn' => 'Explore More',
 

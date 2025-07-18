@@ -35,7 +35,9 @@
             --navbar-height: 70px;
             --transition-speed: 0.3s;
         }
-
+        html, body {
+             overflow-x: hidden;
+        }
         /* Enhanced Navbar Styling */
         .navbar {
             min-height: var(--navbar-height);
@@ -834,7 +836,7 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            background-color: 00548e;
+            background-color: #00548e;
             color: white;
             text-decoration: none;
             border-radius: 15px;
@@ -880,8 +882,8 @@
         }
 
         .enhanced-user-btn:hover {
-            background: linear-gradient(135deg, #007bff, #0056b3);
-            border-color: #007bff;
+            background: linear-gradient(135deg, #007bff, #004085);
+            border-color: #00548e;
             color: white;
             transform: translateY(-2px);
             box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
@@ -962,15 +964,21 @@
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
+            width: 92%;
         }
 
         .user-dropdown-menu .dropdown-item:hover {
-            background: linear-gradient(135deg, #007bff, #0056b3);
+            background: #00548e;
             color: white;
-            transform: translateX(5px);
+        }
+        .user-dropdown-menu .dropdown-item.logout-btn {
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+            width: 92%;
         }
 
-        .user-dropdown-menu .dropdown-item.text-danger:hover {
+        .user-dropdown-menu .dropdown-item.logout-btn:hover {
             background: linear-gradient(135deg, #dc3545, #c82333);
             color: white;
         }
@@ -1018,7 +1026,7 @@
 
         @media (max-width: 576px) {
             .mobile-nav-sidebar {
-                width: 95%;
+                width: 75%;
                 max-width: 320px;
             }
 
@@ -1169,7 +1177,8 @@
             display: flex;
             gap: 15px;
             flex-wrap: wrap;
-            justify-content: center;
+            align-items: center;
+            width: 100%;
         }
         .social {
             display: flex;
@@ -1182,9 +1191,9 @@
             font-size: 18px;
             text-decoration: none;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            padding-right: 7px;
             position: relative;
             overflow: hidden;
+            flex-shrink: 0;
         }
 
         .social::before {
@@ -1217,6 +1226,17 @@
 
         .youtube {
             background-color: #FF0000;
+        }
+
+        /* RTL Support for Social Icons */
+        html[dir='rtl'] .social-icons {
+            justify-content: flex-end;
+            direction: ltr; /* Keep icons in LTR order even in RTL layout */
+        }
+
+        html[dir='rtl'] .social {
+            padding-right: 8px;
+            margin: 0 2px;
         }
 
         /* Enhanced Footer Responsiveness */
@@ -1949,13 +1969,11 @@
                         </ul>
                     </div>
                 </div>
-
                 <!-- Enhanced Login Button -->
                 @guest
                     <a href="{{ route('admin.login') }}" class="enhanced-login-btn">
                         <i class="fas fa-sign-in-alt me-2"></i>
                         <span>{{ __('auth.login') }}</span>
-                        <div class="btn-glow"></div>
                     </a>
                 @else
                     <div class="dropdown user-dropdown">
@@ -1988,7 +2006,7 @@
                             <li>
                                 <form method="POST" action="{{ route('logout') }}" class="d-inline">
                                     @csrf
-                                    <button type="submit" class="dropdown-item text-danger">
+                                    <button type="submit" class="dropdown-item logout-btn">
                                         <i class="fas fa-sign-out-alt me-2"></i>
                                         {{ __('auth.logout') }}
                                     </button>
@@ -2174,7 +2192,7 @@
             <div class="row g-4">
                 <!-- Company Info -->
                 <div class="col-md-3">
-                    <h5 class="fw-semibold mb-3">SoosanEgypt</h5>
+                    <h5 class="fw-semibold mb-3">SOOSAN</h5>
                     <p class="text-light small mb-3">{{ __('common.footer_description') }}</p>
                     <div class="social-icons">
                         <a href="https://www.facebook.com/share/1KvmELF3Kn/?mibextid=wwXIfr" class="social facebook" aria-label="Facebook" target="_blank" title="SOOSAN EGYPT FACEBOOK">
