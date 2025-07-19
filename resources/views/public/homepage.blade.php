@@ -46,7 +46,7 @@
             "@type": "OpeningHoursSpecification",
             "dayOfWeek": [
                 "Monday",
-                "Tuesday", 
+                "Tuesday",
                 "Wednesday",
                 "Thursday",
                 "Friday"
@@ -653,7 +653,7 @@
             line-height: 1.1;
             color: #fff;
             margin-bottom: 1.1rem;
-            text-shadow: 
+            text-shadow:
                 0 2px 4px rgba(0, 0, 0, 0.8),
                 0 4px 8px rgba(0, 0, 0, 0.6),
                 0 8px 16px rgba(0, 0, 0, 0.4);
@@ -665,7 +665,7 @@
             color: #f8f9fa;
             margin-bottom: 2.2rem;
             font-weight: 400;
-            text-shadow: 
+            text-shadow:
                 0 2px 4px rgba(0, 0, 0, 0.9),
                 0 4px 8px rgba(0, 0, 0, 0.6);
         }
@@ -789,11 +789,11 @@
                 width: 95%;
                 margin: 0 auto;
             }
-            
+
             .hero-main-title {
                 margin-bottom: 1rem;
             }
-            
+
             .hero-desc {
                 margin-bottom: 1.5rem;
             }
@@ -1687,16 +1687,16 @@
             .serial-input-wrapper {
                 max-width: 100%;
             }
-            
+
             .serial-input {
                 padding: 0.875rem 2.5rem 0.875rem 1.25rem;
                 font-size: 0.9rem;
             }
-            
+
             html[dir='rtl'] .serial-input {
                 padding: 0.875rem 1.25rem 0.875rem 2.5rem;
             }
-            
+
             .serial-btn {
                 width: 40px;
                 height: 40px;
@@ -1761,29 +1761,29 @@
         /* ========================================
            ENHANCED RESPONSIVE DESIGN - MOBILE FIRST
            ======================================== */
-        
+
         /* Mobile Base (320px+) */
         @media (min-width: 320px) {
             .container {
                 padding: 0 1rem;
             }
-            
+
             .hero-main-title {
                 font-size: clamp(1.5rem, 6vw, 2.2rem);
                 line-height: 1.2;
             }
-            
+
             .hero-desc {
                 font-size: clamp(0.9rem, 3vw, 1.1rem);
             }
-            
+
             .hero-btn {
                 font-size: 0.9rem;
                 padding: 0.8rem 1.5rem;
                 width: 100%;
                 justify-content: center;
             }
-            
+
             .hero-btn-group {
                 flex-direction: column;
                 gap: 1rem;
@@ -1796,7 +1796,7 @@
             .hero-main-title {
                 font-size: clamp(1.8rem, 6vw, 2.5rem);
             }
-            
+
             .hero-btn {
                 font-size: 1rem;
                 padding: 0.9rem 1.8rem;
@@ -1810,7 +1810,7 @@
                 justify-content: center;
                 flex-wrap: wrap;
             }
-            
+
             .hero-btn {
                 width: auto;
                 min-width: 180px;
@@ -1822,26 +1822,26 @@
             .container {
                 padding: 0 1.5rem;
             }
-            
+
             .hero-content {
                 padding: 0 1.5rem;
             }
-            
+
             .hero-cta {
                 flex-direction: row;
                 justify-content: center;
                 gap: 1.5rem;
             }
-            
+
             .product-grid {
                 grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
                 gap: 1.5rem;
             }
-            
+
             .stats-section .row {
                 justify-content: center;
             }
-            
+
             .stat-card {
                 padding: 1.5rem 1rem;
             }
@@ -1893,7 +1893,7 @@
             .serial-input {
                 min-width: 300px;
             }
-            
+
             .highlights-grid {
                 grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             }
@@ -1904,15 +1904,15 @@
             .container {
                 padding: 0 2rem;
             }
-            
+
             .hero-main-title {
                 font-size: clamp(3rem, 8vw, 4.5rem);
             }
-            
+
             .product-grid {
                 grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             }
-            
+
             .highlights-grid {
                 grid-template-columns: repeat(3, 1fr);
             }
@@ -1924,7 +1924,7 @@
                 max-width: 1200px;
                 padding: 0 2rem;
             }
-            
+
             .product-grid {
                 grid-template-columns: repeat(3, 1fr);
             }
@@ -1935,7 +1935,7 @@
             .container {
                 max-width: 1400px;
             }
-            
+
             .hero-main-title {
                 font-size: 5rem;
             }
@@ -1955,7 +1955,7 @@
             }
 
             /* Comprehensive Mobile Responsive Design */
-            
+
             /* Large tablets and small desktops */
             @media (max-width: 1199.98px) {
                 .hero-slider {
@@ -2431,7 +2431,7 @@
             /* RTL Support */
             [dir="rtl"] .hero-content-overlay {
                 left: auto;
-                right: 8%;
+                right: -36%;
                 align-items: flex-end;
                 text-align: right;
             }
@@ -2661,7 +2661,7 @@
         }
 
         /* Comprehensive Responsive Design for All Sections */
-        
+
         /* Large tablets and small desktops */
         @media (max-width: 1199.98px) {
             .container {
@@ -3016,12 +3016,12 @@
             .highlights-section {
                 padding: 3rem 0;
             }
-            
+
             .highlights-grid {
                 grid-template-columns: 1fr;
                 gap: 1.5rem;
             }
-            
+
             .highlight-media {
                 height: 250px;
                 border-radius: 12px;
@@ -5588,7 +5588,7 @@
                 // In Arabic: left arrow goes to next video
                 changeSlide(-1);
             } else {
-                // In English: left arrow goes to previous video  
+                // In English: left arrow goes to previous video
                 changeSlide(1);
             }
         }
@@ -5664,7 +5664,7 @@
 
             // Set new index (convert from 1-based to 0-based)
             currentSlideIndex = index - 1;
-            
+
             // Add active classes
             slides[currentSlideIndex].classList.add('active');
             dots[currentSlideIndex].classList.add('active');
@@ -5683,7 +5683,7 @@
                 // Reset to beginning and ensure muted for autoplay
                 currentVideo.currentTime = 0;
                 currentVideo.muted = true;
-                
+
                 // Attempt to play with error handling
                 const playPromise = currentVideo.play();
                 if (playPromise !== undefined) {
@@ -5756,7 +5756,7 @@
                         networkState: video.networkState,
                         readyState: video.readyState
                     });
-                    
+
                     // If current video fails, advance to next slide after 3 seconds
                     if (index === currentSlideIndex) {
                         setTimeout(() => {
@@ -5782,7 +5782,7 @@
                     e.stopPropagation();
                     handleDotClick(idx);
                     isAutoPlaying = false;
-                    
+
                     // Resume autoplay after 10 seconds
                     setTimeout(() => {
                         isAutoPlaying = true;
@@ -5830,11 +5830,11 @@
                         currentSlideIndex = 2;
                         const slides = document.querySelectorAll('.hero-slide');
                         const dots = document.querySelectorAll('.dot');
-                        
+
                         // Reset all slides and dots
                         slides.forEach(slide => slide.classList.remove('active'));
                         dots.forEach(dot => dot.classList.remove('active'));
-                        
+
                         // Activate the last slide (index 2) and first dot (index 0)
                         slides[2].classList.add('active');
                         dots[0].classList.add('active');

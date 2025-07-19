@@ -252,7 +252,7 @@
 
     .info-row:last-child {
         border-bottom: none;
-    } 
+    }
     h5 i {
     @if(app()->getLocale() === 'ar')
         margin-left: 10px;
@@ -387,7 +387,6 @@
         }
 
         .d-flex.justify-content-between {
-            flex-direction: column;
             gap: 1rem;
         }
 
@@ -615,7 +614,7 @@
 </div>
 
 @if(session('success'))
-    <div class="alert alert-success alert-dismissible fade show animate-slide-in-left" role="alert" 
+    <div class="alert alert-success alert-dismissible fade show animate-slide-in-left" role="alert"
          style="border-radius: var(--border-radius); border: none; box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);">
         <i class="fas fa-check-circle me-2"></i>
         {{ session('success') }}
@@ -753,12 +752,12 @@
                     </button>
                 </form>
             @endif
-            
+
             <a href="mailto:{{ $contactMessage->email }}?subject=Re: {{ $contactMessage->subject }}" class="modern-btn modern-btn-info">
                 <i class="fas fa-reply me-2"></i>
                 {{ __('contact-messages.reply_via_email') }}
             </a>
-            
+
             @if(auth()->user()->isAdmin())
                 <form action="{{ route('admin.contact-messages.destroy', $contactMessage) }}" method="POST" class="d-inline" onsubmit="return confirm('{{ __('contact-messages.confirm_delete_simple') }}')">
                     @csrf
@@ -780,7 +779,7 @@ document.addEventListener('DOMContentLoaded', function() {
     animatedElements.forEach((element, index) => {
         element.style.opacity = '0';
         element.style.transform = 'translateY(30px)';
-        
+
         setTimeout(() => {
             element.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
             element.style.opacity = '1';
@@ -797,7 +796,7 @@ document.addEventListener('DOMContentLoaded', function() {
             this.style.paddingRight = '1rem';
             this.style.borderRadius = '0.5rem';
         });
-        
+
         row.addEventListener('mouseleave', function() {
             this.style.transform = 'translateX(0)';
             this.style.backgroundColor = 'transparent';
@@ -811,7 +810,7 @@ document.addEventListener('DOMContentLoaded', function() {
         btn.addEventListener('mouseenter', function() {
             this.style.transform = 'translateY(-3px) scale(1.02)';
         });
-        
+
         btn.addEventListener('mouseleave', function() {
             this.style.transform = 'translateY(0) scale(1)';
         });
@@ -824,7 +823,7 @@ document.addEventListener('DOMContentLoaded', function() {
             this.style.transform = 'translateY(-2px)';
             this.style.boxShadow = 'inset 0 2px 4px rgba(0,0,0,0.05), 0 10px 25px rgba(0,0,0,0.15)';
         });
-        
+
         messageContent.addEventListener('mouseleave', function() {
             this.style.transform = 'translateY(0)';
             this.style.boxShadow = 'inset 0 2px 4px rgba(0,0,0,0.05)';
@@ -837,7 +836,7 @@ document.addEventListener('DOMContentLoaded', function() {
             element.addEventListener('touchstart', function() {
                 this.style.transform = this.style.transform.replace('scale(1.02)', '') + ' scale(0.95)';
             });
-            
+
             element.addEventListener('touchend', function() {
                 setTimeout(() => {
                     this.style.transform = this.style.transform.replace(' scale(0.95)', '');
@@ -855,7 +854,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 setTimeout(() => alert.remove(), 300);
             });
         }
-        
+
         // Quick actions with keyboard shortcuts
         if (e.ctrlKey || e.metaKey) {
             switch(e.key) {
@@ -893,7 +892,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Add pulse animation for auto-mark functionality
     const style = document.createElement('style');
-    style.textContent = `
+    style.textContent =
+    `
         @keyframes pulse {
             0% { transform: scale(1); }
             50% { transform: scale(1.05); }
