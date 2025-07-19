@@ -41,10 +41,10 @@ class NotificationManager {
             clearInterval(this.pollingInterval);
         }
 
-        // Poll every 5 seconds for real-time experience
+        // Poll every 10 seconds for real-time experience
         this.pollingInterval = setInterval(() => {
             this.checkForNewNotifications();
-        }, 5000);
+        }, 10000);
 
         this.isPolling = true;
         console.log('Real-time polling started (every 5 seconds)');
@@ -90,9 +90,10 @@ class NotificationManager {
                 // Show toast for new notifications
                 if (data.hasNew && data.latestNotification) {
                     this.showToast(data.latestNotification);
-                    this.loadNotifications(); // Refresh the dropdown
                 }
 
+                // Always refresh the dropdown, even if no new notifications
+                this.loadNotifications();
             } else {
                 console.warn('Failed to check notifications:', response.status);
             }
@@ -225,11 +226,12 @@ class NotificationManager {
                 const icon = notification.data.icon || 'fas fa-bell';
                 const color = notification.data.color || 'primary';
                 const timeAgo = this.timeAgo(new Date(notification.created_at));
+                const url = notification.data.url || '/notifications';
 
                 const notificationItem = document.createElement('li');
                 notificationItem.innerHTML = `
                     <a class="dropdown-item py-2 notification-item ${!notification.read_at ? 'unread' : ''}" 
-                       href="/notifications"
+                       href="${url}"
                        data-notification-id="${notification.id}">
                         <div class="d-flex">
                             <div class="flex-shrink-0 me-2">

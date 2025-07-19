@@ -25,8 +25,13 @@ class ReportsController extends Controller
         
         // Get real statistics for preview
         $stats = $this->getPreviewStats();
-        
-        return view('admin.reports.index', compact('stats'));
+
+        // Also get the comprehensive report data for the default period (last 30 days)
+        $dateRange = $this->getDateRange(new \Illuminate\Http\Request(['period' => 'last_30_days']));
+        $comprehensiveData = $this->getComprehensiveData($dateRange);
+        $comprehensiveDateRange = $dateRange;
+
+        return view('admin.reports.index', compact('stats', 'comprehensiveData', 'comprehensiveDateRange'));
     }
     
     private function getPreviewStats()
