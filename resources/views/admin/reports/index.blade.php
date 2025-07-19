@@ -870,6 +870,10 @@
                         <span class="mobile-text">{{ __('reports.download_comprehensive') }}</span>
                         <span class="mobile-icon d-none">Download</span>
                     </button>
+                    <button class="download-btn comprehensive-btn mt-2" style="background:#fff;color:#667eea;border:1px solid #667eea" onclick="window.generateReportPDF(null, { reportType: 'comprehensive', title: 'Comprehensive Business Report', generatedAt: new Date().toLocaleString(), filename: 'comprehensive-business-report.pdf' })">
+                        <i class="fas fa-file-pdf"></i>
+                        <span class="mobile-text">Download as PDF (jsPDF)</span>
+                    </button>
                 </div>
             </div>
         </div>
@@ -915,6 +919,10 @@
                         <i class="fas fa-download"></i>
                         <span class="mobile-text">{{ __('reports.download_owners') }}</span>
                         <span class="mobile-icon d-none">Download</span>
+                    </button>
+                    <button class="download-btn owners-btn mt-2" style="background:#fff;color:#48bb78;border:1px solid #48bb78" onclick="downloadReportPDF('owners')">
+                        <i class="fas fa-file-pdf"></i>
+                        <span class="mobile-text">Download as PDF (jsPDF)</span>
                     </button>
                 </div>
             </div>
@@ -962,6 +970,10 @@
                         <span class="mobile-text">{{ __('reports.download_sales') }}</span>
                         <span class="mobile-icon d-none">Download</span>
                     </button>
+                    <button class="download-btn sales-btn mt-2" style="background:#fff;color:#ed8936;border:1px solid #ed8936" onclick="downloadReportPDF('sales')">
+                        <i class="fas fa-file-pdf"></i>
+                        <span class="mobile-text">Download as PDF (jsPDF)</span>
+                    </button>
                 </div>
             </div>
         </div>
@@ -1001,7 +1013,17 @@
 </div>
 @endsection
 
+@if (isset($comprehensiveData) && isset($comprehensiveDateRange))
+<script id="comprehensive-report-data" type="application/json">
+@json(['data' => $comprehensiveData, 'dateRange' => $comprehensiveDateRange])
+</script>
+@endif
+
 @push('scripts')
+<!-- jsPDF CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<!-- Custom report PDF logic -->
+<script src="/js/report-pdf.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     // Date filter functionality
@@ -1103,11 +1125,37 @@ function downloadReport(reportType) {
     }, 2000);
 }
 
-// Update preview stats based on period (optional enhancement)
-function updatePreviewStats() {
-    // This function could make an AJAX call to get real preview data
-    // For now, it's using the existing data from the template
-    console.log('Preview stats could be updated here based on selected period');
+
+// jsPDF Download Button Logic
+window.downloadReportPDF = function(reportType) {
+    // Gather report data from DOM (for demo, just use visible stats and features)
+    let title = '';
+    let period = document.querySelector('.filter-option.active span')?.innerText || '';
+    let generatedAt = new Date().toLocaleString();
+    let filename = reportType + '-report.pdf';
+    let sections = [];
+    let card = document.querySelector('.report-card.' + reportType);
+    if (!card) return alert('Report card not found!');
+    title = card.querySelector('h4')?.innerText || 'Report';
+    // Features
+    let features = Array.from(card.querySelectorAll('.feature-list li')).map(li => [li.innerText]);
+    if (features.length) {
+        sections.push({ title: 'Features', rows: features });
+    }
+    // Stats
+    let stats = Array.from(card.querySelectorAll('.stat-item')).map(item => [
+        item.querySelector('.stat-label')?.innerText || '',
+        item.querySelector('.stat-value')?.innerText || ''
+    ]);
+    if (stats.length) {
+        sections.push({ title: 'Stats', rows: stats });
+    }
+    // Call jsPDF logic
+    if (window.generateReportPDF) {
+        window.generateReportPDF(null, { title, period, generatedAt, filename, sections });
+    } else {
+        alert('jsPDF not loaded!');
+    }
 }
 
 // Enhanced mobile interactions

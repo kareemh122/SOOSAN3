@@ -51,7 +51,7 @@
             --admin-dark: var(--soosan-dark);
             --admin-light: var(--soosan-light);
             --sidebar-width: 280px;
-            
+
             /* Enhanced Design Variables */
             --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             --success-gradient: linear-gradient(135deg, #28a745 0%, #20c997 100%);
@@ -63,8 +63,8 @@
             --border-radius-sm: 0.5rem;
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             --transition-fast: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-            --card-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            --card-shadow-hover: 0 15px 40px rgba(0,0,0,0.15);
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --card-shadow-hover: 0 15px 40px rgba(0, 0, 0, 0.15);
         }
 
         * {
@@ -88,7 +88,7 @@
             left: 0;
             z-index: 1000;
             transition: var(--transition);
-            box-shadow: 4px 0 20px rgba(0,0,0,0.1);
+            box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
             overflow-y: auto;
         }
 
@@ -99,7 +99,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.05), transparent);
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.05), transparent);
             pointer-events: none;
         }
 
@@ -116,13 +116,13 @@
             flex-wrap: wrap;
             align-items: center;
             justify-content: space-between;
-            background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(248,250,252,0.95) 100%);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.95) 100%);
             backdrop-filter: blur(20px);
             color: var(--admin-dark);
             border: none;
             border-radius: 0;
             padding: 1rem 2rem;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
             margin-bottom: 0;
             min-height: 80px;
             position: fixed;
@@ -158,7 +158,7 @@
         /* Enhanced Sidebar Brand */
         .sidebar-brand {
             padding: 2rem 1.5rem;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -171,14 +171,19 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
             transform: rotate(45deg);
             animation: shimmer 3s ease-in-out infinite;
         }
 
         @keyframes shimmer {
-            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+            0% {
+                transform: translateX(-100%) translateY(-100%) rotate(45deg);
+            }
+
+            100% {
+                transform: translateX(100%) translateY(100%) rotate(45deg);
+            }
         }
 
         .sidebar-brand h4 {
@@ -195,7 +200,7 @@
         }
 
         .sidebar-nav .nav-link {
-            color: rgba(255,255,255,0.8);
+            color: rgba(255, 255, 255, 0.8);
             padding: 1rem 1.5rem;
             display: flex;
             align-items: center;
@@ -215,7 +220,7 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
             transition: left 0.5s;
         }
 
@@ -264,11 +269,11 @@
 
         /* Enhanced Cards */
         .admin-card {
-            background: rgba(255,255,255,0.95);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             border-radius: var(--border-radius);
             box-shadow: var(--card-shadow);
-            border: 1px solid rgba(255,255,255,0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             color: var(--admin-dark);
             transition: var(--transition);
         }
@@ -302,7 +307,7 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
             transition: left 0.5s;
         }
 
@@ -321,7 +326,7 @@
             border: none;
             border-radius: var(--border-radius);
             padding: 1rem 1.5rem;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             position: relative;
             overflow: hidden;
         }
@@ -338,7 +343,7 @@
 
         /* Enhanced Tables */
         .table-admin {
-            background: rgba(255,255,255,0.95);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             border-radius: var(--border-radius);
             overflow: hidden;
@@ -356,7 +361,7 @@
 
         .table-admin td {
             padding: 1rem;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
         }
 
         /* Enhanced User Elements */
@@ -404,9 +409,9 @@
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            background: rgba(255,255,255,0.9);
+            background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(0,0,0,0.1);
+            border: 1px solid rgba(0, 0, 0, 0.1);
             transition: var(--transition);
             display: flex;
             align-items: center;
@@ -415,15 +420,15 @@
 
         .notification-bell-btn:hover {
             transform: scale(1.05);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
 
         .notification-dropdown-content {
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-            border: 1px solid rgba(0,0,0,0.1);
+            border: 1px solid rgba(0, 0, 0, 0.1);
             border-radius: var(--border-radius);
             backdrop-filter: blur(20px);
-            background: rgba(255,255,255,0.95);
+            background: rgba(255, 255, 255, 0.95);
         }
 
         .notification-item {
@@ -444,9 +449,9 @@
 
         /* Language Switcher */
         .language-switcher {
-            background: rgba(255,255,255,0.95) !important;
+            background: rgba(255, 255, 255, 0.95) !important;
             backdrop-filter: blur(20px);
-            border: 1px solid rgba(0,0,0,0.1) !important;
+            border: 1px solid rgba(0, 0, 0, 0.1) !important;
             border-radius: var(--border-radius) !important;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15) !important;
         }
@@ -473,9 +478,9 @@
 
         /* Enhanced Dropdown Buttons */
         .dropdown-toggle {
-            background: rgba(255,255,255,0.9) !important;
+            background: rgba(255, 255, 255, 0.9) !important;
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(0,0,0,0.1) !important;
+            border: 1px solid rgba(0, 0, 0, 0.1) !important;
             border-radius: var(--border-radius-sm) !important;
             color: var(--admin-dark) !important;
             font-weight: 600;
@@ -485,8 +490,8 @@
 
         .dropdown-toggle:hover {
             transform: translateY(-1px);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            background: rgba(255,255,255,1) !important;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 1) !important;
         }
 
         /* Mobile Responsiveness */
@@ -494,7 +499,7 @@
             :root {
                 --sidebar-width: 260px;
             }
-            
+
             .admin-navbar {
                 padding: 0.75rem 1.5rem;
                 font-size: 0.95rem;
@@ -509,7 +514,7 @@
             :root {
                 --sidebar-width: 240px;
             }
-            
+
             .admin-navbar {
                 padding: 0.75rem 1rem;
             }
@@ -540,7 +545,7 @@
 
             .admin-sidebar.show {
                 transform: translateX(0);
-                box-shadow: 0 0 50px rgba(0,0,0,0.3);
+                box-shadow: 0 0 50px rgba(0, 0, 0, 0.3);
             }
 
             .sidebar-brand {
@@ -648,15 +653,36 @@
 
         /* Animations */
         @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); }
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.2);
+            }
+
+            100% {
+                transform: scale(1);
+            }
         }
 
         @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-10px); }
-            60% { transform: translateY(-5px); }
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0);
+            }
+
+            40% {
+                transform: translateY(-10px);
+            }
+
+            60% {
+                transform: translateY(-5px);
+            }
         }
 
         @keyframes slideIn {
@@ -664,6 +690,7 @@
                 opacity: 0;
                 transform: translateX(20px);
             }
+
             to {
                 opacity: 1;
                 transform: translateX(0);
@@ -675,9 +702,9 @@
             position: fixed;
             top: 90px;
             right: 20px;
-            background: rgba(255,255,255,0.95);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px);
-            border: 1px solid rgba(0,0,0,0.1);
+            border: 1px solid rgba(0, 0, 0, 0.1);
             border-radius: var(--border-radius);
             padding: 1rem;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
@@ -692,26 +719,30 @@
         }
 
         /* Ensure dropdowns render above everything */
-        .dropdown-menu, .dropdown-menu.show {
+        .dropdown-menu,
+        .dropdown-menu.show {
             z-index: 2000 !important;
         }
+
         .dropdown-menu .dropdown-item {
-            @if(app()->getLocale() === 'ar')
+            @if (app()->getLocale() === 'ar')
                 text-align: right;
 
             @else
                 text-align: left;
             @endif
         }
+
         .dropdown-menu .dropdown-item i {
-            @if(app()->getLocale() === 'ar')
+            @if (app()->getLocale() === 'ar')
                 margin-left: 10px;
             @else
                 margin-right: 10px;
             @endif
         }
+
         .dropdown-menu .dropdown-item span {
-            @if(app()->getLocale() === 'ar')
+            @if (app()->getLocale() === 'ar')
                 margin-left: 10px;
             @else
                 margin-right: 10px;
@@ -729,7 +760,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0, 0, 0, 0.5);
             z-index: 999;
             opacity: 0;
             visibility: hidden;
@@ -773,15 +804,14 @@
             .admin-sidebar {
                 border-right: 2px solid #000;
             }
-            
+
             .admin-navbar {
                 border-bottom: 2px solid #000;
             }
         }
     </style>
 
-    {{-- Additional CSS --}}
-    <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
+
 
     @stack('styles')
 </head>
@@ -925,7 +955,8 @@
             <nav class="admin-navbar">
                 <div class="d-flex justify-content-between align-items-center w-100">
                     <div class="d-flex align-items-center">
-                        <button class="btn btn-link d-lg-none me-3 p-0" id="sidebarToggle" style="color: var(--admin-dark);">
+                        <button class="btn btn-link d-lg-none me-3 p-0" id="sidebarToggle"
+                            style="color: var(--admin-dark);">
                             <i class="fas fa-bars fs-5"></i>
                         </button>
                     </div>
@@ -933,8 +964,8 @@
                     <div class="d-flex align-items-center gap-3">
                         <!-- Language Switcher -->
                         <div class="dropdown">
-                            <button class="btn btn-sm dropdown-toggle d-flex align-items-center gap-2"
-                                type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button class="btn btn-sm dropdown-toggle d-flex align-items-center gap-2" type="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fas fa-globe"></i>
                                 <span class="mobile-hide">{{ app()->isLocale('ar') ? 'العربية' : 'English' }}</span>
                                 <i class="fas fa-chevron-down fs-xs ms-1"></i>
@@ -957,10 +988,11 @@
 
                         <!-- Notifications -->
                         <div class="dropdown">
-                            <button class="btn position-relative notific    ation-bell-btn"
-                                type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button class="btn position-relative notific    ation-bell-btn" type="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fas fa-bell fs-5 text-secondary"></i>
-                                <span class="notification-badge position-absolute top-0 start-100 translate-middle badge rounded-pill"
+                                <span
+                                    class="notification-badge position-absolute top-0 start-100 translate-middle badge rounded-pill"
                                     style="display: {{ auth()->user()->unreadNotifications->count() > 0 ? 'inline-block' : 'none' }};"
                                     data-initial-count="{{ auth()->user()->unreadNotifications->count() }}">
                                     {{ auth()->user()->unreadNotifications->count() > 0 ? auth()->user()->unreadNotifications->count() : '0' }}
@@ -976,15 +1008,19 @@
                                     </div>
                                 </li>
                                 @forelse(auth()->user()->unreadNotifications->take(5) as $notification)
+                                    @php
+                                        $redirectUrl = $notification->data['url'] ?? route('notifications.index');
+                                    @endphp
                                     <li>
                                         <a class="dropdown-item notification-item {{ !$notification->read_at ? 'unread' : '' }}"
-                                            href="{{ route('notifications.index') }}"
+                                            href="{{ $redirectUrl }}"
                                             data-notification-id="{{ $notification->id }}">
                                             <div class="d-flex">
                                                 <div class="flex-shrink-0">
                                                     <div class="notification-icon bg-light text-{{ $notification->data['color'] ?? 'warning' }} rounded-circle p-2 text-center"
                                                         style="width: 36px; height: 36px;">
-                                                        <i class="{{ $notification->data['icon'] ?? 'fas fa-exclamation-triangle' }}"></i>
+                                                        <i
+                                                            class="{{ $notification->data['icon'] ?? 'fas fa-exclamation-triangle' }}"></i>
                                                     </div>
                                                 </div>
                                                 <div class="flex-grow-1 ms-3">
@@ -1014,7 +1050,8 @@
                                     </li>
                                 @endforelse
                                 <li class="border-top">
-                                    <a class="dropdown-item text-center py-2" href="{{ route('notifications.index') }}">
+                                    <a class="dropdown-item text-center py-2"
+                                        href="{{ route('notifications.index') }}">
                                         {{ __('admin.view_all_notifications') }}
                                     </a>
                                 </li>
@@ -1048,7 +1085,9 @@
                                     <div class="text-muted small">{{ __('admin.signed_in_as') }}</div>
                                     <div class="fw-semibold">{{ auth()->user()->email }}</div>
                                 </li>
-                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
                                 <li>
                                     <a class="dropdown-item" href="{{ route('profile.edit') }}">
                                         <i class="fas fa-user me-2 text-muted"></i>{{ __('admin.profile') }}
@@ -1059,7 +1098,9 @@
                                         <i class="fas fa-bell me-2 text-muted"></i>{{ __('admin.notifications') }}
                                     </a>
                                 </li>
-                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
                                 <li>
                                     <form method="POST" action="{{ route('admin.logout') }}">
                                         @csrf
@@ -1180,7 +1221,8 @@
                         fetch(`/notifications/${notificationId}/mark-as-read`, {
                                 method: 'POST',
                                 headers: {
-                                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                                    'X-CSRF-TOKEN': document.querySelector(
+                                        'meta[name="csrf-token"]').content,
                                     'Content-Type': 'application/json',
                                     'Accept': 'application/json',
                                 }
@@ -1192,7 +1234,8 @@
                                     updateNotificationBadge();
                                 }
                             })
-                            .catch(error => console.error('Error marking notification as read:', error));
+                            .catch(error => console.error('Error marking notification as read:',
+                                error));
                     }
                 });
             });
@@ -1217,7 +1260,7 @@
                 toggle.addEventListener('mouseenter', function() {
                     this.style.transform = 'translateY(-1px)';
                 });
-                
+
                 toggle.addEventListener('mouseleave', function() {
                     this.style.transform = 'translateY(0)';
                 });
@@ -1225,7 +1268,7 @@
 
             // Smooth scroll for anchor links
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
+                anchor.addEventListener('click', function(e) {
                     e.preventDefault();
                     const target = document.querySelector(this.getAttribute('href'));
                     if (target) {
@@ -1242,39 +1285,6 @@
     <!-- Real-time notifications -->
     <script src="{{ asset('js/notifications.js') }}"></script>
 
-    @push('scripts')
-        <script>
-            function updateNotifications() {
-                fetch('{{ route('notifications.index') }}')
-                    .then(response => response.json())
-                    .then(data => {
-                        // Update badge
-                        const badge = document.querySelector('.notification-badge');
-                        if (badge) {
-                            const count = data.notifications.length;
-                            badge.textContent = count > 0 ? count : '0';
-                            badge.style.display = count > 0 ? 'inline-block' : 'none';
-                        }
-                        // Update dropdown list
-                        const dropdown = document.querySelector('.notification-dropdown-content');
-                        if (dropdown) {
-                            let html = '';
-                            if (data.notifications.length > 0) {
-                                data.notifications.forEach(notification => {
-                                    html += `<li><a class="dropdown-item notification-item unread" href="${'{{ route('notifications.index') }}'}" data-notification-id="${notification.id}"><div class="d-flex"><div class="flex-shrink-0"><div class="notification-icon bg-light text-warning rounded-circle p-2 text-center" style="width: 36px; height: 36px;"><i class="fas fa-bell"></i></div></div><div class="flex-grow-1 ms-3"><div class="fw-bold text-truncate">${notification.data.title ?? 'Notification'}</div><div class="text-muted small text-truncate">${notification.data.message ?? ''}</div><div class="text-muted small">${new Date(notification.created_at).toLocaleString()}</div></div></div></a></li>`;
-                                });
-                            } else {
-                                html = `<li><span class="dropdown-item-text py-3 text-center text-muted">{{ __('admin.no_notifications') }}</span></li>`;
-                            }
-                            html += `<li class="border-top"><a class="dropdown-item text-center py-2" href="${'{{ route('notifications.index') }}'}">{{ __('admin.view_all_notifications') }}</a></li>`;
-                            dropdown.innerHTML = html;
-                        }
-                    });
-            }
-            setInterval(updateNotifications, 15000);
-            document.addEventListener('DOMContentLoaded', updateNotifications);
-        </script>
-    @endpush
 
     @stack('scripts')
 </body>
