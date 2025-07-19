@@ -358,7 +358,7 @@
 <div class="modern-audit-show-container">
     <!-- Modern Header -->
     <div class="modern-audit-show-header">
-        <div class="container-fluid">
+<div class="container-fluid">
             <div class="row align-items-center">
                 <div class="col-lg-8">
                     <h1>
@@ -370,7 +370,7 @@
                     <a href="{{ route('admin.audit-logs.index') }}" class="modern-btn modern-btn-secondary">
                         <i class="fas fa-arrow-left"></i>
                         {{ __('audit-logs.show.back_to_logs') }}
-                    </a>
+        </a>
                 </div>
             </div>
         </div>

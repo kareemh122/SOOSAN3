@@ -166,10 +166,11 @@ class ProductController extends Controller
         $query->select(['id', 'model_name', 'operating_weight', 'required_oil_flow', 'applicable_carrier', 'line', 'type', 'image_url', 'category_id']);
         $sort = $request->get('sort', 'none');
         if ($sort === 'carrier-desc') {
-            // Sort by applicable_carrier (lb to ton, high to low)
-            $query->orderByRaw('CAST(SUBSTRING_INDEX(applicable_carrier, "~", -1) AS DECIMAL(10,2)) * 0.000453592 DESC');
+            // Sort by applicable_carrier (high to low) - DESC using maximum value
+            $query->orderByRaw('CAST(SUBSTRING_INDEX(applicable_carrier, "~", -1) AS DECIMAL(10,2)) DESC');
         } elseif ($sort === 'carrier-asc') {
-            $query->orderByRaw('CAST(SUBSTRING_INDEX(applicable_carrier, "~", 1) AS DECIMAL(10,2)) * 0.000453592 ASC');
+            // Sort by applicable_carrier (low to high) - ASC using minimum value
+            $query->orderByRaw('CAST(SUBSTRING_INDEX(applicable_carrier, "~", 1) AS DECIMAL(10,2)) ASC');
         } elseif ($sort === 'weight-desc') {
             $query->orderByRaw('operating_weight * 0.453592 DESC');
         } elseif ($sort === 'weight-asc') {

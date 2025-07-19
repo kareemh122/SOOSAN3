@@ -543,14 +543,14 @@
             font-size: 1.75rem;
         }
 
-        .modern-btn {
+    .modern-btn {
             padding: 0.5rem 0.875rem;
             font-size: 0.8rem;
         }
 
         .modern-card-title {
-            font-size: 0.9rem;
-        }
+        font-size: 0.9rem;
+    }
     }
 
     /* Tablet Optimizations */
@@ -641,12 +641,12 @@
 <!-- Page Header -->
 <div class="modern-page-header animate-fade-in-up">
     <div class="container-fluid position-relative">
-        <div class="row align-items-center">
-            <div class="col-md-8">
+            <div class="row align-items-center">
+                <div class="col-md-8">
                 <h1 class="h2 mb-2">{{ $product->model_name }}</h1>
                 <p class="mb-0 opacity-75">{{ __('products.product_details_and_specifications') }}</p>
-            </div>
-            <div class="col-md-4 text-md-end">
+                </div>
+                <div class="col-md-4 text-md-end">
                 <div class="btn-group">
                         <a href="{{ route('admin.products.edit', $product) }}" class="modern-btn modern-btn-warning">
                             <i class="fas fa-edit me-2 mobile-icon-show"></i>
@@ -728,40 +728,40 @@
     <!-- Product Specifications -->
     <div class="col-lg-8 col-md-6">
         <div class="modern-card animate-stagger">
-            <div class="modern-card-header">
+                <div class="modern-card-header">
                 <h3 class="modern-card-title">
                     <i class="fas fa-cogs"></i>
                     {{ __('products.technical_specifications') }}
                 </h3>
-            </div>
-            <div class="modern-card-body">
+                </div>
+                <div class="modern-card-body">
                 <div class="specs-grid">
                     <div class="spec-column">
                         <div class="spec-item">
                             <span class="spec-label">{{ __('products.model_name') }}</span>
                             <span class="spec-value">{{ $product->model_name }}</span>
-                        </div>
+                            </div>
                         <div class="spec-item">
                             <span class="spec-label">{{ __('products.line') }}</span>
                             <span class="spec-value">{{ $product->line ?? __('products.n_a') }}</span>
-                        </div>
+                            </div>
                         <div class="spec-item">
                             <span class="spec-label">{{ __('products.type') }}</span>
                             <span class="spec-value">{{ $product->type ?? __('products.n_a') }}</span>
-                        </div>
+                            </div>
                         <div class="spec-item">
                             <span class="spec-label">{{ __('products.category') }}</span>
                             <span class="spec-value">{{ $product->category->name ?? __('products.n_a') }}</span>
-                        </div>
+                            </div>
                         <div class="spec-item">
                             <span class="spec-label">{{ __('products.body_weight') }}</span>
                             <span class="spec-value">{{ $product->body_weight ?? __('products.n_a') }}</span>
-                        </div>
+                            </div>
                         <div class="spec-item">
                             <span class="spec-label">{{ __('products.operating_weight') }}</span>
                             <span class="spec-value">{{ $product->operating_weight ?? __('products.n_a') }}</span>
-                        </div>
-                    </div>
+                            </div>
+                            </div>
                     <div class="spec-column">
                         <div class="spec-item">
                             <span class="spec-label">{{ __('products.overall_length') }}</span>
@@ -770,43 +770,43 @@
                         <div class="spec-item">
                             <span class="spec-label">{{ __('products.overall_width') }}</span>
                             <span class="spec-value">{{ $product->overall_width ?? __('products.n_a') }}</span>
-                        </div>
+                            </div>
                         <div class="spec-item">
                             <span class="spec-label">{{ __('products.overall_height') }}</span>
                             <span class="spec-value">{{ $product->overall_height ?? __('products.n_a') }}</span>
-                        </div>
+                            </div>
                         <div class="spec-item">
                             <span class="spec-label">{{ __('products.required_oil_flow') }}</span>
                             <span class="spec-value">{{ $product->required_oil_flow ?? __('products.n_a') }}</span>
-                        </div>
+                            </div>
                         <div class="spec-item">
                             <span class="spec-label">{{ __('products.operating_pressure') }}</span>
                             <span class="spec-value">{{ $product->operating_pressure ?? __('products.n_a') }}</span>
-                        </div>
+                            </div>
                         <div class="spec-item">
                             <span class="spec-label">{{ __('products.impact_rate') }}</span>
                             <span class="spec-value">{{ $product->impact_rate ?? __('products.n_a') }}</span>
                         </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
         <!-- Additional Specifications -->
         <div class="modern-card animate-stagger">
-            <div class="modern-card-header">
+                <div class="modern-card-header">
                 <h3 class="modern-card-title">
                     <i class="fas fa-wrench"></i>
                     {{ __('products.additional_specifications') }}
                 </h3>
-            </div>
-            <div class="modern-card-body">
+                </div>
+                <div class="modern-card-body">
                 <div class="specs-grid">
                     <div class="spec-column">
                         <div class="spec-item">
                             <span class="spec-label">{{ __('products.impact_rate_soft_rock') }}</span>
                             <span class="spec-value">{{ $product->impact_rate_soft_rock ?? __('products.n_a') }}</span>
-                        </div>
+                    </div>
                         <div class="spec-item">
                             <span class="spec-label">{{ __('products.hose_diameter') }}</span>
                             <span class="spec-value">{{ $product->hose_diameter ?? __('products.n_a') }}</span>
@@ -820,12 +820,12 @@
                         <div class="spec-item">
                             <span class="spec-label">{{ __('products.applicable_carrier') }}</span>
                             <span class="spec-value">{{ $product->applicable_carrier ?? __('products.n_a') }}</span>
-                        </div>
+                            </div>
                         @if($product->price)
                         <div class="spec-item">
                             <span class="spec-label">{{ __('products.price') }}</span>
                             <span class="spec-value">${{ number_format($product->price, 2) }}</span>
-                        </div>
+                            </div>
                         @endif
                     </div>
                 </div>

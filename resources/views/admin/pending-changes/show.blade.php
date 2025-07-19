@@ -438,7 +438,7 @@
 <div class="modern-pending-show-container">
     <!-- Modern Header -->
     <div class="modern-pending-show-header">
-        <div class="container-fluid">
+<div class="container-fluid">
             <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
                 <h1>
                     <i class="fas fa-eye"></i>
@@ -466,84 +466,84 @@
                         <div class="modern-info-label">{{ __('admin.type') }}:</div>
                         <div class="modern-info-value">
                             <span class="modern-badge badge-info">{{ $pendingChange->model_name }}</span>
-                        </div>
-                    </div>
-                    
+                                </div>
+                            </div>
+                            
                     <div class="modern-info-row">
                         <div class="modern-info-label">{{ __('admin.action') }}:</div>
                         <div class="modern-info-value">
-                            @if($pendingChange->action === 'update')
+                                    @if($pendingChange->action === 'update')
                                 <span class="modern-badge badge-warning">{{ __('admin.update') }}</span>
-                            @elseif($pendingChange->action === 'delete')
+                                    @elseif($pendingChange->action === 'delete')
                                 <span class="modern-badge badge-danger">{{ __('admin.delete') }}</span>
-                            @endif
-                        </div>
-                    </div>
+                                    @endif
+                                </div>
+                            </div>
 
                     <div class="modern-info-row">
                         <div class="modern-info-label">{{ __('admin.requested_by') }}:</div>
                         <div class="modern-info-value">{{ $pendingChange->requestedBy->name }}</div>
-                    </div>
+                            </div>
 
                     <div class="modern-info-row">
                         <div class="modern-info-label">{{ __('admin.requested_at') }}:</div>
                         <div class="modern-info-value">{{ $pendingChange->created_at->locale(app()->getLocale())->translatedFormat('M d, Y H:i:s') }}</div>
-                    </div>
+                            </div>
 
-                    @if($pendingChange->action === 'delete')
+                            @if($pendingChange->action === 'delete')
                         <div class="modern-alert alert-danger">
                             <i class="fas fa-exclamation-triangle me-2"></i>
-                            {{ __('admin.delete_warning') }}
-                        </div>
-                    @else
+                                    {{ __('admin.delete_warning') }}
+                                </div>
+                            @else
                         <h6 class="mt-4 mb-3 fw-bold">{{ __('admin.proposed_changes') }}:</h6>
-                        
-                        @php $changes = $pendingChange->changed_fields; @endphp
-                        
-                        @if(count($changes) > 0)
+                                
+                                @php $changes = $pendingChange->changed_fields; @endphp
+                                
+                                @if(count($changes) > 0)
                             <div class="table-responsive modern-table-container">
                                 <table class="table modern-table">
                                     <thead>
-                                        <tr>
-                                            <th>{{ __('admin.field') }}</th>
-                                            <th>{{ __('admin.current_value') }}</th>
-                                            <th>{{ __('admin.proposed_value') }}</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach($changes as $field => $change)
-                                            <tr>
-                                                <td><strong>{{ ucfirst(str_replace('_', ' ', $field)) }}</strong></td>
-                                                <td>
-                                                    <span class="text-muted">
-                                                        @if(is_null($change['from']))
-                                                            <em>{{ __('admin.empty') }}</em>
-                                                        @else
-                                                            {{ $change['from'] }}
-                                                        @endif
-                                                    </span>
-                                                </td>
-                                                <td>
+                                                <tr>
+                                                    <th>{{ __('admin.field') }}</th>
+                                                    <th>{{ __('admin.current_value') }}</th>
+                                                    <th>{{ __('admin.proposed_value') }}</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach($changes as $field => $change)
+                                                    <tr>
+                                                        <td><strong>{{ ucfirst(str_replace('_', ' ', $field)) }}</strong></td>
+                                                        <td>
+                                                            <span class="text-muted">
+                                                                @if(is_null($change['from']))
+                                                                    <em>{{ __('admin.empty') }}</em>
+                                                                @else
+                                                                    {{ $change['from'] }}
+                                                                @endif
+                                                            </span>
+                                                        </td>
+                                                        <td>
                                                     <span class="text-success fw-bold">
-                                                        @if(is_null($change['to']))
-                                                            <em>{{ __('admin.empty') }}</em>
-                                                        @else
-                                                            {{ $change['to'] }}
-                                                        @endif
-                                                    </span>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        @else
-                            <p class="text-muted">{{ __('admin.no_changes_detected') }}</p>
-                        @endif
-                    @endif
+                                                                @if(is_null($change['to']))
+                                                                    <em>{{ __('admin.empty') }}</em>
+                                                                @else
+                                                                    {{ $change['to'] }}
+                                                                @endif
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                @else
+                                    <p class="text-muted">{{ __('admin.no_changes_detected') }}</p>
+                                @endif
+                            @endif
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
 
         <div class="col-lg-4">
             <div class="modern-pending-show-card fade-in-up" style="animation-delay: 0.1s;">
@@ -552,98 +552,98 @@
                         <i class="fas fa-tasks text-primary"></i>
                         {{ __('admin.review_actions') }}
                     </h5>
-                </div>
+                        </div>
                 <div class="card-body p-4">
-                    @if($pendingChange->isPending())
-                        <!-- Approve Button -->
+                            @if($pendingChange->isPending())
+                                <!-- Approve Button -->
                         <form method="POST" action="{{ route('admin.pending-changes.approve', $pendingChange) }}" class="mb-4">
-                            @csrf
+                                    @csrf
                             <div class="modern-form-group">
                                 <label class="modern-form-label">{{ __('admin.approval_notes') }} ({{ __('admin.optional') }})</label>
                                 <textarea name="review_notes" class="modern-form-control" rows="3" 
-                                          placeholder="{{ __('admin.approval_notes_placeholder') }}"></textarea>
-                            </div>
+                                                  placeholder="{{ __('admin.approval_notes_placeholder') }}"></textarea>
+                                    </div>
                             <button type="submit" class="modern-btn btn-success w-100"
-                                    onclick="return confirm('{{ __('admin.confirm_approve') }}')">
-                                <i class="fas fa-check"></i> {{ __('admin.approve_change') }}
-                            </button>
-                        </form>
+                                            onclick="return confirm('{{ __('admin.confirm_approve') }}')">
+                                        <i class="fas fa-check"></i> {{ __('admin.approve_change') }}
+                                    </button>
+                                </form>
 
-                        <!-- Reject Button -->
+                                <!-- Reject Button -->
                         <button type="button" class="modern-btn btn-danger w-100" 
-                                data-bs-toggle="modal" data-bs-target="#rejectModal">
-                            <i class="fas fa-times"></i> {{ __('admin.reject_change') }}
-                        </button>
+                                        data-bs-toggle="modal" data-bs-target="#rejectModal">
+                                    <i class="fas fa-times"></i> {{ __('admin.reject_change') }}
+                                </button>
 
-                        <!-- Reject Modal -->
+                                <!-- Reject Modal -->
                         <div class="modal fade modern-modal" id="rejectModal" tabindex="-1">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <form method="POST" action="{{ route('admin.pending-changes.reject', $pendingChange) }}">
-                                        @csrf
-                                        <div class="modal-header">
-                                            <h5 class="modal-title">{{ __('admin.reject_change') }}</h5>
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <form method="POST" action="{{ route('admin.pending-changes.reject', $pendingChange) }}">
+                                                @csrf
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">{{ __('admin.reject_change') }}</h5>
                                             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                                        </div>
-                                        <div class="modal-body">
+                                                </div>
+                                                <div class="modal-body">
                                             <div class="modern-form-group">
                                                 <label class="modern-form-label">{{ __('admin.reason_for_rejection') }} <span class="text-danger">*</span></label>
                                                 <textarea name="review_notes" class="modern-form-control" rows="4" required
-                                                          placeholder="{{ __('admin.explain_rejection') }}"></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
+                                                                  placeholder="{{ __('admin.explain_rejection') }}"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
                                             <button type="button" class="modern-btn btn-outline-secondary" data-bs-dismiss="modal">
-                                                {{ __('admin.cancel') }}
-                                            </button>
+                                                        {{ __('admin.cancel') }}
+                                                    </button>
                                             <button type="submit" class="modern-btn btn-danger">
-                                                {{ __('admin.reject') }}
-                                            </button>
+                                                        {{ __('admin.reject') }}
+                                                    </button>
+                                                </div>
+                                            </form>
                                         </div>
-                                    </form>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    @else
+                            @else
                         <div class="modern-alert alert-info">
                             <i class="fas fa-info-circle me-2"></i>
-                            {{ __('admin.change_already_reviewed') }}
-                        </div>
-                        
+                                    {{ __('admin.change_already_reviewed') }}
+                                </div>
+                                
                         <div class="modern-info-row">
                             <div class="modern-info-label">{{ __('admin.status') }}:</div>
                             <div class="modern-info-value">
-                                @if($pendingChange->isApproved())
+                                        @if($pendingChange->isApproved())
                                     <span class="modern-badge badge-success">{{ __('admin.approved') }}</span>
-                                @else
+                                        @else
                                     <span class="modern-badge badge-danger">{{ __('admin.rejected') }}</span>
-                                @endif
-                            </div>
-                        </div>
-                        
-                        @if($pendingChange->reviewedBy)
+                                        @endif
+                                    </div>
+                                </div>
+                                
+                                @if($pendingChange->reviewedBy)
                             <div class="modern-info-row">
                                 <div class="modern-info-label">{{ __('admin.reviewed_by') }}:</div>
                                 <div class="modern-info-value">{{ $pendingChange->reviewedBy->name }}</div>
-                            </div>
-                        @endif
-                        
-                        @if($pendingChange->reviewed_at)
+                                    </div>
+                                @endif
+                                
+                                @if($pendingChange->reviewed_at)
                             <div class="modern-info-row">
                                 <div class="modern-info-label">{{ __('admin.reviewed_at') }}:</div>
                                 <div class="modern-info-value">{{ $pendingChange->reviewed_at->locale(app()->getLocale())->translatedFormat('M d, Y H:i') }}</div>
-                            </div>
-                        @endif
-                        
-                        @if($pendingChange->review_notes)
-                            <div class="mt-3">
+                                    </div>
+                                @endif
+                                
+                                @if($pendingChange->review_notes)
+                                    <div class="mt-3">
                                 <div class="modern-info-label mb-2">{{ __('admin.review_notes') }}:</div>
                                 <div class="modern-info-value p-3 bg-light rounded">
                                     {{ $pendingChange->review_notes }}
                                 </div>
-                            </div>
-                        @endif
-                    @endif
+                                    </div>
+                                @endif
+                            @endif
                 </div>
             </div>
         </div>

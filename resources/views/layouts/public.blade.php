@@ -49,10 +49,10 @@
     <meta name="theme-color" content="#00548e">
     <meta name="msapplication-TileColor" content="#00548e">
     <meta name="msapplication-config" content="{{ asset('browserconfig.xml') }}">
-    
+
     <!-- Canonical URL -->
     <link rel="canonical" href="{{ url()->current() }}">
-    
+
     <!-- Alternate Language Versions -->
     <link rel="alternate" hreflang="en" href="{{ url()->current() }}?lang=en">
     <link rel="alternate" hreflang="ar" href="{{ url()->current() }}?lang=ar">
@@ -1331,7 +1331,7 @@
             flex-wrap: wrap;
             gap: 1rem;
         }
-        
+
         .copy-right-section img:first-child,
         .copy-right-section img:last-child {
             width: 150px;
@@ -1344,14 +1344,14 @@
             transform: scale(1.05);
             filter: brightness(1.3);
         }
-        
+
         .copy-right-section p {
             font-size: 20px;
             margin: 0;
             text-align: center;
             flex: 1;
         }
-        
+
         .powered-by {
             text-align: center;
             font-size: 18px;
@@ -1577,7 +1577,7 @@
             .navbar-nav-dropdown {
                 position: static;
             }
-            
+
             .dropdown-menu-level1,
             .dropdown-menu-level2 {
                 position: static;
@@ -2111,7 +2111,7 @@
         }
 
         /* Enhanced Icon Navigation */
-        
+
         /* Korean Flag Styling */
         .korean-flag-container {
             display: flex;
@@ -2203,7 +2203,7 @@
             .korean-flag-container {
                 padding: 0.25rem;
             }
-            
+
             .korean-flag {
                 width: 24px;
                 height: 18px;
@@ -2258,20 +2258,20 @@
 
                     <!-- Products with Hover Dropdown -->
                     <li class="nav-item dropdown mega-dropdown position-static">
-                        <a class="nav-link dropdown-toggle" href="{{ route('products.index') }}" id="productsDropdown" role="button" 
+                        <a class="nav-link dropdown-toggle" href="{{ route('products.index') }}" id="productsDropdown" role="button"
                            data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false"
                            onmouseover="showProductsDropdown()" onmouseout="startHideTimer()">
                             <i class="fas fa-tools me-2"></i>
                             {{ __('common.products') }}
                         </a>
-                        <div class="dropdown-menu mega-menu" id="productsDropdownMenu" 
+                        <div class="dropdown-menu mega-menu" id="productsDropdownMenu"
                              onmouseover="cancelHideTimer()" onmouseout="startHideTimer()">
                             <div class="container">
                                 <div class="row">
                                     <div class="col-lg-6">
-                                        <h6 class="dropdown-header">{{ __('common.product_categories') }}</h6>                                      
+                                        <h6 class="dropdown-header">{{ __('common.product_categories') }}</h6>
                                         <!-- Hydraulic breakers category with hover submenu -->
-                                        <div class="dropdown-item hydraulic-breakers-category" 
+                                        <div class="dropdown-item hydraulic-breakers-category"
                                              onmouseover="showProductLines()" onmouseout="hideProductLines()">
                                             <a href="{{ route('products.index') }}" class="d-flex align-items-center flex-grow-1 text-decoration-none text-inherit">
                                                 <i class="fas fa-cogs me-2"></i>{{ __('common.hydraulic_breakers') }}
@@ -2344,7 +2344,7 @@
 
             <!-- Desktop Right Side -->
             <div class="navbar-nav-right d-none d-xl-flex align-items-center gap-3">
-     
+
                 <!-- Enhanced Language Selector -->
                 <div class="language-selector-container">
                     <div class="dropdown">
@@ -2355,14 +2355,14 @@
                         </button>
                         <ul class="dropdown-menu language-dropdown">
                             <li>
-                                <a class="dropdown-item {{ app()->getLocale() === 'en' ? 'active' : '' }}" 
+                                <a class="dropdown-item {{ app()->getLocale() === 'en' ? 'active' : '' }}"
                                    href="{{ route('lang.switch', 'en') }}">
                                     <i class="fas fa-flag-usa me-2"></i>
                                     English
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item {{ app()->getLocale() === 'ar' ? 'active' : '' }}" 
+                                <a class="dropdown-item {{ app()->getLocale() === 'ar' ? 'active' : '' }}"
                                    href="{{ route('lang.switch', 'ar') }}">
                                     <i class="fas fa-flag me-2"></i>
                                     العربية
@@ -2378,18 +2378,18 @@
                         <span>{{ __('auth.login') }}</span>
                     </a>
                     <div class="korean-flag-container">
-                        <img src="{{ asset('images/korean-flag-removebg-preview.webp') }}" 
-                            alt="Korean Flag" 
+                        <img src="{{ asset('images/korean-flag-removebg-preview.webp') }}"
+                            alt="Korean Flag"
                             class="korean-flag"
                             title="Korean Partnership">
                     </div>
                 @else
                     <div class="dropdown user-dropdown">
-                        <button class="enhanced-user-btn dropdown-toggle" type="button" 
+                        <button class="enhanced-user-btn dropdown-toggle" type="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
                             <div class="user-avatar">
-                                <img src="{{ Auth::user()->image_url ? asset(Auth::user()->image_url) : asset('images/fallback.webp') }}" 
-                                     alt="{{ Auth::user()->name }}" 
+                                <img src="{{ Auth::user()->image_url ? asset(Auth::user()->image_url) : asset('images/fallback.webp') }}"
+                                     alt="{{ Auth::user()->name }}"
                                      class="user-avatar-img">
                             </div>
 
@@ -2425,15 +2425,15 @@
                     </div>
                     <!-- Korean Flag -->
                     <div class="korean-flag-container">
-                        <img src="{{ asset('images/korean-flag-removebg-preview.webp') }}" 
-                             alt="Korean Flag" 
+                        <img src="{{ asset('images/korean-flag-removebg-preview.webp') }}"
+                             alt="Korean Flag"
                              class="korean-flag"
                              title="Korean Partnership">
                     </div>
                 @endguest
 
             </div>
-            
+
         </div>
     </nav>
 
@@ -2469,15 +2469,7 @@
                 <div id="mobile-products-section" class="mobile-nav-section-content">
                     <div class="mobile-nav-subsection">
                         <h6 class="mobile-nav-subheader">{{ __('common.product_categories') }}</h6>
-                        @if(isset($productCategories) && $productCategories->count() > 0)
-                            @foreach($productCategories as $category)
-                                <a class="mobile-nav-item" href="{{ route('products.index') }}">
-                                    <i class="fas fa-tag me-3"></i>
-                                    {{ $category->name }}
-                                </a>
-                            @endforeach
-                        @endif
-                        
+        
                         <!-- Hydraulic breakers category with clickable link and expandable submenu -->
                         <div class="mobile-nav-item hydraulic-breakers-mobile" data-target="#mobile-product-lines">
                             <a href="{{ route('products.index') }}" class="d-flex align-items-center flex-grow-1 text-decoration-none text-inherit">
@@ -2501,7 +2493,7 @@
                             </a>
                         </div>
                     </div>
-                    
+
                     <div class="mobile-nav-subsection">
                         <h6 class="mobile-nav-subheader">{{ __('common.quick_actions') }}</h6>
                         <a class="mobile-nav-item" href="{{ route('products.index') }}">
@@ -2545,7 +2537,7 @@
                         <i class="fas fa-sign-in-alt me-3"></i>
                         {{ __('auth.login') }}
                     </a>
-                @else
+                    @else
                     <div class="mobile-nav-user">
                         <div class="user-info">
                             <i class="fas fa-user-circle me-3"></i>
@@ -2568,32 +2560,32 @@
                         </form>
                     </div>
                 @endguest
-            </div>
-
+                </div>
+                
             <!-- Mobile Language Section -->
             <div class="mobile-language-section">
                 <div class="mobile-language-header">
                     <i class="fas fa-globe me-2"></i>
                     {{ __('common.language') }}
-                </div>
+            </div>
                 <div class="mobile-language-options">
-                    <a href="{{ route('lang.switch', 'en') }}" 
+                    <a href="{{ route('lang.switch', 'en') }}"
                        class="mobile-language-option {{ app()->getLocale() === 'en' ? 'active' : '' }}">
                         <i class="fas fa-flag-usa me-2"></i>
                         English
                     </a>
-                    <a href="{{ route('lang.switch', 'ar') }}" 
+                    <a href="{{ route('lang.switch', 'ar') }}"
                        class="mobile-language-option {{ app()->getLocale() === 'ar' ? 'active' : '' }}">
                         <i class="fas fa-flag me-2"></i>
                         العربية
                     </a>
-                </div>
+        </div>
             </div>
 
             <!-- Mobile Korean Flag -->
             <div class="mobile-korean-flag">
-                <img src="{{ asset('images/korean-flag-removebg-preview.webp') }}" 
-                     alt="Korean Flag" 
+                <img src="{{ asset('images/korean-flag-removebg-preview.webp') }}"
+                     alt="Korean Flag"
                      title="Korean Partnership">
                 <span class="ms-2 text-white small">Korean Partnership</span>
             </div>
@@ -2933,10 +2925,10 @@
 
             dropdownItems.forEach(item => {
                 const level2Menu = item.querySelector('.dropdown-menu-level2');
-                
+
                 item.addEventListener('mouseenter', function() {
                     clearTimeout(dropdownTimeout);
-                    
+
                     // Hide other level 2 menus
                     dropdownItems.forEach(otherItem => {
                         if (otherItem !== item) {
@@ -2948,7 +2940,7 @@
                             }
                         }
                     });
-                    
+
                     // Show current level 2 menu
                     if (level2Menu) {
                         setTimeout(() => {
@@ -3088,14 +3080,14 @@
                     const targetId = this.getAttribute('data-target');
                     const targetContent = document.querySelector(targetId);
                     const arrow = this.querySelector('.nav-arrow');
-                    
+
                     if (targetContent) {
                         const isExpanded = this.classList.contains('expanded');
-                        
+
                         // Toggle expanded state
                         this.classList.toggle('expanded', !isExpanded);
                         targetContent.classList.toggle('expanded', !isExpanded);
-                        
+
                         // Update arrow rotation
                         if (arrow) {
                             arrow.style.transform = isExpanded ? 'rotate(0deg)' : 'rotate(180deg)';
@@ -3111,14 +3103,14 @@
                     const targetId = this.getAttribute('data-target');
                     const targetContent = document.querySelector(targetId);
                     const arrow = this.querySelector('.nav-arrow');
-                    
+
                     if (targetContent) {
                         const isExpanded = this.classList.contains('expanded');
-                        
+
                         // Toggle expanded state
                         this.classList.toggle('expanded', !isExpanded);
                         targetContent.classList.toggle('expanded', !isExpanded);
-                        
+
                         // Update arrow rotation
                         if (arrow) {
                             arrow.style.transform = isExpanded ? 'rotate(0deg)' : 'rotate(90deg)';
@@ -3133,7 +3125,7 @@
                 sectionContents.forEach(content => {
                     content.classList.remove('expanded');
                 });
-                
+
                 const sectionHeadersInit = document.querySelectorAll('.mobile-nav-section-header');
                 sectionHeadersInit.forEach(header => {
                     header.classList.remove('expanded');
@@ -3190,7 +3182,7 @@
             document.addEventListener('click', function(e) {
                 const hydraulicCategory = document.querySelector('.hydraulic-breakers-category');
                 const submenu = document.getElementById('productLinesSubmenu');
-                
+
                 if (hydraulicCategory && submenu && !hydraulicCategory.contains(e.target) && !submenu.contains(e.target)) {
                     submenu.classList.remove('show');
                 }
@@ -3202,7 +3194,7 @@
                 productLinesSubmenu.addEventListener('mouseenter', function() {
                     clearTimeout(window.hideProductLinesTimer);
                 });
-                
+
                 productLinesSubmenu.addEventListener('mouseleave', function() {
                     window.hideProductLinesTimer = setTimeout(() => {
                         this.classList.remove('show');
@@ -3213,10 +3205,10 @@
             // Enhanced navbar scroll effect
             let lastScrollTop = 0;
             const navbar = document.querySelector('.navbar');
-            
+
             window.addEventListener('scroll', function() {
                 const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                
+
                 if (navbar) {
                     if (scrollTop > 100) {
                         navbar.style.background = 'rgba(255, 255, 255, 0.98)';
@@ -3228,7 +3220,7 @@
                         navbar.style.boxShadow = '0 2px 15px rgba(0, 0, 0, 0.08)';
                     }
                 }
-                
+
                 lastScrollTop = scrollTop;
             });
 
@@ -3249,7 +3241,7 @@
             // Touch-friendly enhancements for mobile
             if ('ontouchstart' in window) {
                 document.body.classList.add('touch-device');
-                
+
                 // Add touch-specific styles
                 const touchStyle = document.createElement('style');
                 touchStyle.textContent = `
@@ -3258,11 +3250,11 @@
                         background: linear-gradient(135deg, rgba(0, 84, 142, 0.15), rgba(176, 215, 1, 0.15));
                         transform: translateX(12px) scale(0.98);
                     }
-                    
+
                     .touch-device .mobile-nav-section-header:active {
                         background: linear-gradient(135deg, rgba(0, 84, 142, 0.15), rgba(176, 215, 1, 0.15));
                     }
-                    
+
                     .touch-device .language-toggle:active {
                         transform: scale(0.95);
                     }
@@ -3291,15 +3283,15 @@
                         animation: none !important;
                     }
                 }
-                
+
                 .mobile-nav-sidebar {
                     will-change: transform;
                 }
-                
+
                 .mobile-nav-overlay {
                     will-change: opacity;
                 }
-                
+
                 .mobile-nav-section-content {
                     will-change: max-height;
                 }

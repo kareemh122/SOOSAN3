@@ -9,22 +9,22 @@
                 <div class="col-md-6 col-lg-4">
                     <div class="card shadow-lg border-0" style="border-radius: 20px; backdrop-filter: blur(20px); background: rgba(255, 255, 255, 0.95);">
                         <div class="card-body p-5">
-                            <!-- Logo/Brand -->
-                            <div class="text-center mb-4">
+                        <!-- Logo/Brand -->
+                        <div class="text-center mb-4">
                                 <img src="{{ asset('images/soosan_logo_en.svg') }}" alt="Soosan Logo" style="height: 60px; width: auto;" class="mb-3">
                                 <h2 class="h4 mb-0 text-dark">{{ __('auth.welcome_back') }}</h2>
                                 <p class="text-muted">{{ __('auth.sign_in_to_account') }}</p>
+                        </div>
+
+                        <!-- Session Status -->
+                        @if (session('status'))
+                            <div class="alert alert-success">
+                                <i class="fas fa-check-circle me-2"></i>
+                                {{ session('status') }}
                             </div>
+                        @endif
 
-                            <!-- Session Status -->
-                            @if (session('status'))
-                                <div class="alert alert-success">
-                                    <i class="fas fa-check-circle me-2"></i>
-                                    {{ session('status') }}
-                                </div>
-                            @endif
-
-                            <!-- Login Form -->
+                        <!-- Login Form -->
                             <form method="POST" action="{{ route('login') }}" id="loginForm">
                             @csrf
 
@@ -101,11 +101,11 @@
                                 {{ __('auth.back_to_website') }}
                             </a>
                         </div>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
     <script>
         function togglePassword() {

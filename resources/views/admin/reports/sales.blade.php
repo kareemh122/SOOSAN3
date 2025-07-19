@@ -517,9 +517,9 @@
         </div>
     </div>
 
-            <div class="footer">
-            <p><strong>SALES PERFORMANCE REPORT</strong> | Generated for Internal Use Only</p>
-            <p>Report Generated: {{ \Carbon\Carbon::now()->format('F j, Y \a\t g:i A') }} | Period: {{ $dateRange['label'] }}</p>
+    <div class="footer">
+        <p><strong>SALES PERFORMANCE REPORT</strong> | Generated for Internal Use Only</p>
+        <p>Report Generated: {{ \Carbon\Carbon::now()->format('F j, Y \a\t g:i A') }} | Period: {{ $dateRange['label'] }}</p>
             <p>© {{ now()->year }} Soosan Cebotics. All rights reserved.</p>
         </div>
 
@@ -1046,5 +1046,5 @@
         });
     });
     </script>
-    </body>
+</body>
 </html>

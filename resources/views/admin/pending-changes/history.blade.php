@@ -526,7 +526,7 @@
 <div class="modern-pending-history-container">
     <!-- Modern Header -->
     <div class="modern-pending-history-header">
-        <div class="container-fluid">
+<div class="container-fluid">
             <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
                 <h1>
                     <i class="fas fa-history"></i>
@@ -535,12 +535,12 @@
                 <a href="{{ route('admin.pending-changes.index') }}" class="modern-btn btn-outline-primary">
                     <i class="fas fa-clock"></i>
                     <span class="mobile-text-full">{{ __('admin.pending_changes') }}</span>
-                </a>
+                        </a>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
 
-    @if($changes->count() > 0)
+            @if($changes->count() > 0)
         <div class="modern-pending-history-card fade-in-up">
             <div class="card-header" style="background: rgba(248, 250, 252, 0.8); border-bottom: 1px solid rgba(226, 232, 240, 0.5); padding: 1.5rem;">
                 <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
@@ -549,22 +549,22 @@
                         {{ __('admin.all_changes') }}
                     </h5>
                     <div class="modern-filter-buttons">
-                        <input type="radio" class="btn-check" name="statusFilter" id="all" value="all" checked>
+                                <input type="radio" class="btn-check" name="statusFilter" id="all" value="all" checked>
                         <label class="modern-filter-btn btn-outline-secondary" for="all">{{ __('admin.all_changes') }}</label>
-                        
-                        <input type="radio" class="btn-check" name="statusFilter" id="approved" value="approved">
+                                
+                                <input type="radio" class="btn-check" name="statusFilter" id="approved" value="approved">
                         <label class="modern-filter-btn btn-outline-success" for="approved">{{ __('admin.approved_changes') }}</label>
-                        
-                        <input type="radio" class="btn-check" name="statusFilter" id="rejected" value="rejected">
+                                
+                                <input type="radio" class="btn-check" name="statusFilter" id="rejected" value="rejected">
                         <label class="modern-filter-btn btn-outline-danger" for="rejected">{{ __('admin.rejected_changes') }}</label>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
             <div class="card-body p-0">
                 <div class="table-responsive modern-table-container">
                     <table class="table modern-table">
-                        <thead>
-                            <tr>
+                                <thead>
+                                    <tr>
                                 <th><i class="fas fa-tag me-1"></i>{{ __('admin.change_type') }}</th>
                                 <th><i class="fas fa-cog me-1"></i>{{ __('admin.action') }}</th>
                                 <th><i class="fas fa-user me-1"></i>{{ __('admin.requested_by') }}</th>
@@ -573,30 +573,30 @@
                                 <th class="mobile-collapse"><i class="fas fa-clock me-1"></i>{{ __('admin.reviewed_at') }}</th>
                                 <th><i class="fas fa-info-circle me-1"></i>{{ __('admin.status') }}</th>
                                 <th><i class="fas fa-tools me-1"></i>{{ __('admin.actions') }}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($changes as $change)
-                                <tr data-status="{{ $change->status }}">
-                                    <td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($changes as $change)
+                                        <tr data-status="{{ $change->status }}">
+                                            <td>
                                         <span class="modern-badge badge-info" title="{{ $change->model_name }}">
                                             <i class="fas fa-{{ $change->model_name === 'Owner' ? 'user-tie' : ($change->model_name === 'Product' ? 'box' : 'file') }} me-1"></i>
                                             <span class="mobile-hide-text">{{ $change->model_name }}</span>
                                         </span>
-                                    </td>
-                                    <td>
-                                        @if($change->action === 'update')
+                                            </td>
+                                            <td>
+                                                @if($change->action === 'update')
                                             <span class="modern-badge badge-warning" title="{{ __('admin.update') }}">
                                                 <i class="fas fa-edit me-1"></i>
                                                 <span class="mobile-hide-text">{{ __('admin.update') }}</span>
                                             </span>
-                                        @elseif($change->action === 'delete')
+                                                @elseif($change->action === 'delete')
                                             <span class="modern-badge badge-danger" title="{{ __('admin.delete') }}">
                                                 <i class="fas fa-trash me-1"></i>
                                                 <span class="mobile-hide-text">{{ __('admin.delete') }}</span>
                                             </span>
-                                        @endif
-                                    </td>
+                                                @endif
+                                            </td>
                                     <td>
                                         <div class="d-flex align-items-center">
                                             <i class="fas fa-user-circle me-1 text-muted"></i>
@@ -621,34 +621,34 @@
                                             <span>{{ $change->reviewed_at ? $change->reviewed_at->locale(app()->getLocale())->translatedFormat('M d, Y H:i') : '-' }}</span>
                                         </div>
                                     </td>
-                                    <td>
-                                        @if($change->status === 'approved')
+                                            <td>
+                                                @if($change->status === 'approved')
                                             <span class="modern-badge badge-success" title="{{ __('admin.approved') }}">
                                                 <i class="fas fa-check-circle me-1"></i>
                                                 <span class="mobile-hide-text">{{ __('admin.approved') }}</span>
                                             </span>
-                                        @elseif($change->status === 'rejected')
+                                                @elseif($change->status === 'rejected')
                                             <span class="modern-badge badge-danger" title="{{ __('admin.rejected') }}">
                                                 <i class="fas fa-times-circle me-1"></i>
                                                 <span class="mobile-hide-text">{{ __('admin.rejected') }}</span>
                                             </span>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        <a href="{{ route('admin.pending-changes.show', $change) }}" 
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <a href="{{ route('admin.pending-changes.show', $change) }}" 
                                            class="modern-action-btn"
                                            title="{{ __('admin.view') }}">
                                             <i class="fas fa-eye"></i>
                                             <span class="mobile-hide-text">{{ __('admin.view') }}</span>
-                                        </a>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                        </div>
+                    </div>
 
         <!-- Pagination -->
         @if($changes->hasPages())
@@ -731,9 +731,9 @@
                 
                 <div class="pagination-info">
                     {{ __('admin.pagination.showing_results', ['first' => $changes->firstItem(), 'last' => $changes->lastItem(), 'total' => $changes->total()]) }}
+                    </div>
                 </div>
-            </div>
-        @endif
+            @endif
     @else
         <!-- Empty State -->
         <div class="modern-empty-state fade-in-up">
